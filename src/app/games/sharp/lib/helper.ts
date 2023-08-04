@@ -33,7 +33,7 @@ export function generateQuestion(): QuestionType {
 
   // 3. Omit one place in 0, 1, 2, 4
   const omittedPosition = 1;
-  //const omittedPosition = getRandomInt(4);
+  // TODO const omittedPosition = getRandomInt(4);
 
   // 5. store the answer
   equation.push({

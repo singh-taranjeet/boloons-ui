@@ -10,7 +10,7 @@ import {
   StyledScore,
   StyledWrapper,
 } from "./components/styles";
-import { generateQuestion, useIsMobile } from "./lib/helper";
+import { generateQuestion, getRandomInt, useIsMobile } from "./lib/helper";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 
 function DashedRectangle(props: { color?: string; width: string }) {
@@ -56,20 +56,20 @@ function Question() {
     <div className="question">
       {equation.map(({ value, id }, index) => {
         return (
-          <>
-            <Cloud key={`${index}`}>
+          <div key={id}>
+            <Cloud>
               <div className="cloudText">
                 <p>{index === 1 ? "?" : value}</p>
               </div>
             </Cloud>
             {index === 2 ? (
-              <Cloud key={id}>
+              <Cloud>
                 <div className="cloudText">
                   <p>=</p>
                 </div>
               </Cloud>
             ) : null}
-          </>
+          </div>
         );
       })}
     </div>
@@ -179,11 +179,10 @@ function Score() {
   );
 }
 
-export default function Sharp(props: any) {
-  const { firstQuestion } = props.params;
+export default function Page() {
   return (
     <StyledWrapper>
-      <ValuesProvider firstQuestion={firstQuestion}>
+      <ValuesProvider>
         <ColumnWrapper>
           <Score />
           <Question />
@@ -196,12 +195,3 @@ export default function Sharp(props: any) {
     </StyledWrapper>
   );
 }
-
-export const generateStaticParams = async () => {
-  const firstQuestion = generateQuestion();
-  return [
-    {
-      firstQuestion,
-    },
-  ];
-};

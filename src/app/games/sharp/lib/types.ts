@@ -1,7 +1,6 @@
-export interface ValuesType {
+export type ValuesType = Array<{
   value: number | string;
-}
-[];
+}>;
 
 export enum EnumOperations {
   ADD,

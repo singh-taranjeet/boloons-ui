@@ -16,10 +16,10 @@ const SCORE = {
 
 // 0 -> ADD, 1 -> SUB, 2 -> MUL, 3 -> DIV
 const equation: EquationType[] = [
-  { id: getRandomInt(), value: 7 },
-  { id: getRandomInt(), value: 0 },
-  { id: getRandomInt(), value: 3 },
-  { id: getRandomInt(), value: 10 },
+  { id: 1, value: 7 },
+  { id: 11, value: 0 },
+  { id: 111, value: 3 },
+  { id: 1111, value: 10 },
 ];
 
 interface ContextState extends QuestionType {
@@ -63,16 +63,17 @@ const ValuesContext = createContext<ContextType>(initialContext);
 
 function ValuesProvider(props: {
   children: React.ReactNode;
-  firstQuestion: QuestionType;
+  // firstQuestion?: QuestionType;
 }) {
-  const { children, firstQuestion } = props;
+  const { children } = props;
   const [values, setValues] = useState<ContextState>({
     ...initialState,
-    ...firstQuestion,
   });
   const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>();
 
-  function generateNextQuestion(incrementScore: boolean): void {
+  const generateNextQuestion = useCallback(function generateNextQuestion(
+    incrementScore: boolean
+  ): void {
     setValues((oldValue) => {
       return {
         ...oldValue,
@@ -85,41 +86,45 @@ function ValuesProvider(props: {
         },
       };
     });
-  }
+  },
+  []);
 
-  function startGame() {
-    // reset score, timer and start game
-    setValues({
-      ...values,
-      score: {
-        ...values.score,
-        current: 0,
-      },
-      game: {
-        ...values.game,
-        timer: 0,
-        gameInProgress: true,
-      },
-    });
-    // start timer
-    const timerId = setInterval(() => {
-      setValues((oldValues) => {
-        // console.log('Old values', oldValues);
-        return {
-          ...oldValues,
-          game: {
-            ...values.game,
-            timer: oldValues.game.timer + 1,
-            gameInProgress: true,
-          },
-        };
+  const startGame = useCallback(
+    function startGame() {
+      // reset score, timer and start game
+      setValues({
+        ...values,
+        score: {
+          ...values.score,
+          current: 0,
+        },
+        game: {
+          ...values.game,
+          timer: 0,
+          gameInProgress: true,
+        },
       });
-    }, 1000);
+      // start timer
+      const timerId = setInterval(() => {
+        setValues((oldValues) => {
+          // console.log('Old values', oldValues);
+          return {
+            ...oldValues,
+            game: {
+              ...values.game,
+              timer: oldValues.game.timer + 1,
+              gameInProgress: true,
+            },
+          };
+        });
+      }, 1000);
 
-    setTimerId(timerId);
-  }
+      setTimerId(timerId);
+    },
+    [values]
+  );
 
-  console.log("Values", values, values.equation);
+  // console.log("Values", values, firstQuestion);
 
   const stopGame = useCallback(
     function stopGame() {
