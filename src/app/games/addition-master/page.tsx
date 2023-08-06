@@ -171,8 +171,8 @@ export default function Page() {
           {/* Bottom Heading */}
           {learningMode ? (
             <section>
-              <Heading className="text-5xl pt-6 md:text-lg md:pt-2">
-                Sum up panels equal to the indicated number
+              <Heading className="text-3xl pt-6 md:text-lg md:pt-2">
+                Select upto 3 number which sum up equal to the indicated number
               </Heading>
               {isMobile ? <StartTimer startGame={startGame} /> : null}
             </section>
