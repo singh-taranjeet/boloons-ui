@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { EquationType, QuestionType } from "./types";
+import { getRandomInt } from "@/app/lib/client-helper";
 
 export function generateQuestion(): QuestionType {
   // 1. Generate random equation
@@ -53,30 +54,4 @@ function getEquation(): EquationType[] {
     { id: getRandomInt(), value: getRandomInt(4) },
     { id: getRandomInt(), value: getRandomInt(10) },
   ];
-}
-
-export function getRandomInt(max: number = 100000000): number {
-  return Math.floor(Math.random() * max);
-}
-
-export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    function onResize() {
-      if (window.innerWidth < 600) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
-    }
-
-    window.addEventListener("resize", onResize);
-
-    return () => {
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
-
-  return isMobile;
 }

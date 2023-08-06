@@ -1,7 +1,5 @@
 export default function Layout(props: { children: React.ReactNode }) {
   return (
-    <div className="p-5 flex flex-col justify-center h-screen">
-      {props.children}
-    </div>
+    <div className="p-5 h-screen bg-slate-50 h-full">{props.children}</div>
   );
 }
