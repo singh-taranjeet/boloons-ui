@@ -19,11 +19,11 @@ export function Number(props: {
   const fontColor = color === "black" ? "text-black" : "text-cyan-500";
 
   return (
-    <div className="flex flex-col justify-center p-2 cursor-pointer">
+    <div className="flex flex-col justify-center p-2 cursor-pointer h-full">
       <p
         className={`select-none text-center leading-none ${fontSize} ${fontColor}`}
       >
-        {props.number}
+        {number}
       </p>
     </div>
   );

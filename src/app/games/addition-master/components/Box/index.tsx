@@ -8,7 +8,7 @@ export function Box(props: {
   const bg = selected ? "bg-cyan-100" : "bg-white";
 
   return (
-    <div onClick={onAttempt} className={`rounded ${bg}`}>
+    <div onClick={onAttempt} className={`rounded ${bg} h-full`}>
       {children}
     </div>
   );

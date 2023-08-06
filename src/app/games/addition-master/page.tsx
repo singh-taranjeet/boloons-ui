@@ -8,18 +8,20 @@ import { Info } from "./components/Info";
 import { Controls } from "./components/Controls";
 import { useIsMobile } from "@/app/lib/client-helper";
 import { StyledControlWrapper } from "./styles";
+import { Heading } from "./components/Heading";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
 
 export default function Page() {
-  const [data, setData] = useState<DataType>([]);
+  const [data, setData] = useState<DataType>([initialQuestion()]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [attempts, setAttempts] = useState<number[]>([]);
+  const [attempts, setAttempts] = useState<number[]>(initialQuestion().answers);
   const [score, setScore] = useState(0);
   const [gameInProgress, setGameInProgress] = useState(false);
   const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>();
   const [timer, setTimer] = useState(0);
+  const [learningMode, setLearningMode] = useState(true);
 
   const correctAnswer = data?.[currentQuestion]?.sum;
 
@@ -74,10 +76,6 @@ export default function Page() {
     }
   }, [timerId, stopGame]);
 
-  useEffect(() => {
-    setQuestions();
-  }, []);
-
   const nextQuestion = useCallback(
     function nextQuestion() {
       setAttempts([]);
@@ -91,7 +89,7 @@ export default function Page() {
   );
 
   useEffect(() => {
-    if (attempts.length) {
+    if (attempts.length && !learningMode) {
       const sum = attempts.reduce((item, sum) => {
         return item + sum;
       }, 0);
@@ -103,7 +101,7 @@ export default function Page() {
         nextQuestion();
       }
     }
-  }, [attempts, score, correctAnswer, nextQuestion]);
+  }, [attempts, score, correctAnswer, nextQuestion, learningMode]);
 
   // stop game when all the questions are completed
   useEffect(() => {
@@ -121,35 +119,63 @@ export default function Page() {
     }
   }
 
+  function turnOffLearningMode() {
+    if (learningMode) {
+      setLearningMode(false);
+      setData(createQuestions());
+    }
+  }
+
   const isMobile = useIsMobile();
 
   return (
-    <main>
+    <main onClick={turnOffLearningMode}>
       <section className="flex flex-col justify-center gap-4 max-w-5xl mx-auto w-full md:flex-row md:justify-around">
-        <section className="md:flex md:flex-col md:gap-5 md:justify-center">
-          <Info score={score} timer={timer} />
-          {isMobile ? null : (
-            <StyledControlWrapper>
-              <Controls gameInProgress={gameInProgress} onClick={startGame} />
-            </StyledControlWrapper>
-          )}
-        </section>
+        {learningMode ? (
+          <section className="flex flex-col justify-center">
+            {/* Heading */}
+            <Heading>Addition Master</Heading>
+          </section>
+        ) : null}
+
+        {/* Score and Timer */}
+        {learningMode ? null : (
+          <section className="md:flex md:flex-col md:gap-5 md:justify-center">
+            <Info score={score} timer={timer} />
+            {isMobile ? null : (
+              <StyledControlWrapper>
+                <Controls gameInProgress={gameInProgress} onClick={startGame} />
+              </StyledControlWrapper>
+            )}
+          </section>
+        )}
 
         <section>
+          {/* Questions */}
           <NumberGrid
             currentQuestion={currentQuestion}
             numbers={data.map((item) => item.sum)}
           />
+          {/* Answers */}
           <section className="pt-10">
             <BoxGrid
+              learningMode={learningMode}
               attempts={attempts}
               onAttempt={onAttempt}
               options={data[currentQuestion]?.options}
             />
           </section>
+          {/* Bottom Heading */}
+          {learningMode ? (
+            <Heading className="text-5xl pt-6 md:text-lg md:pt-2">
+              Sum up panels equal to the indicated number
+            </Heading>
+          ) : null}
         </section>
       </section>
-      {isMobile ? (
+
+      {/* Controls */}
+      {isMobile && !learningMode ? (
         <StyledControlWrapper>
           <Controls gameInProgress={gameInProgress} onClick={startGame} />
         </StyledControlWrapper>
@@ -162,6 +188,14 @@ interface QuestionType {
   options: number[];
   answers: number[];
   sum: number;
+}
+
+function initialQuestion(): QuestionType {
+  return {
+    options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
+    answers: [4, 9, 5],
+    sum: 18,
+  };
 }
 
 function generateQuestion(): QuestionType {
