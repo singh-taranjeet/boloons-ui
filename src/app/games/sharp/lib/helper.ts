@@ -1,7 +1,5 @@
-"use client";
-import { useEffect, useState } from "react";
 import { EquationType, QuestionType } from "./types";
-import { getRandomInt } from "@/app/lib/client-helper";
+import { getRandomInt } from "@/app/lib/server-helper";
 
 export function generateQuestion(): QuestionType {
   // 1. Generate random equation

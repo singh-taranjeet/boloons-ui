@@ -7,7 +7,7 @@ import {
   useCallback,
 } from "react";
 import { EquationType, QuestionType } from "../lib/types";
-import { generateQuestion, getRandomInt } from "../lib/helper";
+import { generateQuestion } from "../lib/helper";
 
 const SCORE = {
   RIGHT: 5,

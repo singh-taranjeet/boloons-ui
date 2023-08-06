@@ -10,8 +10,9 @@ import {
   StyledScore,
   StyledWrapper,
 } from "./components/styles";
-import { generateQuestion, getRandomInt, useIsMobile } from "./lib/helper";
+import { generateQuestion } from "./lib/helper";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
+import { useIsMobile } from "@/app/lib/client-helper";
 
 function DashedRectangle(props: { color?: string; width: string }) {
   const { color, width } = props;
