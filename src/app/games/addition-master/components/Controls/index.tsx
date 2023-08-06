@@ -15,7 +15,7 @@ export function Controls(props: { onClick(): void; gameInProgress: boolean }) {
       onClick={onClick}
       className="select-none flex justify-center rounded-md p-5 w-fit h-fit bg-cyan-500 mx-auto"
     >
-      <p className="m-auto text-4xl text-white">Start</p>
+      <p className="m-auto text-4xl text-white">Restart</p>
     </div>
   );
 }

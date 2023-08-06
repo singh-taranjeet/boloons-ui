@@ -13,13 +13,15 @@ export function useIsMobile() {
         setIsMobile(false);
       }
     }
-
+    onResize();
     window.addEventListener("resize", onResize);
 
     return () => {
       window.removeEventListener("resize", onResize);
     };
   }, []);
+
+  console.log("Is MObile", isMobile);
 
   return isMobile;
 }

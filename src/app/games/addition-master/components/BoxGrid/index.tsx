@@ -15,7 +15,7 @@ export function BoxGrid(props: BoxGridType) {
   const isMobile = useIsMobile();
   return (
     <div
-      className="grid gap-5 justify-center"
+      className="grid gap-5 justify-center bg-slate-100 w-fit p-5 rounded mx-auto"
       style={{
         gridTemplateColumns: `repeat(3, ${isMobile ? "10rem" : "9rem"})`,
         gridTemplateRows: `repeat(3, ${isMobile ? "10rem" : "9rem"})`,
@@ -29,9 +29,9 @@ export function BoxGrid(props: BoxGridType) {
           >
             <Number number={option} color="blue" />
           </Box>
-          {index === options.length - 1 && learningMode ? (
+          {attempts.includes(option) && learningMode ? (
             <Image
-              className="absolute bottom-0 right-0"
+              className="absolute bottom-0 -right-8 z-10"
               src={"/images/finger-pointer.svg"}
               width={50}
               height={50}

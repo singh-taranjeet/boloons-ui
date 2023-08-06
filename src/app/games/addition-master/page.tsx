@@ -9,6 +9,7 @@ import { Controls } from "./components/Controls";
 import { useIsMobile } from "@/app/lib/client-helper";
 import { StyledControlWrapper } from "./styles";
 import { Heading } from "./components/Heading";
+import { StartTimer } from "./components/StartTimer";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
@@ -22,6 +23,7 @@ export default function Page() {
   const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>();
   const [timer, setTimer] = useState(0);
   const [learningMode, setLearningMode] = useState(true);
+  const [startTimer, setStartTimer] = useState(3);
 
   const correctAnswer = data?.[currentQuestion]?.sum;
 
@@ -35,6 +37,7 @@ export default function Page() {
     setAttempts([]);
     setScore(0);
     setTimer(30);
+    setLearningMode(false);
   }
 
   function startGame() {
@@ -167,9 +170,12 @@ export default function Page() {
           </section>
           {/* Bottom Heading */}
           {learningMode ? (
-            <Heading className="text-5xl pt-6 md:text-lg md:pt-2">
-              Sum up panels equal to the indicated number
-            </Heading>
+            <section>
+              <Heading className="text-5xl pt-6 md:text-lg md:pt-2">
+                Sum up panels equal to the indicated number
+              </Heading>
+              {isMobile ? <StartTimer startGame={startGame} /> : null}
+            </section>
           ) : null}
         </section>
       </section>
@@ -193,7 +199,7 @@ interface QuestionType {
 function initialQuestion(): QuestionType {
   return {
     options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
-    answers: [4, 9, 5],
+    answers: [4, 9, 2],
     sum: 18,
   };
 }
