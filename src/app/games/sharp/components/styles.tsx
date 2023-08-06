@@ -1,12 +1,12 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const colors = {
-  blue: '#1a7ff7',
-  white: 'white',
+  blue: "#1a7ff7",
+  white: "white",
 };
 
 const dashedRectangle = (
-  color = '#C5C0C0'
+  color = "#C5C0C0"
 ) => `data:image/svg+xml;utf8,<svg width="146" height="146" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
 <rect x="1" y="1" width="144" height="144" rx="6" fill="white" stroke="${color}" stroke-width="2" stroke-dasharray="5 5"/>
 </svg>`;
@@ -14,15 +14,15 @@ const dashedRectangle = (
 // console.log('dashed ', `"${dashedRectangle('#1a7ff7')}"`);
 
 export const StyledWrapper = styled.section`
-  width: 100%;
-  @media only screen and (min-width: 601px) {
-    background-image: url('/images/page-background-image.png');
-    background-position: left;
-    background-repeat: no-repeat;
-    background-size: cover;
-    position: relative;
-    height: 100vh;
-  }
+  // width: 100%;
+  // @media only screen and (min-width: 601px) {
+  //   background-image: url('/images/page-background-image.png');
+  //   background-position: left;
+  //   background-repeat: no-repeat;
+  //   background-size: cover;
+  //   position: relative;
+  //   height: 100vh;
+  // }
 
   .question {
     padding: 2rem 0;
@@ -43,19 +43,19 @@ export const StyledWrapper = styled.section`
   }
 
   .addCloud {
-    background-image: url('/images/Plus-cloud.svg');
+    background-image: url("/images/Plus-cloud.svg");
   }
 
   .minusCloud {
-    background-image: url('/images/Minus-cloud.svg');
+    background-image: url("/images/Minus-cloud.svg");
   }
 
   .divideCloud {
-    background-image: url('/images/Divide-cloud.svg');
+    background-image: url("/images/Divide-cloud.svg");
   }
 
   .multiplyCloud {
-    background-image: url('/images/Multiply-cloud.svg');
+    background-image: url("/images/Multiply-cloud.svg");
   }
 
   h1 {
