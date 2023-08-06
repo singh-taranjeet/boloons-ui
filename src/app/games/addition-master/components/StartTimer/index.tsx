@@ -3,7 +3,7 @@ import { Number } from "../Number";
 
 export function StartTimer(props: { startGame(): void }) {
   const { startGame } = props;
-  const [startTimer, setStartTimer] = useState(3);
+  const [startTimer, setStartTimer] = useState(9);
 
   useEffect(() => {
     const timerID = setInterval(() => {
