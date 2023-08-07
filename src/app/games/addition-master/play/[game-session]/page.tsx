@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile, useWebSocket } from "@/app/lib/client-helper";
-import { Game } from "../components/Game";
+import { Game } from "../../components/Game";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds

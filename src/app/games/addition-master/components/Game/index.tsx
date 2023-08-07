@@ -1,7 +1,7 @@
 "use client";
 import { emptyFunction } from "@/app/lib/server-helper";
-import { NumberGrid } from "../../[game-session]/components/NumberGrid";
-import { BoxGrid } from "../../[game-session]/components/BoxGrid";
+import { BoxGrid } from "../../play/[game-session]/components/BoxGrid";
+import { NumberGrid } from "../../play/[game-session]/components/NumberGrid";
 
 interface GameType {
   currentQuestion: number;

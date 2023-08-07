@@ -1,4 +1,4 @@
-import { Heading } from "./components/Heading";
+import { Text } from "./components/Text";
 import { Game } from "./components/Game";
 import { QuestionType } from "./lib/types";
 import { GameType } from "./components/GameType";
@@ -9,9 +9,9 @@ function HowToPlayDescription(props: { className: string }) {
   }
   return (
     <section className={`hidden ${props.className}`}>
-      <Heading className="text-3xl pt-6 md:text-lg md:pt-2">
+      <Text className="text-3xl pt-6 md:text-lg md:pt-2">
         Select upto 3 number which sum up equal to the indicated number
-      </Heading>
+      </Text>
       <GameType />
     </section>
   );
@@ -22,7 +22,7 @@ export default function Page() {
     <>
       {/* Heading */}
       <section className="flex flex-col justify-center">
-        <Heading>Addition Master</Heading>
+        <Text>Addition Master</Text>
         <HowToPlayDescription className="md:block" />
       </section>
 
