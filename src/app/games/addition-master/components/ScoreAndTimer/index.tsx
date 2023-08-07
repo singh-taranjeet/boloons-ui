@@ -5,7 +5,7 @@ interface InfoType {
   timer: number;
 }
 
-export function Info(props: InfoType) {
+export function ScoreAndTimer(props: InfoType) {
   const { score, timer } = props;
 
   return (

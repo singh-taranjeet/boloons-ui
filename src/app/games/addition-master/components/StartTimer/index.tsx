@@ -1,19 +1,25 @@
 import { useEffect, useState } from "react";
 import { Number } from "../Number";
 
+const TIMEOUT = 5;
+
 export function StartTimer(props: { startGame(): void }) {
   const { startGame } = props;
-  const [startTimer, setStartTimer] = useState(9);
+  const [startTimer, setStartTimer] = useState(5);
 
   useEffect(() => {
     const timerID = setInterval(() => {
       setStartTimer((timer) => {
         if (timer === 1) {
-          startGame();
+          // startGame();
         }
         return timer - 1;
       });
     }, 1000);
+
+    setTimeout(() => {
+      clearInterval(timerID);
+    }, 1000 * TIMEOUT);
     return () => {
       console.log("cleared", timerID);
       clearInterval(timerID);

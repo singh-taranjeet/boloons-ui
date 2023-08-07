@@ -1,7 +1,8 @@
-import { useIsMobile } from "@/app/lib/client-helper";
+"use client";
 import { Box } from "../Box";
 import { Number } from "../Number";
 import Image from "next/image";
+import { StyledBoxGrid } from "./styles";
 
 interface BoxGridType {
   options: number[];
@@ -12,15 +13,8 @@ interface BoxGridType {
 
 export function BoxGrid(props: BoxGridType) {
   const { options, onAttempt, attempts = [], learningMode = false } = props;
-  const isMobile = useIsMobile();
   return (
-    <div
-      className="grid gap-5 justify-center bg-slate-100 w-fit p-5 rounded mx-auto"
-      style={{
-        gridTemplateColumns: `repeat(3, ${isMobile ? "10rem" : "9rem"})`,
-        gridTemplateRows: `repeat(3, ${isMobile ? "10rem" : "9rem"})`,
-      }}
-    >
+    <StyledBoxGrid className="grid gap-5 justify-center bg-slate-100 w-fit p-5 rounded mx-auto">
       {options?.map((option, index) => (
         <div key={option} className="relative">
           <Box
@@ -40,6 +34,6 @@ export function BoxGrid(props: BoxGridType) {
           ) : null}
         </div>
       ))}
-    </div>
+    </StyledBoxGrid>
   );
 }

@@ -1,3 +1,4 @@
+"use client";
 export function Box(props: {
   children: React.ReactNode;
   onAttempt(): void;
