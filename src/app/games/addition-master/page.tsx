@@ -1,6 +1,7 @@
 import { Heading } from "./components/Heading";
 import { Game } from "./components/Game";
 import { QuestionType } from "./lib/types";
+import { GameType } from "./components/GameType";
 
 function HowToPlayDescription(props: { className: string }) {
   {
@@ -11,7 +12,7 @@ function HowToPlayDescription(props: { className: string }) {
       <Heading className="text-3xl pt-6 md:text-lg md:pt-2">
         Select upto 3 number which sum up equal to the indicated number
       </Heading>
-      {/* {isMobile ? <StartTimer startGame={startGame} /> : null} */}
+      <GameType />
     </section>
   );
 }
@@ -19,24 +20,22 @@ function HowToPlayDescription(props: { className: string }) {
 export default function Page() {
   return (
     <>
-      <section className="flex flex-col justify-center gap-4 max-w-5xl mx-auto w-full md:flex-row md:justify-around select-none">
-        {/* Heading */}
-        <section className="flex flex-col justify-center">
-          <Heading>Addition Master</Heading>
-          <HowToPlayDescription className="md:block" />
-        </section>
-
-        {/* Game section */}
-        <Game
-          currentQuestion={0}
-          numbers={[initialQuestion()].map((item) => item.sum)}
-          learningMode={true}
-          attempts={initialQuestion().answers}
-          // onAttempt={emptyFunction}
-          options={initialQuestion().options}
-        />
-        <HowToPlayDescription className="max-sm:block" />
+      {/* Heading */}
+      <section className="flex flex-col justify-center">
+        <Heading>Addition Master</Heading>
+        <HowToPlayDescription className="md:block" />
       </section>
+
+      {/* Game section */}
+      <Game
+        currentQuestion={0}
+        numbers={[initialQuestion()].map((item) => item.sum)}
+        learningMode={true}
+        attempts={initialQuestion().answers}
+        // onAttempt={emptyFunction}
+        options={initialQuestion().options}
+      />
+      <HowToPlayDescription className="max-sm:block" />
     </>
   );
 }

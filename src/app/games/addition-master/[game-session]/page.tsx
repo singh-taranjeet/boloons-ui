@@ -2,25 +2,24 @@
 import { getRandomInt } from "@/app/lib/server-helper";
 import { shuffle, drop, slice } from "lodash";
 import { useCallback, useEffect, useState } from "react";
-import { ScoreAndTimer } from "../components/ScoreAndTimer";
-import { Controls } from "../components/Controls";
+import { ScoreAndTimer } from "./components/ScoreAndTimer";
+import { Controls } from "./components/Controls";
 import { useIsMobile, useWebSocket } from "@/app/lib/client-helper";
-import { Heading } from "../components/Heading";
-import { StartTimer } from "../components/StartTimer";
 import { Game } from "../components/Game";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
 
 export default function Page() {
-  const [data, setData] = useState<DataType>([initialQuestion()]);
+  const [data, setData] = useState<DataType>([]);
   const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [attempts, setAttempts] = useState<number[]>(initialQuestion().answers);
+  const [attempts, setAttempts] = useState<number[]>([]);
+
   const [score, setScore] = useState(0);
   const [gameInProgress, setGameInProgress] = useState(false);
+
   const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>();
   const [timer, setTimer] = useState(0);
-  const [learningMode, setLearningMode] = useState(true);
 
   const correctAnswer = data?.[currentQuestion]?.sum;
 
@@ -28,34 +27,36 @@ export default function Page() {
     setData(createQuestions());
   }
 
-  function resetGame() {
+  const resetGame = useCallback(function resetGame() {
     setQuestions();
     setCurrentQuestion(0);
     setAttempts([]);
     setScore(0);
     setTimer(30);
-    setLearningMode(false);
-  }
+  }, []);
 
-  function startGame() {
-    if (!gameInProgress) {
-      // reset every thing
-      resetGame();
-      setGameInProgress(() => {
-        // start timer
-        const id = setInterval(() => {
-          console.log("timer is running");
-          setTimer((old) => {
-            return old - 1;
-          });
-        }, 1000);
+  const startGame = useCallback(
+    function startGame() {
+      if (!gameInProgress) {
+        // reset every thing
+        resetGame();
+        setGameInProgress(() => {
+          // start timer
+          const id = setInterval(() => {
+            console.log("timer is running");
+            setTimer((old) => {
+              return old - 1;
+            });
+          }, 1000);
 
-        setTimerId(() => id);
+          setTimerId(() => id);
 
-        return true;
-      });
-    }
-  }
+          return true;
+        });
+      }
+    },
+    [gameInProgress, resetGame]
+  );
 
   const stopGame = useCallback(
     function stopGame() {
@@ -69,13 +70,6 @@ export default function Page() {
     [timerId]
   );
 
-  // Stop the game
-  useEffect(() => {
-    if (timerId) {
-      setTimeout(stopGame, GAME_TIMEOUT);
-    }
-  }, [timerId, stopGame]);
-
   const nextQuestion = useCallback(
     function nextQuestion() {
       setAttempts([]);
@@ -88,8 +82,16 @@ export default function Page() {
     [currentQuestion, data.length]
   );
 
+  // Stop the game after timeout
   useEffect(() => {
-    if (attempts.length && !learningMode) {
+    if (timerId) {
+      setTimeout(stopGame, GAME_TIMEOUT);
+    }
+  }, [timerId, stopGame]);
+
+  // on attemp change the question and update score
+  useEffect(() => {
+    if (attempts.length) {
       const sum = attempts.reduce((item, sum) => {
         return item + sum;
       }, 0);
@@ -101,7 +103,7 @@ export default function Page() {
         nextQuestion();
       }
     }
-  }, [attempts, score, correctAnswer, nextQuestion, learningMode]);
+  }, [attempts, score, correctAnswer, nextQuestion]);
 
   // stop game when all the questions are completed
   useEffect(() => {
@@ -116,13 +118,6 @@ export default function Page() {
     console.log("attempt", attempt);
     if (gameInProgress) {
       setAttempts([...attempts, attempt]);
-    }
-  }
-
-  function turnOffLearningMode() {
-    if (learningMode) {
-      setLearningMode(false);
-      setData(createQuestions());
     }
   }
 
@@ -142,54 +137,28 @@ export default function Page() {
   }, [socket]);
 
   return (
-    <main onClick={turnOffLearningMode}>
-      <section className="flex flex-col justify-center gap-4 max-w-5xl mx-auto w-full md:flex-row md:justify-around">
-        {learningMode ? (
-          <section className="flex flex-col justify-center">
-            {/* Heading */}
-            <Heading>Addition Master</Heading>
-          </section>
-        ) : null}
-
-        {/* Score and Timer */}
-        {learningMode ? null : (
-          <section className="md:flex md:flex-col md:gap-5 md:justify-center">
-            <ScoreAndTimer score={score} timer={timer} />
-            {isMobile ? null : (
-              <section className="mt-10">
-                <Controls gameInProgress={gameInProgress} onClick={startGame} />
-              </section>
-            )}
-          </section>
-        )}
-
-        {/* Game section */}
-        <Game
-          currentQuestion={currentQuestion}
-          numbers={data.map((item) => item.sum)}
-          learningMode={learningMode}
-          attempts={attempts}
-          onAttempt={onAttempt}
-          options={data[currentQuestion]?.options}
-        />
-        {/* Bottom Heading */}
-        {learningMode ? (
-          <section>
-            <Heading className="text-3xl pt-6 md:text-lg md:pt-2">
-              Select upto 3 number which sum up equal to the indicated number
-            </Heading>
-            {isMobile ? <StartTimer startGame={startGame} /> : null}
-          </section>
+    <>
+      {/* Score and Timer */}
+      <section className="md:flex md:flex-col md:gap-5 md:justify-center">
+        <ScoreAndTimer score={score} timer={timer} />
+        {!isMobile ? (
+          <Controls gameInProgress={gameInProgress} onClick={startGame} />
         ) : null}
       </section>
 
+      {/* Game section */}
+      <Game
+        currentQuestion={currentQuestion}
+        numbers={data.map((item) => item.sum)}
+        attempts={attempts}
+        onAttempt={onAttempt}
+        options={data[currentQuestion]?.options}
+      />
       {/* Controls */}
-      {isMobile && !learningMode ? (
-        <section className="mt-10">
-          <Controls gameInProgress={gameInProgress} onClick={startGame} />
-        </section>
+      {isMobile ? (
+        <Controls gameInProgress={gameInProgress} onClick={startGame} />
       ) : null}
-    </main>
+    </>
   );
 }
 
@@ -197,14 +166,6 @@ interface QuestionType {
   options: number[];
   answers: number[];
   sum: number;
-}
-
-function initialQuestion(): QuestionType {
-  return {
-    options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
-    answers: [4, 9, 2],
-    sum: 18,
-  };
 }
 
 function generateQuestion(): QuestionType {
@@ -221,7 +182,7 @@ function generateQuestion(): QuestionType {
 }
 
 function createQuestions(): QuestionType[] {
-  return Array.from(Array(10).keys()).map(() => {
+  return Array.from(Array(15).keys()).map(() => {
     return generateQuestion();
   });
 }

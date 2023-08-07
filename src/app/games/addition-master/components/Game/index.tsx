@@ -1,11 +1,11 @@
 "use client";
 import { emptyFunction } from "@/app/lib/server-helper";
-import { BoxGrid } from "../BoxGrid";
-import { NumberGrid } from "../NumberGrid";
+import { NumberGrid } from "../../[game-session]/components/NumberGrid";
+import { BoxGrid } from "../../[game-session]/components/BoxGrid";
 
 interface GameType {
   currentQuestion: number;
-  learningMode: boolean;
+  learningMode?: boolean;
   attempts: number[];
   onAttempt?(number: number): void;
   options: number[];
@@ -15,7 +15,7 @@ interface GameType {
 export function Game(props: GameType) {
   const {
     currentQuestion,
-    learningMode,
+    learningMode = false,
     attempts,
     onAttempt = emptyFunction,
     options,

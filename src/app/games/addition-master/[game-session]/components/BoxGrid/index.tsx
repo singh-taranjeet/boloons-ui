@@ -30,6 +30,7 @@ export function BoxGrid(props: BoxGridType) {
               width={50}
               height={50}
               alt="select"
+              style={{ width: "50px", height: "50px" }}
             />
           ) : null}
         </div>

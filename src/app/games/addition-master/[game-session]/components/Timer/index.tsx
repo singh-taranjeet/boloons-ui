@@ -1,17 +1,19 @@
+"use client";
 import { useEffect, useState } from "react";
-import { Number } from "../Number";
 
 const TIMEOUT = 5;
 
-export function StartTimer(props: { startGame(): void }) {
-  const { startGame } = props;
-  const [startTimer, setStartTimer] = useState(5);
+export function Timer(props: { startGame?(): void; duration?: number }) {
+  const { startGame, duration = TIMEOUT } = props;
+  const [startTimer, setStartTimer] = useState(duration);
 
   useEffect(() => {
     const timerID = setInterval(() => {
       setStartTimer((timer) => {
         if (timer === 1) {
-          // startGame();
+          if (startGame) {
+            startGame();
+          }
         }
         return timer - 1;
       });
@@ -21,14 +23,12 @@ export function StartTimer(props: { startGame(): void }) {
       clearInterval(timerID);
     }, 1000 * TIMEOUT);
     return () => {
-      console.log("cleared", timerID);
       clearInterval(timerID);
     };
-  }, [startTimer, startGame]);
+  }, [startGame]);
 
   return (
     <section className="flex flex-col gap-5">
-      <p className="text-center text-cyan-500 text-5xl">Game starting in</p>
       <div className="rounded-full border-2 border-cyan-500 w-24 h-24 mx-auto flex flex-col justify-center">
         <p className="text-center text-cyan-500 text-6xl leading-none">
           {startTimer}

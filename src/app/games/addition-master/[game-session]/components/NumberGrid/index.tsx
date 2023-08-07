@@ -8,11 +8,6 @@ interface NumberGridType {
 export function NumberGrid(props: NumberGridType) {
   const { numbers, currentQuestion } = props;
 
-  console.log(
-    "numbers",
-    slice(numbers, currentQuestion + 1, currentQuestion + 3)
-  );
-
   return (
     <div className="relative">
       <div className="flex justify-center">
