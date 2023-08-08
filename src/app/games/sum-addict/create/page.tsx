@@ -8,7 +8,6 @@ import {
   padding,
   urls,
 } from "@/app/lib/constants";
-import { faker } from "@faker-js/faker";
 import { gameConstants } from "../lib/constants";
 import { useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
@@ -22,9 +21,9 @@ import { Button } from "../../components/Button";
 import Link from "next/link";
 
 export default function Page() {
-  const fakeName = faker.lorem.word;
+  const fakeName = getRandomInt();
   const [gameId] = useState(getRandomInt());
-  const [gameName, setGameName] = useState(fakeName);
+  const [gameName, setGameName] = useState(`${fakeName}`);
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
 

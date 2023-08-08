@@ -3,7 +3,6 @@ import { lazy, useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { appConstants, breakPoints } from "./constants";
 import { getRandomInt } from "./server-helper";
-import { faker } from "@faker-js/faker";
 
 export function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -37,6 +36,7 @@ export function usePlayer() {
   function updatePlayerName(name: string) {
     setPlayer({
       ...player,
+      id: player?.id || "",
       name,
     });
   }
@@ -47,7 +47,7 @@ export function usePlayer() {
       if (!info || !Object.keys(JSON.parse(info))?.length) {
         const newInfo = {
           id: getRandomInt(),
-          name: faker.lorem.word(),
+          name: getRandomInt(),
         };
         console.log("Player info not found", newInfo);
         localStorage.setItem(
@@ -96,22 +96,15 @@ export function useWebSocket() {
   useEffect(() => {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    console.log(
-      "on server_----------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
-    );
+
     return () => {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
     };
-  }, []);
+  }, [socket]);
 
   return {
     socket,
     connected,
   };
-}
-
-export function getUrlSearchParams(param: string) {
-  const urlParams = new URLSearchParams(window?.location?.search);
-  return urlParams.get(param);
 }

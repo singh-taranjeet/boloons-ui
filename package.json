@@ -6,10 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "analyze": "set ANALYZE=true&&npm run build"
   },
   "dependencies": {
-    "@faker-js/faker": "^8.0.2",
     "@types/node": "20.4.6",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
@@ -24,9 +24,11 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
+    "@next/bundle-analyzer": "^13.4.13",
     "@types/lodash": "^4.14.196",
     "autoprefixer": "^10.4.14",
     "bufferutil": "^4.0.7",
+    "cross-env": "^7.0.3",
     "postcss": "^8.4.27",
     "sonarqube-scanner": "^3.0.1",
     "supports-color": "^8.1.1",

@@ -1,16 +1,12 @@
-const nodeExternals = require("webpack-node-externals");
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
   compiler: {
     styledComponents: true,
   },
-};
-
-module.exports = nextConfig;
-
-module.exports = {
-  ...nextConfig,
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.externals.push({
@@ -23,3 +19,5 @@ module.exports = {
     return config;
   },
 };
+
+module.exports = withBundleAnalyzer(nextConfig);
