@@ -5,7 +5,7 @@ import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
 import { Sentence } from "../../components/Sentence";
-import { margin } from "@/app/lib/constants";
+import { classes, margin } from "@/app/lib/constants";
 import { useSearchParams } from "next/navigation";
 
 export default function Page() {
@@ -34,13 +34,11 @@ export default function Page() {
   }
 
   return (
-    <>
-      <Sentence className={`${margin.marginUp}`}>
-        You have been invited to join game {gameId}
-      </Sentence>
+    <Card className={`${classes.center} ${margin.marginUp}`}>
+      <Sentence>You have been invited to join game {gameId}</Sentence>
 
-      <Card>
-        <div className="flex justify-between">
+      <section className={`${margin.marginUpSmall}`}>
+        <div className={`${classes.center}`}>
           <TextInput
             type="text"
             name="Player name"
@@ -53,7 +51,7 @@ export default function Page() {
         <Button className={`w-full`} onClick={join}>
           Join
         </Button>
-      </Card>
-    </>
+      </section>
+    </Card>
   );
 }

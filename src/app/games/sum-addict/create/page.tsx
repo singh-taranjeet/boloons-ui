@@ -16,8 +16,7 @@ import { useWebSocket } from "@/app/lib/client-helper";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
 import { Sentence } from "@/app/games/components/Sentence";
-import { Button } from "../../components/Button";
-import Link from "next/link";
+import { Href } from "../../components/Link";
 
 export default function Page() {
   const fakeName = getRandomInt();
@@ -82,9 +81,8 @@ export default function Page() {
         {/* Share the game session url */}
         <section className={`${classes.center} ${margin.marginUp}`}>
           <Sentence>Share this url with players to join</Sentence>
-          <Card
-            variant="dark"
-            className={`${margin.marginUp} ${gap.normal} flex justify-between cursor-pointer`}
+          <div
+            className={`${margin.marginUp} ${gap.normal} flex justify-between cursor-pointer bg-light ${padding.square.normal} rounded`}
             onClick={() => navigator.clipboard.writeText(joinUrl)}
           >
             <Sentence className={`${classes.center} whitespace-nowrap`}>
@@ -96,44 +94,41 @@ export default function Page() {
               height={25}
               alt={"copy url"}
             />
-          </Card>
+          </div>
         </section>
       </Card>
 
       {/* Players who have joined */}
-      <section className={`${margin.marginUpSmall}`}>
+      <Card className={`${margin.marginUpSmall}`}>
         {players.length ? (
           <>
             <Sentence>Players who have joined</Sentence>
 
-            <Card className={`bg-light`}>
-              <ul>
-                {players.map((player) => {
-                  return (
-                    <li
-                      key={player.id}
-                      className={`${FontSizeType.normal} ${margin.marginUp} ${padding.rectangle.normal} bg-light rounded`}
-                    >
-                      {player.name}
-                    </li>
-                  );
-                })}
-              </ul>
-            </Card>
+            <ul>
+              {players.map((player) => {
+                return (
+                  <li
+                    key={player.id}
+                    className={`${FontSizeType.normal} text-primary ${margin.marginUpSmall} ${padding.rectangle.normal} bg-light rounded`}
+                  >
+                    {player.name}
+                  </li>
+                );
+              })}
+            </ul>
+            {/* Start game */}
+            {players.length ? (
+              <Card className={`${margin.marginUpSmall} ${classes.center} p-0`}>
+                <Href href={`${gameConstants.playUrl}?gameId=${gameId}`}>
+                  Start game
+                </Href>
+              </Card>
+            ) : null}
           </>
         ) : (
           <Sentence>Waiting for players to join...</Sentence>
         )}
-      </section>
-
-      {/* Start game */}
-      {players.length ? (
-        <Card>
-          <Link href={`${gameConstants.playUrl}?gameId=${gameId}`}>
-            <Button className="w-full">Start game</Button>
-          </Link>
-        </Card>
-      ) : null}
+      </Card>
     </>
   );
 }
