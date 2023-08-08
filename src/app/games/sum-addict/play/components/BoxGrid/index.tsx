@@ -16,7 +16,7 @@ export function BoxGrid(props: BoxGridType) {
   const { options, onAttempt, attempts = [], learningMode = false } = props;
   return (
     <StyledBoxGrid
-      className={`grid ${gap.normal} justify-center ${colors.lightBackGroundColor2} w-fit ${padding.square.normal} rounded mx-auto`}
+      className={`grid ${gap.normal} justify-center ${colors.backGroundColorLight} w-fit ${padding.square.normal} rounded mx-auto`}
     >
       {options?.map((option) => (
         <div key={option} className="relative">

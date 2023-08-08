@@ -31,11 +31,9 @@ export function Timer(props: { startGame?(): void; duration?: number }) {
   return (
     <section className={`flex flex-col ${gap.normal}`}>
       <div
-        className={`rounded-full border-2 border-${colors.primaryColor} w-24 h-24 mx-auto flex flex-col justify-center`}
+        className={`rounded-full border-2 border-primary w-24 h-24 mx-auto flex flex-col justify-center`}
       >
-        <p
-          className={`text-center text-${colors.primaryColor} text-6xl leading-none`}
-        >
+        <p className={`text-center text-primary text-6xl leading-none`}>
           {startTimer}
         </p>
       </div>

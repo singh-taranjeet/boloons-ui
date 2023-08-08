@@ -1,9 +1,9 @@
-import { fontSizes } from "../lib/constants";
+import { colors, fontSizes } from "../lib/constants";
 import { gameConstants } from "./sum-addict/lib/constants";
 
 export default function Layout(props: { children: React.ReactNode }) {
   return (
-    <main className="p-5 h-full">
+    <main className={`p-5 h-full`}>
       <h1 className={`${fontSizes.normal} text-center`}>
         {gameConstants.name}
       </h1>

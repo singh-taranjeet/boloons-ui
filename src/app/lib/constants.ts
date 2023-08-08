@@ -39,9 +39,9 @@ export const classes = {
 };
 
 export const colors = {
-  lightBackGroundColor: "bg-slate-50",
-  lightBackGroundColor2: "bg-slate-100",
-  primaryColor: "cyan-500",
+  backGroundColorLight: "bg-light",
+  backGroundColorDark: "bg-secondary",
+  backGroundColorLightGray: "bg-slate-50",
 };
 
 export const urls = {

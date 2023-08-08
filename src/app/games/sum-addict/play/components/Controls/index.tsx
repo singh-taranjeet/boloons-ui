@@ -13,7 +13,7 @@ export function Controls(props: {
   return (
     <section
       onClick={onClick}
-      className={`select-none flex justify-center rounded-md p-5 w-fit h-fit bg-${colors.primaryColor} mx-auto`}
+      className={`select-none flex justify-center rounded-md p-5 w-fit h-fit bg-primary mx-auto`}
     >
       <p className="m-auto text-4xl text-white">Restart</p>
     </section>

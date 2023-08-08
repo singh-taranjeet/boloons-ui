@@ -9,7 +9,7 @@ export function Card(
   return (
     <div
       {...props}
-      className={`${padding.square.normal} ${colors.lightBackGroundColor} rounded ${props.className}`}
+      className={`${padding.square.normal} ${colors.backGroundColorLight} rounded ${props.className}`}
     ></div>
   );
 }

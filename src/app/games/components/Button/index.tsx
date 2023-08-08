@@ -12,8 +12,8 @@ export function Button(
       {...props}
       className={
         `${fontSizes.normal} ${padding.rectangle.normal} border rounded` +
-        ` text-${colors.primaryColor}` +
-        ` border-${colors.primaryColor} ${props.className}`
+        ` text-primary` +
+        ` border-primary ${props.className}`
       }
     ></button>
   );

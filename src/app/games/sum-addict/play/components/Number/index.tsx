@@ -18,8 +18,7 @@ export function Number(props: {
       ? "text-6xl"
       : "text-4xl";
 
-  const fontColor =
-    color === "black" ? "text-black" : `text-${colors.primaryColor}`;
+  const fontColor = color === "black" ? "text-black" : `text-primary`;
 
   return (
     <div className="flex flex-col justify-center p-2 cursor-pointer h-full">

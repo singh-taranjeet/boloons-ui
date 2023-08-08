@@ -80,7 +80,7 @@ export default function Page() {
       <div className="my-5 flex flex-col justify-between">
         <Sentence>Share this url with players to join</Sentence>
         <Card
-          className={`${margin.marginUp} ${padding.square.normal} ${colors.lightBackGroundColor} ${gap.normal} flex justify-between cursor-pointer`}
+          className={`${margin.marginUp} ${padding.square.normal} ${gap.normal} flex justify-between cursor-pointer`}
           onClick={() => navigator.clipboard.writeText(joinUrl)}
         >
           <Sentence className={`${classes.center} whitespace-nowrap`}>
@@ -100,13 +100,13 @@ export default function Page() {
         <section>
           <Sentence>Players who have joined</Sentence>
 
-          <Card className={`${colors.lightBackGroundColor2}`}>
+          <Card className={`${colors.backGroundColorLight}`}>
             <ul>
               {players.map((player) => {
                 return (
                   <li
                     key={player.id}
-                    className={`${fontSizes.normal} ${margin.marginUp} ${padding.rectangle.normal} ${colors.lightBackGroundColor2} rounded`}
+                    className={`${fontSizes.normal} ${margin.marginUp} ${padding.rectangle.normal} ${colors.backGroundColorLight} rounded`}
                   >
                     {player.name}
                   </li>
