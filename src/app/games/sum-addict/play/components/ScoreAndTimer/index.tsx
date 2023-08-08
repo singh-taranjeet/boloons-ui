@@ -1,3 +1,5 @@
+import { Sentence } from "@/app/games/components/Sentence";
+import { classes, gap, margin } from "@/app/lib/constants";
 import Image from "next/image";
 
 interface InfoType {
@@ -9,7 +11,7 @@ export function ScoreAndTimer(props: InfoType) {
   const { score, timer } = props;
 
   return (
-    <section className="flex justify-center flex-col">
+    <section className={`${classes.center} ${margin.marginUp} md:m-0`}>
       {/* Timer image */}
       <div className="flex justify-center">
         <Image
@@ -20,17 +22,27 @@ export function ScoreAndTimer(props: InfoType) {
           loading="lazy"
         />
       </div>
-      <div className="flex justify-center gap-8">
+      <div
+        className={`flex justify-center ${margin.marginUpSmall} ${gap.normal}`}
+      >
         {/* Score */}
         <div className="flex flex-col justify-between text-emerald-600">
-          <p className="text-center text-4xl">Score</p>
-          <p className="text-center text-6xl">{score}</p>
+          <Sentence size="large" className="text-center">
+            Score
+          </Sentence>
+          <Sentence size="large" className="text-center">
+            {score}
+          </Sentence>
         </div>
 
         {/* Timer */}
         <div className="flex flex-col justify-between text-red-500">
-          <p className="text-center text-4xl">Timer</p>
-          <p className="text-center text-6xl">{timer}</p>
+          <Sentence size="large" className="text-center">
+            Timer
+          </Sentence>
+          <Sentence size="large" className="text-center">
+            {timer}
+          </Sentence>
         </div>
       </div>
     </section>

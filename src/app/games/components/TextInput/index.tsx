@@ -1,4 +1,4 @@
-import { padding, fontSizes } from "@/app/lib/constants";
+import { padding, FontSizeType } from "@/app/lib/constants";
 
 export function TextInput(
   props: React.DetailedHTMLProps<
@@ -10,7 +10,7 @@ export function TextInput(
     <input
       type="text"
       {...props}
-      className={`${props.className} ${padding.rectangle.normal} ${fontSizes.normal}`}
+      className={`${props.className} ${padding.rectangle.normal} ${FontSizeType.normal} border-2 border-primary rounded bg-white text-primary`}
     />
   );
 }

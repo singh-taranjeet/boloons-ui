@@ -3,6 +3,7 @@ import { QuestionType } from "./lib/types";
 import { GameType } from "./components/GameType";
 import { gameConstants } from "./lib/constants";
 import { Sentence } from "../components/Sentence";
+import { margin } from "@/app/lib/constants";
 
 function HowToPlayDescription(props: { className: string }) {
   {
@@ -10,7 +11,7 @@ function HowToPlayDescription(props: { className: string }) {
   }
   return (
     <section className={`hidden ${props.className}`}>
-      <Sentence className="text-3xl pt-6 md:text-lg md:pt-2">
+      <Sentence className={`${margin.marginUpSmall} text-center`} size="large">
         Select upto 3 number which sum up equal to the indicated number
       </Sentence>
       <GameType />
@@ -23,7 +24,6 @@ export default function Page() {
     <>
       {/* Heading */}
       <section className="flex flex-col justify-center">
-        <Sentence>{gameConstants.name}</Sentence>
         <HowToPlayDescription className="md:block" />
       </section>
 

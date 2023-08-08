@@ -9,15 +9,18 @@ export const breakPoints = {
 export const appConstants = {
   playerInfoLocalStorage: "playerInfoLocalStorage",
 };
-
-export const fontSizes = {
-  normal: "text-5xl md:text-xl",
-  large: "text-9xl md:text8xl",
-  small: "text-3xl md:text-xl",
-};
+export type KeyOfFontSizeType = keyof typeof FontSizeType;
+export const FontSizeType = {
+  small: "text-base", // => 16px
+  normal: "text-xl", // => 20px
+  large: "text-3xl", // => 24px
+  veryLarge: "text-5xl", // => 48px
+  extraVeryLarge: "text-7xl", // => 72px
+} as const;
 
 export const margin = {
   marginUp: "mt-10",
+  marginUpSmall: "mt-5",
 };
 
 export const padding = {
@@ -26,22 +29,18 @@ export const padding = {
   },
   square: {
     normal: "p-5",
+    large: "p-10",
   },
 };
 
 export const gap = {
+  small: "gap-3",
   normal: "gap-5",
   large: "gap-10",
 };
 
 export const classes = {
   center: "flex flex-col justify-center",
-};
-
-export const colors = {
-  backGroundColorLight: "bg-light",
-  backGroundColorDark: "bg-secondary",
-  backGroundColorLightGray: "bg-slate-50",
 };
 
 export const urls = {

@@ -1,12 +1,17 @@
-import { fontSizes } from "@/app/lib/constants";
+import { FontSizeType, KeyOfFontSizeType } from "@/app/lib/constants";
 interface SentenceType
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLParagraphElement>,
     HTMLParagraphElement
   > {
-  size?: "normal" | "large" | "small";
+  size?: KeyOfFontSizeType;
 }
 export function Sentence(props: SentenceType) {
   const { size = "normal" } = props;
-  return <p {...props} className={`${fontSizes[size]} ${props.className}`}></p>;
+  return (
+    <p
+      {...props}
+      className={`${FontSizeType[size]} text-primary ${props.className} leading-none`}
+    ></p>
+  );
 }

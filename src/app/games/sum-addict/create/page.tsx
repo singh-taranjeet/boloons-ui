@@ -1,8 +1,7 @@
 "use client";
 import {
   classes,
-  colors,
-  fontSizes,
+  FontSizeType,
   gap,
   margin,
   padding,
@@ -55,13 +54,17 @@ export default function Page() {
 
   return (
     <>
-      <Sentence className={`${margin.marginUp}`}>
-        Create a new {gameConstants.name} game
-      </Sentence>
-      <Card className={`${margin.marginUp} flex justify-between ${gap.normal}`}>
-        <div className={`${classes.center} w-full`}>
+      <Card className={`${classes.center} ${margin.marginUp}`}>
+        <Sentence className="font-medium">
+          Create a new {gameConstants.name} game
+        </Sentence>
+
+        {/* Game Name */}
+        <section
+          className={`${margin.marginUpSmall} ${classes.center} w-full ${gap.small}`}
+        >
           <label
-            className={`${fontSizes.normal} ${classes.center} whitespace-nowrap mb-5`}
+            className={`${FontSizeType.normal} ${classes.center} whitespace-nowrap text-primary`}
             htmlFor="game-name"
           >
             Game Name:
@@ -74,50 +77,54 @@ export default function Page() {
             value={gameName}
             onChange={(e) => setGameName(e.target.value)}
           />
-        </div>
-      </Card>
+        </section>
 
-      <div className="my-5 flex flex-col justify-between">
-        <Sentence>Share this url with players to join</Sentence>
-        <Card
-          className={`${margin.marginUp} ${padding.square.normal} ${gap.normal} flex justify-between cursor-pointer`}
-          onClick={() => navigator.clipboard.writeText(joinUrl)}
-        >
-          <Sentence className={`${classes.center} whitespace-nowrap`}>
-            {"Copy Join url"}
-          </Sentence>
-          <Image
-            src={`${urls.icons}/copy-icon.png`}
-            width={25}
-            height={25}
-            alt={"copy url"}
-          />
-        </Card>
-      </div>
-
-      {/* Players who have joined */}
-      {players.length ? (
-        <section>
-          <Sentence>Players who have joined</Sentence>
-
-          <Card className={`${colors.backGroundColorLight}`}>
-            <ul>
-              {players.map((player) => {
-                return (
-                  <li
-                    key={player.id}
-                    className={`${fontSizes.normal} ${margin.marginUp} ${padding.rectangle.normal} ${colors.backGroundColorLight} rounded`}
-                  >
-                    {player.name}
-                  </li>
-                );
-              })}
-            </ul>
+        {/* Share the game session url */}
+        <section className={`${classes.center} ${margin.marginUp}`}>
+          <Sentence>Share this url with players to join</Sentence>
+          <Card
+            variant="dark"
+            className={`${margin.marginUp} ${gap.normal} flex justify-between cursor-pointer`}
+            onClick={() => navigator.clipboard.writeText(joinUrl)}
+          >
+            <Sentence className={`${classes.center} whitespace-nowrap`}>
+              {"Copy Join url"}
+            </Sentence>
+            <Image
+              src={`${urls.icons}/copy-icon.png`}
+              width={25}
+              height={25}
+              alt={"copy url"}
+            />
           </Card>
         </section>
-      ) : (
-        <Sentence>Waiting for players to join...</Sentence>
-      )}
+      </Card>
+
+      {/* Players who have joined */}
+      <section className={`${margin.marginUpSmall}`}>
+        {players.length ? (
+          <>
+            <Sentence>Players who have joined</Sentence>
+
+            <Card className={`bg-light`}>
+              <ul>
+                {players.map((player) => {
+                  return (
+                    <li
+                      key={player.id}
+                      className={`${FontSizeType.normal} ${margin.marginUp} ${padding.rectangle.normal} bg-light rounded`}
+                    >
+                      {player.name}
+                    </li>
+                  );
+                })}
+              </ul>
+            </Card>
+          </>
+        ) : (
+          <Sentence>Waiting for players to join...</Sentence>
+        )}
+      </section>
 
       {/* Start game */}
       {players.length ? (

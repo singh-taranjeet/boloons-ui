@@ -1,7 +1,8 @@
 "use client";
 import { emptyFunction } from "@/app/lib/server-helper";
-import { BoxGrid } from "../../play/components/BoxGrid";
-import { NumberGrid } from "../../play/components/NumberGrid";
+import { margin } from "@/app/lib/constants";
+import { BoxGrid } from "../BoxGrid";
+import { NumberGrid } from "../NumberGrid";
 
 interface GameType {
   currentQuestion: number;
@@ -27,7 +28,7 @@ export function Game(props: GameType) {
       {/* Questions */}
       <NumberGrid currentQuestion={currentQuestion} numbers={numbers} />
       {/* Answers */}
-      <section className="pt-10">
+      <section className={`${margin.marginUpSmall}`}>
         <BoxGrid
           learningMode={learningMode}
           attempts={attempts}

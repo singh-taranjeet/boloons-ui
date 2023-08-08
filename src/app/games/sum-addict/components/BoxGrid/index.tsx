@@ -1,9 +1,10 @@
 "use client";
 import { Box } from "../Box";
-import { Number } from "../Number";
 import Image from "next/image";
+import { Number } from "../Number";
 import { StyledBoxGrid } from "./styles";
-import { colors, gap, padding } from "@/app/lib/constants";
+import { gap, padding } from "@/app/lib/constants";
+import { useIsMobile } from "@/app/lib/client-helper";
 
 interface BoxGridType {
   options: number[];
@@ -14,9 +15,10 @@ interface BoxGridType {
 
 export function BoxGrid(props: BoxGridType) {
   const { options, onAttempt, attempts = [], learningMode = false } = props;
+  const isMobile = useIsMobile();
   return (
     <StyledBoxGrid
-      className={`grid ${gap.normal} justify-center ${colors.backGroundColorLight} w-fit ${padding.square.normal} rounded mx-auto`}
+      className={`grid ${gap.normal} justify-center bg-light w-fit ${padding.square.normal} rounded mx-auto`}
     >
       {options?.map((option) => (
         <div key={option} className="relative">
@@ -24,7 +26,11 @@ export function BoxGrid(props: BoxGridType) {
             selected={attempts.includes(option)}
             onAttempt={() => onAttempt(option)}
           >
-            <Number number={option} color="blue" />
+            <Number
+              size={isMobile ? "veryLarge" : "extraVeryLarge"}
+              number={option}
+              color="blue"
+            />
           </Box>
           {attempts.includes(option) && learningMode ? (
             <Image

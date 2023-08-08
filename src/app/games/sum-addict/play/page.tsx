@@ -6,7 +6,7 @@ import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile, useWebSocket } from "@/app/lib/client-helper";
 import { Game } from "../components/Game";
-import { gap } from "@/app/lib/constants";
+import { gap, margin } from "@/app/lib/constants";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
@@ -150,13 +150,15 @@ export default function Page() {
       </section>
 
       {/* Game section */}
-      <Game
-        currentQuestion={currentQuestion}
-        numbers={data.map((item) => item.sum)}
-        attempts={attempts}
-        onAttempt={onAttempt}
-        options={data[currentQuestion]?.options}
-      />
+      <div className={margin.marginUpSmall}>
+        <Game
+          currentQuestion={currentQuestion}
+          numbers={data.map((item) => item.sum)}
+          attempts={attempts}
+          onAttempt={onAttempt}
+          options={data[currentQuestion]?.options}
+        />
+      </div>
       {/* Controls */}
       {isMobile ? (
         <Controls gameInProgress={gameInProgress} onClick={startGame} />

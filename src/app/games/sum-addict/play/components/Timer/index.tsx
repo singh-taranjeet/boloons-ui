@@ -1,5 +1,6 @@
 "use client";
-import { colors, gap } from "@/app/lib/constants";
+import { Sentence } from "@/app/games/components/Sentence";
+import { gap } from "@/app/lib/constants";
 import { useEffect, useState } from "react";
 
 const TIMEOUT = 5;
@@ -33,9 +34,12 @@ export function Timer(props: { startGame?(): void; duration?: number }) {
       <div
         className={`rounded-full border-2 border-primary w-24 h-24 mx-auto flex flex-col justify-center`}
       >
-        <p className={`text-center text-primary text-6xl leading-none`}>
+        <Sentence
+          size="large"
+          className={`text-center text-primary leading-none`}
+        >
           {startTimer}
-        </p>
+        </Sentence>
       </div>
     </section>
   );

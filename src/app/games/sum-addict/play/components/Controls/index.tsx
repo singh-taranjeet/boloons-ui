@@ -1,4 +1,5 @@
-import { colors } from "@/app/lib/constants";
+import { Button } from "@/app/games/components/Button";
+import { classes, margin } from "@/app/lib/constants";
 
 export function Controls(props: {
   onClick(): void;
@@ -11,11 +12,10 @@ export function Controls(props: {
   }
 
   return (
-    <section
-      onClick={onClick}
-      className={`select-none flex justify-center rounded-md p-5 w-fit h-fit bg-primary mx-auto`}
-    >
-      <p className="m-auto text-4xl text-white">Restart</p>
-    </section>
+    <div className={`${margin.marginUp} ${classes.center}`}>
+      <Button onClick={onClick} className="w-fit mx-auto">
+        Restart
+      </Button>
+    </div>
   );
 }

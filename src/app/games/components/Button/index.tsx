@@ -1,4 +1,4 @@
-import { colors, fontSizes, padding } from "@/app/lib/constants";
+import { FontSizeType, padding } from "@/app/lib/constants";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
 
 export function Button(
@@ -10,11 +10,7 @@ export function Button(
   return (
     <button
       {...props}
-      className={
-        `${fontSizes.normal} ${padding.rectangle.normal} border rounded` +
-        ` text-primary` +
-        ` border-primary ${props.className}`
-      }
+      className={`${FontSizeType.normal} ${padding.rectangle.normal} border-2 rounded text-primary border-primary bg-white ${props.className}`}
     ></button>
   );
 }
