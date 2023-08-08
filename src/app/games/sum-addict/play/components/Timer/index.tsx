@@ -1,4 +1,5 @@
 "use client";
+import { colors, gap } from "@/app/lib/constants";
 import { useEffect, useState } from "react";
 
 const TIMEOUT = 5;
@@ -28,9 +29,13 @@ export function Timer(props: { startGame?(): void; duration?: number }) {
   }, [startGame]);
 
   return (
-    <section className="flex flex-col gap-5">
-      <div className="rounded-full border-2 border-cyan-500 w-24 h-24 mx-auto flex flex-col justify-center">
-        <p className="text-center text-cyan-500 text-6xl leading-none">
+    <section className={`flex flex-col ${gap.normal}`}>
+      <div
+        className={`rounded-full border-2 border-${colors.primaryColor} w-24 h-24 mx-auto flex flex-col justify-center`}
+      >
+        <p
+          className={`text-center text-${colors.primaryColor} text-6xl leading-none`}
+        >
           {startTimer}
         </p>
       </div>

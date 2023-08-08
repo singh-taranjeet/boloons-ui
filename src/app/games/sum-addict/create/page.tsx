@@ -1,5 +1,13 @@
 "use client";
-import { classes, fontSizes, padding, urls } from "@/app/lib/constants";
+import {
+  classes,
+  colors,
+  fontSizes,
+  gap,
+  margin,
+  padding,
+  urls,
+} from "@/app/lib/constants";
 import { faker } from "@faker-js/faker";
 import { gameConstants } from "../lib/constants";
 import { useEffect, useState } from "react";
@@ -9,7 +17,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { useWebSocket } from "@/app/lib/client-helper";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
-import { Text } from "@/app/games/components/Text";
+import { Sentence } from "@/app/games/components/Sentence";
 import { Button } from "../../components/Button";
 import Link from "next/link";
 
@@ -48,8 +56,10 @@ export default function Page() {
 
   return (
     <>
-      <Text className="mt-10">Create a new {gameConstants.name} game</Text>
-      <Card className="mt-10 flex justify-between gap-5">
+      <Sentence className={`${margin.marginUp}`}>
+        Create a new {gameConstants.name} game
+      </Sentence>
+      <Card className={`${margin.marginUp} flex justify-between ${gap.normal}`}>
         <div className={`${classes.center} w-full`}>
           <label
             className={`${fontSizes.normal} ${classes.center} whitespace-nowrap mb-5`}
@@ -69,14 +79,14 @@ export default function Page() {
       </Card>
 
       <div className="my-5 flex flex-col justify-between">
-        <Text>Share this url with players to join</Text>
+        <Sentence>Share this url with players to join</Sentence>
         <Card
-          className="mt-5 p-5 bg-slate-50 gap-5 flex justify-between cursor-pointer"
+          className={`${margin.marginUp} ${padding.square.normal} ${colors.lightBackGroundColor} ${gap.normal} flex justify-between cursor-pointer`}
           onClick={() => navigator.clipboard.writeText(joinUrl)}
         >
-          <Text className={`${classes.center} whitespace-nowrap`}>
+          <Sentence className={`${classes.center} whitespace-nowrap`}>
             {"Copy Join url"}
-          </Text>
+          </Sentence>
           <Image
             src={`${urls.icons}/copy-icon.png`}
             width={25}
@@ -89,15 +99,15 @@ export default function Page() {
       {/* Players who have joined */}
       {players.length ? (
         <section>
-          <Text>Players who have joined</Text>
+          <Sentence>Players who have joined</Sentence>
 
-          <Card className="bg-slate-100">
+          <Card className={`${colors.lightBackGroundColor2}`}>
             <ul>
               {players.map((player) => {
                 return (
                   <li
                     key={player.id}
-                    className={`${fontSizes.normal} my-5 ${padding.normal} bg-slate-100 rounded`}
+                    className={`${fontSizes.normal} ${margin.marginUp} ${padding.rectangle.normal} ${colors.lightBackGroundColor2} rounded`}
                   >
                     {player.name}
                   </li>
@@ -107,7 +117,7 @@ export default function Page() {
           </Card>
         </section>
       ) : (
-        <Text>Waiting for players to join...</Text>
+        <Sentence>Waiting for players to join...</Sentence>
       )}
 
       {/* Start game */}

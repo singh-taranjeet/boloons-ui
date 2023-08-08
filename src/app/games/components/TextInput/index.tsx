@@ -10,7 +10,7 @@ export function TextInput(
     <input
       type="text"
       {...props}
-      className={`${props.className} ${padding.normal} ${fontSizes.normal}`}
+      className={`${props.className} ${padding.rectangle.normal} ${fontSizes.normal}`}
     />
   );
 }

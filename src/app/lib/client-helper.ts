@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { lazy, useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { appConstants, breakPoints } from "./constants";
 import { getRandomInt } from "./server-helper";
@@ -80,14 +80,11 @@ export function usePlayer() {
   return { player, updatePlayerName };
 }
 
-const URL = "http://localhost:4000";
-
-export const socket = io(URL, {
-  autoConnect: false,
-});
-
 export function useWebSocket() {
+  const URL = "http://localhost:4000";
+  //const socket = io(URL);
   const [connected, setConnected] = useState(false);
+  const [socket, setSocket] = useState<any | undefined>();
 
   function onConnect() {
     setConnected(true);
@@ -98,11 +95,16 @@ export function useWebSocket() {
   }
 
   useEffect(() => {
-    socket.on("connect", onConnect);
-    socket.on("disconnect", onDisconnect);
+    const connection = io(URL);
+    connection.on("connect", onConnect);
+    connection.on("disconnect", onDisconnect);
+    setSocket(connection);
+    console.log(
+      "on server_----------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+    );
     return () => {
-      socket.off("connect", onConnect);
-      socket.off("disconnect", onDisconnect);
+      connection.off("connect", onConnect);
+      connection.off("disconnect", onDisconnect);
     };
   }, []);
 
@@ -113,6 +115,6 @@ export function useWebSocket() {
 }
 
 export function getUrlSearchParams(param: string) {
-  const urlParams = new URLSearchParams(window.location.search);
+  const urlParams = new URLSearchParams(window?.location?.search);
   return urlParams.get(param);
 }

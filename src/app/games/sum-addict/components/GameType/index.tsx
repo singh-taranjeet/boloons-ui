@@ -1,23 +1,21 @@
 import Link from "next/link";
-import { Text } from "../Text";
 import { gameConstants } from "../../lib/constants";
+import { colors, gap, padding } from "@/app/lib/constants";
+import { Sentence } from "@/app/games/components/Sentence";
+import { Href } from "@/app/games/components/Link";
 
 export function GameType() {
   return (
-    <section className="flex flex-col justify-center gap-5 md:row md:justify-between bg-slate-100 rounded p-5">
-      <Text className="text-cyan-500 font-semibold">How you want to play?</Text>
-      <Link
-        href={`/games/${gameConstants.gameUrl}/play/ddgdgd`}
-        className="rounded p-5 w-full self-center md:w-56 border-cyan-500 border-2 text-cyan-500 text-center"
-      >
+    <section
+      className={`flex flex-col justify-center ${gap.normal} md:row md:justify-between ${colors.lightBackGroundColor2} rounded ${padding.square.normal}`}
+    >
+      <Sentence className={`text-${colors.primaryColor} font-semibold`}>
+        How you want to play?
+      </Sentence>
+      <Href href={`/games/${gameConstants.gameUrl}/play/ddgdgd`}>
         Single player
-      </Link>
-      <Link
-        href={`/games/${gameConstants.gameUrl}/create`}
-        className="rounded p-5 w-full self-center md:w-56 border-cyan-500 border-2 text-cyan-500 text-center"
-      >
-        Multi player
-      </Link>
+      </Href>
+      <Href href={`/games/${gameConstants.gameUrl}/create`}>Multi player</Href>
     </section>
   );
 }

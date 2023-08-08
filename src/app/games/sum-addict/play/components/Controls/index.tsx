@@ -1,3 +1,5 @@
+import { colors } from "@/app/lib/constants";
+
 export function Controls(props: {
   onClick(): void;
   gameInProgress: boolean;
@@ -11,7 +13,7 @@ export function Controls(props: {
   return (
     <section
       onClick={onClick}
-      className={`select-none flex justify-center rounded-md p-5 w-fit h-fit bg-cyan-500 mx-auto`}
+      className={`select-none flex justify-center rounded-md p-5 w-fit h-fit bg-${colors.primaryColor} mx-auto`}
     >
       <p className="m-auto text-4xl text-white">Restart</p>
     </section>

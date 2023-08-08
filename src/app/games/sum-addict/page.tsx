@@ -1,8 +1,8 @@
-import { Text } from "./components/Text";
 import { Game } from "./components/Game";
 import { QuestionType } from "./lib/types";
 import { GameType } from "./components/GameType";
 import { gameConstants } from "./lib/constants";
+import { Sentence } from "../components/Sentence";
 
 function HowToPlayDescription(props: { className: string }) {
   {
@@ -10,9 +10,9 @@ function HowToPlayDescription(props: { className: string }) {
   }
   return (
     <section className={`hidden ${props.className}`}>
-      <Text className="text-3xl pt-6 md:text-lg md:pt-2">
+      <Sentence className="text-3xl pt-6 md:text-lg md:pt-2">
         Select upto 3 number which sum up equal to the indicated number
-      </Text>
+      </Sentence>
       <GameType />
     </section>
   );
@@ -23,7 +23,7 @@ export default function Page() {
     <>
       {/* Heading */}
       <section className="flex flex-col justify-center">
-        <Text>{gameConstants.name}</Text>
+        <Sentence>{gameConstants.name}</Sentence>
         <HowToPlayDescription className="md:block" />
       </section>
 

@@ -3,6 +3,7 @@ import { Box } from "../Box";
 import { Number } from "../Number";
 import Image from "next/image";
 import { StyledBoxGrid } from "./styles";
+import { colors, gap, padding } from "@/app/lib/constants";
 
 interface BoxGridType {
   options: number[];
@@ -14,8 +15,10 @@ interface BoxGridType {
 export function BoxGrid(props: BoxGridType) {
   const { options, onAttempt, attempts = [], learningMode = false } = props;
   return (
-    <StyledBoxGrid className="grid gap-5 justify-center bg-slate-100 w-fit p-5 rounded mx-auto">
-      {options?.map((option, index) => (
+    <StyledBoxGrid
+      className={`grid ${gap.normal} justify-center ${colors.lightBackGroundColor2} w-fit ${padding.square.normal} rounded mx-auto`}
+    >
+      {options?.map((option) => (
         <div key={option} className="relative">
           <Box
             selected={attempts.includes(option)}

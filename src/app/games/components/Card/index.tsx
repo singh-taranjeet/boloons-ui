@@ -1,3 +1,5 @@
+import { colors, padding } from "@/app/lib/constants";
+
 export function Card(
   props: React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
@@ -7,7 +9,7 @@ export function Card(
   return (
     <div
       {...props}
-      className={`p-5 bg-slate-50 rounded ${props.className}`}
+      className={`${padding.square.normal} ${colors.lightBackGroundColor} rounded ${props.className}`}
     ></div>
   );
 }

@@ -6,6 +6,7 @@ import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile, useWebSocket } from "@/app/lib/client-helper";
 import { Game } from "../components/Game";
+import { gap } from "@/app/lib/constants";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
@@ -139,7 +140,9 @@ export default function Page() {
   return (
     <>
       {/* Score and Timer */}
-      <section className="md:flex md:flex-col md:gap-5 md:justify-center">
+      <section
+        className={`md:flex md:flex-col md:${gap.normal} md:justify-center`}
+      >
         <ScoreAndTimer score={score} timer={timer} />
         {!isMobile ? (
           <Controls gameInProgress={gameInProgress} onClick={startGame} />

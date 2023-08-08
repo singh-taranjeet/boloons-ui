@@ -8,7 +8,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
-import { Text } from "../../components/Text";
+import { Sentence } from "../../components/Sentence";
+import { margin, padding } from "@/app/lib/constants";
 
 export default function Page() {
   const { socket } = useWebSocket();
@@ -16,7 +17,7 @@ export default function Page() {
 
   // Join socket connection and listen to the session id events
   useEffect(() => {
-    socket.connect();
+    socket?.connect();
   }, [socket]);
 
   const gameId = getUrlSearchParams("id");
@@ -37,7 +38,9 @@ export default function Page() {
 
   return (
     <>
-      <Text className={`mt-10`}>You have been invited to join game</Text>
+      <Sentence className={`${margin.marginUp}`}>
+        You have been invited to join game
+      </Sentence>
 
       <Card>
         <div className="flex justify-between">

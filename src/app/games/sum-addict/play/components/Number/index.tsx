@@ -1,4 +1,5 @@
 import { useIsMobile } from "@/app/lib/client-helper";
+import { colors } from "@/app/lib/constants";
 
 export function Number(props: {
   number: number;
@@ -16,7 +17,9 @@ export function Number(props: {
       : isMobile
       ? "text-6xl"
       : "text-4xl";
-  const fontColor = color === "black" ? "text-black" : "text-cyan-500";
+
+  const fontColor =
+    color === "black" ? "text-black" : `text-${colors.primaryColor}`;
 
   return (
     <div className="flex flex-col justify-center p-2 cursor-pointer h-full">
