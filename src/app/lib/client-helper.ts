@@ -82,9 +82,8 @@ export function usePlayer() {
 
 export function useWebSocket() {
   const URL = "http://localhost:4000";
-  //const socket = io(URL);
+  const socket = io(URL);
   const [connected, setConnected] = useState(false);
-  const [socket, setSocket] = useState<any | undefined>();
 
   function onConnect() {
     setConnected(true);
@@ -95,16 +94,14 @@ export function useWebSocket() {
   }
 
   useEffect(() => {
-    const connection = io(URL);
-    connection.on("connect", onConnect);
-    connection.on("disconnect", onDisconnect);
-    setSocket(connection);
+    socket.on("connect", onConnect);
+    socket.on("disconnect", onDisconnect);
     console.log(
       "on server_----------------------------------------------------------------------------------------------------------------------------------------------------------------------------"
     );
     return () => {
-      connection.off("connect", onConnect);
-      connection.off("disconnect", onDisconnect);
+      socket.off("connect", onConnect);
+      socket.off("disconnect", onDisconnect);
     };
   }, []);
 

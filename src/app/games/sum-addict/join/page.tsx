@@ -26,8 +26,8 @@ export default function Page() {
     console.log("joining");
     socket.emit("joinPlayers", {
       id: gameId,
-      name: player.name,
-      playerId,
+      name: player?.name,
+      playerId: player?.id,
     });
   }
 
