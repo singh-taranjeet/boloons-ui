@@ -12,10 +12,8 @@ export function GameType() {
       <Sentence className={`text-${colors.primaryColor} font-semibold`}>
         How you want to play?
       </Sentence>
-      <Href href={`/games/${gameConstants.gameUrl}/play/ddgdgd`}>
-        Single player
-      </Href>
-      <Href href={`/games/${gameConstants.gameUrl}/create`}>Multi player</Href>
+      <Href href={`${gameConstants.playUrl}`}>Single player</Href>
+      <Href href={`${gameConstants.createUrl}`}>Multi player</Href>
     </section>
   );
 }
