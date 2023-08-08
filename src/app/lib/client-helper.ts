@@ -1,7 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { breakPoints } from "./constants";
+import { appConstants, breakPoints } from "./constants";
+import { getRandomInt } from "./server-helper";
+import { faker } from "@faker-js/faker";
 
 export function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -25,6 +27,57 @@ export function useIsMobile() {
   console.log("Is MObile", isMobile);
 
   return isMobile;
+}
+
+export function usePlayer() {
+  const [player, setPlayer] = useState<{ id: string; name: string } | null>(
+    null
+  );
+
+  function updatePlayerName(name: string) {
+    setPlayer({
+      ...player,
+      name,
+    });
+  }
+
+  const loadValue = useCallback(function loadvalue() {
+    const info = localStorage.getItem(appConstants.playerInfoLocalStorage);
+    try {
+      if (!info || !Object.keys(JSON.parse(info))?.length) {
+        const newInfo = {
+          id: getRandomInt(),
+          name: faker.lorem.word(),
+        };
+        console.log("Player info not found", newInfo);
+        localStorage.setItem(
+          appConstants.playerInfoLocalStorage,
+          JSON.stringify(newInfo)
+        );
+      } else {
+        setPlayer(JSON.parse(info));
+      }
+    } catch (error) {
+      console.log("Error in saving player info", info, error);
+      localStorage.removeItem(appConstants.playerInfoLocalStorage);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadValue();
+  }, [loadValue]);
+
+  // Update value in local storage when the information is udpated.
+  useEffect(() => {
+    if (player) {
+      localStorage.setItem(
+        appConstants.playerInfoLocalStorage,
+        JSON.stringify(player)
+      );
+    }
+  }, [player]);
+
+  return { player, updatePlayerName };
 }
 
 const URL = "http://localhost:4000";
@@ -57,4 +110,9 @@ export function useWebSocket() {
     socket,
     connected,
   };
+}
+
+export function getUrlSearchParams(param: string) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(param);
 }

@@ -2,6 +2,7 @@ import { Text } from "./components/Text";
 import { Game } from "./components/Game";
 import { QuestionType } from "./lib/types";
 import { GameType } from "./components/GameType";
+import { gameConstants } from "./lib/constants";
 
 function HowToPlayDescription(props: { className: string }) {
   {
@@ -22,7 +23,7 @@ export default function Page() {
     <>
       {/* Heading */}
       <section className="flex flex-col justify-center">
-        <Text>Addition Master</Text>
+        <Text>{gameConstants.name}</Text>
         <HowToPlayDescription className="md:block" />
       </section>
 
