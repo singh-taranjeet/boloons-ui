@@ -1,5 +1,5 @@
 import { Button } from "@/app/games/components/Button";
-
+import { flexCenter } from "@/app/lib/style.lib";
 export function Controls(props: {
   onClick(): void;
   gameInProgress: boolean;
@@ -11,7 +11,7 @@ export function Controls(props: {
   }
 
   return (
-    <div className={`m-top-large flex-center`}>
+    <div className={`mt-large ${flexCenter}`}>
       <Button onClick={onClick} className="w-fit mx-auto">
         Restart
       </Button>

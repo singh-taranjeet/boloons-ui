@@ -11,6 +11,7 @@ import { Sentence } from "@/app/games/components/Sentence";
 import { Href } from "../../components/Link";
 import Icon from "../../components/Icon";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
+import { flexCenter } from "@/app/lib/style.lib";
 
 export default function Page() {
   const fakeName = getRandomInt();
@@ -47,15 +48,15 @@ export default function Page() {
 
   return (
     <>
-      <Card className={`flex-center m-top-large`}>
+      <Card className={`${flexCenter} mt-large`}>
         <Sentence className="font-medium">
           Create a new {gameConstants.name} game
         </Sentence>
 
         {/* Game Name */}
-        <section className={`m-top-normal flex-center w-full gap-small`}>
+        <section className={`mt-normal ${flexCenter} w-full gap-small`}>
           <label
-            className={`${FontSizeType.normal} flex-center whitespace-nowrap text-primary`}
+            className={`${FontSizeType.normal} ${flexCenter} whitespace-nowrap text-primary`}
             htmlFor="game-name"
           >
             Game Name:
@@ -71,13 +72,13 @@ export default function Page() {
         </section>
 
         {/* Share the game session url */}
-        <section className={`flex-center m-top-large`}>
+        <section className={`${flexCenter} mt-large`}>
           <Sentence>Share this url with players to join</Sentence>
           <div
-            className={`m-top-large gap-normal flex justify-between cursor-pointer bg-light p-square-normal rounded`}
+            className={`mt-large gap-normal flex justify-between cursor-pointer bg-light p-square-normal rounded`}
             onClick={() => navigator.clipboard.writeText(joinUrl)}
           >
-            <Sentence className={`flex-center whitespace-nowrap`}>
+            <Sentence className={`${flexCenter} whitespace-nowrap`}>
               {"Copy Join url"}
             </Sentence>
             <Icon icon={faClone} />
@@ -92,7 +93,7 @@ export default function Page() {
       </Card>
 
       {/* Players who have joined */}
-      <Card className={`m-top-normal`}>
+      <Card className={`mt-normal`}>
         {players.length ? (
           <>
             <Sentence>Players who have joined</Sentence>
@@ -102,7 +103,7 @@ export default function Page() {
                 return (
                   <li
                     key={player.id}
-                    className={`${FontSizeType.normal} text-primary m-top-normal p-rectangle-normal bg-light rounded`}
+                    className={`${FontSizeType.normal} text-primary mt-normal p-rectangle-normal bg-light rounded`}
                   >
                     {player.name}
                   </li>
@@ -111,7 +112,7 @@ export default function Page() {
             </ul>
             {/* Start game */}
             {players.length ? (
-              <Card className={`m-top-normal flex-center p-0`}>
+              <Card className={`mt-normal ${flexCenter} p-0`}>
                 <Href href={`${gameConstants.playUrl}?gameId=${gameId}`}>
                   Start game
                 </Href>

@@ -9,7 +9,7 @@ function HowToPlayDescription(props: { className: string }) {
   }
   return (
     <section className={`hidden ${props.className}`}>
-      <Sentence className={`m-top-normal text-center`} size="large">
+      <Sentence className={`mt-normal text-center`} size="large">
         Select upto 3 number which sum up equal to the indicated number
       </Sentence>
       <GameType />

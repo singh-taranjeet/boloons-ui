@@ -7,7 +7,7 @@ import { Card } from "@/app/games/components/Card";
 export function GameType() {
   return (
     <Card
-      className={`flex flex-col justify-center gap-normal md:row md:justify-between m-top-normal w-fit mx-auto`}
+      className={`flex flex-col justify-center gap-normal md:row md:justify-between mt-normal w-fit mx-auto`}
     >
       <Sentence size="normal" className={`text-primary`}>
         How you want to play?

@@ -19,15 +19,9 @@ module.exports = {
         blue: "#3b82f6", // blue-500
       },
       padding: {
-        "square-normal": {
-          padding: "1.25rem", // => 20px
-        },
-        "square-large": {
-          padding: "2.5rem", // => 40px
-        },
-        "rectangle-normal": {
-          padding: "1.25rem 2rem",
-        },
+        "square-normal": "1.25rem", // => 20px,
+        "square-large": "2.5rem", // => 40px,
+        "rectangle-normal": "1.25rem 2rem",
       },
       fontSize: {
         small: "1rem", // 16px
@@ -37,12 +31,8 @@ module.exports = {
         "extra-very-large": "4.5rem", // => 72px
       },
       margin: {
-        "top-large": {
-          "margin-top": "2.5rem", // => 40px
-        },
-        "top-normal": {
-          "margin-top": "1.25rem", // => 20px
-        },
+        normal: "1.25rem", // => 20px
+        large: "2.5rem", // => 40px
       },
       gap: {
         small: "0.75rem", // => 12px

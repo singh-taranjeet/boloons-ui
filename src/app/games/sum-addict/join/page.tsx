@@ -6,6 +6,7 @@ import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
 import { Sentence } from "../../components/Sentence";
 import { useSearchParams } from "next/navigation";
+import { flexCenter } from "@/app/lib/style.lib";
 
 export default function Page() {
   const params = useSearchParams();
@@ -33,11 +34,11 @@ export default function Page() {
   }
 
   return (
-    <Card className={`flex-center m-top-large`}>
+    <Card className={`${flexCenter} text-primary mt-large`}>
       <Sentence>You have been invited to join game {gameId}</Sentence>
 
-      <section className={`m-top-normal`}>
-        <div className={`flex-center`}>
+      <section className={`mt-normal`}>
+        <div className={`${flexCenter}`}>
           <TextInput
             type="text"
             name="Player name"

@@ -149,7 +149,7 @@ export default function Page() {
       </section>
 
       {/* Game section */}
-      <div className="m-top-normal">
+      <div className="mt-normal">
         <Game
           currentQuestion={currentQuestion}
           numbers={data.map((item) => item.sum)}

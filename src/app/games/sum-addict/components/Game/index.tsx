@@ -27,7 +27,7 @@ export function Game(props: GameType) {
       {/* Questions */}
       <NumberGrid currentQuestion={currentQuestion} numbers={numbers} />
       {/* Answers */}
-      <section className={`m-top-normal`}>
+      <section className={`mt-normal`}>
         <BoxGrid
           learningMode={learningMode}
           attempts={attempts}
