@@ -3,12 +3,10 @@ import { FontSizeType } from "@/app/lib/constants";
 import { gameConstants } from "../lib/constants";
 import { useCallback, useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
-import { usePathname, useSearchParams } from "next/navigation";
-import { useWebSocket } from "@/app/lib/client-helper";
+import { usePlayer, useWebSocket } from "@/app/lib/client-helper";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
 import { Sentence } from "@/app/games/components/Sentence";
-import { Href } from "../../components/Link";
 import Icon from "../../components/Icon";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
 import { flexCenter } from "@/app/lib/style.lib";
@@ -21,6 +19,7 @@ export default function Page() {
   const [gameName, setGameName] = useState(`${fakeName}`);
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
+  const { player } = usePlayer();
   const { socket } = useWebSocket();
   const router = useRouter();
 
@@ -51,7 +50,7 @@ export default function Page() {
     setJoinUrl(`${window.location.origin}${gameConstants.joinUrl}?id=${id}`);
     setGameId(id);
     const session = {
-      id,
+      gameId: id,
       name: gameName,
     };
     socket.emit(gameConstants.multiPlayer.events.createSesion, session);
@@ -59,7 +58,12 @@ export default function Page() {
 
   function startGame() {
     socket.emit(gameConstants.multiPlayer.events.gameStarted, {
-      id: gameId,
+      gameId,
+    });
+    socket.emit(gameConstants.multiPlayer.events.playerJoined, {
+      gameId,
+      name: player?.name,
+      playerId: player?.id,
     });
     console.log("starting game");
     router.push(`${gameConstants.playUrl}?gameId=${gameId}`);

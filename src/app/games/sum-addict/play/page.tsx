@@ -4,8 +4,10 @@ import { shuffle, drop, slice } from "lodash";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
-import { useIsMobile, useWebSocket } from "@/app/lib/client-helper";
+import { useIsMobile, usePlayer, useWebSocket } from "@/app/lib/client-helper";
 import { Game } from "../components/Game";
+import { useRouter, useSearchParams } from "next/navigation";
+import { gameConstants } from "../lib/constants";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
@@ -22,6 +24,12 @@ export default function Page() {
   const [timer, setTimer] = useState(0);
 
   const correctAnswer = data?.[currentQuestion]?.sum;
+
+  const router = useRouter();
+  const params = useSearchParams();
+  const gameId = params?.get("gameId");
+  const { player, updatePlayerName } = usePlayer();
+  const { socket } = useWebSocket();
 
   function setQuestions() {
     setData(createQuestions());
@@ -113,27 +121,33 @@ export default function Page() {
   }, [currentQuestion, data.length, stopGame]);
 
   function onAttempt(attempt: number) {
-    console.log("attempt", attempt);
+    // console.log("attempt", attempt);
     if (gameInProgress) {
       setAttempts([...attempts, attempt]);
     }
   }
 
   const isMobile = useIsMobile();
-  // const { socket, connected } = useWebSocket();
-  // console.log("cokc", connected);
+
+  useEffect(() => {
+    if (gameId) {
+      socket.emit(gameConstants.multiPlayer.events.gameScored, {
+        gameId,
+        playerId: player?.id,
+        score,
+      });
+    }
+  }, [gameId, player?.id, score, socket]);
 
   // Start game on load and connect with socket
-  // useEffect(() => {
-  //   socket.emit("gameSession", {
-  //     channel: "session",
-  //     message: "thsi is a secret message 89",
-  //   });
-  //   socket.on("newMessage", (body: any) => {
-  //     console.log("body", body);
-  //   });
-  //   console.log("sent real time message");
-  // }, [socket]);
+
+  useEffect(() => {
+    socket.on(`${gameId}`, (res) => {
+      console.log("Res", res);
+    });
+  }, [gameId, socket]);
+
+  console.log("game id", gameId, player?.id);
 
   return (
     <>

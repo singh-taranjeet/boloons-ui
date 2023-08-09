@@ -21,7 +21,7 @@ export default function Page() {
   function join() {
     setJoined(true);
     socket.emit(gameConstants.multiPlayer.events.playerJoined, {
-      id: gameId,
+      gameId,
       name: player?.name,
       playerId: player?.id,
     });
