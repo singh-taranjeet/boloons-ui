@@ -1,6 +1,5 @@
 "use client";
 import { emptyFunction } from "@/app/lib/server-helper";
-import { margin } from "@/app/lib/constants";
 import { BoxGrid } from "../BoxGrid";
 import { NumberGrid } from "../NumberGrid";
 
@@ -28,7 +27,7 @@ export function Game(props: GameType) {
       {/* Questions */}
       <NumberGrid currentQuestion={currentQuestion} numbers={numbers} />
       {/* Answers */}
-      <section className={`${margin.marginUpSmall}`}>
+      <section className={`m-top-normal`}>
         <BoxGrid
           learningMode={learningMode}
           attempts={attempts}

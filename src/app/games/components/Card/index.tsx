@@ -1,4 +1,3 @@
-import { padding } from "@/app/lib/constants";
 interface CardType
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
@@ -9,6 +8,6 @@ interface CardType
 export function Card(props: CardType) {
   const { variant = "black_white" } = props;
   const color = variant === "dark" ? "bg-secondary" : "bg-slate-50";
-  const cx = `${padding.square.normal} ${color} rounded ${props.className}`;
+  const cx = `p-square-normal ${color} rounded ${props.className}`;
   return <div {...props} className={cx}></div>;
 }

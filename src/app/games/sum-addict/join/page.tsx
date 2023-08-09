@@ -5,7 +5,6 @@ import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
 import { Sentence } from "../../components/Sentence";
-import { classes, margin } from "@/app/lib/constants";
 import { useSearchParams } from "next/navigation";
 
 export default function Page() {
@@ -34,11 +33,11 @@ export default function Page() {
   }
 
   return (
-    <Card className={`${classes.center} ${margin.marginUp}`}>
+    <Card className={`flex-center m-top-large`}>
       <Sentence>You have been invited to join game {gameId}</Sentence>
 
-      <section className={`${margin.marginUpSmall}`}>
-        <div className={`${classes.center}`}>
+      <section className={`m-top-normal`}>
+        <div className={`flex-center`}>
           <TextInput
             type="text"
             name="Player name"

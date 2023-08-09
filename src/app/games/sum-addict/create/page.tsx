@@ -1,22 +1,16 @@
 "use client";
-import {
-  classes,
-  FontSizeType,
-  gap,
-  margin,
-  padding,
-  urls,
-} from "@/app/lib/constants";
+import { FontSizeType } from "@/app/lib/constants";
 import { gameConstants } from "../lib/constants";
 import { useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
-import Image from "next/image";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useWebSocket } from "@/app/lib/client-helper";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
 import { Sentence } from "@/app/games/components/Sentence";
 import { Href } from "../../components/Link";
+import Icon from "../../components/Icon";
+import { faClone } from "@fortawesome/free-regular-svg-icons";
 
 export default function Page() {
   const fakeName = getRandomInt();
@@ -53,17 +47,15 @@ export default function Page() {
 
   return (
     <>
-      <Card className={`${classes.center} ${margin.marginUp}`}>
+      <Card className={`flex-center m-top-large`}>
         <Sentence className="font-medium">
           Create a new {gameConstants.name} game
         </Sentence>
 
         {/* Game Name */}
-        <section
-          className={`${margin.marginUpSmall} ${classes.center} w-full ${gap.small}`}
-        >
+        <section className={`m-top-normal flex-center w-full gap-small`}>
           <label
-            className={`${FontSizeType.normal} ${classes.center} whitespace-nowrap text-primary`}
+            className={`${FontSizeType.normal} flex-center whitespace-nowrap text-primary`}
             htmlFor="game-name"
           >
             Game Name:
@@ -79,27 +71,28 @@ export default function Page() {
         </section>
 
         {/* Share the game session url */}
-        <section className={`${classes.center} ${margin.marginUp}`}>
+        <section className={`flex-center m-top-large`}>
           <Sentence>Share this url with players to join</Sentence>
           <div
-            className={`${margin.marginUp} ${gap.normal} flex justify-between cursor-pointer bg-light ${padding.square.normal} rounded`}
+            className={`m-top-large gap-normal flex justify-between cursor-pointer bg-light p-square-normal rounded`}
             onClick={() => navigator.clipboard.writeText(joinUrl)}
           >
-            <Sentence className={`${classes.center} whitespace-nowrap`}>
+            <Sentence className={`flex-center whitespace-nowrap`}>
               {"Copy Join url"}
             </Sentence>
-            <Image
+            <Icon icon={faClone} />
+            {/* <Image
               src={`${urls.icons}/copy-icon.png`}
               width={25}
               height={25}
               alt={"copy url"}
-            />
+            /> */}
           </div>
         </section>
       </Card>
 
       {/* Players who have joined */}
-      <Card className={`${margin.marginUpSmall}`}>
+      <Card className={`m-top-normal`}>
         {players.length ? (
           <>
             <Sentence>Players who have joined</Sentence>
@@ -109,7 +102,7 @@ export default function Page() {
                 return (
                   <li
                     key={player.id}
-                    className={`${FontSizeType.normal} text-primary ${margin.marginUpSmall} ${padding.rectangle.normal} bg-light rounded`}
+                    className={`${FontSizeType.normal} text-primary m-top-normal p-rectangle-normal bg-light rounded`}
                   >
                     {player.name}
                   </li>
@@ -118,7 +111,7 @@ export default function Page() {
             </ul>
             {/* Start game */}
             {players.length ? (
-              <Card className={`${margin.marginUpSmall} ${classes.center} p-0`}>
+              <Card className={`m-top-normal flex-center p-0`}>
                 <Href href={`${gameConstants.playUrl}?gameId=${gameId}`}>
                   Start game
                 </Href>

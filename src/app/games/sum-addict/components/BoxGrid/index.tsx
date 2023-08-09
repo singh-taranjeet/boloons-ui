@@ -3,7 +3,6 @@ import { Box } from "../Box";
 import Image from "next/image";
 import { Number } from "../Number";
 import { StyledBoxGrid } from "./styles";
-import { gap, padding } from "@/app/lib/constants";
 import { useIsMobile } from "@/app/lib/client-helper";
 
 interface BoxGridType {
@@ -18,7 +17,7 @@ export function BoxGrid(props: BoxGridType) {
   const isMobile = useIsMobile();
   return (
     <StyledBoxGrid
-      className={`grid ${gap.normal} justify-center bg-light w-fit ${padding.square.normal} rounded mx-auto`}
+      className={`grid gap-normal justify-center bg-light w-fit p-square-normal rounded mx-auto`}
     >
       {options?.map((option) => (
         <div key={option} className="relative">

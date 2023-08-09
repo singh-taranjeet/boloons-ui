@@ -1,6 +1,5 @@
 import { slice } from "lodash";
 import { Number } from "../Number";
-import { gap } from "@/app/lib/constants";
 interface NumberGridType {
   numbers: number[];
   currentQuestion: number;
@@ -16,9 +15,7 @@ export function NumberGrid(props: NumberGridType) {
           <Number number={numbers[currentQuestion]} />
         </div>
         <div className="absolute right-0 h-full flex flex-col justify-center pr-2">
-          <div
-            className={`flex ${gap.normal} justify-center self-center ml-10`}
-          >
+          <div className={`flex gap-normal justify-center self-center ml-10`}>
             {slice(numbers, currentQuestion + 1, currentQuestion + 3).map(
               (number, index) => {
                 return (

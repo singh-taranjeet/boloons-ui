@@ -1,5 +1,5 @@
 import { Sentence } from "@/app/games/components/Sentence";
-import { FontSizeType, KeyOfFontSizeType } from "@/app/lib/constants";
+import { KeyOfFontSizeType } from "@/app/lib/constants";
 
 export function Number(props: {
   number: number;

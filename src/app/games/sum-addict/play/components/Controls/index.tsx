@@ -1,5 +1,4 @@
 import { Button } from "@/app/games/components/Button";
-import { classes, margin } from "@/app/lib/constants";
 
 export function Controls(props: {
   onClick(): void;
@@ -12,7 +11,7 @@ export function Controls(props: {
   }
 
   return (
-    <div className={`${margin.marginUp} ${classes.center}`}>
+    <div className={`m-top-large flex-center`}>
       <Button onClick={onClick} className="w-fit mx-auto">
         Restart
       </Button>

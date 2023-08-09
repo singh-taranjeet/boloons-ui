@@ -18,6 +18,44 @@ module.exports = {
         red: "#ef4444", // red- 500
         blue: "#3b82f6", // blue-500
       },
+      padding: {
+        "square-normal": {
+          padding: "1.25rem", // => 20px
+        },
+        "square-large": {
+          padding: "2.5rem", // => 40px
+        },
+        "rectangle-normal": {
+          padding: "1.25rem 2rem",
+        },
+      },
+      fontSize: {
+        small: "1rem", // 16px
+        medium: "1.125rem", // => 20px
+        large: "1.875rem", // => 30px
+        "very-large": "3rem", // => 48px
+        "extra-very-large": "4.5rem", // => 72px
+      },
+      margin: {
+        "top-large": {
+          "margin-top": "2.5rem", // => 40px
+        },
+        "top-normal": {
+          "margin-top": "1.25rem", // => 20px
+        },
+      },
+      gap: {
+        small: "0.75rem", // => 12px
+        normal: "1.25rem", // => 20px
+        large: "2.5rem", // => 40px
+      },
+      flex: {
+        center: {
+          display: "flex",
+          "flex-direction": "column",
+          "justify-content": "center",
+        },
+      },
     },
   },
   plugins: [],

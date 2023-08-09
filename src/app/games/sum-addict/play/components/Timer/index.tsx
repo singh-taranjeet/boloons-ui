@@ -1,6 +1,5 @@
 "use client";
 import { Sentence } from "@/app/games/components/Sentence";
-import { gap } from "@/app/lib/constants";
 import { useEffect, useState } from "react";
 
 const TIMEOUT = 5;
@@ -30,7 +29,7 @@ export function Timer(props: { startGame?(): void; duration?: number }) {
   }, [startGame]);
 
   return (
-    <section className={`flex flex-col ${gap.normal}`}>
+    <section className={`flex flex-col gap-normal`}>
       <div
         className={`rounded-full border-2 border-primary w-24 h-24 mx-auto flex flex-col justify-center`}
       >

@@ -6,7 +6,6 @@ import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile, useWebSocket } from "@/app/lib/client-helper";
 import { Game } from "../components/Game";
-import { gap, margin } from "@/app/lib/constants";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
@@ -141,7 +140,7 @@ export default function Page() {
     <>
       {/* Score and Timer */}
       <section
-        className={`md:flex md:flex-col md:${gap.normal} md:justify-center`}
+        className={`md:flex md:flex-col md:gap-normal md:justify-center`}
       >
         <ScoreAndTimer score={score} timer={timer} />
         {!isMobile ? (
@@ -150,7 +149,7 @@ export default function Page() {
       </section>
 
       {/* Game section */}
-      <div className={margin.marginUpSmall}>
+      <div className="m-top-normal">
         <Game
           currentQuestion={currentQuestion}
           numbers={data.map((item) => item.sum)}
