@@ -21,24 +21,24 @@ export default function Page() {
   const [joinUrl, setJoinUrl] = useState("");
 
   const { socket } = useWebSocket();
-  useEffect(() => {
-    socket.connect();
+  // useEffect(() => {
+  //   socket.connect();
 
-    socket.emit("createSession", {
-      id: gameId,
-      name: gameName,
-    });
+  //   socket.emit("createSession", {
+  //     id: gameId,
+  //     name: gameName,
+  //   });
 
-    // Listen for players
-    socket.on(`${gameId}`, (res) => {
-      console.log("res", res);
-      setPlayers(res.players);
-    });
-  }, [gameId, gameName, socket]);
+  //   // Listen for players
+  //   socket.on(`${gameId}`, (res) => {
+  //     console.log("res", res);
+  //     setPlayers(res.players);
+  //   });
+  // }, [gameId, gameName, socket]);
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  console.log("sdfsd", pathname, searchParams);
+  // console.log("sdfsd", pathname, searchParams);
 
   useEffect(() => {
     setJoinUrl(
@@ -75,19 +75,13 @@ export default function Page() {
         <section className={`${flexCenter} mt-large`}>
           <Sentence>Share this url with players to join</Sentence>
           <div
-            className={`mt-large gap-normal flex justify-between cursor-pointer bg-light p-square-normal rounded`}
+            className={`mt-large gap-normal flex justify-between cursor-pointer bg-light p-rectangle-normal rounded`}
             onClick={() => navigator.clipboard.writeText(joinUrl)}
           >
             <Sentence className={`${flexCenter} whitespace-nowrap`}>
               {"Copy Join url"}
             </Sentence>
             <Icon icon={faClone} />
-            {/* <Image
-              src={`${urls.icons}/copy-icon.png`}
-              width={25}
-              height={25}
-              alt={"copy url"}
-            /> */}
           </div>
         </section>
       </Card>

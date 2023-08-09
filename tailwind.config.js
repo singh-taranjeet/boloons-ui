@@ -19,9 +19,10 @@ module.exports = {
         blue: "#3b82f6", // blue-500
       },
       padding: {
+        "square-small": "0.75rem", // => 12px,
         "square-normal": "1.25rem", // => 20px,
         "square-large": "2.5rem", // => 40px,
-        "rectangle-normal": "1.25rem 2rem",
+        "rectangle-normal": "1rem 1.25rem",
       },
       fontSize: {
         small: "1rem", // 16px

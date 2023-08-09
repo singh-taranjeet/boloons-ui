@@ -11,7 +11,7 @@ export function TextInput(
       type="text"
       style={{ outline: "none" }}
       {...props}
-      className={`p-rectangle-normal ${FontSizeType.normal} border-2 border-primary rounded bg-white text-primary ${props.className}`}
+      className={`p-rectangle-normal ${FontSizeType.normal} border-primary rounded bg-white text-primary ${props.className}`}
     />
   );
 }

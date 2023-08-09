@@ -14,9 +14,9 @@ export default function Page() {
   const { player, updatePlayerName } = usePlayer();
 
   // Join socket connection and listen to the session id events
-  useEffect(() => {
-    socket?.connect();
-  }, [socket]);
+  // useEffect(() => {
+  //   socket?.connect();
+  // }, [socket]);
 
   const gameId = params?.get("id");
 

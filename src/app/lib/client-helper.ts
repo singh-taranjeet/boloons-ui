@@ -23,7 +23,7 @@ export function useIsMobile() {
     };
   }, []);
 
-  console.log("Is MObile", isMobile);
+  // console.log("Is MObile", isMobile);
 
   return isMobile;
 }
@@ -96,6 +96,7 @@ export function useWebSocket() {
   useEffect(() => {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
+    console.log("socket hook init");
 
     return () => {
       socket.off("connect", onConnect);

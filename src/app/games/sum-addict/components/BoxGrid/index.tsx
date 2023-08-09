@@ -33,7 +33,7 @@ export function BoxGrid(props: BoxGridType) {
           </Box>
           {attempts.includes(option) && learningMode ? (
             <Image
-              className="absolute bottom-0 -right-8 z-10"
+              className="absolute bottom-0 -right-6 z-10"
               src={"/images/finger-pointer.svg"}
               width={50}
               height={50}

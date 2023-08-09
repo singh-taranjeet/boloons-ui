@@ -1,7 +1,7 @@
 "use client";
 import { getRandomInt } from "@/app/lib/server-helper";
 import { shuffle, drop, slice } from "lodash";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile, useWebSocket } from "@/app/lib/client-helper";
@@ -35,39 +35,46 @@ export default function Page() {
     setTimer(30);
   }, []);
 
-  const startGame = useCallback(
-    function startGame() {
-      if (!gameInProgress) {
-        // reset every thing
-        resetGame();
-        setGameInProgress(() => {
-          // start timer
-          const id = setInterval(() => {
-            console.log("timer is running");
-            setTimer((old) => {
-              return old - 1;
-            });
-          }, 1000);
-
-          setTimerId(() => id);
-
-          return true;
-        });
+  const stopGame = useCallback(
+    function stopGame(id?: NodeJS.Timer) {
+      if (timerId || id) {
+        // stop the timer
+        clearInterval(id || timerId);
+        setTimer(GAME_TIMEOUT / 1000);
+        setAttempts([]);
+        // set game in progress false
+        setGameInProgress(false);
       }
     },
-    [gameInProgress, resetGame]
+    [timerId]
   );
 
-  const stopGame = useCallback(
-    function stopGame() {
-      // stop the timer
-      clearInterval(timerId);
-      setTimer(GAME_TIMEOUT / 1000);
-      setAttempts([]);
-      // set game in progress false
-      setGameInProgress(false);
+  const startGameTimer = useCallback(
+    function startGameTimer() {
+      // start timer
+      const id = setInterval(() => {
+        // console.log("timer is running");
+        setTimer((old) => {
+          return old - 1;
+        });
+      }, 1000);
+      console.log("created game timer", id);
+
+      setTimerId(() => id);
+      // Stop the game after timeout
+      setTimeout(() => stopGame(id), GAME_TIMEOUT);
     },
-    [timerId]
+    [stopGame]
+  );
+
+  const startGame = useCallback(
+    function startGame() {
+      // reset every thing
+      resetGame();
+      setGameInProgress(true);
+      startGameTimer();
+    },
+    [resetGame, startGameTimer]
   );
 
   const nextQuestion = useCallback(
@@ -81,13 +88,6 @@ export default function Page() {
     },
     [currentQuestion, data.length]
   );
-
-  // Stop the game after timeout
-  useEffect(() => {
-    if (timerId) {
-      setTimeout(stopGame, GAME_TIMEOUT);
-    }
-  }, [timerId, stopGame]);
 
   // on attemp change the question and update score
   useEffect(() => {
@@ -112,8 +112,6 @@ export default function Page() {
     }
   }, [currentQuestion, data.length, stopGame]);
 
-  console.log("Game in Progress", gameInProgress, timerId);
-
   function onAttempt(attempt: number) {
     console.log("attempt", attempt);
     if (gameInProgress) {
@@ -122,19 +120,20 @@ export default function Page() {
   }
 
   const isMobile = useIsMobile();
-  const { socket } = useWebSocket();
+  const { socket, connected } = useWebSocket();
+  console.log("cokc", connected);
 
-  useEffect(() => {
-    socket.connect();
-    socket.emit("gameSession", {
-      channel: "session",
-      message: "thsi is a secret message 89",
-    });
-    socket.on("newMessage", (body: any) => {
-      console.log("body", body);
-    });
-    console.log("sent real time message");
-  }, [socket]);
+  // Start game on load and connect with socket
+  // useEffect(() => {
+  //   socket.emit("gameSession", {
+  //     channel: "session",
+  //     message: "thsi is a secret message 89",
+  //   });
+  //   socket.on("newMessage", (body: any) => {
+  //     console.log("body", body);
+  //   });
+  //   console.log("sent real time message");
+  // }, [socket]);
 
   return (
     <>
