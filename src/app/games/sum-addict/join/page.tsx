@@ -1,5 +1,5 @@
 "use client";
-import { usePlayer, useWebSocket } from "@/app/lib/client-helper";
+import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Button } from "../../components/Button";
 import { Card } from "../../components/Card";

@@ -1,13 +1,12 @@
 "use client";
 import { getRandomInt } from "@/app/lib/server-helper";
-import { shuffle, drop, slice } from "lodash";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { shuffle, drop } from "lodash";
+import { useCallback, useEffect, useState } from "react";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
-import { useIsMobile, usePlayer, useWebSocket } from "@/app/lib/client-helper";
+import { useIsMobile } from "@/app/lib/cutom-hooks";
 import { Game } from "../components/Game";
-import { useRouter, useSearchParams } from "next/navigation";
-import { gameConstants } from "../lib/constants";
+import { useMultiplayer } from "../../lib/custom-hooks";
 
 type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30000; // 30 Seconds
@@ -17,7 +16,6 @@ export default function Page() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [attempts, setAttempts] = useState<number[]>([]);
 
-  const [score, setScore] = useState(0);
   const [gameInProgress, setGameInProgress] = useState(false);
 
   const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>();
@@ -25,23 +23,30 @@ export default function Page() {
 
   const correctAnswer = data?.[currentQuestion]?.sum;
 
-  const router = useRouter();
-  const params = useSearchParams();
-  const gameId = params?.get("gameId");
-  const { player, updatePlayerName } = usePlayer();
-  const { socket } = useWebSocket();
+  const isMobile = useIsMobile();
+
+  function onScore(res: any) {
+    console.log("res", res);
+  }
+
+  const {
+    score: { score, setScore },
+  } = useMultiplayer(onScore);
 
   function setQuestions() {
     setData(createQuestions());
   }
 
-  const resetGame = useCallback(function resetGame() {
-    setQuestions();
-    setCurrentQuestion(0);
-    setAttempts([]);
-    setScore(0);
-    setTimer(30);
-  }, []);
+  const resetGame = useCallback(
+    function resetGame() {
+      setQuestions();
+      setCurrentQuestion(0);
+      setAttempts([]);
+      setScore(0);
+      setTimer(30);
+    },
+    [setScore]
+  );
 
   const stopGame = useCallback(
     function stopGame(id?: NodeJS.Timer) {
@@ -66,7 +71,7 @@ export default function Page() {
           return old - 1;
         });
       }, 1000);
-      console.log("created game timer", id);
+      // console.log("created game timer", id);
 
       setTimerId(() => id);
       // Stop the game after timeout
@@ -111,7 +116,7 @@ export default function Page() {
         nextQuestion();
       }
     }
-  }, [attempts, score, correctAnswer, nextQuestion]);
+  }, [attempts, score, correctAnswer, nextQuestion, setScore]);
 
   // stop game when all the questions are completed
   useEffect(() => {
@@ -126,28 +131,6 @@ export default function Page() {
       setAttempts([...attempts, attempt]);
     }
   }
-
-  const isMobile = useIsMobile();
-
-  useEffect(() => {
-    if (gameId) {
-      socket.emit(gameConstants.multiPlayer.events.gameScored, {
-        gameId,
-        playerId: player?.id,
-        score,
-      });
-    }
-  }, [gameId, player?.id, score, socket]);
-
-  // Start game on load and connect with socket
-
-  useEffect(() => {
-    socket.on(`${gameId}`, (res) => {
-      console.log("Res", res);
-    });
-  }, [gameId, socket]);
-
-  console.log("game id", gameId, player?.id);
 
   return (
     <>

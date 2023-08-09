@@ -3,7 +3,7 @@ import { FontSizeType } from "@/app/lib/constants";
 import { gameConstants } from "../lib/constants";
 import { useCallback, useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
-import { usePlayer, useWebSocket } from "@/app/lib/client-helper";
+import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
 import { Card } from "../../components/Card";
 import { TextInput } from "../../components/TextInput";
 import { Sentence } from "@/app/games/components/Sentence";
@@ -25,7 +25,7 @@ export default function Page() {
 
   // Event on player Join
   const onPlayerJoin = useCallback(function onPlayerJoin(res: any) {
-    console.log("player joined");
+    // console.log("player joined");
     if (
       res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg
     ) {
@@ -37,7 +37,7 @@ export default function Page() {
   useEffect(() => {
     // Create Listener for players joining
     if (gameId) {
-      console.log("subscribed on gameid", gameId);
+      // console.log("subscribed on gameid", gameId);
       socket.on(`${gameId}`, onPlayerJoin);
     }
     return () => {
@@ -65,11 +65,11 @@ export default function Page() {
       name: player?.name,
       playerId: player?.id,
     });
-    console.log("starting game");
+    // console.log("starting game");
     router.push(`${gameConstants.playUrl}?gameId=${gameId}`);
   }
 
-  console.log("Players", players);
+  // console.log("Players", players);
 
   return (
     <>

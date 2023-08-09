@@ -1,5 +1,5 @@
 "use client";
-import { lazy, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { appConstants, breakPoints } from "./constants";
 import { getRandomInt } from "./server-helper";
@@ -49,7 +49,7 @@ export function usePlayer() {
           id: getRandomInt(),
           name: getRandomInt(),
         };
-        console.log("Player info not found", newInfo);
+        // console.log("Player info not found", newInfo);
         localStorage.setItem(
           appConstants.playerInfoLocalStorage,
           JSON.stringify(newInfo)
@@ -58,7 +58,7 @@ export function usePlayer() {
         setPlayer(JSON.parse(info));
       }
     } catch (error) {
-      console.log("Error in saving player info", info, error);
+      // console.log("Error in saving player info", info, error);
       localStorage.removeItem(appConstants.playerInfoLocalStorage);
     }
   }, []);
