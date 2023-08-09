@@ -120,8 +120,8 @@ export default function Page() {
   }
 
   const isMobile = useIsMobile();
-  const { socket, connected } = useWebSocket();
-  console.log("cokc", connected);
+  // const { socket, connected } = useWebSocket();
+  // console.log("cokc", connected);
 
   // Start game on load and connect with socket
   // useEffect(() => {

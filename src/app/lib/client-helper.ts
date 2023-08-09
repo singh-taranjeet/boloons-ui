@@ -80,12 +80,15 @@ export function usePlayer() {
   return { player, updatePlayerName };
 }
 
+const URL = "http://localhost:4000";
+
+const socket = io(URL);
+
 export function useWebSocket() {
-  const URL = "http://localhost:4000";
-  const socket = io(URL);
   const [connected, setConnected] = useState(false);
 
   function onConnect() {
+    console.log("connected");
     setConnected(true);
   }
 
@@ -102,10 +105,10 @@ export function useWebSocket() {
       socket.off("connect", onConnect);
       socket.off("disconnect", onDisconnect);
     };
-  }, [socket]);
+  }, []);
 
   return {
-    socket,
     connected,
+    socket,
   };
 }

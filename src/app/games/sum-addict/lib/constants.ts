@@ -4,4 +4,15 @@ export const gameConstants = {
   joinUrl: "/games/sum-addict/join",
   createUrl: "/games/sum-addict/create",
   playUrl: "/games/sum-addict/play",
+  multiPlayer: {
+    events: {
+      createSesion: "createSession",
+      playerJoined: "playerJoined",
+      gameStarted: "gameStarted",
+    },
+    eventMessageType: {
+      gameStartedMsg: "GameStartedMsg",
+      playerJoinedMsg: "PlayerjoinedMsg",
+    },
+  },
 };

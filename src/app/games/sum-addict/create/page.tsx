@@ -1,7 +1,7 @@
 "use client";
 import { FontSizeType } from "@/app/lib/constants";
 import { gameConstants } from "../lib/constants";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useWebSocket } from "@/app/lib/client-helper";
@@ -12,39 +12,60 @@ import { Href } from "../../components/Link";
 import Icon from "../../components/Icon";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
 import { flexCenter } from "@/app/lib/style.lib";
+import { Button } from "../../components/Button";
+import { useRouter } from "next/navigation";
 
 export default function Page() {
   const fakeName = getRandomInt();
-  const [gameId] = useState(getRandomInt());
+  const [gameId, setGameId] = useState("");
   const [gameName, setGameName] = useState(`${fakeName}`);
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
-
   const { socket } = useWebSocket();
-  // useEffect(() => {
-  //   socket.connect();
+  const router = useRouter();
 
-  //   socket.emit("createSession", {
-  //     id: gameId,
-  //     name: gameName,
-  //   });
+  // Event on player Join
+  const onPlayerJoin = useCallback(function onPlayerJoin(res: any) {
+    console.log("player joined");
+    if (
+      res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg
+    ) {
+      setPlayers(res.players);
+    }
+  }, []);
 
-  //   // Listen for players
-  //   socket.on(`${gameId}`, (res) => {
-  //     console.log("res", res);
-  //     setPlayers(res.players);
-  //   });
-  // }, [gameId, gameName, socket]);
-
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-  // console.log("sdfsd", pathname, searchParams);
-
+  // When GameId changes subscribe to the game session
   useEffect(() => {
-    setJoinUrl(
-      `${window.location.origin}${gameConstants.joinUrl}?id=${gameId}`
-    );
-  }, [gameId]);
+    // Create Listener for players joining
+    if (gameId) {
+      console.log("subscribed on gameid", gameId);
+      socket.on(`${gameId}`, onPlayerJoin);
+    }
+    return () => {
+      socket.off(`${gameId}`, onPlayerJoin);
+    };
+  }, [gameId, onPlayerJoin, socket]);
+
+  function createGameSession() {
+    const id = `${getRandomInt()}`;
+    setJoinUrl(`${window.location.origin}${gameConstants.joinUrl}?id=${id}`);
+    setGameId(id);
+    const session = {
+      id,
+      name: gameName,
+    };
+    socket.emit(gameConstants.multiPlayer.events.createSesion, session);
+  }
+
+  function startGame() {
+    socket.emit(gameConstants.multiPlayer.events.gameStarted, {
+      id: gameId,
+    });
+    console.log("starting game");
+    router.push(`${gameConstants.playUrl}?gameId=${gameId}`);
+  }
+
+  console.log("Players", players);
 
   return (
     <>
@@ -72,18 +93,23 @@ export default function Page() {
         </section>
 
         {/* Share the game session url */}
-        <section className={`${flexCenter} mt-large`}>
-          <Sentence>Share this url with players to join</Sentence>
-          <div
-            className={`mt-large gap-normal flex justify-between cursor-pointer bg-light p-rectangle-normal rounded`}
-            onClick={() => navigator.clipboard.writeText(joinUrl)}
-          >
-            <Sentence className={`${flexCenter} whitespace-nowrap`}>
-              {"Copy Join url"}
-            </Sentence>
-            <Icon icon={faClone} />
-          </div>
-        </section>
+        {gameId ? (
+          <section className={`${flexCenter} mt-large`}>
+            <Sentence>Share this url with players to join</Sentence>
+            <div
+              className={`mt-large gap-normal flex justify-between cursor-pointer bg-light p-rectangle-normal rounded`}
+              onClick={() => navigator.clipboard.writeText(joinUrl)}
+            >
+              <Sentence className={`${flexCenter} whitespace-nowrap`}>
+                {"Copy Join url"}
+              </Sentence>
+              <Icon icon={faClone} />
+            </div>
+          </section>
+        ) : null}
+
+        {/* Create Game button */}
+        {!gameId ? <Button onClick={createGameSession}>Create</Button> : null}
       </Card>
 
       {/* Players who have joined */}
@@ -107,9 +133,7 @@ export default function Page() {
             {/* Start game */}
             {players.length ? (
               <Card className={`mt-normal ${flexCenter} p-0`}>
-                <Href href={`${gameConstants.playUrl}?gameId=${gameId}`}>
-                  Start game
-                </Href>
+                <Button onClick={startGame}>Start game</Button>
               </Card>
             ) : null}
           </>
