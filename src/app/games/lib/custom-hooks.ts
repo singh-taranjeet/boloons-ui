@@ -40,21 +40,27 @@ export function useTimer(time: number, callBack: () => void) {
   const [timer, setTimer] = useState(time);
   const intervalRef = useRef<any>();
 
-  function startTimer() {
-    setTimeout(stopTimer, (time + 1) * 1000);
-    setTimer(time);
-    intervalRef.current = setInterval(() => {
-      setTimer((old) => {
-        return old - 1;
-      });
-    }, 1000);
-  }
+  const stopTimer = useCallback(
+    function stopTimer() {
+      clearInterval(intervalRef.current);
+      callBack();
+      setTimer(0);
+    },
+    [callBack]
+  );
 
-  function stopTimer() {
-    clearInterval(intervalRef.current);
-    callBack();
-    setTimer(0);
-  }
+  const startTimer = useCallback(
+    function startTimer() {
+      setTimeout(stopTimer, (time + 1) * 1000);
+      setTimer(time);
+      intervalRef.current = setInterval(() => {
+        setTimer((old) => {
+          return old - 1;
+        });
+      }, 1000);
+    },
+    [stopTimer, time]
+  );
 
   return {
     timer,
