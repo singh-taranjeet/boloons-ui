@@ -1,9 +1,9 @@
 "use client";
-
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameConstants } from "../sum-addict/lib/constants";
+import { QuestionType } from "../sum-addict/lib/types";
 
 export function useMultiplayer(score: number, callBack: (data: any) => void) {
   const params = useSearchParams();
@@ -41,7 +41,8 @@ export function useTimer(time: number, callBack: () => void) {
   const intervalRef = useRef<any>();
 
   function startTimer() {
-    setTimeout(stopTimer, time * 1000);
+    setTimeout(stopTimer, (time + 1) * 1000);
+    setTimer(time);
     intervalRef.current = setInterval(() => {
       setTimer((old) => {
         return old - 1;
@@ -52,6 +53,7 @@ export function useTimer(time: number, callBack: () => void) {
   function stopTimer() {
     clearInterval(intervalRef.current);
     callBack();
+    setTimer(0);
   }
 
   return {
@@ -65,17 +67,20 @@ export function useTimer(time: number, callBack: () => void) {
  * Returns a timer value, and function start and stop timer.
  * @param gameTimeOut the maximum time of the game session.
  * @param createQuestions  method which returs set of questions.
- * @param correctAnswer  Correct Answer for the current question.
+ * @param isCorrectAttempt Method to check if the attemp is correct
  */
-export function useGame<DataType>(
+export function useGame(
   gameTimeOut: number,
-  createQuestions: () => DataType[]
+  createQuestions: () => QuestionType[],
+  isCorrectAttempt: (userAttempts: number[], correctAnswer: number) => boolean
 ) {
-  const [data, setData] = useState<DataType[]>([]);
+  const [data, setData] = useState<QuestionType[]>([]);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [attempts, setAttempts] = useState<number[]>([]);
   const [gameInProgress, setGameInProgress] = useState(false);
+
+  const correctAnswer = data?.[currentQuestion]?.correctAnswer;
 
   const setQuestions = useCallback(
     function setQuestions() {
@@ -133,19 +138,35 @@ export function useGame<DataType>(
     [gameInProgress, attempts]
   );
 
+  // on attemp change the question and update score
+  useEffect(() => {
+    if (attempts.length) {
+      const isCorrect = isCorrectAttempt(attempts, correctAnswer);
+
+      if (isCorrect) {
+        setScore(score + 5);
+        nextQuestion();
+      } else if (attempts.length === 3) {
+        nextQuestion();
+      }
+    }
+  }, [attempts, score, correctAnswer, nextQuestion, isCorrectAttempt]);
+
+  // stop game when all the questions are completed
+  useEffect(() => {
+    if (currentQuestion >= data.length) {
+      stopGame();
+    }
+  }, [currentQuestion, data.length, stopGame]);
+
   return {
-    nextQuestion,
-    startGame,
-    stopGame,
-    resetGame,
-    setQuestions,
+    attempts,
     score,
     currentQuestion,
-    attempts,
-    gameInProgress,
     data,
     timer,
+    gameInProgress,
+    startGame,
     onAttempt,
-    setScore,
   };
 }

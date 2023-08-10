@@ -1,12 +1,12 @@
 "use client";
 import { getRandomInt } from "@/app/lib/server-helper";
 import { shuffle, drop } from "lodash";
-import { useEffect } from "react";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile } from "@/app/lib/cutom-hooks";
 import { Game } from "../components/Game";
-import { useGame, useMultiplayer, useTimer } from "../../lib/custom-hooks";
+import { useGame, useMultiplayer } from "../../lib/custom-hooks";
+import { QuestionType } from "../lib/types";
 
 const GAME_TIMEOUT = 30; // 30 Seconds
 
@@ -14,18 +14,13 @@ export default function Page() {
   const {
     attempts,
     score,
-    nextQuestion,
-    stopGame,
     currentQuestion,
     data,
     timer,
     gameInProgress,
     startGame,
     onAttempt,
-    setScore,
-  } = useGame<QuestionType>(GAME_TIMEOUT, createQuestions);
-
-  const correctAnswer = data?.[currentQuestion]?.sum;
+  } = useGame(GAME_TIMEOUT, createQuestions, isCorrectAttempt);
 
   const isMobile = useIsMobile();
 
@@ -35,28 +30,12 @@ export default function Page() {
 
   useMultiplayer(score, onScore);
 
-  // on attemp change the question and update score
-  useEffect(() => {
-    if (attempts.length) {
-      const sum = attempts.reduce((item, sum) => {
-        return item + sum;
-      }, 0);
-
-      if (sum === correctAnswer) {
-        setScore(score + 5);
-        nextQuestion();
-      } else if (attempts.length === 3) {
-        nextQuestion();
-      }
-    }
-  }, [attempts, score, correctAnswer, nextQuestion, setScore]);
-
-  // stop game when all the questions are completed
-  useEffect(() => {
-    if (currentQuestion >= data.length) {
-      stopGame();
-    }
-  }, [currentQuestion, data.length, stopGame]);
+  function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
+    const sum = userAttempts.reduce((item, sum) => {
+      return item + sum;
+    }, 0);
+    return sum === correctAnswer;
+  }
 
   return (
     <>
@@ -74,7 +53,7 @@ export default function Page() {
       <div className="mt-normal">
         <Game
           currentQuestion={currentQuestion}
-          numbers={data.map((item) => item.sum)}
+          numbers={data.map((item) => item.correctAnswer)}
           attempts={attempts}
           onAttempt={onAttempt}
           options={data[currentQuestion]?.options}
@@ -88,12 +67,6 @@ export default function Page() {
   );
 }
 
-interface QuestionType {
-  options: number[];
-  answers: number[];
-  sum: number;
-}
-
 function generateQuestion(): QuestionType {
   const options = drop(Array.from(Array(10).keys()), 1);
   const answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
@@ -103,7 +76,7 @@ function generateQuestion(): QuestionType {
   return {
     options: shuffle(options),
     answers,
-    sum,
+    correctAnswer: sum,
   };
 }
 
