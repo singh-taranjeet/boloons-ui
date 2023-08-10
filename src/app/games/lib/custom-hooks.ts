@@ -2,28 +2,15 @@
 
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gameConstants } from "../sum-addict/lib/constants";
 
-export function useMultiplayer(callBack: (data: any) => void) {
-  const [score, setScore] = useState(0);
+export function useMultiplayer(score: number, callBack: (data: any) => void) {
   const params = useSearchParams();
   const gameId = params?.get("gameId");
   const isMultiPlayer = !!gameId;
   const { player } = usePlayer();
   const { socket } = useWebSocket();
-  const frdProps = {
-    score: {
-      score,
-      setScore,
-    },
-    // multiplayer: {
-    //   isMultiPlayer,
-    //   gameId,
-    //   player,
-    //   socket,
-    // },
-  };
 
   // MultiPlayer: Emit Event on score update
   useEffect(() => {
@@ -42,6 +29,34 @@ export function useMultiplayer(callBack: (data: any) => void) {
       socket.on(`${gameId}`, callBack);
     }
   }, [gameId, socket, isMultiPlayer, callBack]);
+}
 
-  return frdProps;
+/**
+ * Returns a timer value, and function start and stop timer.
+ * @param time the maximum time you want to run timer for.
+ * @param callBack  method to be called when timer is finished.
+ */
+export function useTimer(time: number, callBack: () => void) {
+  const [timer, setTimer] = useState(time);
+  const intervalRef = useRef<any>();
+
+  function startTimer() {
+    setTimeout(stopTimer, time * 1000);
+    intervalRef.current = setInterval(() => {
+      setTimer((old) => {
+        return old - 1;
+      });
+    }, 1000);
+  }
+
+  function stopTimer() {
+    clearInterval(intervalRef.current);
+    callBack();
+  }
+
+  return {
+    timer,
+    startTimer,
+    stopTimer,
+  };
 }

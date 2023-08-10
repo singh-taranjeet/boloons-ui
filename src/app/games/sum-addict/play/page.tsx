@@ -6,20 +6,17 @@ import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile } from "@/app/lib/cutom-hooks";
 import { Game } from "../components/Game";
-import { useMultiplayer } from "../../lib/custom-hooks";
+import { useMultiplayer, useTimer } from "../../lib/custom-hooks";
 
 type DataType = ReturnType<typeof createQuestions>;
-const GAME_TIMEOUT = 30000; // 30 Seconds
+const GAME_TIMEOUT = 30; // 30 Seconds
 
 export default function Page() {
   const [data, setData] = useState<DataType>([]);
+  const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [attempts, setAttempts] = useState<number[]>([]);
-
   const [gameInProgress, setGameInProgress] = useState(false);
-
-  const [timerId, setTimerId] = useState<NodeJS.Timer | undefined>();
-  const [timer, setTimer] = useState(0);
 
   const correctAnswer = data?.[currentQuestion]?.sum;
 
@@ -29,65 +26,35 @@ export default function Page() {
     console.log("res", res);
   }
 
-  const {
-    score: { score, setScore },
-  } = useMultiplayer(onScore);
+  useMultiplayer(score, onScore);
 
   function setQuestions() {
     setData(createQuestions());
   }
 
-  const resetGame = useCallback(
-    function resetGame() {
-      setQuestions();
-      setCurrentQuestion(0);
-      setAttempts([]);
-      setScore(0);
-      setTimer(30);
-    },
-    [setScore]
-  );
+  const resetGame = useCallback(function resetGame() {
+    setQuestions();
+    setCurrentQuestion(0);
+    setAttempts([]);
+    setScore(0);
+  }, []);
 
-  const stopGame = useCallback(
-    function stopGame(id?: NodeJS.Timer) {
-      if (timerId || id) {
-        // stop the timer
-        clearInterval(id || timerId);
-        setTimer(GAME_TIMEOUT / 1000);
-        setAttempts([]);
-        // set game in progress false
-        setGameInProgress(false);
-      }
-    },
-    [timerId]
-  );
+  const stopGame = useCallback(function stopGame() {
+    setAttempts([]);
+    // set game in progress false
+    setGameInProgress(false);
+  }, []);
 
-  const startGameTimer = useCallback(
-    function startGameTimer() {
-      // start timer
-      const id = setInterval(() => {
-        // console.log("timer is running");
-        setTimer((old) => {
-          return old - 1;
-        });
-      }, 1000);
-      // console.log("created game timer", id);
-
-      setTimerId(() => id);
-      // Stop the game after timeout
-      setTimeout(() => stopGame(id), GAME_TIMEOUT);
-    },
-    [stopGame]
-  );
+  const { timer, startTimer } = useTimer(GAME_TIMEOUT, stopGame);
 
   const startGame = useCallback(
     function startGame() {
       // reset every thing
       resetGame();
       setGameInProgress(true);
-      startGameTimer();
+      startTimer();
     },
-    [resetGame, startGameTimer]
+    [resetGame, startTimer]
   );
 
   const nextQuestion = useCallback(
@@ -116,7 +83,10 @@ export default function Page() {
         nextQuestion();
       }
     }
-  }, [attempts, score, correctAnswer, nextQuestion, setScore]);
+    return () => {
+      console.log("called in return unmount function");
+    };
+  }, [attempts, score, correctAnswer, nextQuestion]);
 
   // stop game when all the questions are completed
   useEffect(() => {
