@@ -1,22 +1,29 @@
 "use client";
 import { getRandomInt } from "@/app/lib/server-helper";
 import { shuffle, drop } from "lodash";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile } from "@/app/lib/cutom-hooks";
 import { Game } from "../components/Game";
-import { useMultiplayer, useTimer } from "../../lib/custom-hooks";
+import { useGame, useMultiplayer, useTimer } from "../../lib/custom-hooks";
 
-type DataType = ReturnType<typeof createQuestions>;
 const GAME_TIMEOUT = 30; // 30 Seconds
 
 export default function Page() {
-  const [data, setData] = useState<DataType>([]);
-  const [score, setScore] = useState(0);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [attempts, setAttempts] = useState<number[]>([]);
-  const [gameInProgress, setGameInProgress] = useState(false);
+  const {
+    attempts,
+    score,
+    nextQuestion,
+    stopGame,
+    currentQuestion,
+    data,
+    timer,
+    gameInProgress,
+    startGame,
+    onAttempt,
+    setScore,
+  } = useGame<QuestionType>(GAME_TIMEOUT, createQuestions);
 
   const correctAnswer = data?.[currentQuestion]?.sum;
 
@@ -27,47 +34,6 @@ export default function Page() {
   }
 
   useMultiplayer(score, onScore);
-
-  function setQuestions() {
-    setData(createQuestions());
-  }
-
-  const resetGame = useCallback(function resetGame() {
-    setQuestions();
-    setCurrentQuestion(0);
-    setAttempts([]);
-    setScore(0);
-  }, []);
-
-  const stopGame = useCallback(function stopGame() {
-    setAttempts([]);
-    // set game in progress false
-    setGameInProgress(false);
-  }, []);
-
-  const { timer, startTimer } = useTimer(GAME_TIMEOUT, stopGame);
-
-  const startGame = useCallback(
-    function startGame() {
-      // reset every thing
-      resetGame();
-      setGameInProgress(true);
-      startTimer();
-    },
-    [resetGame, startTimer]
-  );
-
-  const nextQuestion = useCallback(
-    function nextQuestion() {
-      setAttempts([]);
-      if (currentQuestion < data.length) {
-        setCurrentQuestion(currentQuestion + 1);
-      } else {
-        setGameInProgress(false);
-      }
-    },
-    [currentQuestion, data.length]
-  );
 
   // on attemp change the question and update score
   useEffect(() => {
@@ -83,10 +49,7 @@ export default function Page() {
         nextQuestion();
       }
     }
-    return () => {
-      console.log("called in return unmount function");
-    };
-  }, [attempts, score, correctAnswer, nextQuestion]);
+  }, [attempts, score, correctAnswer, nextQuestion, setScore]);
 
   // stop game when all the questions are completed
   useEffect(() => {
@@ -94,13 +57,6 @@ export default function Page() {
       stopGame();
     }
   }, [currentQuestion, data.length, stopGame]);
-
-  function onAttempt(attempt: number) {
-    // console.log("attempt", attempt);
-    if (gameInProgress) {
-      setAttempts([...attempts, attempt]);
-    }
-  }
 
   return (
     <>
