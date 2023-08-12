@@ -6,7 +6,6 @@ import { Controls } from "./components/Controls";
 import { useIsMobile } from "@/app/lib/cutom-hooks";
 import { Game } from "../components/Game";
 import {
-  WithStartingGameModal,
   useGame,
   useMultiplayer,
   useStartGame,
