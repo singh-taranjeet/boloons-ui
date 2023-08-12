@@ -8,7 +8,7 @@ import Modal from "@/app/games/components/Modal";
 import { useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/app/games/components/Button";
-import { JoinGame } from "../JoinGame/page";
+import { JoinGame } from "../JoinGame";
 
 export function GameType() {
   const pathName = usePathname();
