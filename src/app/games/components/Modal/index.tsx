@@ -5,11 +5,13 @@ import { useState } from "react";
 export default function Modal(props: {
   children: React.ReactNode;
   open: boolean;
-  onClose: () => void;
+  onClose?: () => void;
 }) {
   const { children, onClose, open } = props;
   function closeModal() {
-    onClose();
+    if (onClose) {
+      onClose();
+    }
   }
 
   function stopPropogation(e: any) {
@@ -28,11 +30,13 @@ export default function Modal(props: {
         onClick={stopPropogation}
         className="modal-content m-auto bg-white p-square-normal rounded border-1 w-4/5 md:w-2/4 relative max-w-3xl"
       >
-        <Icon
-          icon={faXmark}
-          className="absolute top-0 right-0 cursor-pointer"
-          onClick={closeModal}
-        />
+        {onClose ? (
+          <Icon
+            icon={faXmark}
+            className="absolute top-0 right-0 cursor-pointer"
+            onClick={closeModal}
+          />
+        ) : null}
         {children}
       </div>
     </div>

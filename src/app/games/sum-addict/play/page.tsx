@@ -5,8 +5,16 @@ import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Controls } from "./components/Controls";
 import { useIsMobile } from "@/app/lib/cutom-hooks";
 import { Game } from "../components/Game";
-import { useGame, useMultiplayer } from "../../lib/custom-hooks";
+import {
+  WithStartingGameModal,
+  useGame,
+  useMultiplayer,
+  useStartGame,
+  useTimer,
+} from "../../lib/custom-hooks";
 import { QuestionType } from "../lib/types";
+import { useEffect, useState } from "react";
+import Modal from "../../components/Modal";
 
 const GAME_TIMEOUT = 30; // 30 Seconds
 
@@ -23,6 +31,9 @@ export default function Page() {
   } = useGame(GAME_TIMEOUT, createQuestions, isCorrectAttempt);
 
   const isMobile = useIsMobile();
+  const { startingTimer, isModalOpen } = useStartGame();
+
+  const initGame = useTimer(3, startGame);
 
   function onScore(res: any) {
     console.log("res", res);
@@ -36,6 +47,10 @@ export default function Page() {
     }, 0);
     return sum === correctAnswer;
   }
+
+  useEffect(() => {
+    initGame.startTimer();
+  }, [initGame]);
 
   return (
     <>
@@ -63,6 +78,8 @@ export default function Page() {
       {isMobile ? (
         <Controls gameInProgress={gameInProgress} onClick={startGame} />
       ) : null}
+
+      <Modal open={isModalOpen}>Starting game in {startingTimer}</Modal>
     </>
   );
 }

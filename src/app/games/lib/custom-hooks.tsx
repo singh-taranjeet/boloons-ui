@@ -4,6 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameConstants } from "../sum-addict/lib/constants";
 import { QuestionType } from "../sum-addict/lib/types";
+import Modal from "../components/Modal";
 
 export function useMultiplayer(score: number, callBack: (data: any) => void) {
   const params = useSearchParams();
@@ -33,7 +34,7 @@ export function useMultiplayer(score: number, callBack: (data: any) => void) {
 
 /**
  * Returns a timer value, and function start and stop timer.
- * @param time the maximum time you want to run timer for.
+ * @param time the maximum seconds you want to run timer for.
  * @param callBack  method to be called when timer is finished.
  */
 export function useTimer(time: number, callBack: () => void) {
@@ -51,13 +52,15 @@ export function useTimer(time: number, callBack: () => void) {
 
   const startTimer = useCallback(
     function startTimer() {
-      setTimeout(stopTimer, (time + 1) * 1000);
-      setTimer(time);
-      intervalRef.current = setInterval(() => {
-        setTimer((old) => {
-          return old - 1;
-        });
-      }, 1000);
+      if (!intervalRef.current) {
+        setTimeout(stopTimer, (time + 1) * 1000);
+        setTimer(time);
+        intervalRef.current = setInterval(() => {
+          setTimer((old) => {
+            return old - 1;
+          });
+        }, 1000);
+      }
     },
     [stopTimer, time]
   );
@@ -203,4 +206,20 @@ export function useSwipe() {
   };
 
   return { onTouchEnd, onTouchMove, onTouchStart, swipeDirection };
+}
+
+export function useStartGame() {
+  const [isModalOpen, setIsModalOpen] = useState(true);
+  const { timer, startTimer } = useTimer(3, () => {
+    setIsModalOpen(false);
+  });
+
+  useEffect(() => {
+    startTimer();
+  }, [startTimer]);
+
+  return {
+    startingTimer: timer,
+    isModalOpen,
+  };
 }
