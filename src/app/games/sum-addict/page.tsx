@@ -2,6 +2,8 @@ import { Game } from "./components/Game";
 import { QuestionType } from "./lib/types";
 import { GameType } from "./components/GameType";
 import { Sentence } from "../components/Sentence";
+import { FontSizeType } from "@/app/lib/constants";
+import { gameConstants } from "./lib/constants";
 
 function HowToPlayDescription(props: { className: string }) {
   {
@@ -20,6 +22,9 @@ function HowToPlayDescription(props: { className: string }) {
 export default function Page() {
   return (
     <>
+      <h1 className={`${FontSizeType.large} text-center text-primary`}>
+        {gameConstants.name}
+      </h1>
       {/* Heading */}
       <section className="flex flex-col justify-center">
         <HowToPlayDescription className="md:block" />

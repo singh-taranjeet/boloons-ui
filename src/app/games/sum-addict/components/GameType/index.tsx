@@ -28,13 +28,14 @@ export function GameType() {
       <Sentence size="normal" className={`text-primary`}>
         How you want to play?
       </Sentence>
-      <Href href={`${gameConstants.playUrl}`}>Single player</Href>
+      <Href href={`${gameConstants.playUrl}`}>Solo</Href>
       <Button onClick={() => setIsCreateGameModalOpen(true)}>
-        Multi player
+        Play with friends
       </Button>
 
       {/* Create Game Modal */}
       <Modal
+        title="Play with friends"
         open={isCreateGameModalOpen}
         onClose={() => setIsCreateGameModalOpen(false)}
       >

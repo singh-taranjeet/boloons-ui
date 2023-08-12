@@ -52,17 +52,17 @@ export function JoinGame() {
 
   return (
     <Card className={`${flexCenter} text-primary mt-large`}>
-      <Sentence>
-        You have been invited to join game <b>{gameId}</b>
-      </Sentence>
+      <Sentence>You have been invited to join game</Sentence>
 
       <section className={`mt-normal`}>
         <div className={`${flexCenter}`}>
+          <label htmlFor="player-name">Enter your name</label>
           <TextInput
+            id="player-name"
             type="text"
             name="Player name"
             placeholder="Enter your name"
-            className={`w-full mb-5`}
+            className={`w-full my-normal`}
             value={player?.name}
             onChange={onChangePlayerName}
           />

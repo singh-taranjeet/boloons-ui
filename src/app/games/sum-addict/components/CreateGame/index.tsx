@@ -14,11 +14,12 @@ import { Button } from "../../../components/Button";
 import { useRouter } from "next/navigation";
 
 export function CreateGame() {
-  const fakeName = getRandomInt();
+  // const fakeName = getRandomInt();
   const [gameId, setGameId] = useState("");
-  const [gameName, setGameName] = useState(`${fakeName}`);
+  // const [gameName, setGameName] = useState(`${fakeName}`);
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
+  const [urlCopied, setUrlCopied] = useState(false);
   const { player } = usePlayer();
   const { socket } = useWebSocket();
   const router = useRouter();
@@ -45,16 +46,18 @@ export function CreateGame() {
     };
   }, [gameId, onPlayerJoin, socket]);
 
-  function createGameSession() {
-    const id = `${getRandomInt()}`;
-    setJoinUrl(`${window.location.origin}${gameConstants.joinUrl}?id=${id}`);
-    setGameId(id);
-    const session = {
-      gameId: id,
-      name: gameName,
-    };
-    socket.emit(gameConstants.multiPlayer.events.createSesion, session);
-  }
+  const createGameSession = useCallback(
+    function createGameSession() {
+      const id = `${getRandomInt()}`;
+      setJoinUrl(`${window.location.origin}${gameConstants.joinUrl}?id=${id}`);
+      setGameId(id);
+      const session = {
+        gameId: id,
+      };
+      socket.emit(gameConstants.multiPlayer.events.createSesion, session);
+    },
+    [socket]
+  );
 
   function startGame() {
     socket.emit(gameConstants.multiPlayer.events.gameStarted, {
@@ -69,40 +72,28 @@ export function CreateGame() {
     router.push(`${gameConstants.playUrl}?gameId=${gameId}`);
   }
 
-  // console.log("Players", players);
+  function onClickUrlCopy() {
+    setTimeout(() => {
+      setUrlCopied(true);
+    }, 3000);
+    navigator.clipboard.writeText(joinUrl);
+  }
+
+  // on load create a game session
+  useEffect(() => {
+    createGameSession();
+  }, [createGameSession]);
 
   return (
     <>
-      <Card className={`${flexCenter} mt-large`}>
-        <Sentence className="font-medium">
-          Create a new {gameConstants.name} game
-        </Sentence>
-
-        {/* Game Name */}
-        <section className={`mt-normal ${flexCenter} w-full gap-small`}>
-          <label
-            className={`${FontSizeType.normal} ${flexCenter} whitespace-nowrap text-primary`}
-            htmlFor="game-name"
-          >
-            Game Name:
-          </label>
-          <TextInput
-            id="game-name"
-            type="text"
-            name="Game name"
-            placeholder="Enter a game name"
-            value={gameName}
-            onChange={(e) => setGameName(e.target.value)}
-          />
-        </section>
-
+      <Card className={`${flexCenter}`} variant="dark">
         {/* Share the game session url */}
         {gameId ? (
-          <section className={`${flexCenter} mt-large`}>
-            <Sentence>Share this url with players to join</Sentence>
+          <section className={`${flexCenter}`}>
+            <Sentence>Share this url with your frieds to join</Sentence>
             <div
-              className={`mt-large gap-normal flex justify-between cursor-pointer bg-light p-rectangle-normal rounded`}
-              onClick={() => navigator.clipboard.writeText(joinUrl)}
+              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-slate-50 p-rectangle-normal rounded`}
+              onClick={onClickUrlCopy}
             >
               <Sentence className={`${flexCenter} whitespace-nowrap`}>
                 {"Copy Join url"}
@@ -112,17 +103,10 @@ export function CreateGame() {
             </div>
           </section>
         ) : null}
-
-        {/* Create Game button */}
-        {!gameId ? (
-          <Button className="mt-normal" onClick={createGameSession}>
-            Create
-          </Button>
-        ) : null}
       </Card>
 
       {/* Players who have joined */}
-      {joinUrl ? (
+      {joinUrl && urlCopied ? (
         <Card className={`mt-normal`}>
           {players.length ? (
             <>
@@ -142,8 +126,10 @@ export function CreateGame() {
               </ul>
               {/* Start game */}
               {players.length ? (
-                <Card className={`mt-normal ${flexCenter} p-0`}>
-                  <Button onClick={startGame}>Start game</Button>
+                <Card className={`${flexCenter} p-0`}>
+                  <Button className="w-fit self-center" onClick={startGame}>
+                    Start
+                  </Button>
                 </Card>
               ) : null}
             </>

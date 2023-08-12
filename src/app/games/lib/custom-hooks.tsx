@@ -30,6 +30,11 @@ export function useMultiplayer(score: number, callBack: (data: any) => void) {
       socket.on(`${gameId}`, callBack);
     }
   }, [gameId, socket, isMultiPlayer, callBack]);
+
+  return {
+    isMultiPlayer,
+    playerId: player?.id,
+  };
 }
 
 /**

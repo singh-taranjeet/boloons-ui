@@ -32,6 +32,7 @@ module.exports = {
         "extra-very-large": "4.5rem", // => 72px
       },
       margin: {
+        small: "0.75rem", // => 12px
         normal: "1.25rem", // => 20px
         large: "2.5rem", // => 40px
       },

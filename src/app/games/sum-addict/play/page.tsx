@@ -32,14 +32,19 @@ export default function Page() {
 
   const isMobile = useIsMobile();
   const { startingTimer, isModalOpen } = useStartGame();
+  const [opponent, setOpponent] = useState({ score: 0, name: "" });
 
   const initGame = useTimer(3, startGame);
 
+  const { isMultiPlayer, playerId } = useMultiplayer(score, onScore);
+
   function onScore(res: any) {
     console.log("res", res);
+    const os = res?.players?.find(
+      (player: { id: string }) => `${player.id}` !== `${playerId}`
+    );
+    setOpponent({ score: os.score, name: os.name || "" });
   }
-
-  useMultiplayer(score, onScore);
 
   function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
     const sum = userAttempts.reduce((item, sum) => {
@@ -58,14 +63,19 @@ export default function Page() {
       <section
         className={`md:flex md:flex-col md:gap-normal md:justify-center`}
       >
-        <ScoreAndTimer score={score} timer={timer} />
+        <ScoreAndTimer
+          isMultiPlayer={isMultiPlayer}
+          score={score}
+          timer={timer}
+          opponent={opponent}
+        />
         {!isMobile ? (
           <Controls gameInProgress={gameInProgress} onClick={startGame} />
         ) : null}
       </section>
 
       {/* Game section */}
-      <div className="mt-normal">
+      <div className="mt-normal p-square-normal">
         <Game
           currentQuestion={currentQuestion}
           numbers={data.map((item) => item.correctAnswer)}
