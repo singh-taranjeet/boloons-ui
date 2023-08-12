@@ -7,6 +7,18 @@ const nextConfig = {
   compiler: {
     styledComponents: true,
   },
+  async rewrites() {
+    return [
+      {
+        source: "/games/sum-addict/join",
+        destination: "/games/sum-addict",
+      },
+      {
+        source: "/games/sum-addict/create",
+        destination: "/games/sum-addict",
+      },
+    ];
+  },
   // webpack: (config, { isServer }) => {
   //   if (!isServer) {
   //     config.externals.push({

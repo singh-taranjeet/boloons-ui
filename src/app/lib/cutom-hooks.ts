@@ -1,5 +1,5 @@
 "use client";
-import { useCallback, useEffect, useState } from "react";
+import { MutableRefObject, useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import { appConstants, breakPoints } from "./constants";
 import { getRandomInt } from "./server-helper";
@@ -80,7 +80,7 @@ export function usePlayer() {
   return { player, updatePlayerName };
 }
 
-const URL = "http://localhost:4000";
+const URL = "https://boloons-api.onrender.com";
 
 const socket = io(URL);
 
@@ -111,4 +111,27 @@ export function useWebSocket() {
     connected,
     socket,
   };
+}
+
+/**
+ *
+ * @param {*} ref - Ref of parent div
+ * @param {*} callback - Callback which can be used to change state in component
+ */
+export function useOutsideClick(
+  ref: MutableRefObject<any>,
+  callback: () => void
+) {
+  useEffect(() => {
+    const handleClickOutside = (evt: any) => {
+      if (ref.current && !ref.current.contains(evt.target)) {
+        console.log("clicked outside");
+        callback();
+      }
+    };
+    document.addEventListener("click", handleClickOutside);
+    return () => {
+      document.removeEventListener("click", handleClickOutside);
+    };
+  });
 }

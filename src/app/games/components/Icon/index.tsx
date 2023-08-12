@@ -11,8 +11,8 @@ export default function Icon(props: IconType) {
   return (
     <FontAwesomeIcon
       size="lg"
-      className={`p-square-small text-primary active:bg-secondary rounded-full`}
       {...props}
+      className={`p-square-small text-primary active:bg-secondary rounded-full leading-none ${props.className}`}
     />
   );
 }

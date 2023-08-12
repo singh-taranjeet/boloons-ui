@@ -28,10 +28,9 @@ export default function Page() {
       {/* Game section */}
       <Game
         currentQuestion={0}
-        numbers={[initialQuestion()].map((item) => item.sum)}
+        numbers={[initialQuestion()].map((item) => item.correctAnswer)}
         learningMode={true}
         attempts={initialQuestion().answers}
-        // onAttempt={emptyFunction}
         options={initialQuestion().options}
       />
       <HowToPlayDescription className="max-sm:block" />
@@ -43,6 +42,6 @@ function initialQuestion(): QuestionType {
   return {
     options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
     answers: [4, 9, 2],
-    sum: 18,
+    correctAnswer: 18,
   };
 }

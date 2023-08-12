@@ -1,19 +1,19 @@
 "use client";
 import { FontSizeType } from "@/app/lib/constants";
-import { gameConstants } from "../lib/constants";
+import { gameConstants } from "../../lib/constants";
 import { useCallback, useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
-import { Card } from "../../components/Card";
-import { TextInput } from "../../components/TextInput";
+import { Card } from "../../../components/Card";
+import { TextInput } from "../../../components/TextInput";
 import { Sentence } from "@/app/games/components/Sentence";
-import Icon from "../../components/Icon";
+import Icon from "../../../components/Icon";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
 import { flexCenter } from "@/app/lib/style.lib";
-import { Button } from "../../components/Button";
+import { Button } from "../../../components/Button";
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+export function CreateGame() {
   const fakeName = getRandomInt();
   const [gameId, setGameId] = useState("");
   const [gameName, setGameName] = useState(`${fakeName}`);
@@ -107,44 +107,51 @@ export default function Page() {
               <Sentence className={`${flexCenter} whitespace-nowrap`}>
                 {"Copy Join url"}
               </Sentence>
+
               <Icon icon={faClone} />
             </div>
           </section>
         ) : null}
 
         {/* Create Game button */}
-        {!gameId ? <Button onClick={createGameSession}>Create</Button> : null}
+        {!gameId ? (
+          <Button className="mt-normal" onClick={createGameSession}>
+            Create
+          </Button>
+        ) : null}
       </Card>
 
       {/* Players who have joined */}
-      <Card className={`mt-normal`}>
-        {players.length ? (
-          <>
-            <Sentence>Players who have joined</Sentence>
+      {joinUrl ? (
+        <Card className={`mt-normal`}>
+          {players.length ? (
+            <>
+              <Sentence>Players who have joined</Sentence>
 
-            <ul>
-              {players.map((player) => {
-                return (
-                  <li
-                    key={player.id}
-                    className={`${FontSizeType.normal} text-primary mt-normal p-rectangle-normal bg-light rounded`}
-                  >
-                    {player.name}
-                  </li>
-                );
-              })}
-            </ul>
-            {/* Start game */}
-            {players.length ? (
-              <Card className={`mt-normal ${flexCenter} p-0`}>
-                <Button onClick={startGame}>Start game</Button>
-              </Card>
-            ) : null}
-          </>
-        ) : (
-          <Sentence>Waiting for players to join...</Sentence>
-        )}
-      </Card>
+              <ul>
+                {players.map((player) => {
+                  return (
+                    <li
+                      key={player.id}
+                      className={`${FontSizeType.normal} text-primary mt-normal p-rectangle-normal bg-light rounded`}
+                    >
+                      {player.name}
+                    </li>
+                  );
+                })}
+              </ul>
+              {/* Start game */}
+              {players.length ? (
+                <Card className={`mt-normal ${flexCenter} p-0`}>
+                  <Button onClick={startGame}>Start game</Button>
+                </Card>
+              ) : null}
+            </>
+          ) : (
+            <Sentence>Waiting for players to join...</Sentence>
+          )}
+        </Card>
+      ) : null}
     </>
   );
 }

@@ -1,16 +1,16 @@
 "use client";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { Button } from "../../components/Button";
-import { Card } from "../../components/Card";
-import { TextInput } from "../../components/TextInput";
-import { Sentence } from "../../components/Sentence";
+import { Button } from "../../../components/Button";
+import { Card } from "../../../components/Card";
+import { TextInput } from "../../../components/TextInput";
+import { Sentence } from "../../../components/Sentence";
 import { useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
-import { gameConstants } from "../lib/constants";
+import { gameConstants } from "../../lib/constants";
 import { useRouter } from "next/navigation";
 
-export default function Page() {
+export function JoinGame() {
   const params = useSearchParams();
   const { socket } = useWebSocket();
   const { player, updatePlayerName } = usePlayer();
@@ -52,7 +52,9 @@ export default function Page() {
 
   return (
     <Card className={`${flexCenter} text-primary mt-large`}>
-      <Sentence>You have been invited to join game {gameId}</Sentence>
+      <Sentence>
+        You have been invited to join game <b>{gameId}</b>
+      </Sentence>
 
       <section className={`mt-normal`}>
         <div className={`${flexCenter}`}>
