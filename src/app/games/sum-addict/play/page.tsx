@@ -68,9 +68,9 @@ export default function Page() {
           timer={timer}
           opponent={opponent}
         />
-        {!isMobile ? (
+        {/* {!isMobile ? (
           <Controls gameInProgress={gameInProgress} onClick={startGame} />
-        ) : null}
+        ) : null} */}
       </section>
 
       {/* Game section */}
@@ -83,10 +83,10 @@ export default function Page() {
           options={data[currentQuestion]?.options}
         />
       </div>
-      {/* Controls */}
+      {/* Controls
       {isMobile ? (
         <Controls gameInProgress={gameInProgress} onClick={startGame} />
-      ) : null}
+      ) : null} */}
 
       <Modal open={isModalOpen}>Starting game in {startingTimer}</Modal>
     </>
