@@ -41,7 +41,7 @@ function UserScore(props: {
         </div>
       </div>
       <Sentence
-        size="small"
+        fontSize="text-small"
         className={`${
           opponent ? "text-right" : "text-left"
         } max-w-fit mt-small`}
