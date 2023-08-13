@@ -30,7 +30,7 @@ function UserScore(props: {
         </div>
       </div>
       <Sentence
-        size="small"
+        fontSize="text-small"
         className={`${
           opponent ? "text-right" : "text-left"
         } max-w-fit mt-small`}
@@ -52,7 +52,7 @@ export function MultiplayerScore(props: {
   const { score, opponent = { score: 0, name: "" } } = props;
 
   return (
-    <div className="flex justify-between p-square-normal">
+    <div className="flex justify-between p-normal">
       <UserScore
         playerName={player?.name || ""}
         score={score}

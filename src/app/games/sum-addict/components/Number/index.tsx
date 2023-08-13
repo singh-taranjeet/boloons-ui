@@ -1,19 +1,19 @@
 import { Sentence } from "@/app/games/components/Sentence";
-import { KeyOfFontSizeType } from "@/app/lib/constants";
+import { FontSizeType } from "@/app/games/lib/types";
 
 export function Number(props: {
   number: number;
-  size?: KeyOfFontSizeType;
+  fontSize?: FontSizeType;
   color?: "black" | "blue";
 }) {
-  const { number, size = "veryLarge", color = "black" } = props;
+  const { number, fontSize = "text-large", color = "black" } = props;
 
   const fontColor = color === "black" ? "text-black" : `text-primary`;
 
   return (
     <div className="flex flex-col justify-center cursor-pointer h-full">
       <Sentence
-        size={`${size}`}
+        fontSize={`${fontSize}`}
         className={`select-none text-center ${fontColor}`}
       >
         {number}

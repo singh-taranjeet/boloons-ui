@@ -22,7 +22,7 @@ export function NumberGrid(props: NumberGridType) {
                   <Number
                     key={`${number}${index}`}
                     number={number}
-                    size="small"
+                    fontSize="text-small"
                   />
                 );
               }

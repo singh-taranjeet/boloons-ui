@@ -10,6 +10,11 @@ module.exports = {
   ],
   theme: {
     extend: {
+      spacing: {
+        small: "0.75rem", // => 12px
+        normal: "1.25rem", // > 20px
+        large: "2.5rem", // => 40px
+      },
       colors: {
         primary: "#0891b2", // Cyan-600
         secondary: "#e2e8f0", // slate-200
@@ -19,10 +24,8 @@ module.exports = {
         blue: "#3b82f6", // blue-500
       },
       padding: {
-        "square-small": "0.75rem", // => 12px,
-        "square-normal": "1.25rem", // => 20px,
-        "square-large": "2.5rem", // => 40px,
-        "rectangle-normal": "1rem 1.25rem",
+        "rectangle-small": "0.374rem 0.5rem",
+        "rectangle-normal": "0.75rem 1rem",
       },
       fontSize: {
         small: "1rem", // 16px
@@ -30,16 +33,6 @@ module.exports = {
         large: "1.875rem", // => 30px
         "very-large": "3rem", // => 48px
         "extra-very-large": "4.5rem", // => 72px
-      },
-      margin: {
-        small: "0.75rem", // => 12px
-        normal: "1.25rem", // => 20px
-        large: "2.5rem", // => 40px
-      },
-      gap: {
-        small: "0.75rem", // => 12px
-        normal: "1.25rem", // => 20px
-        large: "2.5rem", // => 40px
       },
       flex: {
         center: {

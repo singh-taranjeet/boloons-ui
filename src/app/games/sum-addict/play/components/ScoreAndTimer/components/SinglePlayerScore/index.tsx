@@ -24,20 +24,20 @@ export function SinglePlayerScore(props: InfoType) {
       <div className={`flex justify-center mt-normal gap-normal`}>
         {/* Score */}
         <div className="flex flex-col justify-between text-emerald-600">
-          <Sentence size="large" className="text-center">
+          <Sentence fontSize="text-large" className="text-center">
             Score
           </Sentence>
-          <Sentence size="large" className="text-center">
+          <Sentence fontSize="text-large" className="text-center">
             {score}
           </Sentence>
         </div>
 
         {/* Timer */}
         <div className="flex flex-col justify-between text-red-500">
-          <Sentence size="large" className="text-center">
+          <Sentence fontSize="text-large" className="text-center">
             Timer
           </Sentence>
-          <Sentence size="large" className="text-center">
+          <Sentence fontSize="text-large" className="text-center">
             {timer}
           </Sentence>
         </div>

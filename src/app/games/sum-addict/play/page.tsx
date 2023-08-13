@@ -74,7 +74,7 @@ export default function Page() {
       </section>
 
       {/* Game section */}
-      <div className="mt-normal p-square-normal">
+      <div className="mt-normal p-normal">
         <Game
           currentQuestion={currentQuestion}
           numbers={data.map((item) => item.correctAnswer)}

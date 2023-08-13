@@ -1,7 +1,7 @@
 "use client";
 import { gameConstants } from "../../lib/constants";
 import { Sentence } from "@/app/games/components/Sentence";
-import { Href } from "@/app/games/components/Link";
+import { Href } from "@/app/games/components/Href";
 import { Card } from "@/app/games/components/Card";
 import { CreateGame } from "../CreateGame";
 import Modal from "@/app/games/components/Modal";
@@ -25,7 +25,7 @@ export function GameType() {
     <Card
       className={`flex flex-col justify-center gap-normal md:row md:justify-between mt-normal w-fit mx-auto`}
     >
-      <Sentence size="normal" className={`text-primary`}>
+      <Sentence fontSize="text-medium" className={`text-primary`}>
         How you want to play?
       </Sentence>
       <Href href={`${gameConstants.playUrl}`}>Solo</Href>

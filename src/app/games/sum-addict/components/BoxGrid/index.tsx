@@ -17,7 +17,7 @@ export function BoxGrid(props: BoxGridType) {
   const isMobile = useIsMobile();
   return (
     <StyledBoxGrid
-      className={`grid gap-normal justify-center bg-light w-fit p-square-normal rounded mx-auto`}
+      className={`grid gap-normal justify-center bg-light w-fit p-normal rounded mx-auto`}
     >
       {options?.map((option) => (
         <div key={option} className="relative">
@@ -26,7 +26,7 @@ export function BoxGrid(props: BoxGridType) {
             onAttempt={() => onAttempt(option)}
           >
             <Number
-              size={isMobile ? "veryLarge" : "extraVeryLarge"}
+              fontSize={isMobile ? "text-very-large" : "text-extra-very-large"}
               number={option}
               color="blue"
             />

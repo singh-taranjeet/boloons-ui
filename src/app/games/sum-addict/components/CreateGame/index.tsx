@@ -1,5 +1,4 @@
 "use client";
-import { FontSizeType } from "@/app/lib/constants";
 import { gameConstants } from "../../lib/constants";
 import { useCallback, useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
@@ -12,6 +11,7 @@ import { faClone } from "@fortawesome/free-regular-svg-icons";
 import { flexCenter } from "@/app/lib/style.lib";
 import { Button } from "../../../components/Button";
 import { useRouter } from "next/navigation";
+import { StyleConstants } from "@/app/games/lib/constants";
 
 export function CreateGame() {
   // const fakeName = getRandomInt();
@@ -92,7 +92,7 @@ export function CreateGame() {
           <section className={`${flexCenter}`}>
             <Sentence>Share this url with your frieds to join</Sentence>
             <div
-              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-slate-50 p-rectangle-normal rounded`}
+              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-slate-50 p-rectangle-small rounded`}
               onClick={onClickUrlCopy}
             >
               <Sentence className={`${flexCenter} whitespace-nowrap`}>
@@ -117,7 +117,7 @@ export function CreateGame() {
                   return (
                     <li
                       key={player.id}
-                      className={`${FontSizeType.normal} text-primary mt-normal p-rectangle-normal bg-light rounded`}
+                      className={`${StyleConstants.FontSize["text-medium"]} text-primary mt-normal p-rectangle-small bg-light rounded`}
                     >
                       {player.name}
                     </li>

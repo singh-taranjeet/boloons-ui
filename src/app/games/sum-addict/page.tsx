@@ -2,8 +2,8 @@ import { Game } from "./components/Game";
 import { QuestionType } from "./lib/types";
 import { GameType } from "./components/GameType";
 import { Sentence } from "../components/Sentence";
-import { FontSizeType } from "@/app/lib/constants";
 import { gameConstants } from "./lib/constants";
+import { StyleConstants } from "../lib/constants";
 
 function HowToPlayDescription(props: { className: string }) {
   {
@@ -11,7 +11,7 @@ function HowToPlayDescription(props: { className: string }) {
   }
   return (
     <section className={`hidden ${props.className}`}>
-      <Sentence className={`mt-normal text-center`} size="large">
+      <Sentence className={`mt-normal text-center`} fontSize="text-large">
         Select upto 3 number which sum up equal to the indicated number
       </Sentence>
       <GameType />
@@ -22,7 +22,9 @@ function HowToPlayDescription(props: { className: string }) {
 export default function Page() {
   return (
     <>
-      <h1 className={`${FontSizeType.large} text-center text-primary`}>
+      <h1
+        className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
+      >
         {gameConstants.name}
       </h1>
       {/* Heading */}

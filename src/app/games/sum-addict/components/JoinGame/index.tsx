@@ -67,13 +67,13 @@ export function JoinGame() {
             onChange={onChangePlayerName}
           />
         </div>
-        {joined ? (
-          <Sentence>Waiting for game to start</Sentence>
-        ) : (
-          <Button className={`w-full`} onClick={join}>
-            Join
-          </Button>
-        )}
+        <div className="flex justify-center">
+          {joined ? (
+            <Sentence>Waiting for game to start</Sentence>
+          ) : (
+            <Button onClick={join}>Join</Button>
+          )}
+        </div>
       </section>
     </Card>
   );

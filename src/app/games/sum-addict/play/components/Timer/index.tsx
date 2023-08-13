@@ -34,7 +34,7 @@ export function Timer(props: { startGame?(): void; duration?: number }) {
         className={`rounded-full border-2 border-primary w-24 h-24 mx-auto flex flex-col justify-center`}
       >
         <Sentence
-          size="large"
+          fontSize="text-large"
           className={`text-center text-primary leading-none`}
         >
           {startTimer}
