@@ -17,6 +17,7 @@ import { Sentence } from "../../components/Sentence";
 import { Href } from "../../components/Href";
 import { gameConstants } from "../lib/constants";
 import { ScoreCard } from "../../components/ScoreCard";
+import { flexCenter } from "@/app/lib/style.lib";
 
 const GAME_TIMEOUT = 30; // 30 Seconds
 
@@ -98,12 +99,11 @@ export default function Page() {
       <Modal open={scoreModalOpen} title="Score card">
         <>
           <ScoreCard score={score} opponent={opponent} />
-          <Href
-            href={gameConstants.gameUrl}
-            className={`p-rectangle-small mt-small mx-auto`}
-          >
-            Close
-          </Href>
+          <div className={`${flexCenter} mt-small`}>
+            <Href href={gameConstants.gameUrl} className={`p-rectangle-small `}>
+              Close
+            </Href>
+          </div>
         </>
       </Modal>
     </>

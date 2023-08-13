@@ -31,7 +31,7 @@ export function GameType() {
         className={`flex flex-col justify-center gap-normal md:row md:justify-between mt-normal w-fit mx-auto`}
       >
         {isJoinMode ? (
-          <Sentence>Waiting for game to start...</Sentence>
+          <Sentence>Waiting for the game to start...</Sentence>
         ) : (
           <>
             <Sentence size="normal" className={`text-primary`}>

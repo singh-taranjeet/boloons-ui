@@ -10,10 +10,6 @@ interface StyledLinkType extends LinkType {
 
 export function Href(props: StyledLinkType) {
   const { className = "" } = props;
-  const cx = `rounded p-rectangle-normal ${FontSizeType.normal} w-full self-center md:w-56 border-primary border-2 text-primary text-center ${className}`;
-  return (
-    <div className={cx}>
-      <Link {...props} className="" />
-    </div>
-  );
+  const cx = `rounded bg-white p-rectangle-normal ${FontSizeType.normal} w-full self-center md:w-56 border-primary border-2 text-primary text-center ${className}`;
+  return <Link {...props} className={cx} />;
 }

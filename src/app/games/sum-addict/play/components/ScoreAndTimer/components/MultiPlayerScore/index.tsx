@@ -62,11 +62,13 @@ export function MultiplayerScore(props: {
       />
 
       {/* Timer image */}
-      <div className={`flex justify-center basis-1/3 relative px-small`}>
+      <div className={`flex justify-center basis-1/3 relative px-small w-12`}>
         <Image
           src={"/images/timer-icon.svg"}
-          fill={true}
+          height={50}
+          width={50}
           style={{ objectFit: "contain" }}
+          className="absolute w-full h-full right-0 top-0 left-0 bottom-0 bg-transparent"
           alt="timer"
           loading="lazy"
         />
