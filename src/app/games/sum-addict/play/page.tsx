@@ -2,8 +2,6 @@
 import { getRandomInt } from "@/app/lib/server-helper";
 import { shuffle, drop } from "lodash";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
-// import { Controls } from "./components/Controls";
-// import { useIsMobile } from "@/app/lib/cutom-hooks";
 import { Game } from "../components/Game";
 import {
   useGame,
@@ -16,11 +14,8 @@ import { useEffect, useState } from "react";
 import Modal from "../../components/Modal";
 import { Card } from "../../components/Card";
 import { Sentence } from "../../components/Sentence";
-import { MultiplayerScore } from "./components/ScoreAndTimer/components/MultiPlayerScore";
-import { Button } from "../../components/Button";
 import { Href } from "../../components/Href";
 import { gameConstants } from "../lib/constants";
-import { flexCenter } from "@/app/lib/style.lib";
 import { ScoreCard } from "../../components/ScoreCard";
 
 const GAME_TIMEOUT = 30; // 30 Seconds
