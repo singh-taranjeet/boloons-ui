@@ -17,12 +17,14 @@ module.exports = {
         green: "#22c55e", // green-500
         red: "#ef4444", // red- 500
         blue: "#3b82f6", // blue-500
+        yellow: "#FFBA0A",
       },
       padding: {
-        "square-small": "0.75rem", // => 12px,
-        "square-normal": "1.25rem", // => 20px,
-        "square-large": "2.5rem", // => 40px,
+        small: "0.75rem", // => 12px,
+        normal: "1.25rem", // => 20px,
+        large: "2.5rem", // => 40px,
         "rectangle-normal": "1rem 1.25rem",
+        "rectangle-small": "0.75rem 1rem",
       },
       fontSize: {
         small: "1rem", // 16px

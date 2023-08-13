@@ -43,16 +43,18 @@ function UserScore(props: {
 
 export function MultiplayerScore(props: {
   score: number;
+  timer: number;
   opponent?: {
     score: number;
     name: string;
   };
 }) {
   const { player } = usePlayer();
-  const { score, opponent = { score: 0, name: "" } } = props;
+  const { score, opponent = { score: 0, name: "" }, timer = 0 } = props;
+  const percentage = (timer / 30) * 100;
 
   return (
-    <div className="flex justify-between p-square-normal">
+    <div className="flex justify-between p-normal gap-normal">
       <UserScore
         playerName={player?.name || ""}
         score={score}
@@ -60,14 +62,26 @@ export function MultiplayerScore(props: {
       />
 
       {/* Timer image */}
-      <div className="flex justify-center">
+      <div className={`flex justify-center basis-1/3 relative px-small`}>
         <Image
           src={"/images/timer-icon.svg"}
-          width={50}
-          height={50}
+          fill={true}
+          style={{ objectFit: "contain" }}
           alt="timer"
           loading="lazy"
         />
+        <Sentence
+          size="normal"
+          className={`${flexCenter} z-10 pt-2 ${
+            percentage > 50
+              ? percentage < 75
+                ? "text-yellow"
+                : ""
+              : "text-red"
+          }`}
+        >
+          {timer}
+        </Sentence>
       </div>
 
       <UserScore

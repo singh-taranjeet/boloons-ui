@@ -1,7 +1,7 @@
 "use client";
 import { gameConstants } from "../../lib/constants";
 import { Sentence } from "@/app/games/components/Sentence";
-import { Href } from "@/app/games/components/Link";
+import { Href } from "@/app/games/components/Href";
 import { Card } from "@/app/games/components/Card";
 import { CreateGame } from "../CreateGame";
 import Modal from "@/app/games/components/Modal";

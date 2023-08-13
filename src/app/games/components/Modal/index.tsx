@@ -36,7 +36,7 @@ export default function Modal(props: {
           {onClose ? (
             <Icon
               icon={faXmark}
-              className="absolute top-0 right-0 cursor-pointer !p-square-normal"
+              className="absolute top-0 right-0 cursor-pointer !p-normal"
               onClick={closeModal}
             />
           ) : null}

@@ -12,7 +12,7 @@ export default function Icon(props: IconType) {
     <FontAwesomeIcon
       size="lg"
       {...props}
-      className={`p-square-small text-primary active:bg-secondary rounded-full leading-none ${props.className}`}
+      className={`p-small text-primary active:bg-secondary rounded-full leading-none ${props.className}`}
     />
   );
 }
