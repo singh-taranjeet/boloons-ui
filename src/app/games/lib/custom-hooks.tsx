@@ -188,7 +188,6 @@ export function useGame(
   const stopGame = useCallback(
     function stopGame() {
       setAttempts([]);
-      console.log("Stop game");
       // set game in progress false
       setGameInProgress((oldValue) => {
         if (oldValue === true) {
@@ -228,7 +227,6 @@ export function useGame(
 
   const onAttempt = useCallback(
     function onAttempt(attempt: number) {
-      // console.log("attempt", attempt);
       if (gameInProgress) {
         setAttempts([...attempts, attempt]);
       }
