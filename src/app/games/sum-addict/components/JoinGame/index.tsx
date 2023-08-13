@@ -10,21 +10,23 @@ import { flexCenter } from "@/app/lib/style.lib";
 import { gameConstants } from "../../lib/constants";
 import { useRouter } from "next/navigation";
 
-export function JoinGame() {
+export function JoinGame(props: { onClickJoin: () => void }) {
   const params = useSearchParams();
   const { socket } = useWebSocket();
   const { player, updatePlayerName } = usePlayer();
-  const [joined, setJoined] = useState(false);
+  // const [joined, setJoined] = useState(false);
   const gameId = params?.get("id");
   const router = useRouter();
+  const { onClickJoin } = props;
 
   function join() {
-    setJoined(true);
+    // setJoined(true);
     socket.emit(gameConstants.multiPlayer.events.playerJoined, {
       gameId,
       name: player?.name,
       playerId: player?.id,
     });
+    onClickJoin();
   }
 
   function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
@@ -48,7 +50,7 @@ export function JoinGame() {
     return () => {
       socket.off(`${gameId}`, onGameStart);
     };
-  }, [gameId, joined, onGameStart, socket]);
+  }, [gameId, onGameStart, socket]);
 
   return (
     <Card className={`${flexCenter} text-primary mt-large`}>
@@ -67,13 +69,7 @@ export function JoinGame() {
             onChange={onChangePlayerName}
           />
         </div>
-        <div className="flex justify-center">
-          {joined ? (
-            <Sentence>Waiting for game to start</Sentence>
-          ) : (
-            <Button onClick={join}>Join</Button>
-          )}
-        </div>
+        <Button onClick={join}>Join</Button>
       </section>
     </Card>
   );

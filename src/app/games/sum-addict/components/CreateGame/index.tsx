@@ -92,7 +92,7 @@ export function CreateGame() {
           <section className={`${flexCenter}`}>
             <Sentence>Share this url with your frieds to join</Sentence>
             <div
-              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-slate-50 p-rectangle-small rounded`}
+              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-slate-50 p-rectangle-normal rounded`}
               onClick={onClickUrlCopy}
             >
               <Sentence className={`${flexCenter} whitespace-nowrap`}>
@@ -117,7 +117,7 @@ export function CreateGame() {
                   return (
                     <li
                       key={player.id}
-                      className={`${StyleConstants.FontSize["text-medium"]} text-primary mt-normal p-rectangle-small bg-light rounded`}
+                      className={`${StyleConstants.FontSize["text-medium"]} text-primary mt-normal p-rectangle-normal bg-light rounded`}
                     >
                       {player.name}
                     </li>

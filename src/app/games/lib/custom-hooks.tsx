@@ -4,7 +4,48 @@ import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameConstants } from "../sum-addict/lib/constants";
 import { QuestionType } from "../sum-addict/lib/types";
-import Modal from "../components/Modal";
+
+function getSound() {
+  try {
+    const gameBackgroundMusic = new Audio("/audio/in-progress-background.mp3");
+    gameBackgroundMusic.loop = true;
+    const renderScoreBackgroundMusic = new Audio(
+      "/audio/after-game-end-rending-scores.mp3"
+    );
+    renderScoreBackgroundMusic.loop = true;
+
+    const audio = {
+      gameBackgroundMusic,
+      renderScoreBackgroundMusic,
+    };
+    return audio;
+  } catch (error) {
+    console.log("Client Audio");
+  }
+}
+
+const Sound = getSound();
+
+const manageSound = (audio: any) => {
+  return function manageSound(
+    sound: "gameBackgroundMusic" | "renderScoreBackgroundMusic",
+    action: "play" | "pause"
+  ) {
+    if (action === "play") {
+      if (sound === "gameBackgroundMusic") {
+        audio?.gameBackgroundMusic.play();
+      } else {
+        audio?.renderScoreBackgroundMusic.play();
+      }
+    } else {
+      if (sound === "gameBackgroundMusic") {
+        audio?.gameBackgroundMusic.pause();
+      } else {
+        audio?.renderScoreBackgroundMusic.pause();
+      }
+    }
+  };
+};
 
 export function useMultiplayer(score: number, callBack: (data: any) => void) {
   const params = useSearchParams();
@@ -92,7 +133,15 @@ export function useGame(
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
   const [attempts, setAttempts] = useState<number[]>([]);
-  const [gameInProgress, setGameInProgress] = useState(false);
+  const [gameInProgress, setGameInProgress] = useState<boolean | undefined>();
+  const [scoreModalOpen, setScoreModalOpen] = useState(false);
+  // const [audio, setAudio] = useState<
+  //   | {
+  //       gameBackgroundMusic: HTMLAudioElement;
+  //       renderScoreBackgroundMusic: HTMLAudioElement;
+  //     }
+  //   | undefined
+  // >();
 
   const correctAnswer = data?.[currentQuestion]?.correctAnswer;
 
@@ -113,11 +162,44 @@ export function useGame(
     [setQuestions]
   );
 
-  const stopGame = useCallback(function stopGame() {
-    setAttempts([]);
-    // set game in progress false
-    setGameInProgress(false);
+  const manageSound = useCallback(function manageSound(
+    sound: "gameBackgroundMusic" | "renderScoreBackgroundMusic",
+    action: "play" | "pause"
+  ) {
+    if (action === "play") {
+      Sound?.[sound].play();
+    } else {
+      Sound?.[sound].pause();
+    }
+  },
+  []);
+
+  // Pause the game when ended
+  useEffect(() => {
+    //const sound = setSound();
+    // setAudio(sound);
+    return () => {
+      Sound?.gameBackgroundMusic.pause();
+      Sound?.renderScoreBackgroundMusic.pause();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  const stopGame = useCallback(
+    function stopGame() {
+      setAttempts([]);
+      // set game in progress false
+      setGameInProgress((oldValue) => {
+        if (oldValue === true) {
+          manageSound("gameBackgroundMusic", "pause");
+          manageSound("renderScoreBackgroundMusic", "play");
+          setScoreModalOpen(true);
+          return false;
+        }
+      });
+    },
+    [manageSound]
+  );
 
   const { timer, startTimer } = useTimer(gameTimeOut, stopGame);
 
@@ -126,8 +208,9 @@ export function useGame(
       resetGame();
       setGameInProgress(true);
       startTimer();
+      manageSound("gameBackgroundMusic", "play");
     },
-    [resetGame, startTimer]
+    [manageSound, resetGame, startTimer]
   );
 
   const nextQuestion = useCallback(
@@ -136,15 +219,14 @@ export function useGame(
       if (currentQuestion < data.length) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
-        setGameInProgress(false);
+        stopGame();
       }
     },
-    [currentQuestion, data?.length]
+    [currentQuestion, data.length, stopGame]
   );
 
   const onAttempt = useCallback(
     function onAttempt(attempt: number) {
-      // console.log("attempt", attempt);
       if (gameInProgress) {
         setAttempts([...attempts, attempt]);
       }
@@ -182,6 +264,7 @@ export function useGame(
     gameInProgress,
     startGame,
     onAttempt,
+    scoreModalOpen,
   };
 }
 

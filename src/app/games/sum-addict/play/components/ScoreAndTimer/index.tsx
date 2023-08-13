@@ -17,7 +17,7 @@ export function ScoreAndTimer(props: InfoType) {
   const { score, timer, isMultiPlayer, opponent } = props;
 
   if (isMultiPlayer) {
-    return <MultiplayerScore score={score} opponent={opponent} />;
+    return <MultiplayerScore timer={timer} score={score} opponent={opponent} />;
   }
 
   return <SinglePlayerScore {...props} />;

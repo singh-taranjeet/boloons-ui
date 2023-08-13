@@ -40,7 +40,7 @@ export default function Page() {
         attempts={initialQuestion().answers}
         options={initialQuestion().options}
       />
-      <HowToPlayDescription className="max-sm:block" />
+      <HowToPlayDescription className="max-sm:block mx-normal" />
     </>
   );
 }

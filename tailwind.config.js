@@ -22,6 +22,7 @@ module.exports = {
         green: "#22c55e", // green-500
         red: "#ef4444", // red- 500
         blue: "#3b82f6", // blue-500
+        yellow: "#FFBA0A",
       },
       padding: {
         "rectangle-small": "0.374rem 0.5rem",

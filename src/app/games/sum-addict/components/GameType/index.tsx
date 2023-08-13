@@ -21,34 +21,45 @@ export function GameType() {
 
   const [isJoinGameModalOpen, setIsJoinGameModalOpen] = useState(isJoinMode);
 
+  function onJoinClick() {
+    setIsJoinGameModalOpen(false);
+  }
+
   return (
-    <Card
-      className={`flex flex-col justify-center gap-normal md:row md:justify-between mt-normal w-fit mx-auto`}
-    >
-      <Sentence fontSize="text-medium" className={`text-primary`}>
-        How you want to play?
-      </Sentence>
-      <Href href={`${gameConstants.playUrl}`}>Solo</Href>
-      <Button onClick={() => setIsCreateGameModalOpen(true)}>
-        Play with friends
-      </Button>
-
-      {/* Create Game Modal */}
-      <Modal
-        title="Play with friends"
-        open={isCreateGameModalOpen}
-        onClose={() => setIsCreateGameModalOpen(false)}
+    <>
+      <Card
+        className={`flex flex-col justify-center gap-normal md:row md:justify-between mt-normal w-fit mx-auto`}
       >
-        <CreateGame />
-      </Modal>
+        {isJoinMode ? (
+          <Sentence>Waiting for the game to start...</Sentence>
+        ) : (
+          <>
+            <Sentence fontSize="text-medium" className={`text-primary`}>
+              How you want to play?
+            </Sentence>
+            <Href href={`${gameConstants.playUrl}`}>Solo</Href>
+            <Button onClick={() => setIsCreateGameModalOpen(true)}>
+              Play with friends
+            </Button>
+          </>
+        )}
 
+        {/* Create Game Modal */}
+        <Modal
+          title="Play with friends"
+          open={isCreateGameModalOpen}
+          onClose={() => setIsCreateGameModalOpen(false)}
+        >
+          <CreateGame />
+        </Modal>
+      </Card>
       {/* Join Game Modal */}
       <Modal
         open={isJoinGameModalOpen}
         onClose={() => setIsJoinGameModalOpen(false)}
       >
-        <JoinGame />
+        <JoinGame onClickJoin={onJoinClick} />
       </Modal>
-    </Card>
+    </>
   );
 }
