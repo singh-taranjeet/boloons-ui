@@ -1,6 +1,6 @@
+import { RootElementType } from "@/app/lib/types.lib";
+import { getClasses } from "@/app/lib/utils.lib";
 import Link, { LinkProps } from "next/link";
-import { RootElementType } from "../../lib/types";
-import { getClasses } from "../../lib/utils";
 
 type TLink = LinkProps;
 interface StyledLinkType extends TLink {

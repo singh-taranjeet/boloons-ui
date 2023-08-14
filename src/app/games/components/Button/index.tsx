@@ -1,6 +1,6 @@
+import { RootElementType } from "@/app/lib/types.lib";
+import { getClasses } from "@/app/lib/utils.lib";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
-import { RootElementType } from "../../lib/types";
-import { getClasses } from "../../lib/utils";
 
 type IButton = DetailedHTMLProps<
   ButtonHTMLAttributes<HTMLButtonElement>,

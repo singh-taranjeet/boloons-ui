@@ -1,5 +1,5 @@
 "use client";
-import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
+import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
@@ -9,7 +9,7 @@ import { useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
 import { gameConstants } from "../../lib/constants";
 import { useRouter } from "next/navigation";
-import { urls } from "@/app/lib/constants";
+import { urls } from "@/app/lib/constants.lib";
 import Modal from "@/app/games/components/Modal";
 import { Href } from "@/app/games/components/Href";
 import Image from "next/image";

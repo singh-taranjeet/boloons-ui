@@ -1,5 +1,5 @@
 "use client";
-import { emptyFunction } from "@/app/lib/server-helper";
+import { emptyFunction } from "@/app/lib/server.lib";
 import { BoxGrid } from "../BoxGrid";
 import { NumberGrid } from "../NumberGrid";
 

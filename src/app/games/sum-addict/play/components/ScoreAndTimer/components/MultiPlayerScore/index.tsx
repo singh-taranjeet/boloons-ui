@@ -1,5 +1,5 @@
 import { Sentence } from "@/app/games/components/Sentence";
-import { usePlayer } from "@/app/lib/cutom-hooks";
+import { usePlayer } from "@/app/lib/cutom-hooks.lib";
 import { flexCenter } from "@/app/lib/style.lib";
 import Image from "next/image";
 

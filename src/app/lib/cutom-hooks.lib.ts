@@ -2,10 +2,11 @@
 import { MutableRefObject, useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
-import { appConstants, breakPoints } from "@/app/lib/constants";
+import { appConstants } from "@/app/lib/constants.lib";
 const RootUrl = AppConfig().apiUrl;
-import { getRandomInt } from "./server-helper";
+import { getRandomInt } from "./server.lib";
 import { AppConfig } from "../../../config";
+import { breakPoints } from "./style.lib";
 
 export function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);

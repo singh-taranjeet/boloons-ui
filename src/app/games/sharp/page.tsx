@@ -12,7 +12,7 @@ import {
 } from "./components/styles";
 import { generateQuestion } from "./lib/helper";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { useIsMobile } from "@/app/lib/cutom-hooks";
+import { useIsMobile } from "@/app/lib/cutom-hooks.lib";
 
 function DashedRectangle(props: { color?: string; width: string }) {
   const { color, width } = props;

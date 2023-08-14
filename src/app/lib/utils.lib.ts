@@ -1,4 +1,4 @@
-import { StyleConstants } from "./constants";
+import { StyleConstants } from "./style.lib";
 
 export function getClasses(params: {
   fontSize?: string;
@@ -19,9 +19,6 @@ export function getClasses(params: {
   if (padding) {
     cx += `${padding ? padding : StyleConstants.Padding["p-rectangle-small"]} `;
   }
-  //   if (margin) {
-  //     cx += `${margin ? margin : StyleConstants.Margin["m-normal"]} `;
-  //   }
   if (border) {
     cx += `${border ? border : StyleConstants.Border["border-2"]} `;
   }

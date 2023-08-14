@@ -1,5 +1,5 @@
 "use client";
-import { getRandomInt } from "@/app/lib/server-helper";
+import { getRandomInt } from "@/app/lib/server.lib";
 import { shuffle, drop } from "lodash";
 import { ScoreAndTimer } from "./components/ScoreAndTimer";
 import { Game } from "../components/Game";

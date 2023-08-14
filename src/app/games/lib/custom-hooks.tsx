@@ -1,5 +1,5 @@
 "use client";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
+import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gameConstants } from "../sum-addict/lib/constants";

@@ -3,7 +3,7 @@ import { QuestionType } from "./lib/types";
 import { GameType } from "./components/GameType";
 import { Sentence } from "../components/Sentence";
 import { gameConstants } from "./lib/constants";
-import { StyleConstants } from "../lib/constants";
+import { StyleConstants } from "@/app/lib/style.lib";
 
 function HowToPlayDescription(props: { className: string }) {
   {

@@ -2,7 +2,7 @@ import { useState } from "react";
 import { flexCenter } from "@/app/lib/style.lib";
 import { Sentence } from "../Sentence";
 import Image from "next/image";
-import { usePlayer } from "@/app/lib/cutom-hooks";
+import { usePlayer } from "@/app/lib/cutom-hooks.lib";
 
 interface ScoreCardType {
   score: number;

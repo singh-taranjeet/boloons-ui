@@ -1,6 +1,5 @@
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import Icon from "../Icon";
-import { useState } from "react";
 import { Sentence } from "../Sentence";
 
 export default function Modal(props: {

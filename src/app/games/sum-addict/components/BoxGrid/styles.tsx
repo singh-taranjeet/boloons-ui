@@ -1,4 +1,4 @@
-import { breakPoints } from "@/app/lib/constants";
+import { breakPoints } from "@/app/lib/style.lib";
 import { styled } from "styled-components";
 
 export const StyledBoxGrid = styled.section`

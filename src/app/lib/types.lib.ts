@@ -1,4 +1,4 @@
-import { StyleConstants } from "./constants";
+import { StyleConstants } from "./style.lib";
 
 export type FontSizeType = keyof typeof StyleConstants.FontSize;
 

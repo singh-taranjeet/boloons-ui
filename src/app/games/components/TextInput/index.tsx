@@ -1,5 +1,5 @@
-import { StyleConstants } from "../../lib/constants";
-import { RootElementType } from "../../lib/types";
+import { StyleConstants } from "@/app/lib/style.lib";
+import { RootElementType } from "@/app/lib/types.lib";
 
 type TTextInput = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,

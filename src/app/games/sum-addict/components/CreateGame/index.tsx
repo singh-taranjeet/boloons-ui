@@ -1,16 +1,15 @@
 "use client";
 import { gameConstants } from "../../lib/constants";
 import { useCallback, useEffect, useState } from "react";
-import { getRandomInt } from "@/app/lib/server-helper";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
+import { getRandomInt } from "@/app/lib/server.lib";
+import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { Card } from "../../../components/Card";
 import { Sentence } from "@/app/games/components/Sentence";
 import Icon from "../../../components/Icon";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
-import { flexCenter } from "@/app/lib/style.lib";
+import { StyleConstants, flexCenter } from "@/app/lib/style.lib";
 import { Button } from "../../../components/Button";
 import { useRouter } from "next/navigation";
-import { StyleConstants } from "@/app/games/lib/constants";
 
 export function CreateGame() {
   // const fakeName = getRandomInt();

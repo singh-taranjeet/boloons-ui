@@ -1,5 +1,5 @@
 import { EquationType, QuestionType } from "./types";
-import { getRandomInt } from "@/app/lib/server-helper";
+import { getRandomInt } from "@/app/lib/server.lib";
 
 export function generateQuestion(): QuestionType {
   // 1. Generate random equation

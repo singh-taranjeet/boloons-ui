@@ -1,5 +1,5 @@
-import { StyleConstants } from "../../lib/constants";
-import { ColorType, FontSizeType } from "../../lib/types";
+import { StyleConstants } from "@/app/lib/style.lib";
+import { ColorType, FontSizeType } from "@/app/lib/types.lib";
 
 interface SentenceType
   extends React.DetailedHTMLProps<

@@ -3,7 +3,7 @@ import { Box } from "../Box";
 import Image from "next/image";
 import { Number } from "../Number";
 import { StyledBoxGrid } from "./styles";
-import { useIsMobile } from "@/app/lib/cutom-hooks";
+import { useIsMobile } from "@/app/lib/cutom-hooks.lib";
 
 interface BoxGridType {
   options: number[];

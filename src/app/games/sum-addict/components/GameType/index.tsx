@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/app/games/components/Button";
 import { JoinGame } from "../JoinGame";
-import { urls } from "@/app/lib/constants";
+import { urls } from "@/app/lib/constants.lib";
 
 export function GameType() {
   const pathName = usePathname();
