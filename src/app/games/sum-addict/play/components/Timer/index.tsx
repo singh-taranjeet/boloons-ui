@@ -1,5 +1,5 @@
 "use client";
-import { Sentence } from "@/app/games/components/Sentence";
+import { Sentence } from "@/app/components/Sentence";
 import { useEffect, useState } from "react";
 
 const TIMEOUT = 5;

@@ -1,4 +1,4 @@
-import { Sentence } from "@/app/games/components/Sentence";
+import { Sentence } from "@/app/components/Sentence";
 import Image from "next/image";
 import { flexCenter } from "@/app/lib/style.lib";
 interface InfoType {

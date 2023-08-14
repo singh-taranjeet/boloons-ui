@@ -1,15 +1,16 @@
 "use client";
-import { gameConstants } from "../../lib/constants";
 import { useCallback, useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server.lib";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { Card } from "../../../components/Card";
-import { Sentence } from "@/app/games/components/Sentence";
+import { Sentence } from "@/app/components/Sentence";
 import Icon from "../../../components/Icon";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
 import { StyleConstants, flexCenter } from "@/app/lib/style.lib";
 import { Button } from "../../../components/Button";
 import { useRouter } from "next/navigation";
+import { gameConstants } from "../../lib/game.constants.lib";
+import { urls } from "@/app/lib/constants.lib";
 
 export function CreateGame() {
   // const fakeName = getRandomInt();
@@ -46,7 +47,9 @@ export function CreateGame() {
   const createGameSession = useCallback(
     function createGameSession() {
       const id = `${getRandomInt()}`;
-      setJoinUrl(`${window.location.origin}${gameConstants.joinUrl}?id=${id}`);
+      setJoinUrl(
+        `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${id}`
+      );
       setGameId(id);
       const session = {
         gameId: id,
@@ -66,7 +69,7 @@ export function CreateGame() {
       playerId: player?.id,
     });
     // console.log("starting game");
-    router.push(`${gameConstants.playUrl}?gameId=${gameId}`);
+    router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
   }
 
   function onClickUrlCopy() {

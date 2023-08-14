@@ -1,4 +1,4 @@
-import { Button } from "@/app/games/components/Button";
+import { Button } from "@/app/components/Button";
 import { flexCenter } from "@/app/lib/style.lib";
 export function Controls(props: {
   onClick(): void;

@@ -1,9 +1,9 @@
 import { Game } from "./components/Game";
-import { QuestionType } from "./lib/types";
+import { QuestionType } from "../lib/game.types.lib";
 import { GameType } from "./components/GameType";
-import { Sentence } from "../components/Sentence";
-import { gameConstants } from "./lib/constants";
+import { Sentence } from "../../components/Sentence";
 import { StyleConstants } from "@/app/lib/style.lib";
+import { gameConstants } from "../lib/game.constants.lib";
 
 function HowToPlayDescription(props: { className: string }) {
   {
@@ -25,7 +25,7 @@ export default function Page() {
       <h1
         className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
       >
-        {gameConstants.name}
+        {gameConstants.games.sumAddict}
       </h1>
       {/* Heading */}
       <section className="flex flex-col justify-center">

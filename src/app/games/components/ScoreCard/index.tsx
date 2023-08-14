@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { flexCenter } from "@/app/lib/style.lib";
-import { Sentence } from "../Sentence";
+import { Sentence } from "../../../components/Sentence";
 import Image from "next/image";
 import { usePlayer } from "@/app/lib/cutom-hooks.lib";
 

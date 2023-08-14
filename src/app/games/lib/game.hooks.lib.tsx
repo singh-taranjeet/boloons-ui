@@ -2,8 +2,8 @@
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { gameConstants } from "../sum-addict/lib/constants";
-import { QuestionType } from "../sum-addict/lib/types";
+import { QuestionType } from "./game.types.lib";
+import { gameConstants } from "./game.constants.lib";
 
 function getSound() {
   try {

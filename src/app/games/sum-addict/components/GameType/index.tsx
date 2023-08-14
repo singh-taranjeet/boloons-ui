@@ -1,15 +1,15 @@
 "use client";
-import { gameConstants } from "../../lib/constants";
-import { Sentence } from "@/app/games/components/Sentence";
-import { Href } from "@/app/games/components/Href";
-import { Card } from "@/app/games/components/Card";
-import { CreateGame } from "../CreateGame";
-import Modal from "@/app/games/components/Modal";
+import { Sentence } from "@/app/components/Sentence";
+import { Href } from "@/app/components/Href";
+import { Card } from "@/app/components/Card";
+import { CreateGame } from "../../../components/CreateGame";
+import Modal from "@/app/components/Modal";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { Button } from "@/app/games/components/Button";
-import { JoinGame } from "../JoinGame";
+import { Button } from "@/app/components/Button";
+import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
+import { gameConstants } from "@/app/games/lib/game.constants.lib";
 
 export function GameType() {
   const pathName = usePathname();
@@ -46,7 +46,7 @@ export function GameType() {
             <Sentence fontSize="text-medium" className={`text-primary`}>
               How you want to play?
             </Sentence>
-            <Href href={`${gameConstants.playUrl}`}>Solo</Href>
+            <Href href={`${urls.pages.games.sumAddict.playUrl}`}>Solo</Href>
             <Button onClick={() => setIsCreateGameModalOpen(true)}>
               Play with friends
             </Button>

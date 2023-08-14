@@ -8,16 +8,16 @@ import {
   useMultiplayer,
   useStartGame,
   useTimer,
-} from "../../lib/custom-hooks";
-import { QuestionType } from "../lib/types";
+} from "../../lib/game.hooks.lib";
+import { QuestionType } from "../../lib/game.types.lib";
 import { useEffect, useState } from "react";
-import Modal from "../../components/Modal";
-import { Card } from "../../components/Card";
-import { Sentence } from "../../components/Sentence";
-import { Href } from "../../components/Href";
-import { gameConstants } from "../lib/constants";
+import Modal from "../../../components/Modal";
+import { Card } from "../../../components/Card";
+import { Sentence } from "../../../components/Sentence";
+import { Href } from "../../../components/Href";
 import { ScoreCard } from "../../components/ScoreCard";
 import { flexCenter } from "@/app/lib/style.lib";
+import { urls } from "@/app/lib/constants.lib";
 
 const GAME_TIMEOUT = 30; // 30 Seconds
 
@@ -100,7 +100,10 @@ export default function Page() {
         <>
           <ScoreCard score={score} opponent={opponent} />
           <div className={`${flexCenter} mt-small`}>
-            <Href href={gameConstants.gameUrl} className={`p-rectangle-small `}>
+            <Href
+              href={urls.pages.games.sumAddict.gameUrl}
+              className={`p-rectangle-small `}
+            >
               Close
             </Href>
           </div>

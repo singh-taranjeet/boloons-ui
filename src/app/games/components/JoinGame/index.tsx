@@ -1,18 +1,18 @@
 "use client";
 import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { TextInput } from "../../../components/TextInput";
 import { Sentence } from "../../../components/Sentence";
 import { useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
-import { gameConstants } from "../../lib/constants";
 import { useRouter } from "next/navigation";
 import { urls } from "@/app/lib/constants.lib";
-import Modal from "@/app/games/components/Modal";
-import { Href } from "@/app/games/components/Href";
+import Modal from "@/app/components/Modal";
+import { Href } from "@/app/components/Href";
 import Image from "next/image";
+import { gameConstants } from "../../lib/game.constants.lib";
 
 export function JoinGame(props: { onClickJoin: () => void }) {
   const params = useSearchParams();
@@ -49,7 +49,7 @@ export function JoinGame(props: { onClickJoin: () => void }) {
       if (
         res.type === gameConstants.multiPlayer.eventMessageType.gameStartedMsg
       ) {
-        router.push(`${gameConstants.playUrl}?gameId=${gameId}`);
+        router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
       }
     },
     [gameId, router]

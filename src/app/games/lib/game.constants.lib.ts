@@ -1,9 +1,7 @@
 export const gameConstants = {
-  name: "Sum Addict",
-  gameUrl: "/games/sum-addict",
-  joinUrl: "/games/sum-addict/join",
-  createUrl: "/games/sum-addict/create",
-  playUrl: "/games/sum-addict/play",
+  games: {
+    sumAddict: "Sum Addict",
+  },
   multiPlayer: {
     events: {
       createSesion: "createSession",

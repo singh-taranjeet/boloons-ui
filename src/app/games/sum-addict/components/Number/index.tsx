@@ -1,4 +1,4 @@
-import { Sentence } from "@/app/games/components/Sentence";
+import { Sentence } from "@/app/components/Sentence";
 import { FontSizeType } from "@/app/lib/types.lib";
 
 export function Number(props: {
