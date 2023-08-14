@@ -1,0 +1,5 @@
+service: nextjs-with-aws-serverless
+frameworkVersion: ">=1.71.1"
+
+myNextApp:
+  component: "@sls-next/serverless-component@3.7.0"
