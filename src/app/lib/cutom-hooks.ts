@@ -1,8 +1,11 @@
 "use client";
 import { MutableRefObject, useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { appConstants, breakPoints } from "./constants";
+import axios from "axios";
+import { appConstants, breakPoints } from "@/app/lib/constants";
+const RootUrl = AppConfig().apiUrl;
 import { getRandomInt } from "./server-helper";
+import { AppConfig } from "../../../config";
 
 export function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -80,7 +83,7 @@ export function usePlayer() {
   return { player, updatePlayerName };
 }
 
-const URL = "https://boloons-api.onrender.com";
+const URL = AppConfig().apiUrl;
 
 const socket = io(URL);
 
@@ -134,4 +137,36 @@ export function useOutsideClick(
       document.removeEventListener("click", handleClickOutside);
     };
   });
+}
+
+export function useHttp<ResponseType>(
+  url: string,
+  method: "post" | "get" | "patch" | "delete"
+) {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<any>();
+  const [response, setResponse] = useState<ResponseType | undefined>();
+
+  useEffect(() => {
+    async function invoke() {
+      try {
+        const res = await axios[method](`${RootUrl}${url}`);
+        setResponse(res.data);
+        setLoading(false);
+      } catch (error: any) {
+        setError({
+          success: false,
+          ...(error?.response?.data || "Failed"),
+        });
+        setLoading(false);
+      }
+    }
+    invoke();
+  }, [method, url]);
+
+  return {
+    loading,
+    error,
+    response,
+  };
 }

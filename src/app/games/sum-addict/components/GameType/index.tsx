@@ -5,16 +5,17 @@ import { Href } from "@/app/games/components/Href";
 import { Card } from "@/app/games/components/Card";
 import { CreateGame } from "../CreateGame";
 import Modal from "@/app/games/components/Modal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { Button } from "@/app/games/components/Button";
 import { JoinGame } from "../JoinGame";
+import { urls } from "@/app/lib/constants";
 
 export function GameType() {
   const pathName = usePathname();
 
-  const isCreateMode = gameConstants.createUrl === pathName;
-  const isJoinMode = gameConstants.joinUrl === pathName;
+  const isCreateMode = urls.pages.games.sumAddict.createUrl === pathName;
+  const isJoinMode = urls.pages.games.sumAddict.joinUrl === pathName;
 
   const [isCreateGameModalOpen, setIsCreateGameModalOpen] =
     useState(isCreateMode);
@@ -24,6 +25,14 @@ export function GameType() {
   function onJoinClick() {
     setIsJoinGameModalOpen(false);
   }
+
+  useEffect(() => {
+    setIsJoinGameModalOpen(isJoinMode);
+  }, [isJoinMode]);
+
+  useEffect(() => {
+    setIsCreateGameModalOpen(isCreateMode);
+  }, [isCreateMode]);
 
   return (
     <>
@@ -43,8 +52,10 @@ export function GameType() {
             </Button>
           </>
         )}
+      </Card>
 
-        {/* Create Game Modal */}
+      {/* Create Game Modal */}
+      {isCreateGameModalOpen ? (
         <Modal
           title="Play with friends"
           open={isCreateGameModalOpen}
@@ -52,14 +63,17 @@ export function GameType() {
         >
           <CreateGame />
         </Modal>
-      </Card>
+      ) : null}
+
       {/* Join Game Modal */}
-      <Modal
-        open={isJoinGameModalOpen}
-        onClose={() => setIsJoinGameModalOpen(false)}
-      >
-        <JoinGame onClickJoin={onJoinClick} />
-      </Modal>
+      {isJoinGameModalOpen ? (
+        <Modal
+          open={isJoinGameModalOpen}
+          onClose={() => setIsJoinGameModalOpen(false)}
+        >
+          <JoinGame onClickJoin={onJoinClick} />
+        </Modal>
+      ) : null}
     </>
   );
 }

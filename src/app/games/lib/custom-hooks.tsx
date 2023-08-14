@@ -26,27 +26,6 @@ function getSound() {
 
 const Sound = getSound();
 
-const manageSound = (audio: any) => {
-  return function manageSound(
-    sound: "gameBackgroundMusic" | "renderScoreBackgroundMusic",
-    action: "play" | "pause"
-  ) {
-    if (action === "play") {
-      if (sound === "gameBackgroundMusic") {
-        audio?.gameBackgroundMusic.play();
-      } else {
-        audio?.renderScoreBackgroundMusic.play();
-      }
-    } else {
-      if (sound === "gameBackgroundMusic") {
-        audio?.gameBackgroundMusic.pause();
-      } else {
-        audio?.renderScoreBackgroundMusic.pause();
-      }
-    }
-  };
-};
-
 export function useMultiplayer(score: number, callBack: (data: any) => void) {
   const params = useSearchParams();
   const gameId = params?.get("gameId");
@@ -135,13 +114,6 @@ export function useGame(
   const [attempts, setAttempts] = useState<number[]>([]);
   const [gameInProgress, setGameInProgress] = useState<boolean | undefined>();
   const [scoreModalOpen, setScoreModalOpen] = useState(false);
-  // const [audio, setAudio] = useState<
-  //   | {
-  //       gameBackgroundMusic: HTMLAudioElement;
-  //       renderScoreBackgroundMusic: HTMLAudioElement;
-  //     }
-  //   | undefined
-  // >();
 
   const correctAnswer = data?.[currentQuestion]?.correctAnswer;
 

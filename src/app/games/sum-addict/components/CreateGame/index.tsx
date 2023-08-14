@@ -4,7 +4,6 @@ import { useCallback, useEffect, useState } from "react";
 import { getRandomInt } from "@/app/lib/server-helper";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
 import { Card } from "../../../components/Card";
-import { TextInput } from "../../../components/TextInput";
 import { Sentence } from "@/app/games/components/Sentence";
 import Icon from "../../../components/Icon";
 import { faClone } from "@fortawesome/free-regular-svg-icons";
@@ -16,7 +15,6 @@ import { StyleConstants } from "@/app/games/lib/constants";
 export function CreateGame() {
   // const fakeName = getRandomInt();
   const [gameId, setGameId] = useState("");
-  // const [gameName, setGameName] = useState(`${fakeName}`);
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
   const [urlCopied, setUrlCopied] = useState(false);

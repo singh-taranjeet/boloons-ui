@@ -1,5 +1,5 @@
 "use client";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
+import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
@@ -9,15 +9,25 @@ import { useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
 import { gameConstants } from "../../lib/constants";
 import { useRouter } from "next/navigation";
+import { urls } from "@/app/lib/constants";
+import Modal from "@/app/games/components/Modal";
+import { Href } from "@/app/games/components/Href";
+import Image from "next/image";
 
 export function JoinGame(props: { onClickJoin: () => void }) {
   const params = useSearchParams();
   const { socket } = useWebSocket();
   const { player, updatePlayerName } = usePlayer();
-  // const [joined, setJoined] = useState(false);
   const gameId = params?.get("id");
   const router = useRouter();
   const { onClickJoin } = props;
+
+  const { response, error, loading } = useHttp(
+    `${urls.api.getGame}/${gameId}`,
+    "get"
+  );
+
+  const isValidGameId = response && !loading;
 
   function join() {
     // setJoined(true);
@@ -53,24 +63,61 @@ export function JoinGame(props: { onClickJoin: () => void }) {
   }, [gameId, onGameStart, socket]);
 
   return (
-    <Card className={`${flexCenter} text-primary mt-large`}>
-      <Sentence>You have been invited to join game</Sentence>
-
-      <section className={`mt-normal`}>
-        <div className={`${flexCenter}`}>
-          <label htmlFor="player-name">Enter your name</label>
-          <TextInput
-            id="player-name"
-            type="text"
-            name="Player name"
-            placeholder="Enter your name"
-            className={`w-full my-normal`}
-            value={player?.name}
-            onChange={onChangePlayerName}
+    <>
+      {loading ? (
+        <Card className="flex-center mt-normal">
+          <Image
+            className="mx-auto"
+            src={"/images/loading-spinner.svg"}
+            height={200}
+            width={200}
+            alt="Loading"
           />
-        </div>
-        <Button onClick={join}>Join</Button>
-      </section>
-    </Card>
+        </Card>
+      ) : null}
+      {isValidGameId ? (
+        <Card className={`${flexCenter} text-primary mt-large`}>
+          <Sentence>You have been invited to join game</Sentence>
+
+          <section className={`mt-normal`}>
+            <div className={`${flexCenter}`}>
+              <label htmlFor="player-name">Enter your name</label>
+              <TextInput
+                id="player-name"
+                type="text"
+                name="Player name"
+                placeholder="Enter your name"
+                className={`w-full my-normal`}
+                value={player?.name}
+                onChange={onChangePlayerName}
+              />
+            </div>
+            <Button className="flex mx-auto" onClick={join}>
+              Join
+            </Button>
+          </section>
+        </Card>
+      ) : (
+        // If not valid show modal
+        <Modal
+          title="This is not a valid game"
+          open={!isValidGameId && !loading}
+        >
+          <Card className="">
+            <Image
+              className="mx-auto"
+              src={"/images/game-not-found.svg"}
+              width={300}
+              height={300}
+              alt="Game not found"
+              priority={false}
+            ></Image>
+          </Card>
+          <Button className="flex mt-small mx-auto">
+            <Href href={`${urls.pages.games.sumAddict.gameUrl}`}>close</Href>
+          </Button>
+        </Modal>
+      )}
+    </>
   );
 }
