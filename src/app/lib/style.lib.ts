@@ -43,6 +43,7 @@ const Color = {
   "text-red": "text-red",
   "text-blue": "text-blue",
   "text-white": "text-white",
+  "text-black": "text-black",
 };
 
 const BorderColor = {

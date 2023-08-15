@@ -16,7 +16,7 @@ module.exports = {
         large: "2.5rem", // => 40px
       },
       colors: {
-        primary: "#0891b2", // Cyan-600
+        primary: "#3E87FF",
         secondary: "#e2e8f0", // slate-200
         light: "#f1f5f9", // slate-100
         green: "#22c55e", // green-500

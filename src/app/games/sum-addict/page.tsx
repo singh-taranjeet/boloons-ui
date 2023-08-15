@@ -4,31 +4,34 @@ import { GameType } from "./components/GameType";
 import { Sentence } from "../../components/Sentence";
 import { StyleConstants } from "@/app/lib/style.lib";
 import { gameConstants } from "../lib/game.constants.lib";
+import { Card } from "@/app/components/Card";
 
 function HowToPlayDescription(props: { className: string }) {
   {
     /* Bottom Heading */
   }
   return (
-    <section className={`hidden ${props.className}`}>
-      <Sentence className={`mt-normal text-center`} fontSize="text-large">
+    <Card className={`hidden ${props.className} mt-normal`}>
+      <Sentence className={`mt-normal text-center`} fontSize="text-small">
         Select upto 3 number which sum up equal to the indicated number
       </Sentence>
       <GameType />
-    </section>
+    </Card>
   );
 }
 
 export default function Page() {
   return (
     <>
-      <h1
-        className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
-      >
-        {gameConstants.games.sumAddict}
-      </h1>
+      <Card className="m-small md:m-normal mb-0">
+        <h1
+          className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
+        >
+          {gameConstants.games.sumAddict}
+        </h1>
+      </Card>
       {/* Heading */}
-      <section className="flex flex-col justify-center">
+      <section className="flex flex-col justify-center m-small md:m-normal">
         <HowToPlayDescription className="md:block" />
       </section>
 

@@ -37,19 +37,32 @@ export function GameType() {
   return (
     <>
       <Card
-        className={`flex flex-col justify-center gap-normal md:row md:justify-between mt-normal w-fit mx-auto`}
+        className={`flex-center gap-normal md:row md:justify-between w-full mx-auto`}
       >
         {isJoinMode ? (
           <Sentence>Waiting for the game to start...</Sentence>
         ) : (
           <>
-            <Sentence fontSize="text-medium" className={`text-primary`}>
+            <Sentence
+              fontSize="text-medium"
+              className={`text-primary mb-small text-center`}
+            >
               How you want to play?
             </Sentence>
-            <Href href={`${urls.pages.games.sumAddict.playUrl}`}>Solo</Href>
-            <Button onClick={() => setIsCreateGameModalOpen(true)}>
-              Play with friends
-            </Button>
+            <div className="flex justify-between gap-small">
+              <Href
+                className="flex-1"
+                href={`${urls.pages.games.sumAddict.playUrl}`}
+              >
+                Solo
+              </Href>
+              <Button
+                className="flex-1"
+                onClick={() => setIsCreateGameModalOpen(true)}
+              >
+                With friends
+              </Button>
+            </div>
           </>
         )}
       </Card>

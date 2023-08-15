@@ -7,7 +7,7 @@ interface CardType
 }
 export function Card(props: CardType) {
   const { variant = "light" } = props;
-  const color = variant === "dark" ? "bg-light" : "bg-slate-50";
-  const cx = `p-normal ${color} rounded ${props.className}`;
+  const color = variant === "dark" ? "bg-light" : "bg-white";
+  const cx = `p-small md:p-normal ${color} rounded ${props.className}`;
   return <div {...props} className={cx}></div>;
 }
