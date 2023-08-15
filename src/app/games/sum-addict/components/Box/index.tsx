@@ -6,7 +6,7 @@ export function Box(props: {
 }) {
   const { children, onAttempt, selected } = props;
 
-  const bg = selected ? "bg-blue-300" : "bg-white";
+  const bg = selected ? "bg-secondary" : "bg-white";
 
   return (
     <div

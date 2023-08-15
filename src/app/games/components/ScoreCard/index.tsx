@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { flexCenter } from "@/app/lib/style.lib";
-import { Sentence } from "../../../components/Sentence";
 import Image from "next/image";
 import { usePlayer } from "@/app/lib/cutom-hooks.lib";
+import { Sentence } from "@/app/components/Sentence";
 
 interface ScoreCardType {
   score: number;
@@ -20,9 +20,7 @@ function UserScore(props: {
 }) {
   const { score, src, opponent = false, playerName } = props;
   return (
-    <div
-      className={`${flexCenter} basis-1/2 bg-light rounded py-normal px-small`}
-    >
+    <div className={`${flexCenter} basis-1/2 py-normal px-small`}>
       <div
         className={`flex justify-between gap-small md:gap-normal ${
           opponent ? "flex-row-reverse" : ""
@@ -59,7 +57,7 @@ export function ScoreCard(props: ScoreCardType) {
   const { player } = usePlayer();
 
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between bg-light rounded">
       <UserScore
         score={score}
         playerName={player?.name || ""}

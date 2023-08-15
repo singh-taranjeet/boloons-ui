@@ -17,7 +17,7 @@ export function BoxGrid(props: BoxGridType) {
   const isMobile = useIsMobile();
   return (
     <StyledBoxGrid
-      className={`grid gap-normal justify-center bg-light w-fit p-normal rounded mx-auto`}
+      className={`grid gap-normal justify-center bg-blue-50 w-fit p-normal rounded mx-auto`}
     >
       {options?.map((option) => (
         <div key={option} className="relative">

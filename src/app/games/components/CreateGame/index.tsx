@@ -92,16 +92,16 @@ export function CreateGame() {
           <section className={`${flexCenter} mt-small md:mt-0`}>
             <Sentence>Share this url with your frieds to join</Sentence>
             <div
-              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-primary p-rectangle-normal rounded`}
+              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-white p-rectangle-normal rounded border-primary border-2`}
               onClick={onClickUrlCopy}
             >
               <Sentence
-                className={`${flexCenter} whitespace-nowrap text-white`}
+                className={`${flexCenter} whitespace-nowrap text-primary`}
               >
                 {"Copy Join url"}
               </Sentence>
 
-              <Icon color="text-white" icon={faClone} />
+              <Icon icon={faClone} />
             </div>
           </section>
         ) : null}

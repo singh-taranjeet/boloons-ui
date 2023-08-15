@@ -17,12 +17,12 @@ module.exports = {
       },
       colors: {
         primary: "#3E87FF",
-        secondary: "#e2e8f0", // slate-200
-        light: "#f1f5f9", // slate-100
-        green: "#22c55e", // green-500
-        red: "#ef4444", // red- 500
-        blue: "#3b82f6", // blue-500
-        yellow: "#FFBA0A",
+        secondary: "#bfdbfe", // blue-200
+        light: "#eff6ff", // blue-100
+        // green: "#22c55e", // green-500
+        // red: "#ef4444", // red- 500
+        // blue: "#3b82f6", // blue-500
+        // yellow: "#FFBA0A",
       },
       padding: {
         "rectangle-small": "0.374rem 0.5rem",
