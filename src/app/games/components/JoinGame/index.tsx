@@ -13,6 +13,7 @@ import Modal from "@/app/components/Modal";
 import { Href } from "@/app/components/Href";
 import Image from "next/image";
 import { gameConstants } from "../../lib/game.constants.lib";
+import { PulseLoading } from "@/app/components/PulseLoading";
 
 export function JoinGame() {
   const params = useSearchParams();
@@ -22,10 +23,7 @@ export function JoinGame() {
   const [joined, setJoined] = useState(false);
   const router = useRouter();
 
-  const { response, error, loading } = useHttp(
-    `${urls.api.getGame}/${gameId}`,
-    "get"
-  );
+  const { response, loading } = useHttp(`${urls.api.getGame}/${gameId}`, "get");
 
   const isValidGameId = response && !loading;
 
@@ -64,17 +62,7 @@ export function JoinGame() {
 
   return (
     <>
-      {loading ? (
-        <section className="flex-center">
-          <Image
-            className="mx-auto"
-            src={"/images/loading-spinner.svg"}
-            height={200}
-            width={200}
-            alt="Loading"
-          />
-        </section>
-      ) : null}
+      {loading ? <PulseLoading></PulseLoading> : null}
       {isValidGameId ? (
         <section className={`${flexCenter} text-primary`}>
           <Sentence>You have been invited to join game</Sentence>
