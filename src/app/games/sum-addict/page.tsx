@@ -52,7 +52,7 @@ export default function Page() {
           attempts={initialQuestion().answers}
           options={initialQuestion().options}
         />
-        <HowToPlayDescription className="md:hidden mx-normal" />
+        <HowToPlayDescription className="md:hidden mx-normal mb-normal" />
       </section>
     </>
   );
@@ -62,6 +62,6 @@ function initialQuestion(): QuestionType {
   return {
     options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
     answers: [4, 9, 2],
-    correctAnswer: 18,
+    correctAnswer: 15,
   };
 }
