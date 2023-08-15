@@ -15,7 +15,7 @@ export function TextInput(props: TextInputType) {
       type="text"
       style={{ outline: "none" }}
       {...props}
-      className={`rounded ${cx} ${props.className}`}
+      className={`rounded ${cx} ${props.className} placeholder-primary`}
     />
   );
 }
@@ -28,6 +28,7 @@ function getClasses(params: {
   color?: string;
   bgColor?: string;
   borderColor?: string;
+  borderRadius?: string;
 }) {
   let cx = "";
 
@@ -38,6 +39,7 @@ function getClasses(params: {
     color = "text-primary",
     bgColor = "bg-white",
     borderColor = "border-primary",
+    borderRadius = "rounded",
   } = params;
 
   if (fontSize) {
@@ -59,7 +61,12 @@ function getClasses(params: {
   if (borderColor) {
     cx += `${
       borderColor ? borderColor : StyleConstants.BorderColor["border-primary"]
-    }`;
+    } `;
+    if (borderRadius) {
+      cx += `${
+        borderRadius ? borderRadius : StyleConstants.BorderRadius["rounded"]
+      }`;
+    }
   }
 
   return cx;

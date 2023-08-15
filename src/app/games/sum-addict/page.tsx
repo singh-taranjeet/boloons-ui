@@ -17,6 +17,7 @@ function HowToPlayDescription(props: { className?: string }) {
           Select upto 3 number which sum up equal to the indicated number
         </Sentence>
       </Card>
+      {/* How do you want to play */}
       <Card className={`${props.className} mt-small md:mt-normal mx-normal`}>
         <GameType />
       </Card>

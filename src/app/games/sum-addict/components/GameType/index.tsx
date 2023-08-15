@@ -33,7 +33,7 @@ export function GameType() {
 
   return (
     <>
-      <Card
+      <div
         className={`flex-center gap-normal md:row md:justify-between w-full mx-auto`}
       >
         <>
@@ -45,20 +45,20 @@ export function GameType() {
           </Sentence>
           <div className="flex justify-between gap-small mt-small md:mt-normal">
             <Href
-              className="flex-1"
+              className="flex-1 w-1/2"
               href={`${urls.pages.games.sumAddict.playUrl}`}
             >
               Solo
             </Href>
             <Button
-              className="flex-1"
+              className="flex-1 w-1/2"
               onClick={() => setIsCreateGameModalOpen(true)}
             >
               With friends
             </Button>
           </div>
         </>
-      </Card>
+      </div>
 
       {/* Create Game Modal */}
       {isCreateGameModalOpen ? (

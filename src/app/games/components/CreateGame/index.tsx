@@ -11,14 +11,14 @@ import { Button } from "../../../components/Button";
 import { useRouter } from "next/navigation";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
+import { TextInput } from "@/app/components/TextInput";
 
 export function CreateGame() {
-  // const fakeName = getRandomInt();
   const [gameId, setGameId] = useState("");
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
   const [urlCopied, setUrlCopied] = useState(false);
-  const { player } = usePlayer();
+  const { player, updatePlayerName } = usePlayer();
   const { socket } = useWebSocket();
   const router = useRouter();
 
@@ -90,9 +90,18 @@ export function CreateGame() {
         {/* Share the game session url */}
         {gameId ? (
           <section className={`${flexCenter} mt-small md:mt-0`}>
-            <Sentence>Share this url with your frieds to join</Sentence>
+            <Sentence>Your name</Sentence>
+            <TextInput
+              className="mt-small md-mt-normal"
+              placeholder="Enter your name"
+              value={player?.name}
+              onChange={(e) => updatePlayerName(e.target.value)}
+            />
+            <Sentence className="mt-normal">
+              Share this url with your frieds to join
+            </Sentence>
             <div
-              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-white p-rectangle-normal rounded border-primary border-2`}
+              className={`mt-small md-mt-normal gap-normal flex justify-between cursor-pointer bg-white p-rectangle-small rounded border-primary border-2`}
               onClick={onClickUrlCopy}
             >
               <Sentence
