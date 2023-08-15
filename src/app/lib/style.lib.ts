@@ -35,6 +35,11 @@ const Border = {
   "border-0": "border-0",
 } as const;
 
+const Radius = {
+  rounded: "rounded",
+  "rounded-full": "rounded-full",
+} as const;
+
 const Color = {
   "text-primary": "text-primary",
   "text-secondary": "text-secondary",
@@ -74,4 +79,5 @@ export const StyleConstants = {
   Color,
   BgColor,
   BorderColor,
+  BorderRadius: Radius,
 };

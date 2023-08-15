@@ -17,6 +17,7 @@ export function Button(props: ButtonType) {
     color = "text-white",
     bgColor = "bg-primary",
     borderColor = "border-primary",
+    borderRadius = "rounded-full",
   } = props;
 
   const cx = getClasses({
@@ -26,11 +27,12 @@ export function Button(props: ButtonType) {
     color,
     bgColor,
     borderColor,
+    borderRadius,
   });
   return (
     <button
       {...props}
-      className={`rounded text-center ${cx} ${props.className}`}
+      className={`flex justify-center ${cx} ${props.className}`}
     ></button>
   );
 }

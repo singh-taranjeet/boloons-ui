@@ -86,28 +86,30 @@ export function CreateGame() {
 
   return (
     <>
-      <Card className={`${flexCenter}`} variant="dark">
+      <section className={`${flexCenter}`}>
         {/* Share the game session url */}
         {gameId ? (
-          <section className={`${flexCenter}`}>
+          <section className={`${flexCenter} mt-small md:mt-0`}>
             <Sentence>Share this url with your frieds to join</Sentence>
             <div
-              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-slate-50 p-rectangle-normal rounded`}
+              className={`mt-normal gap-normal flex justify-between cursor-pointer bg-primary p-rectangle-normal rounded`}
               onClick={onClickUrlCopy}
             >
-              <Sentence className={`${flexCenter} whitespace-nowrap`}>
+              <Sentence
+                className={`${flexCenter} whitespace-nowrap text-white`}
+              >
                 {"Copy Join url"}
               </Sentence>
 
-              <Icon icon={faClone} />
+              <Icon color="text-white" icon={faClone} />
             </div>
           </section>
         ) : null}
-      </Card>
+      </section>
 
       {/* Players who have joined */}
       {joinUrl && urlCopied ? (
-        <Card className={`mt-normal`}>
+        <section className={`mt-normal`}>
           {players.length ? (
             <>
               <Sentence>Players who have joined</Sentence>
@@ -136,7 +138,7 @@ export function CreateGame() {
           ) : (
             <Sentence>Waiting for players to join...</Sentence>
           )}
-        </Card>
+        </section>
       ) : null}
     </>
   );

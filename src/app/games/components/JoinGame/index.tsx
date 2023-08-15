@@ -65,7 +65,7 @@ export function JoinGame(props: { onClickJoin: () => void }) {
   return (
     <>
       {loading ? (
-        <Card className="flex-center mt-normal">
+        <section className="flex-center">
           <Image
             className="mx-auto"
             src={"/images/loading-spinner.svg"}
@@ -73,13 +73,13 @@ export function JoinGame(props: { onClickJoin: () => void }) {
             width={200}
             alt="Loading"
           />
-        </Card>
+        </section>
       ) : null}
       {isValidGameId ? (
-        <Card className={`${flexCenter} text-primary mt-large`}>
+        <section className={`${flexCenter} text-primary`}>
           <Sentence>You have been invited to join game</Sentence>
 
-          <section className={`mt-normal`}>
+          <section>
             <div className={`${flexCenter}`}>
               <label htmlFor="player-name">Enter your name</label>
               <TextInput
@@ -92,11 +92,13 @@ export function JoinGame(props: { onClickJoin: () => void }) {
                 onChange={onChangePlayerName}
               />
             </div>
-            <Button className="flex mx-auto" onClick={join}>
-              Join
-            </Button>
+            <div className="mx-normal">
+              <Button className="flex mx-auto w-full" onClick={join}>
+                Join
+              </Button>
+            </div>
           </section>
-        </Card>
+        </section>
       ) : (
         // If not valid show modal
         <Modal

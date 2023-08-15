@@ -81,6 +81,7 @@ export function GameType() {
       {/* Join Game Modal */}
       {isJoinGameModalOpen ? (
         <Modal
+          title="Join?"
           open={isJoinGameModalOpen}
           onClose={() => setIsJoinGameModalOpen(false)}
         >

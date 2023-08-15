@@ -28,19 +28,28 @@ export default function Modal(props: {
     >
       <div
         onClick={stopPropogation}
-        className="modal-content m-auto bg-white rounded border-1 w-4/5 md:w-2/4 relative max-w-3xl"
+        className="modal-content m-auto bg-white rounded-3xl border-8 border-primary w-4/5 md:w-2/4 relative max-w-3xl"
       >
-        <div className="px-5">
-          {title ? <Sentence className="py-5">{title}</Sentence> : null}
+        <div className="min-w-full">
+          {title ? (
+            <div
+              className="flex-center w-full absolute"
+              style={{ top: "-1.5rem" }}
+            >
+              <div className="p-rectangle-normal w-fit mx-auto rounded-full bg-white border-4 border-primary px-normal">
+                <Sentence className="text-center">{title}</Sentence>
+              </div>
+            </div>
+          ) : null}
           {onClose ? (
             <Icon
               icon={faXmark}
-              className="absolute top-0 right-0 cursor-pointer !p-normal"
+              className="absolute top-0 right-0 cursor-pointer"
               onClick={closeModal}
             />
           ) : null}
         </div>
-        <div className="px-5 pb-5">{children}</div>
+        <div className="p-small md:p-normal mt-6">{children}</div>
       </div>
     </div>
   );

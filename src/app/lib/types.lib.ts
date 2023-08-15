@@ -8,6 +8,8 @@ export type MarginType = keyof typeof StyleConstants.Margin;
 
 export type BorderType = keyof typeof StyleConstants.Border;
 
+export type BorderRadius = keyof typeof StyleConstants.BorderRadius;
+
 export type ColorType = keyof typeof StyleConstants.Color;
 
 export type BgColorType = keyof typeof StyleConstants.BgColor;
@@ -22,4 +24,5 @@ export interface RootElementType {
   color?: ColorType;
   bgColor?: BgColorType;
   borderColor?: BorderColorType;
+  borderRadius?: BorderRadius;
 }

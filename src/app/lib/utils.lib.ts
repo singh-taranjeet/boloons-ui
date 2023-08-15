@@ -7,10 +7,19 @@ export function getClasses(params: {
   color?: string;
   bgColor?: string;
   borderColor?: string;
+  borderRadius?: string;
 }) {
   let cx = "";
 
-  const { fontSize, padding, border, color, bgColor, borderColor } = params;
+  const {
+    fontSize,
+    padding,
+    border,
+    color,
+    bgColor,
+    borderColor,
+    borderRadius,
+  } = params;
 
   if (fontSize) {
     cx += `${fontSize ? fontSize : StyleConstants.FontSize["text-medium"]} `;
@@ -29,8 +38,14 @@ export function getClasses(params: {
     cx += `${bgColor ? bgColor : StyleConstants.BgColor["bg-white"]} `;
   }
   if (borderColor) {
-    cx += `${
+    cx += ` ${
       borderColor ? borderColor : StyleConstants.BorderColor["border-primary"]
+    }`;
+  }
+
+  if (borderRadius) {
+    cx += ` ${
+      borderRadius ? borderRadius : StyleConstants.BorderRadius["rounded"]
     }`;
   }
 
