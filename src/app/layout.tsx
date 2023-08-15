@@ -17,11 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body
-        className={`${inter.className} min-h-screen relative max-w-3xl mx-auto`}
-      >
+      <body className={`${inter.className} min-h-screen relative mx-auto`}>
         <Image
-          className="opacity-[0.6] object-cover z-0 object-center md:object-top mx-auto md:w-screen"
+          className="opacity-[0.6] object-cover z-0 object-center md:object-top mx-auto"
           alt="Background image"
           src={"/media/background-image.svg"}
           fill={true}

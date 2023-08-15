@@ -21,12 +21,8 @@ export function GameType() {
 
   const [isJoinGameModalOpen, setIsJoinGameModalOpen] = useState(isJoinMode);
 
-  function onJoinClick() {
-    setIsJoinGameModalOpen(false);
-  }
-
   useEffect(() => {
-    // setIsJoinGameModalOpen(isJoinMode);
+    setIsJoinGameModalOpen(isJoinMode);
   }, [isJoinMode]);
 
   useEffect(() => {
@@ -82,7 +78,7 @@ export function GameType() {
           open={isJoinGameModalOpen}
           onClose={() => setIsJoinGameModalOpen(false)}
         >
-          <JoinGame onClickJoin={onJoinClick} />
+          <JoinGame />
         </Modal>
       ) : null}
     </>

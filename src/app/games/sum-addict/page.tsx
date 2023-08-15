@@ -7,13 +7,12 @@ import { gameConstants } from "../lib/game.constants.lib";
 import { Card } from "@/app/components/Card";
 
 function HowToPlayDescription(props: { className?: string }) {
-  const { className = "" } = props;
   {
     /* Bottom Heading */
   }
   return (
     <>
-      <Card className={`${props.className} mt-normal`}>
+      <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>
         <Sentence className={`text-center`} fontSize="text-medium">
           Select upto 3 number which sum up equal to the indicated number
         </Sentence>
@@ -28,27 +27,32 @@ function HowToPlayDescription(props: { className?: string }) {
 export default function Page() {
   return (
     <>
-      <Card className="m-small md:m-normal mb-0">
-        <h1
-          className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
-        >
-          {gameConstants.games.sumAddict}
-        </h1>
-      </Card>
-      {/* Heading */}
-      <section className="flex-col justify-center m-small md:m-normal hidden md:flex">
-        <HowToPlayDescription />
-      </section>
+      <section className="md:flex md:flex-col md:self-center md:mx-normal">
+        {/* Heading */}
+        <Card className="m-normal mb-0 md:w-fit md:mx-auto md:h-fit">
+          <h1
+            className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
+          >
+            {gameConstants.games.sumAddict}
+          </h1>
+        </Card>
 
-      {/* Game section */}
-      <Game
-        currentQuestion={0}
-        numbers={[initialQuestion()].map((item) => item.correctAnswer)}
-        learningMode={true}
-        attempts={initialQuestion().answers}
-        options={initialQuestion().options}
-      />
-      <HowToPlayDescription className="max-sm:block mx-normal" />
+        {/* Heading */}
+        <section className="flex-col justify-center m-small md:m-normal hidden md:flex md:mt-0">
+          <HowToPlayDescription />
+        </section>
+      </section>
+      <section className="flex flex-col md:self-center md:mx-normal gap-normal md:gap-0">
+        {/* Game section */}
+        <Game
+          currentQuestion={0}
+          numbers={[initialQuestion()].map((item) => item.correctAnswer)}
+          learningMode={true}
+          attempts={initialQuestion().answers}
+          options={initialQuestion().options}
+        />
+        <HowToPlayDescription className="hidden max-sm:block mx-normal" />
+      </section>
     </>
   );
 }
