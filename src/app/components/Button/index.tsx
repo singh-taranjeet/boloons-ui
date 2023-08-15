@@ -32,7 +32,7 @@ export function Button(props: ButtonType) {
   return (
     <button
       {...props}
-      className={`flex justify-center ${cx} ${props.className}`}
+      className={`flex justify-center ${cx} ${props.className} whitespace-nowrap`}
     ></button>
   );
 }

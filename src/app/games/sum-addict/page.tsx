@@ -17,7 +17,7 @@ function HowToPlayDescription(props: { className?: string }) {
           Select upto 3 number which sum up equal to the indicated number
         </Sentence>
       </Card>
-      <Card className="mt-small md:mt-normal mx-normal">
+      <Card className={`${props.className} mt-small md:mt-normal mx-normal`}>
         <GameType />
       </Card>
     </>
@@ -27,9 +27,9 @@ function HowToPlayDescription(props: { className?: string }) {
 export default function Page() {
   return (
     <>
-      <section className="md:flex md:flex-col md:self-center md:mx-normal">
+      <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2">
         {/* Heading */}
-        <Card className="m-normal mb-0 md:w-fit md:mx-auto md:h-fit">
+        <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit">
           <h1
             className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
           >
@@ -37,12 +37,12 @@ export default function Page() {
           </h1>
         </Card>
 
-        {/* Heading */}
+        {/* Desktop Heading */}
         <section className="flex-col justify-center m-small md:m-normal hidden md:flex md:mt-0">
           <HowToPlayDescription />
         </section>
       </section>
-      <section className="flex flex-col md:self-center md:mx-normal gap-normal md:gap-0">
+      <section className="flex flex-col md:self-center md:mx-normaol gap-normal md:gap-0 md:w-1/2">
         {/* Game section */}
         <Game
           currentQuestion={0}
@@ -51,7 +51,7 @@ export default function Page() {
           attempts={initialQuestion().answers}
           options={initialQuestion().options}
         />
-        <HowToPlayDescription className="hidden max-sm:block mx-normal" />
+        <HowToPlayDescription className="md:hidden mx-normal" />
       </section>
     </>
   );
