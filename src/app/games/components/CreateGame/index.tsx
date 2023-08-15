@@ -24,7 +24,7 @@ export function CreateGame() {
 
   // Event on player Join
   const onPlayerJoin = useCallback(function onPlayerJoin(res: any) {
-    // console.log("player joined");
+    console.log("player joined", res);
     if (
       res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg
     ) {
@@ -53,10 +53,12 @@ export function CreateGame() {
       setGameId(id);
       const session = {
         gameId: id,
+        playerId: player?.id,
+        name: player?.name,
       };
       socket.emit(gameConstants.multiPlayer.events.createSesion, session);
     },
-    [socket]
+    [player?.id, player?.name, socket]
   );
 
   function startGame() {
@@ -118,19 +120,23 @@ export function CreateGame() {
 
       {/* Players who have joined */}
       {joinUrl && urlCopied ? (
-        <section className={`mt-normal`}>
+        <>
           {players.length ? (
-            <>
+            <section className={`mt-normal`}>
               <Sentence>Players who have joined</Sentence>
 
               <ul>
-                {players.map((player) => {
+                {players.map((plyr) => {
                   return (
                     <li
-                      key={player.id}
-                      className={`${StyleConstants.FontSize["text-medium"]} text-primary mt-normal p-rectangle-normal bg-light rounded`}
+                      key={plyr.id}
+                      className={`${
+                        StyleConstants.FontSize["text-medium"]
+                      } text-primary mt-normal p-rectangle-normal bg-light rounded ${
+                        plyr.id == player?.id ? "hidden" : ""
+                      }`}
                     >
-                      {player.name}
+                      {plyr.name}
                     </li>
                   );
                 })}
@@ -143,11 +149,13 @@ export function CreateGame() {
                   </Button>
                 </Card>
               ) : null}
-            </>
+            </section>
           ) : (
-            <Sentence>Waiting for players to join...</Sentence>
+            <Sentence className="mt-normal">
+              Waiting for players to join...
+            </Sentence>
           )}
-        </section>
+        </>
       ) : null}
     </>
   );

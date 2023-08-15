@@ -37,12 +37,15 @@ export default function Modal(props: {
               style={{ top: "-1.5rem" }}
             >
               <div className="p-rectangle-normal w-fit mx-auto rounded-full bg-white border-4 border-primary px-normal">
-                <Sentence className="text-center">{title}</Sentence>
+                <Sentence color="text-dark-blue" className="text-center">
+                  {title}
+                </Sentence>
               </div>
             </div>
           ) : null}
           {onClose ? (
             <Icon
+              color="text-dark-blue"
               icon={faXmark}
               className="absolute top-0 right-0 cursor-pointer"
               onClick={closeModal}

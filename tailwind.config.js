@@ -19,6 +19,7 @@ module.exports = {
         primary: "#3E87FF",
         secondary: "#bfdbfe", // blue-200
         light: "#eff6ff", // blue-100
+        "dark-blue": "#7e22ce",
         // green: "#22c55e", // green-500
         // red: "#ef4444", // red- 500
         // blue: "#3b82f6", // blue-500
