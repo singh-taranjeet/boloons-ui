@@ -6,17 +6,22 @@ import { StyleConstants } from "@/app/lib/style.lib";
 import { gameConstants } from "../lib/game.constants.lib";
 import { Card } from "@/app/components/Card";
 
-function HowToPlayDescription(props: { className: string }) {
+function HowToPlayDescription(props: { className?: string }) {
+  const { className = "" } = props;
   {
     /* Bottom Heading */
   }
   return (
-    <Card className={`hidden ${props.className} mt-normal`}>
-      <Sentence className={`mt-normal text-center`} fontSize="text-small">
-        Select upto 3 number which sum up equal to the indicated number
-      </Sentence>
-      <GameType />
-    </Card>
+    <>
+      <Card className={`${props.className} mt-normal`}>
+        <Sentence className={`text-center`} fontSize="text-medium">
+          Select upto 3 number which sum up equal to the indicated number
+        </Sentence>
+      </Card>
+      <Card className="mt-small md:mt-normal mx-normal">
+        <GameType />
+      </Card>
+    </>
   );
 }
 
@@ -31,8 +36,8 @@ export default function Page() {
         </h1>
       </Card>
       {/* Heading */}
-      <section className="flex flex-col justify-center m-small md:m-normal">
-        <HowToPlayDescription className="md:block" />
+      <section className="flex-col justify-center m-small md:m-normal hidden md:flex">
+        <HowToPlayDescription />
       </section>
 
       {/* Game section */}

@@ -33,7 +33,6 @@ export default function Page() {
     scoreModalOpen,
   } = useGame(GAME_TIMEOUT, createQuestions, isCorrectAttempt);
 
-  // const isMobile = useIsMobile();
   const { startingTimer, isModalOpen } = useStartGame();
 
   const [opponent, setOpponent] = useState({ score: 0, name: "" });
@@ -43,7 +42,7 @@ export default function Page() {
   const { isMultiPlayer, playerId } = useMultiplayer(score, onScore);
 
   function onScore(res: any) {
-    console.log("res", res);
+    // console.log("res", res);
     const os = res?.players?.find(
       (player: { id: string }) => `${player.id}` !== `${playerId}`
     );

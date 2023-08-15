@@ -9,7 +9,6 @@ import { usePathname } from "next/navigation";
 import { Button } from "@/app/components/Button";
 import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
-import { gameConstants } from "@/app/games/lib/game.constants.lib";
 
 export function GameType() {
   const pathName = usePathname();
@@ -27,44 +26,42 @@ export function GameType() {
   }
 
   useEffect(() => {
-    setIsJoinGameModalOpen(isJoinMode);
+    // setIsJoinGameModalOpen(isJoinMode);
   }, [isJoinMode]);
 
   useEffect(() => {
     setIsCreateGameModalOpen(isCreateMode);
   }, [isCreateMode]);
 
+  console.log("isJoinGameModalOpen", isJoinGameModalOpen);
+
   return (
     <>
       <Card
         className={`flex-center gap-normal md:row md:justify-between w-full mx-auto`}
       >
-        {isJoinMode ? (
-          <Sentence>Waiting for the game to start...</Sentence>
-        ) : (
-          <>
-            <Sentence
-              fontSize="text-medium"
-              className={`text-primary mb-small text-center`}
+        <>
+          <Sentence
+            fontSize="text-medium"
+            className={`text-primary mb-small text-center`}
+          >
+            How you want to play?
+          </Sentence>
+          <div className="flex justify-between gap-small mt-small md:mt-normal">
+            <Href
+              className="flex-1"
+              href={`${urls.pages.games.sumAddict.playUrl}`}
             >
-              How you want to play?
-            </Sentence>
-            <div className="flex justify-between gap-small">
-              <Href
-                className="flex-1"
-                href={`${urls.pages.games.sumAddict.playUrl}`}
-              >
-                Solo
-              </Href>
-              <Button
-                className="flex-1"
-                onClick={() => setIsCreateGameModalOpen(true)}
-              >
-                With friends
-              </Button>
-            </div>
-          </>
-        )}
+              Solo
+            </Href>
+            <Button
+              className="flex-1"
+              onClick={() => setIsCreateGameModalOpen(true)}
+            >
+              With friends
+            </Button>
+          </div>
+        </>
       </Card>
 
       {/* Create Game Modal */}

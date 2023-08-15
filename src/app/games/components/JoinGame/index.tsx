@@ -1,6 +1,6 @@
 "use client";
 import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
-import { ChangeEvent, useCallback, useEffect } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { TextInput } from "../../../components/TextInput";
@@ -14,13 +14,13 @@ import { Href } from "@/app/components/Href";
 import Image from "next/image";
 import { gameConstants } from "../../lib/game.constants.lib";
 
-export function JoinGame(props: { onClickJoin: () => void }) {
+export function JoinGame() {
   const params = useSearchParams();
   const { socket } = useWebSocket();
   const { player, updatePlayerName } = usePlayer();
   const gameId = params?.get("id");
+  const [joined, setJoined] = useState(false);
   const router = useRouter();
-  const { onClickJoin } = props;
 
   const { response, error, loading } = useHttp(
     `${urls.api.getGame}/${gameId}`,
@@ -30,13 +30,13 @@ export function JoinGame(props: { onClickJoin: () => void }) {
   const isValidGameId = response && !loading;
 
   function join() {
-    // setJoined(true);
+    setJoined(true);
+    console.log("join clicked");
     socket.emit(gameConstants.multiPlayer.events.playerJoined, {
       gameId,
       name: player?.name,
       playerId: player?.id,
     });
-    onClickJoin();
   }
 
   function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
@@ -85,6 +85,7 @@ export function JoinGame(props: { onClickJoin: () => void }) {
               <TextInput
                 id="player-name"
                 type="text"
+                readOnly={joined}
                 name="Player name"
                 placeholder="Enter your name"
                 className={`w-full my-normal`}
@@ -93,9 +94,18 @@ export function JoinGame(props: { onClickJoin: () => void }) {
               />
             </div>
             <div className="mx-normal">
-              <Button className="flex mx-auto w-full" onClick={join}>
-                Join
-              </Button>
+              {joined ? (
+                <Sentence>Waiting for the game to start...</Sentence>
+              ) : (
+                <Button
+                  className="flex mx-auto w-full"
+                  tabIndex={1}
+                  autoFocus={true}
+                  onClick={join}
+                >
+                  Join
+                </Button>
+              )}
             </div>
           </section>
         </section>

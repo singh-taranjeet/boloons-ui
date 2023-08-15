@@ -21,6 +21,7 @@ export function Href(props: LinkType) {
     color = "text-white",
     bgColor = "bg-primary",
     borderColor = "border-primary",
+    borderRadius = "rounded-full",
   } = props;
 
   const cx = getClasses({
@@ -30,6 +31,7 @@ export function Href(props: LinkType) {
     color,
     bgColor,
     borderColor,
+    borderRadius,
   });
 
   return (

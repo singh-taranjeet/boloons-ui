@@ -6,10 +6,13 @@ export function Box(props: {
 }) {
   const { children, onAttempt, selected } = props;
 
-  const bg = selected ? "bg-secondary" : "bg-white";
+  const bg = selected ? "bg-blue-300" : "bg-white";
 
   return (
-    <div onClick={onAttempt} className={`rounded ${bg} h-full`}>
+    <div
+      onClick={onAttempt}
+      className={`rounded ${bg} h-full border-2 border-primary`}
+    >
       {children}
     </div>
   );
