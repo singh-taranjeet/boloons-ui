@@ -5,7 +5,7 @@ export function AppConfig() {
     };
   } else {
     return {
-      apiUrl: "https://boloons-api.onrender.com",
+      apiUrl: "boloons-api-alb-369223181.us-east-1.elb.amazonaws.com",
     };
   }
 }
