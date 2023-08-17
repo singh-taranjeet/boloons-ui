@@ -94,10 +94,10 @@ export function CreateGame() {
         {/* Share the game session url */}
         {gameId ? (
           <section className={`${flexCenter} mt-small md:mt-0`}>
-            <Sentence>Your name</Sentence>
+            <Sentence>Your gamer name</Sentence>
             <TextInput
               className="mt-small md-mt-normal"
-              placeholder="Enter your name"
+              placeholder="Enter your gamer name"
               value={player?.name}
               onChange={(e) => updatePlayerName(e.target.value)}
             />

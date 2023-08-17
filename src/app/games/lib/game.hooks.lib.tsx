@@ -2,10 +2,10 @@
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { QuestionType } from "./game.types.lib";
-import { gameConstants } from "./game.constants.lib";
+import { QuestionType, SoundType } from "./game.types.lib";
+import { audios, gameConstants } from "./game.constants.lib";
 
-function getSound() {
+function getAudio() {
   try {
     const gameBackgroundMusic = new Audio("/audio/in-progress-background.mp3");
     gameBackgroundMusic.loop = true;
@@ -24,7 +24,36 @@ function getSound() {
   }
 }
 
-const Sound = getSound();
+function useSound() {
+  const sound = useRef<SoundType>();
+
+  const stopAllAudio = useCallback(function stopAllAudio() {
+    // loop and pause all
+    audios.forEach((audio) => {
+      if (sound?.current?.[audio]) {
+        sound.current[audio].pause();
+        sound.current[audio].currentTime = 0;
+      }
+    });
+  }, []);
+
+  const manageAudio = useCallback(
+    function manageAudio(
+      name: "gameBackgroundMusic" | "renderScoreBackgroundMusic",
+      action: "play" | "pause"
+    ) {
+      stopAllAudio();
+
+      sound?.current?.[name][action]();
+    },
+    [stopAllAudio]
+  );
+
+  useEffect(() => {
+    sound.current = getAudio();
+  }, []);
+  return { stopAllAudio, manageAudio };
+}
 
 export function useMultiplayer(score: number, callBack: (data: any) => void) {
   const params = useSearchParams();
@@ -108,6 +137,7 @@ export function useGame(
   createQuestions: () => QuestionType[],
   isCorrectAttempt: (userAttempts: number[], correctAnswer: number) => boolean
 ) {
+  const { manageAudio, stopAllAudio } = useSound();
   const [data, setData] = useState<QuestionType[]>([]);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
@@ -134,28 +164,12 @@ export function useGame(
     [setQuestions]
   );
 
-  const manageSound = useCallback(function manageSound(
-    sound: "gameBackgroundMusic" | "renderScoreBackgroundMusic",
-    action: "play" | "pause"
-  ) {
-    if (action === "play") {
-      Sound?.[sound].play();
-    } else {
-      Sound?.[sound].pause();
-    }
-  },
-  []);
-
   // Pause the game when ended
   useEffect(() => {
-    //const sound = setSound();
-    // setAudio(sound);
     return () => {
-      Sound?.gameBackgroundMusic.pause();
-      Sound?.renderScoreBackgroundMusic.pause();
+      stopAllAudio();
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [stopAllAudio]);
 
   const stopGame = useCallback(
     function stopGame() {
@@ -163,14 +177,14 @@ export function useGame(
       // set game in progress false
       setGameInProgress((oldValue) => {
         if (oldValue === true) {
-          manageSound("gameBackgroundMusic", "pause");
-          manageSound("renderScoreBackgroundMusic", "play");
+          manageAudio("gameBackgroundMusic", "pause");
+          manageAudio("renderScoreBackgroundMusic", "play");
           setScoreModalOpen(true);
           return false;
         }
       });
     },
-    [manageSound]
+    [manageAudio]
   );
 
   const { timer, startTimer } = useTimer(gameTimeOut, stopGame);
@@ -180,9 +194,9 @@ export function useGame(
       resetGame();
       setGameInProgress(true);
       startTimer();
-      manageSound("gameBackgroundMusic", "play");
+      manageAudio("gameBackgroundMusic", "play");
     },
-    [manageSound, resetGame, startTimer]
+    [manageAudio, resetGame, startTimer]
   );
 
   const nextQuestion = useCallback(

@@ -3,3 +3,8 @@ export interface QuestionType {
   answers: number[];
   correctAnswer: number;
 }
+
+export interface SoundType {
+  gameBackgroundMusic: HTMLAudioElement;
+  renderScoreBackgroundMusic: HTMLAudioElement;
+}

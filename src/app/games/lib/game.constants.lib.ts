@@ -1,3 +1,5 @@
+import { SoundType } from "./game.types.lib";
+
 export const gameConstants = {
   games: {
     sumAddict: "Sum Addict",
@@ -16,3 +18,9 @@ export const gameConstants = {
     },
   },
 };
+
+type Audio = keyof SoundType;
+export const audios: Audio[] = [
+  "gameBackgroundMusic",
+  "renderScoreBackgroundMusic",
+];

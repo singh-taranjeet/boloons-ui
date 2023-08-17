@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 import axios from "axios";
 import { urls } from "@/app/lib/constants.lib";
 const RootUrl = AppConfig().apiUrl;
-import { debounce, throttle } from "lodash";
+import { throttle } from "lodash";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
 const localStorageConstant = {
