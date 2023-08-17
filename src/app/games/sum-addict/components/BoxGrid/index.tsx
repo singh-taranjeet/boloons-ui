@@ -2,7 +2,7 @@
 import { Box } from "../Box";
 import Image from "next/image";
 import { Number } from "../Number";
-import { StyledBoxGrid } from "./styles";
+// import { StyledBoxGrid } from "./styles";
 import { useIsMobile } from "@/app/lib/cutom-hooks.lib";
 
 interface BoxGridType {
@@ -16,8 +16,8 @@ export function BoxGrid(props: BoxGridType) {
   const { options, onAttempt, attempts = [], learningMode = false } = props;
   const isMobile = useIsMobile();
   return (
-    <StyledBoxGrid
-      className={`grid gap-normal justify-center bg-blue-50 w-fit p-normal rounded mx-auto`}
+    <section
+      className={`grid gap-normal justify-center bg-blue-50 w-fit p-normal rounded mx-auto grid-cols-3`}
     >
       {options?.map((option) => (
         <div key={option} className="relative">
@@ -43,6 +43,6 @@ export function BoxGrid(props: BoxGridType) {
           ) : null}
         </div>
       ))}
-    </StyledBoxGrid>
+    </section>
   );
 }

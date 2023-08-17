@@ -86,6 +86,8 @@ export function CreateGame() {
     createGameSession();
   }, [createGameSession]);
 
+  //console.log("Join url", joinUrl);
+
   return (
     <>
       <section className={`${flexCenter}`}>

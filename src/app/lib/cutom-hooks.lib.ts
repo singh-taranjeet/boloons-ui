@@ -2,11 +2,15 @@
 import { MutableRefObject, useCallback, useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
-import { appConstants } from "@/app/lib/constants.lib";
+import { urls } from "@/app/lib/constants.lib";
 const RootUrl = AppConfig().apiUrl;
-import { getRandomInt } from "./server.lib";
+import { debounce, throttle } from "lodash";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
+const localStorageConstant = {
+  playerName: "playerName",
+  playerId: "playerId",
+};
 
 export function useIsMobile() {
   const [isMobile, setIsMobile] = useState(false);
@@ -33,9 +37,36 @@ export function useIsMobile() {
 }
 
 export function usePlayer() {
-  const [player, setPlayer] = useState<{ id: string; name: string } | null>(
-    null
-  );
+  const [player, setPlayer] = useState<{ id: string; name: string } | null>({
+    id: "",
+    name: "",
+  });
+
+  const playerEndPoint = `${urls.api.player}`;
+
+  const { loading, response, invoke } = useHttp<
+    {
+      success: boolean;
+      data: {
+        id: string;
+        name: string;
+      };
+    },
+    {}
+  >({
+    url: playerEndPoint,
+    onInit: false,
+  });
+
+  const updatePlayerApi = useHttp({
+    url: playerEndPoint,
+    method: "patch",
+    onInit: false,
+  });
+
+  const df = throttle(updatePlayerNameOnApi, 3000, { trailing: true });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const sdf = useCallback(df, []);
 
   function updatePlayerName(name: string) {
     setPlayer({
@@ -43,43 +74,58 @@ export function usePlayer() {
       id: player?.id || "",
       name,
     });
+    if (player?.id && name) {
+      console.log("Hello", player);
+      sdf(player.id, name);
+    }
   }
 
-  const loadValue = useCallback(function loadvalue() {
-    const info = localStorage.getItem(appConstants.playerInfoLocalStorage);
-    try {
-      if (!info || !Object.keys(JSON.parse(info))?.length) {
-        const newInfo = {
-          id: getRandomInt(),
-          name: getRandomInt(),
-        };
-        // console.log("Player info not found", newInfo);
-        localStorage.setItem(
-          appConstants.playerInfoLocalStorage,
-          JSON.stringify(newInfo)
-        );
-      } else {
-        setPlayer(JSON.parse(info));
-      }
-    } catch (error) {
-      // console.log("Error in saving player info", info, error);
-      localStorage.removeItem(appConstants.playerInfoLocalStorage);
-    }
-  }, []);
+  const setLocal = useCallback(function setLocal(player: {
+    id: string;
+    name: string;
+  }) {
+    const { id = "", name = "" } = player;
+    localStorage.setItem(localStorageConstant.playerId, player?.id || "");
+    localStorage.setItem(localStorageConstant.playerName, player?.name || "");
+  },
+  []);
 
-  useEffect(() => {
-    loadValue();
-  }, [loadValue]);
-
-  // Update value in local storage when the information is udpated.
-  useEffect(() => {
-    if (player) {
-      localStorage.setItem(
-        appConstants.playerInfoLocalStorage,
-        JSON.stringify(player)
-      );
+  function updatePlayerNameOnApi(id: string, name: string) {
+    if (id && name) {
+      updatePlayerApi.invoke({
+        body: { id, name },
+      });
+      setLocal({ id, name });
     }
-  }, [player]);
+  }
+
+  /**
+   * Check if data exist in local storage
+   */
+  useEffect(() => {
+    const playerName = localStorage.getItem(localStorageConstant.playerName);
+    const playerId = localStorage.getItem(localStorageConstant.playerId);
+    if (!playerName || !playerId) {
+      console.log("loca", playerName, playerId);
+      invoke({});
+    } else {
+      setPlayer({
+        id: playerId,
+        name: playerName,
+      });
+    }
+  }, [invoke]);
+
+  // Track if the respose is loaded
+  useEffect(() => {
+    if (!loading && response?.success) {
+      setPlayer({
+        id: response.data?.id || "",
+        name: response.data?.name || "",
+      });
+      setLocal(response.data);
+    }
+  }, [loading, response, setLocal]);
 
   return { player, updatePlayerName };
 }
@@ -140,34 +186,50 @@ export function useOutsideClick(
   });
 }
 
-export function useHttp<ResponseType>(
-  url: string,
-  method: "post" | "get" | "patch" | "delete"
-) {
+export function useHttp<ResponseType, Body>(params: {
+  url: string;
+  method?: "post" | "get" | "patch" | "delete";
+  onInit?: boolean;
+}) {
+  const { url, method = "get", onInit = true } = params;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<any>();
   const [response, setResponse] = useState<ResponseType | undefined>();
 
-  useEffect(() => {
-    async function invoke() {
+  const invoke = useCallback(
+    async function invoke(params: { body?: Body; newUrl?: string }) {
+      const { body, newUrl = url } = params;
       try {
-        const res = await axios[method](`${RootUrl}${url}`);
+        const res = await axios[method](`${RootUrl}${newUrl}`, body || {});
         setResponse(res.data);
+        if (AppConfig().env === "development") {
+          console.log(`Response of ${newUrl}`, res.data);
+        }
         setLoading(false);
       } catch (error: any) {
+        if (AppConfig().env === "development") {
+          console.log(`Error in ${newUrl}`, error.message);
+        }
         setError({
           success: false,
           ...(error?.response?.data || "Failed"),
         });
         setLoading(false);
       }
+    },
+    [method, url]
+  );
+
+  useEffect(() => {
+    if (onInit) {
+      invoke({});
     }
-    invoke();
-  }, [method, url]);
+  }, [invoke, method, onInit, url]);
 
   return {
     loading,
     error,
     response,
+    invoke,
   };
 }

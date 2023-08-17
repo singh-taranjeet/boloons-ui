@@ -1,7 +1,3 @@
-export const appConstants = {
-  playerInfoLocalStorage: "playerInfoLocalStorage",
-};
-
 export const urls = {
   images: "/images",
   icons: "/images/icons",
@@ -17,5 +13,6 @@ export const urls = {
   },
   api: {
     getGame: "/game",
+    player: "/player",
   },
 };
