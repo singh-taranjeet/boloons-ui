@@ -11,7 +11,7 @@ export function AppConfig(): AppConfig {
     };
   } else {
     return {
-      apiUrl: "boloons-api-alb-369223181.us-east-1.elb.amazonaws.com",
+      apiUrl: "htpp://boloons-api-alb-369223181.us-east-1.elb.amazonaws.com",
       env: "production",
     };
   }

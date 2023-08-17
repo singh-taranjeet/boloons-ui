@@ -106,7 +106,6 @@ export function usePlayer() {
     const playerName = localStorage.getItem(localStorageConstant.playerName);
     const playerId = localStorage.getItem(localStorageConstant.playerId);
     if (!playerName || !playerId) {
-      console.log("loca", playerName, playerId);
       invoke({});
     } else {
       setPlayer({
@@ -192,7 +191,7 @@ export function useHttp<ResponseType, Body>(params: {
   onInit?: boolean;
 }) {
   const { url, method = "get", onInit = true } = params;
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(!!onInit);
   const [error, setError] = useState<any>();
   const [response, setResponse] = useState<ResponseType | undefined>();
 

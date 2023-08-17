@@ -1,64 +1,39 @@
 "use client";
-import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useHttp, usePlayer } from "@/app/lib/cutom-hooks.lib";
+import { ChangeEvent } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { TextInput } from "../../../components/TextInput";
 import { Sentence } from "../../../components/Sentence";
 import { useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
-import { useRouter } from "next/navigation";
 import { urls } from "@/app/lib/constants.lib";
 import Modal from "@/app/components/Modal";
 import { Href } from "@/app/components/Href";
 import Image from "next/image";
-import { gameConstants } from "../../lib/game.constants.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
+import { RootResponseType } from "@/app/lib/types.lib";
 
-export function JoinGame() {
+export function JoinGame(props: { onClickJoin(): void }) {
+  const { onClickJoin } = props;
   const params = useSearchParams();
-  const { socket } = useWebSocket();
   const { player, updatePlayerName } = usePlayer();
   const gameId = params?.get("id");
-  const [joined, setJoined] = useState(false);
-  const router = useRouter();
 
-  const { response, loading } = useHttp(`${urls.api.getGame}/${gameId}`, "get");
+  const { response, loading } = useHttp<
+    RootResponseType<{ inProgress: boolean }>,
+    any
+  >({
+    url: `${urls.api.getGame}/${gameId}`,
+    method: "get",
+  });
 
   const isValidGameId = response && !loading;
-
-  function join() {
-    setJoined(true);
-    console.log("join clicked");
-    socket.emit(gameConstants.multiPlayer.events.playerJoined, {
-      gameId,
-      name: player?.name,
-      playerId: player?.id,
-    });
-  }
 
   function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     updatePlayerName(value);
   }
-
-  const onGameStart = useCallback(
-    function onGameStart(res: { type: string }) {
-      if (
-        res.type === gameConstants.multiPlayer.eventMessageType.gameStartedMsg
-      ) {
-        router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
-      }
-    },
-    [gameId, router]
-  );
-
-  useEffect(() => {
-    socket.on(`${gameId}`, onGameStart);
-    return () => {
-      socket.off(`${gameId}`, onGameStart);
-    };
-  }, [gameId, onGameStart, socket]);
 
   return (
     <>
@@ -67,33 +42,28 @@ export function JoinGame() {
         <section className={`${flexCenter} text-primary`}>
           <Sentence>You have been invited to join game</Sentence>
 
-          <section>
+          <section className="pt-small md:pt-normal">
             <div className={`${flexCenter}`}>
-              <label htmlFor="player-name">Enter your name</label>
+              <label htmlFor="player-name">Use gammer name</label>
               <TextInput
                 id="player-name"
                 type="text"
-                readOnly={joined}
                 name="Player name"
                 placeholder="Enter your name"
-                className={`w-full my-normal`}
+                className={`w-full mt-small`}
                 value={player?.name}
                 onChange={onChangePlayerName}
               />
             </div>
-            <div className="mx-normal">
-              {joined ? (
-                <Sentence>Waiting for the game to start...</Sentence>
-              ) : (
-                <Button
-                  className="flex mx-auto w-full"
-                  tabIndex={1}
-                  autoFocus={true}
-                  onClick={join}
-                >
-                  Join
-                </Button>
-              )}
+            <div className="mx-auto mb-0 mt-small md:mt-normal px-normal">
+              <Button
+                className="flex w-full"
+                tabIndex={1}
+                autoFocus={true}
+                onClick={onClickJoin}
+              >
+                Join
+              </Button>
             </div>
           </section>
         </section>
@@ -106,7 +76,7 @@ export function JoinGame() {
           <Card className="">
             <Image
               className="mx-auto"
-              src={"/images/game-not-found.svg"}
+              src={"/media/not-found.svg"}
               width={300}
               height={300}
               alt="Game not found"

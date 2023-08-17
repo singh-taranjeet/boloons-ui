@@ -26,3 +26,8 @@ export interface RootElementType {
   borderColor?: BorderColorType;
   borderRadius?: BorderRadius;
 }
+
+export interface RootResponseType<Type> {
+  success: boolean;
+  data: Type;
+}
