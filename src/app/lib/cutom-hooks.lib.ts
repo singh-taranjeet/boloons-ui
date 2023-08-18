@@ -39,8 +39,6 @@ export function useIsMobile() {
     };
   }, []);
 
-  // console.log("Is MObile", isMobile);
-
   return isMobile;
 }
 
