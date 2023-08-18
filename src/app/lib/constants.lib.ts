@@ -1,6 +1,6 @@
 export const urls = {
-  images: "/images",
-  icons: "/images/icons",
+  media: "/media/",
+  icons: "/images/icons/",
   pages: {
     games: {
       sumAddict: {

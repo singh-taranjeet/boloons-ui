@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Number } from "../Number";
 // import { StyledBoxGrid } from "./styles";
 import { useIsMobile } from "@/app/lib/cutom-hooks.lib";
+import { urls } from "@/app/lib/constants.lib";
 
 interface BoxGridType {
   options: number[];
@@ -34,7 +35,7 @@ export function BoxGrid(props: BoxGridType) {
           {attempts.includes(option) && learningMode ? (
             <Image
               className="absolute bottom-0 -right-6 z-10 animate-bounce"
-              src={"/images/finger-pointer.svg"}
+              src={`${urls.media}finger-pointer.svg`}
               width={50}
               height={50}
               alt="select"

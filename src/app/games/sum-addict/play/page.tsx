@@ -43,7 +43,6 @@ export default function Page() {
   const { isMultiPlayer, playerId } = useMultiplayer(score, onScore);
 
   function onScore(res: any) {
-    // DebugLog("res", res);
     const os = res?.players?.find(
       (player: { id: string }) => `${player.id}` !== `${playerId}`
     );

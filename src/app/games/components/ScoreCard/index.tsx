@@ -3,6 +3,7 @@ import { flexCenter } from "@/app/lib/style.lib";
 import Image from "next/image";
 import { usePlayer } from "@/app/lib/cutom-hooks.lib";
 import { Sentence } from "@/app/components/Sentence";
+import { urls } from "@/app/lib/constants.lib";
 
 interface ScoreCardType {
   score: number;
@@ -65,13 +66,13 @@ export function ScoreCard(props: ScoreCardType) {
       <UserScore
         score={score}
         playerName={player?.name || ""}
-        src="/images/icons/user-1.png"
+        src={`${urls.icons}user-1.png`}
       />
       {isMultiPlayer ? (
         <UserScore
           score={opponent.score}
           playerName={opponent?.name || ""}
-          src="/images/icons/user-2.png"
+          src={`${urls.icons}user-2.png`}
         />
       ) : null}
     </div>

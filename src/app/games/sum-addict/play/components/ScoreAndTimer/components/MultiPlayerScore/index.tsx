@@ -1,4 +1,5 @@
 import { Sentence } from "@/app/components/Sentence";
+import { urls } from "@/app/lib/constants.lib";
 import { usePlayer } from "@/app/lib/cutom-hooks.lib";
 import { flexCenter } from "@/app/lib/style.lib";
 import Image from "next/image";
@@ -58,13 +59,13 @@ export function MultiplayerScore(props: {
       <UserScore
         playerName={player?.name || ""}
         score={score}
-        src="/images/icons/user-1.png"
+        src={`${urls.icons}user-1.png`}
       />
 
       {/* Timer image */}
       <div className={`flex justify-center basis-1/3 relative px-small w-12`}>
         <Image
-          src={"/images/timer-icon.svg"}
+          src={`${urls.media}timer-icon.svg`}
           height={50}
           width={50}
           style={{ objectFit: "contain" }}
@@ -90,7 +91,7 @@ export function MultiplayerScore(props: {
         opponent={true}
         playerName={opponent.name || ""}
         score={opponent.score}
-        src="/images/icons/user-2.png"
+        src={`${urls.icons}user-2.png`}
       />
     </div>
   );
