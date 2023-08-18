@@ -12,8 +12,16 @@ const localStorageConstant = {
   playerId: "playerId",
 };
 
+function getUserDevice() {
+  try {
+    return window.innerWidth < breakPoints.sm;
+  } catch (error) {
+    return true;
+  }
+}
+
 export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(getUserDevice);
 
   useEffect(() => {
     function onResize() {

@@ -23,7 +23,8 @@ export default function RootLayout({
           alt="Background image"
           src={"/media/background-image.svg"}
           fill={true}
-          priority={true}
+          placeholder="blur"
+          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkqF9fDwADZAGv8BnBkgAAAABJRU5ErkJggg=="
         />
         {children}
       </body>
