@@ -18,9 +18,3 @@ export const gameConstants = {
     },
   },
 };
-
-type Audio = keyof SoundType;
-export const audios: Audio[] = [
-  "gameBackgroundMusic",
-  "renderScoreBackgroundMusic",
-];

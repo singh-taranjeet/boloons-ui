@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { TextInput } from "@/app/components/TextInput";
+import { DebugLog } from "@/app/lib/utils.lib";
 
 export function CreateGame() {
   const [gameId, setGameId] = useState("");
@@ -24,7 +25,7 @@ export function CreateGame() {
 
   // Event on player Join
   const onPlayerJoin = useCallback(function onPlayerJoin(res: any) {
-    console.log("player joined", res);
+    DebugLog(`player joined ${res}`);
     if (
       res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg
     ) {
@@ -36,7 +37,6 @@ export function CreateGame() {
   useEffect(() => {
     // Create Listener for players joining
     if (gameId) {
-      // console.log("subscribed on gameid", gameId);
       socket.on(`${gameId}`, onPlayerJoin);
     }
     return () => {
@@ -70,7 +70,7 @@ export function CreateGame() {
       name: player?.name,
       playerId: player?.id,
     });
-    // console.log("starting game");
+    // DebugLog("starting game");
     router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
   }
 
@@ -86,7 +86,7 @@ export function CreateGame() {
     createGameSession();
   }, [createGameSession]);
 
-  //console.log("Join url", joinUrl);
+  //DebugLog("Join url", joinUrl);
 
   return (
     <>

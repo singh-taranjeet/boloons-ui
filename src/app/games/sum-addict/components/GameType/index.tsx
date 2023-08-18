@@ -11,6 +11,7 @@ import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
 import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
+import { DebugLog } from "@/app/lib/utils.lib";
 
 export function GameType() {
   const pathName = usePathname();
@@ -66,7 +67,7 @@ export function GameType() {
     setIsCreateGameModalOpen(isCreateMode);
   }, [isCreateMode]);
 
-  console.log("isJoinGameModalOpen", isJoinGameModalOpen);
+  DebugLog(`isJoinGameModalOpen ${isJoinGameModalOpen}`);
 
   return (
     <>

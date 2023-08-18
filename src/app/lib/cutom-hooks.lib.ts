@@ -7,6 +7,7 @@ const RootUrl = AppConfig().apiUrl;
 import { throttle } from "lodash";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
+import { DebugLog } from "@/app/lib/utils.lib";
 const localStorageConstant = {
   playerName: "playerName",
   playerId: "playerId",
@@ -81,7 +82,7 @@ export function usePlayer() {
       name,
     });
     if (player?.id && name) {
-      console.log("Hello", player);
+      DebugLog(`Hello ${player}`);
       sdf(player.id, name);
     }
   }
@@ -143,7 +144,7 @@ export function useWebSocket() {
   const [connected, setConnected] = useState(false);
 
   function onConnect() {
-    console.log("connected");
+    DebugLog("connected");
     setConnected(true);
   }
 
@@ -154,7 +155,7 @@ export function useWebSocket() {
   useEffect(() => {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    console.log("socket hook init");
+    DebugLog("socket hook init");
 
     return () => {
       socket.off("connect", onConnect);
@@ -180,7 +181,7 @@ export function useOutsideClick(
   useEffect(() => {
     const handleClickOutside = (evt: any) => {
       if (ref.current && !ref.current.contains(evt.target)) {
-        console.log("clicked outside");
+        DebugLog("clicked outside");
         callback();
       }
     };
@@ -208,12 +209,12 @@ export function useHttp<ResponseType, Body>(params: {
         const res = await axios[method](`${RootUrl}${newUrl}`, body || {});
         setResponse(res.data);
         if (AppConfig().env === "development") {
-          console.log(`Response of ${newUrl}`, res.data);
+          DebugLog(`Response of ${newUrl} ${res.data}`);
         }
         setLoading(false);
       } catch (error: any) {
         if (AppConfig().env === "development") {
-          console.log(`Error in ${newUrl}`, error.message);
+          DebugLog(`Error in ${newUrl} ${error.message}`);
         }
         setError({
           success: false,

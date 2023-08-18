@@ -2,17 +2,20 @@
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { QuestionType, SoundType } from "./game.types.lib";
-import { audios, gameConstants } from "./game.constants.lib";
+import { AudioTracksKey, QuestionType, SoundType } from "./game.types.lib";
+import { gameConstants } from "./game.constants.lib";
+import { DebugLog } from "@/app/lib/utils.lib";
+
+let AudioTracks: SoundType | undefined;
 
 function getAudio() {
   try {
     const gameBackgroundMusic = new Audio("/audio/in-progress-background.mp3");
-    gameBackgroundMusic.loop = true;
     const renderScoreBackgroundMusic = new Audio(
       "/audio/after-game-end-rending-scores.mp3"
     );
     renderScoreBackgroundMusic.loop = true;
+    gameBackgroundMusic.loop = true;
 
     const audio = {
       gameBackgroundMusic,
@@ -20,21 +23,21 @@ function getAudio() {
     };
     return audio;
   } catch (error) {
-    console.log("Client Audio");
+    DebugLog("Client Audio");
+    return undefined;
   }
 }
 
 function useSound() {
+  const inTrack = useRef<AudioTracksKey | undefined>();
   const sound = useRef<SoundType>();
 
   const stopAllAudio = useCallback(function stopAllAudio() {
     // loop and pause all
-    audios.forEach((audio) => {
-      if (sound?.current?.[audio]) {
-        sound.current[audio].pause();
-        sound.current[audio].currentTime = 0;
-      }
-    });
+    if (inTrack.current && sound?.current?.[inTrack.current]) {
+      sound?.current?.[inTrack.current].pause();
+      sound.current[inTrack.current].currentTime = 0;
+    }
   }, []);
 
   const manageAudio = useCallback(
@@ -43,14 +46,17 @@ function useSound() {
       action: "play" | "pause"
     ) {
       stopAllAudio();
-
+      inTrack.current = name;
       sound?.current?.[name][action]();
     },
     [stopAllAudio]
   );
 
   useEffect(() => {
-    sound.current = getAudio();
+    if (!AudioTracks) {
+      AudioTracks = getAudio();
+    }
+    sound.current = AudioTracks;
   }, []);
   return { stopAllAudio, manageAudio };
 }
@@ -78,6 +84,9 @@ export function useMultiplayer(score: number, callBack: (data: any) => void) {
     if (isMultiPlayer) {
       socket.on(`${gameId}`, callBack);
     }
+    return () => {
+      socket.off(`${gameId}`, callBack);
+    };
   }, [gameId, socket, isMultiPlayer, callBack]);
 
   return {
@@ -177,7 +186,6 @@ export function useGame(
       // set game in progress false
       setGameInProgress((oldValue) => {
         if (oldValue === true) {
-          manageAudio("gameBackgroundMusic", "pause");
           manageAudio("renderScoreBackgroundMusic", "play");
           setScoreModalOpen(true);
           return false;

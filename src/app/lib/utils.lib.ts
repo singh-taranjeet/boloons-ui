@@ -1,3 +1,4 @@
+import { AppConfig } from "../../../config";
 import { StyleConstants } from "./style.lib";
 
 export function getClasses(params: {
@@ -50,4 +51,10 @@ export function getClasses(params: {
   }
 
   return cx;
+}
+
+export function DebugLog(msg: string) {
+  if (AppConfig().env === "development") {
+    console.log(msg);
+  }
 }
