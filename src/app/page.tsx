@@ -4,18 +4,16 @@ import { Card } from "./components/Card";
 import { Sentence } from "./components/Sentence";
 import { flexCenter } from "./lib/style.lib";
 import Link from "next/link";
-import { urls } from "./lib/constants.lib";
+import { AppConstants, urls } from "./lib/constants.lib";
 
-const description = `On Boloons you can play free online games to sharpen your brain. Boloons has the best online game selection and offers the most fun experience to play alone or with friends. We support mobile and desktop games.`;
-const title = `Online Brain games on Boloons - Lets play`;
 export const metadata: Metadata = {
-  title,
-  description,
+  title: AppConstants.metaData.title,
+  description: AppConstants.metaData.description,
   applicationName: "Boloons",
   openGraph: {
     type: "website",
-    description,
-    title,
+    title: AppConstants.metaData.title,
+    description: AppConstants.metaData.description,
     images: "",
   },
   authors: { name: "Taranjeet Singh" },

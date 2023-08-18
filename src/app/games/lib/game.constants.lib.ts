@@ -1,5 +1,3 @@
-import { SoundType } from "./game.types.lib";
-
 export const gameConstants = {
   games: {
     sumAddict: "Sum Addict",
