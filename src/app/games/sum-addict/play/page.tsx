@@ -31,6 +31,7 @@ export default function Page() {
     startGame,
     onAttempt,
     scoreModalOpen,
+    gameInProgress,
   } = useGame(GAME_TIMEOUT, createQuestions, isCorrectAttempt);
 
   const { startingTimer, isModalOpen } = useStartGame();
@@ -75,7 +76,7 @@ export default function Page() {
       </section>
 
       {/* Game section */}
-      <div className="mt-normal p-normal">
+      <div className={`mt-normal p-normal ${gameInProgress ? "" : "hidden"}`}>
         <Game
           currentQuestion={currentQuestion}
           numbers={data.map((item) => item.correctAnswer)}
@@ -103,7 +104,7 @@ export default function Page() {
               href={urls.pages.games.sumAddict.gameUrl}
               className={`p-rectangle-small `}
             >
-              Close
+              Play again
             </Href>
           </div>
         </>

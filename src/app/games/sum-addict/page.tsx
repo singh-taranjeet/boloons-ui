@@ -5,6 +5,8 @@ import { Sentence } from "../../components/Sentence";
 import { StyleConstants } from "@/app/lib/style.lib";
 import { gameConstants } from "../lib/game.constants.lib";
 import { Card } from "@/app/components/Card";
+import Link from "next/link";
+import { urls } from "@/app/lib/constants.lib";
 
 function HowToPlayDescription(props: { className?: string }) {
   {
@@ -30,13 +32,15 @@ export default function Page() {
     <>
       <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2">
         {/* Heading */}
-        <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit">
-          <h1
-            className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
-          >
-            {gameConstants.games.sumAddict}
-          </h1>
-        </Card>
+        <Link href={urls.pages.games.sumAddict.gameUrl}>
+          <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit">
+            <h1
+              className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
+            >
+              {gameConstants.games.sumAddict}
+            </h1>
+          </Card>
+        </Link>
 
         {/* Desktop Heading */}
         <section className="flex-col justify-center m-small md:m-normal hidden md:flex md:mt-0">

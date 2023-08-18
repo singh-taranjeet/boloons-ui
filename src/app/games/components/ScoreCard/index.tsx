@@ -10,6 +10,7 @@ interface ScoreCardType {
     score: number;
     name: string;
   };
+  isMultiPlayer?: boolean;
 }
 
 function UserScore(props: {
@@ -51,23 +52,28 @@ function UserScore(props: {
 }
 
 export function ScoreCard(props: ScoreCardType) {
-  const [scoreModalOpen, setScoreModalOpen] = useState(false);
-  const { score, opponent } = props;
+  const { score, opponent, isMultiPlayer = false } = props;
 
   const { player } = usePlayer();
 
   return (
-    <div className="flex justify-between bg-light rounded">
+    <div
+      className={`flex bg-light rounded ${
+        isMultiPlayer ? "justify-between" : "justify-center"
+      }`}
+    >
       <UserScore
         score={score}
         playerName={player?.name || ""}
         src="/images/icons/user-1.png"
       />
-      <UserScore
-        score={opponent.score}
-        playerName={opponent?.name || ""}
-        src="/images/icons/user-2.png"
-      />
+      {isMultiPlayer ? (
+        <UserScore
+          score={opponent.score}
+          playerName={opponent?.name || ""}
+          src="/images/icons/user-2.png"
+        />
+      ) : null}
     </div>
   );
 }
