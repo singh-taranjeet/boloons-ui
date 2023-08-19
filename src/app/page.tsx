@@ -23,7 +23,9 @@ export default function Page() {
   return (
     <main className="relative z-1">
       <Card className={`m-normal`}>
-        <h1 className="text-primary text-center text-large">Boloons</h1>
+        <h1 title="Boloons" className="text-primary text-center text-large">
+          Boloons
+        </h1>
       </Card>
       <section className="mx-normal flex flex-col gap-small md:flex-row md:mx-auto">
         <section className="relative h-[15rem] w-[15rem] m-normal md:mx-normal md:w-1/2">
@@ -31,10 +33,13 @@ export default function Page() {
             fill={true}
             className=" object-contain"
             src={"/media/space-craft.svg"}
-            alt="sum addiction logo"
+            alt="space-craft image"
           />
         </section>
-        <Card className="md:w-1/2 my-auto md:mx-normal">
+        <Card
+          className="md:w-1/2 my-auto md:mx-normal"
+          aria-label="About boloons"
+        >
           <Sentence>
             Boloons keeps you entertained with its unbeatable selection of free
             online games. Play today and enjoy some quality time with your
@@ -44,7 +49,10 @@ export default function Page() {
       </section>
 
       <section className="mx-normal mt-normal md:w-fit md:mx-auto border-2 rounded border-primary">
-        <Link href={urls.pages.games.sumAddict.gameUrl}>
+        <Link
+          href={urls.pages.games.sumAddict.gameUrl}
+          title="Play sum addiction"
+        >
           <Card>
             <div className="flex justify-between">
               <Image

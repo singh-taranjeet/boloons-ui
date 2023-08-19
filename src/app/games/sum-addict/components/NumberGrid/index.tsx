@@ -12,7 +12,7 @@ export function NumberGrid(props: NumberGridType) {
     <div className="relative">
       <div className="flex justify-center">
         <div className="border-2 border-primary rounded p-small bg-white">
-          <Number number={numbers[currentQuestion]} />
+          <Number label="question" number={numbers[currentQuestion]} />
         </div>
         <div className="absolute right-0 h-full flex flex-col justify-center pr-2">
           <div className={`flex gap-normal justify-center self-center ml-10`}>

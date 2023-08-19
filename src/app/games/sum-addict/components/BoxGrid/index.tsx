@@ -27,6 +27,7 @@ export function BoxGrid(props: BoxGridType) {
             onAttempt={() => onAttempt(option)}
           >
             <Number
+              label="option"
               fontSize={isMobile ? "text-very-large" : "text-extra-very-large"}
               number={option}
               color="blue"

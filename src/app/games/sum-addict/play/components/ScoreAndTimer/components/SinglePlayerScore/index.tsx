@@ -16,7 +16,11 @@ export function SinglePlayerScore(props: InfoType) {
           <Sentence fontSize="text-large" className="text-center">
             Score
           </Sentence>
-          <Sentence fontSize="text-large" className="text-center">
+          <Sentence
+            fontSize="text-large"
+            className="text-center"
+            aria-label="score"
+          >
             {score}
           </Sentence>
         </div>
@@ -26,7 +30,11 @@ export function SinglePlayerScore(props: InfoType) {
           <Sentence fontSize="text-large" className="text-center">
             Timer
           </Sentence>
-          <Sentence fontSize="text-large" className="text-center">
+          <Sentence
+            fontSize="text-large"
+            className="text-center"
+            aria-label="timer"
+          >
             {timer}
           </Sentence>
         </div>
