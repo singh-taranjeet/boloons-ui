@@ -18,14 +18,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen relative mx-auto`}>
-        <Image
-          className="opacity-[0.6] object-cover z-0 object-center md:object-top mx-auto"
-          alt="Background image"
-          src={"/media/background-image.svg"}
-          fill={true}
-          placeholder="blur"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkqF9fDwADZAGv8BnBkgAAAABJRU5ErkJggg=="
-        />
+        <picture>
+          <source
+            srcSet="/media/desktop-background-image.svg"
+            media="(min-width: 768px)"
+          />
+          <Image
+            className="object-cover z-0 object-center md:object-bottom mx-auto"
+            alt="Background image"
+            src={"/media/background-image.svg"}
+            fill={true}
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkqF9fDwADZAGv8BnBkgAAAABJRU5ErkJggg=="
+          />
+        </picture>
+
         {children}
       </body>
     </html>
