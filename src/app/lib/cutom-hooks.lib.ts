@@ -54,7 +54,7 @@ export function usePlayer() {
     id: "",
     name: "",
   });
-  const randomNameGenerated = useRef<boolean>(false);
+  const randomNameGenerated = "4h32jkh32j4h32j4h32j4h32kj4";
 
   const playerEndPoint = `${urls.api.player}`;
 
@@ -118,23 +118,33 @@ export function usePlayer() {
     }
   }
 
+  const removeUnRequiredLocalStorageItem = useCallback(
+    function removeUnRequiredLocalStorageItem() {
+      setTimeout(() => {
+        localStorage.removeItem(randomNameGenerated);
+      }, 30000);
+    },
+    []
+  );
+
   /**
    * Check if data exist in local storage
    */
   useEffect(() => {
     const playerName = localStorage.getItem(localStorageConstant.playerName);
     const playerId = localStorage.getItem(localStorageConstant.playerId);
-    const inProgress = localStorage.getItem("4h32jkh32j4h32j4h32j4h32kj4");
+    const inProgress = localStorage.getItem(randomNameGenerated);
     if ((!playerName || !playerId) && !inProgress) {
       invoke({});
-      localStorage.setItem("e4h32jkh32j4h32j4h32j4h32kj4", "true");
+      localStorage.setItem(randomNameGenerated, "true");
     } else {
       setPlayer({
         id: playerId || "",
         name: playerName || "",
       });
     }
-  }, [invoke]);
+    removeUnRequiredLocalStorageItem();
+  }, [invoke, removeUnRequiredLocalStorageItem]);
 
   // Track if the respose is loaded
   useEffect(() => {
