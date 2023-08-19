@@ -1,3 +1,4 @@
+import { StyleConstants } from "@/app/lib/style.lib";
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps,
@@ -13,8 +14,10 @@ export default function Icon(props: IconType) {
       size="lg"
       {...props}
       className={`p-small ${
-        props.color ? props.color : "text-primary"
-      } active:bg-secondary rounded-full leading-none ${props.className}`}
+        props.color ? props.color : StyleConstants.Color["text-primary"]
+      } active:bg-secondary ${
+        StyleConstants.BorderRadius["rounded-full"]
+      } leading-none ${props.className}`}
     />
   );
 }

@@ -5,14 +5,17 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { AudioTracksKey, QuestionType, SoundType } from "./game.types.lib";
 import { gameConstants } from "./game.constants.lib";
 import { DebugLog } from "@/app/lib/utils.lib";
+import { urls } from "@/app/lib/constants.lib";
 
 let AudioTracks: SoundType | undefined;
 
 function getAudio() {
   try {
-    const gameBackgroundMusic = new Audio("/audio/in-progress-background.mp3");
+    const gameBackgroundMusic = new Audio(
+      `${urls.audio}in-progress-background.mp3`
+    );
     const renderScoreBackgroundMusic = new Audio(
-      "/audio/after-game-end-rending-scores.mp3"
+      `${urls.audio}after-game-end-rending-scores.mp3`
     );
     renderScoreBackgroundMusic.loop = true;
     gameBackgroundMusic.loop = true;
@@ -290,6 +293,11 @@ export function useSwipe() {
   return { onTouchEnd, onTouchMove, onTouchStart, swipeDirection };
 }
 
+/**
+ * Use to show the starting game timer. Game starting in...
+ * @returns startingTimer: number
+ * @requires isModalOpen : boolean If the modal is open
+ */
 export function useStartGame() {
   const [isModalOpen, setIsModalOpen] = useState(true);
   const { timer, startTimer } = useTimer(3, () => {

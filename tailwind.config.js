@@ -20,14 +20,10 @@ module.exports = {
         secondary: "#bfdbfe", // blue-200
         light: "#eff6ff", // blue-100
         "dark-blue": "#7e22ce",
-        // green: "#22c55e", // green-500
-        // red: "#ef4444", // red- 500
-        // blue: "#3b82f6", // blue-500
-        // yellow: "#FFBA0A",
       },
       padding: {
-        "rectangle-small": "0.374rem 0.5rem",
-        "rectangle-normal": "0.75rem 1rem",
+        "rectangle-small": "0.5rem 1rem",
+        "rectangle-normal": "0.75rem 1.25rem",
       },
       fontSize: {
         small: "1rem", // 16px

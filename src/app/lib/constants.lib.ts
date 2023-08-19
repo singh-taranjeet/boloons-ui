@@ -1,5 +1,6 @@
 export const urls = {
   media: "/media/",
+  audio: "/media/audio/",
   icons: "/images/icons/",
   pages: {
     games: {

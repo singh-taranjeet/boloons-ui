@@ -1,3 +1,4 @@
+import { StyleConstants } from "@/app/lib/style.lib";
 import { RootElementType } from "@/app/lib/types.lib";
 import { getClasses } from "@/app/lib/utils.lib";
 import { DetailedHTMLProps, ButtonHTMLAttributes } from "react";
@@ -11,13 +12,13 @@ type ButtonType = IButton & RootElementType;
 
 export function Button(props: ButtonType) {
   const {
-    fontSize = "text-medium",
-    padding = "p-rectangle-small",
-    border = "border-2",
-    color = "text-white",
-    bgColor = "bg-primary",
-    borderColor = "border-primary",
-    borderRadius = "rounded-full",
+    fontSize = StyleConstants.FontSize["text-medium"],
+    padding = StyleConstants.Padding["p-rectangle-normal"],
+    border = StyleConstants.Border["border-2"],
+    color = StyleConstants.Color["text-white"],
+    bgColor = StyleConstants.BgColor["bg-primary"],
+    borderColor = StyleConstants.BorderColor["border-primary"],
+    borderRadius = StyleConstants.BorderRadius["rounded-full"],
   } = props;
 
   const cx = getClasses({

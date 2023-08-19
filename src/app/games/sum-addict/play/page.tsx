@@ -97,14 +97,13 @@ export default function Page() {
 
       <Modal open={scoreModalOpen} title="Score card">
         <>
-          <ScoreCard score={score} opponent={opponent} />
+          <ScoreCard
+            isMultiPlayer={isMultiPlayer}
+            score={score}
+            opponent={opponent}
+          />
           <div className={`${flexCenter} mt-small`}>
-            <Href
-              href={urls.pages.games.sumAddict.gameUrl}
-              className={`p-rectangle-small `}
-            >
-              Play again
-            </Href>
+            <Href href={urls.pages.games.sumAddict.gameUrl}>Play again</Href>
           </div>
         </>
       </Modal>

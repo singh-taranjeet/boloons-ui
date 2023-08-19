@@ -28,7 +28,7 @@ export default function Modal(props: {
     >
       <div
         onClick={stopPropogation}
-        className="modal-content m-auto bg-white rounded-3xl border-8 border-primary w-4/5 md:w-2/4 relative max-w-3xl"
+        className="modal-content m-auto bg-white rounded-3xl border-8 border-primary w-4/5 md:w-1/2 xl:w-1/4 relative max-w-3xl"
       >
         <div className="min-w-full">
           {title ? (
