@@ -24,7 +24,7 @@ function Entity(props: {
           height={50}
           alt={alt}
         />
-        <div className="relative text-center flex flex-col justify-center md:w-10">
+        <div className="relative text-center flex flex-col justify-center md:w-14">
           <Sentence fontSize="text-large" className="absolute right-0">
             {value}
           </Sentence>

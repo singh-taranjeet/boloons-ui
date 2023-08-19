@@ -64,7 +64,9 @@ export default function Page() {
     <>
       {/* Score and Timer */}
       <section
-        className={`md:flex md:flex-col md:gap-normal md:justify-center`}
+        className={`md:flex md:flex-col md:gap-normal md:justify-center ${
+          gameInProgress ? "" : "hidden"
+        }`}
       >
         <ScoreAndTimer
           isMultiPlayer={isMultiPlayer}
