@@ -1,5 +1,11 @@
 "use client";
-import { MutableRefObject, useCallback, useEffect, useState } from "react";
+import {
+  MutableRefObject,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
 import { urls } from "@/app/lib/constants.lib";
@@ -48,6 +54,7 @@ export function usePlayer() {
     id: "",
     name: "",
   });
+  const randomNameGenerated = useRef<boolean>(false);
 
   const playerEndPoint = `${urls.api.player}`;
 
@@ -71,21 +78,26 @@ export function usePlayer() {
     onInit: false,
   });
 
-  const df = throttle(updatePlayerNameOnApi, 3000, { trailing: true });
+  const updatePlayerNameOnApiThrottle = throttle(updatePlayerNameOnApi, 3000, {
+    trailing: true,
+  });
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sdf = useCallback(df, []);
+  const sdf = useCallback(updatePlayerNameOnApiThrottle, []);
 
-  function updatePlayerName(name: string) {
-    setPlayer({
-      ...player,
-      id: player?.id || "",
-      name,
-    });
-    if (player?.id && name) {
-      DebugLog(`Hello ${player}`);
-      sdf(player.id, name);
-    }
-  }
+  const updatePlayerName = useCallback(
+    function updatePlayerName(name: string) {
+      setPlayer({
+        ...player,
+        id: player?.id || "",
+        name,
+      });
+      if (player?.id && name) {
+        DebugLog(`Hello ${player}`);
+        sdf(player.id, name);
+      }
+    },
+    [player, sdf]
+  );
 
   const setLocal = useCallback(function setLocal(player: {
     id: string;
@@ -112,12 +124,14 @@ export function usePlayer() {
   useEffect(() => {
     const playerName = localStorage.getItem(localStorageConstant.playerName);
     const playerId = localStorage.getItem(localStorageConstant.playerId);
-    if (!playerName || !playerId) {
+    const inProgress = localStorage.getItem("4h32jkh32j4h32j4h32j4h32kj4");
+    if ((!playerName || !playerId) && !inProgress) {
       invoke({});
+      localStorage.setItem("e4h32jkh32j4h32j4h32j4h32kj4", "true");
     } else {
       setPlayer({
-        id: playerId,
-        name: playerName,
+        id: playerId || "",
+        name: playerName || "",
       });
     }
   }, [invoke]);

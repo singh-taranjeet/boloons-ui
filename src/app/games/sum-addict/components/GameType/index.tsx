@@ -1,15 +1,14 @@
 "use client";
 import { Sentence } from "@/app/components/Sentence";
 import { Href } from "@/app/components/Href";
-import { Card } from "@/app/components/Card";
 import { CreateGame } from "../../../components/CreateGame";
 import Modal from "@/app/components/Modal";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/app/components/Button";
 import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
-import { useHttp, usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
 import { DebugLog } from "@/app/lib/utils.lib";
 
@@ -21,7 +20,7 @@ export function GameType() {
 
   const params = useSearchParams();
   const { socket } = useWebSocket();
-  const { player, updatePlayerName } = usePlayer();
+  const { player } = usePlayer();
   const gameId = params?.get("id");
   const [joined, setJoined] = useState(false);
   const router = useRouter();
