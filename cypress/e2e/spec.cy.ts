@@ -1,5 +1,6 @@
+const a = [1, 2, 3, 4, 5, 6, 7, 8, 9, 5];
 function getRandomInt(max: number = 100000000): number {
-  return Math.floor(Math.random() * max);
+  return a[Math.floor(Math.random() * max)];
 }
 
 beforeEach(() => {
@@ -51,7 +52,6 @@ describe("Test Sum-addiction page", () => {
     beforeEach(() => {
       // Redirect to play game
       cy.get("a").contains("Solo").click();
-      cy.wait(3000);
     });
     it("Redirected to correct url", () => {
       cy.url().should("include", "games/sum-addict/play");
@@ -59,23 +59,71 @@ describe("Test Sum-addiction page", () => {
     it("Shows the starting modal", () => {
       cy.contains("Starting game");
     });
-    it("Score is 5 when correct answers are typed", () => {
-      cy.wait(3000);
+    it("Score correctly displayed as per attempts", () => {
+      cy.wait(5000);
       cy.get(`[aria-label="question"]`).then(($value) => {
         const question = Number($value.text());
         const attemps: number[] = [];
         let answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
         let ansSum = answers.reduce((item, currentSum) => item + currentSum, 0);
+
         while (ansSum !== Number(question)) {
           answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
           ansSum = answers.reduce((item, currentSum) => item + currentSum, 0);
         }
 
+        /**
+         * Right Attempt
+         */
         answers.forEach((answer) => {
           cy.get(`[aria-label='option']`).contains(answer).click();
         });
 
+        cy.wait(1000);
         cy.get(`[aria-label="score"]`).contains(5);
+
+        /**
+         * RIght Attempt
+         */
+        cy.get(`[aria-label="question"]`).then(($v) => {
+          const quest = $v.text();
+          let answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
+          let ansSum = answers.reduce(
+            (item, currentSum) => item + currentSum,
+            0
+          );
+          // Correct Attemp -> 10
+          while (ansSum !== Number(quest)) {
+            answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
+            ansSum = answers.reduce((item, currentSum) => item + currentSum, 0);
+          }
+
+          answers.forEach((answer) => {
+            cy.get(`[aria-label='option']`).contains(answer).click();
+          });
+          cy.wait(1000);
+          cy.get(`[aria-label="score"]`).contains(10);
+        });
+
+        /**
+         * Wrong Attempt
+         */
+        cy.get(`[aria-label="question"]`).then(($v) => {
+          const question = $v.text();
+          const answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
+          const ansSum = answers.reduce(
+            (item, currentSum) => item + currentSum,
+            0
+          );
+          // Wrong Attemp -> 5
+          if (ansSum !== Number(question)) {
+            answers.forEach((answer) => {
+              cy.get(`[aria-label='option']`).contains(answer).click();
+            });
+          }
+          cy.wait(1000);
+          cy.get(`[aria-label="score"]`).contains(10);
+        });
       });
     });
   });
