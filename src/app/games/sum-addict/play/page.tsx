@@ -11,7 +11,7 @@ import {
 } from "../../lib/game.hooks.lib";
 import { QuestionType } from "../../lib/game.types.lib";
 import { useEffect, useState } from "react";
-import Modal from "../../../components/Modal";
+import { Modal } from "../../../components/Modal";
 import { Card } from "../../../components/Card";
 import { Sentence } from "../../../components/Sentence";
 import { Href } from "../../../components/Href";
@@ -85,28 +85,44 @@ export default function Page() {
         />
       </div>
 
-      <Modal open={isModalOpen} title="Starting game">
-        <Card>
-          <Sentence className="text-center">
-            {startingTimer === 0
-              ? "Starting now"
-              : `Starting game in ${startingTimer}`}
-          </Sentence>
-        </Card>
-      </Modal>
-
-      <Modal open={scoreModalOpen} title="Score card">
-        <>
-          <ScoreCard
-            isMultiPlayer={isMultiPlayer}
-            score={score}
-            opponent={opponent}
-          />
-          <div className={`${flexCenter} mt-small`}>
-            <Href href={urls.pages.games.sumAddict.gameUrl}>Play again</Href>
+      <Modal.ModalDialog open={isModalOpen}>
+        <Modal.ModalBody>
+          <div className="min-w-full">
+            <Modal.ModalTitle>Starting game</Modal.ModalTitle>
           </div>
-        </>
-      </Modal>
+          <Modal.ModalContent>
+            <Card>
+              <Sentence className="text-center">
+                {startingTimer === 0
+                  ? "Starting now"
+                  : `Starting game in ${startingTimer}`}
+              </Sentence>
+            </Card>
+          </Modal.ModalContent>
+        </Modal.ModalBody>
+      </Modal.ModalDialog>
+
+      <Modal.ModalDialog open={scoreModalOpen}>
+        <Modal.ModalBody>
+          <div className="min-w-full">
+            <Modal.ModalStars />
+          </div>
+          <Modal.ModalContent>
+            <>
+              <ScoreCard
+                isMultiPlayer={isMultiPlayer}
+                score={score}
+                opponent={opponent}
+              />
+              <div className={`${flexCenter} mt-small`}>
+                <Href href={urls.pages.games.sumAddict.gameUrl}>
+                  Play again
+                </Href>
+              </div>
+            </>
+          </Modal.ModalContent>
+        </Modal.ModalBody>
+      </Modal.ModalDialog>
     </>
   );
 }

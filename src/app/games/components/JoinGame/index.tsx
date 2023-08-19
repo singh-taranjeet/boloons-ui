@@ -8,7 +8,7 @@ import { Sentence } from "../../../components/Sentence";
 import { useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
 import { urls } from "@/app/lib/constants.lib";
-import Modal from "@/app/components/Modal";
+import { Modal } from "@/app/components/Modal";
 import { Href } from "@/app/components/Href";
 import Image from "next/image";
 import { PulseLoading } from "@/app/components/PulseLoading";
@@ -69,24 +69,30 @@ export function JoinGame(props: { onClickJoin(): void }) {
         </section>
       ) : (
         // If not valid show modal
-        <Modal
-          title="This is not a valid game"
-          open={!isValidGameId && !loading}
-        >
-          <Card className="">
-            <Image
-              className="mx-auto"
-              src={"/media/not-found.svg"}
-              width={300}
-              height={300}
-              alt="Game not found"
-              priority={false}
-            ></Image>
-          </Card>
-          <Button className="flex mt-small mx-auto">
-            <Href href={`${urls.pages.games.sumAddict.gameUrl}`}>close</Href>
-          </Button>
-        </Modal>
+        <Modal.ModalDialog open={!isValidGameId && !loading}>
+          <Modal.ModalBody>
+            <div className="min-w-full">
+              <Modal.ModalTitle>This is not a valid game</Modal.ModalTitle>
+              <Modal.ModalContent>
+                <Card className="">
+                  <Image
+                    className="mx-auto"
+                    src={"/media/not-found.svg"}
+                    width={300}
+                    height={300}
+                    alt="Game not found"
+                    priority={false}
+                  ></Image>
+                </Card>
+                <Button className="flex mt-small mx-auto">
+                  <Href href={`${urls.pages.games.sumAddict.gameUrl}`}>
+                    close
+                  </Href>
+                </Button>
+              </Modal.ModalContent>
+            </div>
+          </Modal.ModalBody>
+        </Modal.ModalDialog>
       )}
     </>
   );

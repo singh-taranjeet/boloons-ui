@@ -2,7 +2,7 @@
 import { Sentence } from "@/app/components/Sentence";
 import { Href } from "@/app/components/Href";
 import { CreateGame } from "../../../components/CreateGame";
-import Modal from "@/app/components/Modal";
+import { Modal } from "@/app/components/Modal";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/app/components/Button";
@@ -105,24 +105,37 @@ export function GameType() {
 
       {/* Create Game Modal */}
       {isCreateGameModalOpen ? (
-        <Modal
-          title="Play with friends"
+        <Modal.ModalDialog
           open={isCreateGameModalOpen}
           onClose={() => setIsCreateGameModalOpen(false)}
         >
-          <CreateGame />
-        </Modal>
+          <Modal.ModalBody>
+            <Modal.ModalTitle>Play with friends</Modal.ModalTitle>
+            <Modal.ModalCloseIcon
+              onClose={() => setIsCreateGameModalOpen(false)}
+            />
+            <Modal.ModalContent>
+              <CreateGame />
+            </Modal.ModalContent>
+          </Modal.ModalBody>
+        </Modal.ModalDialog>
       ) : null}
 
       {/* Join Game Modal */}
       {isJoinGameModalOpen ? (
-        <Modal
-          title="Join?"
+        <Modal.ModalDialog
           open={isJoinGameModalOpen}
           onClose={() => setIsJoinGameModalOpen(false)}
         >
-          <JoinGame onClickJoin={onClickJoin} />
-        </Modal>
+          <Modal.ModalBody>
+            <div className="min-w-full">
+              <Modal.ModalTitle>Join?</Modal.ModalTitle>
+            </div>
+            <Modal.ModalContent>
+              <JoinGame onClickJoin={onClickJoin} />
+            </Modal.ModalContent>
+          </Modal.ModalBody>
+        </Modal.ModalDialog>
       ) : null}
     </>
   );
