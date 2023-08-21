@@ -15,6 +15,7 @@ export const urls = {
   api: {
     getGame: "game",
     player: "/player",
+    joinGame: "player/join-game",
   },
 } as const;
 

@@ -1,6 +1,6 @@
 "use client";
-import { useHttp, usePlayer } from "@/app/lib/cutom-hooks.lib";
-import { ChangeEvent } from "react";
+import { usePlayer } from "@/app/lib/cutom-hooks.lib";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { TextInput } from "../../../components/TextInput";
@@ -13,22 +13,32 @@ import { Href } from "@/app/components/Href";
 import Image from "next/image";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import { RootResponseType } from "@/app/lib/types.lib";
+import { apiRequest } from "@/app/lib/utils.lib";
 
 export function JoinGame(props: { onClickJoin(): void }) {
   const { onClickJoin } = props;
   const params = useSearchParams();
   const { player, updatePlayerName } = usePlayer();
   const gameId = params?.get("id");
+  const [loading, setLoading] = useState(true);
+  const [isValidGame, setIsValidGame] = useState(false);
 
-  const { response, loading } = useHttp<
-    RootResponseType<{ inProgress: boolean }>,
-    any
-  >({
-    url: `${urls.api.getGame}/${gameId}`,
-    method: "get",
-  });
+  useEffect(() => {
+    async function validateGame() {
+      const response = await apiRequest({
+        url: `${urls.api.getGame}/${gameId}`,
+        method: "get",
+      });
 
-  const isValidGameId = response && !loading;
+      if (response?.success) {
+        setIsValidGame(true);
+      }
+      setLoading(false);
+    }
+    validateGame();
+  }, [gameId]);
+
+  const isValidGameId = isValidGame && !loading;
 
   function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;

@@ -10,9 +10,10 @@ import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
-import { DebugLog } from "@/app/lib/utils.lib";
+import { DebugLog, apiRequest } from "@/app/lib/utils.lib";
 import { AppConfig } from "../../../../../../config";
 import axios from "axios";
+import { joinGame } from "@/app/games/lib/game.methods.lib";
 
 export function GameType() {
   const pathName = usePathname();
@@ -31,16 +32,15 @@ export function GameType() {
     setJoined(true);
     setIsJoinGameModalOpen(false);
 
-    const respnseOnJoin = await axios.post(
-      `${AppConfig().apiUrl}/pplayer/join-player`,
-      {
-        playerId: player?.id,
+    if (player.id && player.name && gameId) {
+      const response = await joinGame({
+        playerId: player.id,
         gameId,
-        name: player?.name,
-      }
-    );
+        name: player.name,
+      });
 
-    console.log("Resonse on Join", respnseOnJoin);
+      console.log("Resonse", response);
+    }
   }
 
   const onGameStart = useCallback(

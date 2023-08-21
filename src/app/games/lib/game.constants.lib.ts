@@ -10,9 +10,9 @@ export const gameConstants = {
       gameScored: "gameScored",
     },
     eventMessageType: {
-      gameStartedMsg: "GameStartedMsg",
-      playerJoinedMsg: "PlayerjoinedMsg",
-      GameScoredMsg: "GameScoredMsg",
+      gameStartedMsg: "gameStartedMsg",
+      playerJoinedMsg: "playerJoinedMsg",
+      gameScoredMsg: "gameScoredMsg",
     },
   },
 };

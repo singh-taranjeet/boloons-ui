@@ -15,6 +15,7 @@ import { TextInput } from "@/app/components/TextInput";
 import { DebugLog, apiRequest } from "@/app/lib/utils.lib";
 import axios from "axios";
 import { AppConfig } from "../../../../../config";
+import { joinGame } from "../../lib/game.methods.lib";
 
 export function CreateGame() {
   const [gameId, setGameId] = useState("");
@@ -27,11 +28,11 @@ export function CreateGame() {
 
   // Event on player Join
   const onPlayerJoin = useCallback(function onPlayerJoin(res: any) {
-    console.log(`player joined ${res}`, res);
     if (
-      res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg
+      res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg &&
+      res?.payload?.length
     ) {
-      setPlayers(res.players);
+      setPlayers(res.payload);
     }
   }, []);
 
@@ -46,33 +47,25 @@ export function CreateGame() {
     };
   }, [gameId, onPlayerJoin, socket]);
 
-  const createGameSession = useCallback(
-    async function createGameSession() {
-      if (player?.id && player?.name && gameId) {
-        setJoinUrl(
-          `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${gameId}`
-        );
-        const session = {
-          gameId,
-          playerId: player?.id,
-          name: player?.name,
-        };
-        socket.emit(gameConstants.multiPlayer.events.createSession, session);
-      }
-    },
-    [gameId, player?.id, player?.name, socket]
-  );
+  // Create join url when game id is avalable
+  useEffect(() => {
+    setJoinUrl(
+      `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${gameId}`
+    );
+  }, [gameId]);
 
-  function startGame() {
+  async function startGame() {
+    await joinGame({
+      playerId: player.id,
+      gameId,
+      name: player.name,
+    });
+
     socket.emit(gameConstants.multiPlayer.events.gameStarted, {
       gameId,
     });
-    socket.emit(gameConstants.multiPlayer.events.playerJoined, {
-      gameId,
-      name: player?.name,
-      playerId: player?.id,
-    });
-    // DebugLog("starting game");
+
+    DebugLog("starting game");
     router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
   }
 
@@ -100,11 +93,10 @@ export function CreateGame() {
       if (response.success && response.data) {
         setGameId(response.data);
       }
+      // setCreatingGame(false);
     }
     fetchGameId();
   }, []);
-
-  //DebugLog("Join url", joinUrl);
 
   return (
     <>

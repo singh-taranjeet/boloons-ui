@@ -27,6 +27,7 @@ export interface RootElementType {
   borderRadius?: BorderRadius;
 }
 
+// TODO Delete TODO DELTE
 export interface RootResponseType<Type> {
   success: boolean;
   data: Type;
