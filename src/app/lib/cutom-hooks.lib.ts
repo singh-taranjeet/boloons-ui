@@ -3,6 +3,7 @@ import {
   MutableRefObject,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -50,11 +51,23 @@ export function useIsMobile() {
 }
 
 export function usePlayer() {
-  const [player, setPlayer] = useState<{ id: string; name: string } | null>({
-    id: "",
-    name: "",
+  const [player, setPlayer] = useState<{ id: string; name: string }>(() => {
+    try {
+      const playerName = localStorage.getItem(localStorageConstant.playerName);
+      const playerId = localStorage.getItem(localStorageConstant.playerId);
+      return {
+        id: playerId || "",
+        name: playerName || "",
+      };
+    } catch (error) {
+      return {
+        id: "",
+        name: "",
+      };
+    }
   });
   const randomNameGenerated = "4h32jkh32j4h32j4h32j4h32kj4";
+  const { socket } = useWebSocket();
 
   const playerEndPoint = `${urls.api.player}`;
 
@@ -131,20 +144,13 @@ export function usePlayer() {
    * Check if data exist in local storage
    */
   useEffect(() => {
-    const playerName = localStorage.getItem(localStorageConstant.playerName);
-    const playerId = localStorage.getItem(localStorageConstant.playerId);
     const inProgress = localStorage.getItem(randomNameGenerated);
-    if ((!playerName || !playerId) && !inProgress) {
+    if ((!player?.name || !player?.id) && !inProgress) {
       invoke({});
       localStorage.setItem(randomNameGenerated, "true");
-    } else {
-      setPlayer({
-        id: playerId || "",
-        name: playerName || "",
-      });
     }
     removeUnRequiredLocalStorageItem();
-  }, [invoke, removeUnRequiredLocalStorageItem]);
+  }, [invoke, player?.id, player?.name, removeUnRequiredLocalStorageItem]);
 
   // Track if the respose is loaded
   useEffect(() => {
@@ -154,8 +160,9 @@ export function usePlayer() {
         name: response.data?.name || "",
       });
       setLocal(response.data);
+      socket.emit("login", { id: response.data?.id || "" });
     }
-  }, [loading, response, setLocal]);
+  }, [loading, response, setLocal, socket]);
 
   return { player, updatePlayerName };
 }
@@ -165,15 +172,16 @@ const URL = AppConfig().apiUrl;
 const socket = io(URL);
 
 export function useWebSocket() {
-  const [connected, setConnected] = useState(false);
+  //const [connected, setConnected] = useState(false);
 
   function onConnect() {
     DebugLog("connected");
-    setConnected(true);
+    //setConnected(true);
   }
 
   function onDisconnect() {
-    setConnected(false);
+    //setConnected(false);
+    DebugLog("Disconnected");
   }
 
   useEffect(() => {
@@ -187,10 +195,13 @@ export function useWebSocket() {
     };
   }, []);
 
-  return {
-    connected,
-    socket,
-  };
+  const data = useMemo(() => {
+    return {
+      socket,
+    };
+  }, []);
+
+  return data;
 }
 
 /**

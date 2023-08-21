@@ -13,7 +13,7 @@ export const urls = {
     },
   },
   api: {
-    getGame: "/game",
+    getGame: "game",
     player: "/player",
   },
 } as const;

@@ -1,3 +1,4 @@
+import axios from "axios";
 import { AppConfig } from "../../../config";
 import { StyleConstants } from "./style.lib";
 
@@ -56,5 +57,25 @@ export function getClasses(params: {
 export function DebugLog(msg: string) {
   if (AppConfig().env === "development") {
     console.log(msg);
+  }
+}
+
+export async function apiRequest<BodyType, ResponseType>(params: {
+  method: "get" | "post" | "patch" | "delete";
+  url: string;
+  body?: BodyType;
+}): Promise<{ success: boolean; message?: string; data?: ResponseType }> {
+  const { method, url, body } = params;
+  try {
+    const response = await axios[method](
+      `${AppConfig().apiUrl}/${url}`,
+      body || {}
+    );
+    return response.data;
+  } catch (error) {
+    return {
+      success: false,
+      message: "Something went wrong",
+    };
   }
 }

@@ -11,6 +11,8 @@ import { urls } from "@/app/lib/constants.lib";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
 import { DebugLog } from "@/app/lib/utils.lib";
+import { AppConfig } from "../../../../../../config";
+import axios from "axios";
 
 export function GameType() {
   const pathName = usePathname();
@@ -25,14 +27,20 @@ export function GameType() {
   const [joined, setJoined] = useState(false);
   const router = useRouter();
 
-  function onClickJoin() {
+  async function onClickJoin() {
     setJoined(true);
     setIsJoinGameModalOpen(false);
-    socket.emit(gameConstants.multiPlayer.events.playerJoined, {
-      gameId,
-      name: player?.name,
-      playerId: player?.id,
-    });
+
+    const respnseOnJoin = await axios.post(
+      `${AppConfig().apiUrl}/pplayer/join-player`,
+      {
+        playerId: player?.id,
+        gameId,
+        name: player?.name,
+      }
+    );
+
+    console.log("Resonse on Join", respnseOnJoin);
   }
 
   const onGameStart = useCallback(

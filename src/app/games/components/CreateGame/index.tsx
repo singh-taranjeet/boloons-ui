@@ -12,7 +12,9 @@ import { useRouter } from "next/navigation";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { TextInput } from "@/app/components/TextInput";
-import { DebugLog } from "@/app/lib/utils.lib";
+import { DebugLog, apiRequest } from "@/app/lib/utils.lib";
+import axios from "axios";
+import { AppConfig } from "../../../../../config";
 
 export function CreateGame() {
   const [gameId, setGameId] = useState("");
@@ -25,7 +27,7 @@ export function CreateGame() {
 
   // Event on player Join
   const onPlayerJoin = useCallback(function onPlayerJoin(res: any) {
-    DebugLog(`player joined ${res}`);
+    console.log(`player joined ${res}`, res);
     if (
       res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg
     ) {
@@ -45,20 +47,20 @@ export function CreateGame() {
   }, [gameId, onPlayerJoin, socket]);
 
   const createGameSession = useCallback(
-    function createGameSession() {
-      const id = `${getRandomInt()}`;
-      setJoinUrl(
-        `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${id}`
-      );
-      setGameId(id);
-      const session = {
-        gameId: id,
-        playerId: player?.id,
-        name: player?.name,
-      };
-      socket.emit(gameConstants.multiPlayer.events.createSesion, session);
+    async function createGameSession() {
+      if (player?.id && player?.name && gameId) {
+        setJoinUrl(
+          `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${gameId}`
+        );
+        const session = {
+          gameId,
+          playerId: player?.id,
+          name: player?.name,
+        };
+        socket.emit(gameConstants.multiPlayer.events.createSession, session);
+      }
     },
-    [player?.id, player?.name, socket]
+    [gameId, player?.id, player?.name, socket]
   );
 
   function startGame() {
@@ -83,8 +85,24 @@ export function CreateGame() {
 
   // on load create a game session
   useEffect(() => {
-    createGameSession();
-  }, [createGameSession]);
+    async function fetchGameId() {
+      const response = await apiRequest<
+        { type: string; family: string },
+        string
+      >({
+        url: `${urls.api.getGame}`,
+        body: {
+          type: "MultiPlayer",
+          family: "SumAddict",
+        },
+        method: "post",
+      });
+      if (response.success && response.data) {
+        setGameId(response.data);
+      }
+    }
+    fetchGameId();
+  }, []);
 
   //DebugLog("Join url", joinUrl);
 

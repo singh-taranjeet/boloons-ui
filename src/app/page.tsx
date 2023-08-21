@@ -31,7 +31,7 @@ export default function Page() {
         <section className="relative h-[15rem] w-[15rem] m-normal md:mx-normal md:w-1/2">
           <Image
             fill={true}
-            className=" object-contain"
+            className=" object-contain mx-auto"
             src={"/media/space-craft.svg"}
             alt="space-craft image"
           />

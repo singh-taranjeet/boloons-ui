@@ -4,7 +4,7 @@ export const gameConstants = {
   },
   multiPlayer: {
     events: {
-      createSesion: "createSession",
+      createSession: "createSession",
       playerJoined: "playerJoined",
       gameStarted: "gameStarted",
       gameScored: "gameScored",
