@@ -17,7 +17,7 @@ function Entity(props: {
   const { url, alt, title, value } = props;
   return (
     <div className="flex flex-col justify-between flex-1 md:min-w-full">
-      <div className="flex justify-between border-2 rounded-full border-primary p-rectangle-small md:gap-small bg-white">
+      <div className="flex justify-between border-2 rounded-full border-primary p-small md:gap-small bg-white">
         <Image
           src={`${urls.media}icons/${url}`}
           width={50}
@@ -49,7 +49,7 @@ export function SinglePlayerScore(props: InfoType) {
       <div className={`flex justify-between gap-normal md:flex-col`}>
         {/* Score */}
         <Entity
-          url="star-icon.svg"
+          url="star-icon.png"
           title="Score"
           value={score}
           alt="Score icon"

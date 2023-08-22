@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { flexCenter } from "@/app/lib/style.lib";
 import Image from "next/image";
 import { usePlayer } from "@/app/lib/cutom-hooks.lib";

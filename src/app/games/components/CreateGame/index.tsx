@@ -1,6 +1,5 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { getRandomInt } from "@/app/lib/server.lib";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { Card } from "../../../components/Card";
 import { Sentence } from "@/app/components/Sentence";
@@ -13,9 +12,8 @@ import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { TextInput } from "@/app/components/TextInput";
 import { apiRequest } from "@/app/lib/utils.lib";
-import axios from "axios";
-import { AppConfig } from "../../../../../config";
 import { joinGame } from "../../lib/game.methods.lib";
+import { PulseLoading } from "@/app/components/PulseLoading";
 
 export function CreateGame() {
   const [gameId, setGameId] = useState("");
@@ -23,6 +21,7 @@ export function CreateGame() {
   const [joinUrl, setJoinUrl] = useState("");
   const [urlCopied, setUrlCopied] = useState(false);
   const { player, updatePlayerName } = usePlayer();
+  const [creatingGame, setCreatingGame] = useState(true);
   const { socket } = useWebSocket();
   const router = useRouter();
 
@@ -93,7 +92,7 @@ export function CreateGame() {
       if (response.success && response.data) {
         setGameId(response.data);
       }
-      // setCreatingGame(false);
+      setCreatingGame(false);
     }
     fetchGameId();
   }, []);
@@ -101,6 +100,11 @@ export function CreateGame() {
   return (
     <>
       <section className={`${flexCenter}`}>
+        {creatingGame ? (
+          <>
+            <PulseLoading /> <PulseLoading />
+          </>
+        ) : null}
         {/* Share the game session url */}
         {gameId ? (
           <section className={`${flexCenter} mt-small md:mt-0`}>

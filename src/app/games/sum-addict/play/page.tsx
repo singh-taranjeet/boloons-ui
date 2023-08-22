@@ -22,7 +22,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/Button";
 
-const GAME_TIMEOUT = 30; // 30 Seconds
+const GAME_TIMEOUT = 30000; // 30 Seconds
 const CountDownTime = 3;
 
 export default function Page() {
@@ -39,12 +39,12 @@ export default function Page() {
   } = useGame(GAME_TIMEOUT, createQuestions, isCorrectAttempt);
   const router = useRouter();
 
-  const memoStartGame = useCallback(() => startGame(), [startGame]);
+  // const memoStartGame = useCallback(() => startGame(), [startGame]);
 
   const { countDownTimer, isCountDownModalOpen, startCountDownTimer } =
     useCountDownTimer({
       time: CountDownTime,
-      callBack: memoStartGame,
+      callBack: startGame,
     });
 
   const [opponent, setOpponent] = useState({ score: 0, name: "" });
@@ -75,13 +75,8 @@ export default function Page() {
     router.push(urls.pages.games.sumAddict.gameUrl);
   }
 
-  /**
-   * Check validation for multiplayer game
-   */
-
   useEffect(() => {
     if (!isMultiPlayer) {
-      console.log("is mut", isMultiPlayer);
       startCountDownTimer();
     }
   }, [isMultiPlayer, startCountDownTimer]);

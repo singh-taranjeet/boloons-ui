@@ -317,13 +317,13 @@ export function useCountDownTimer(params: {
   time?: number;
 }) {
   const { startOnLoad = false, callBack = emptyFunction, time = 3 } = params;
-  const memoTime = useRef(time);
+  // const memoTime = useRef(time);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const memoCallBack = useCallback(() => {
     setIsModalOpen(false);
     callBack();
   }, [callBack]);
-  const { timer, startTimer } = useTimer(memoTime.current, memoCallBack);
+  const { timer, startTimer } = useTimer(time, memoCallBack);
 
   const startCountDownTimer = useCallback(
     function startCountDownTimer() {

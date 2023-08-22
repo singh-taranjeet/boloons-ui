@@ -5,7 +5,7 @@ import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { TextInput } from "../../../components/TextInput";
 import { Sentence } from "../../../components/Sentence";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { Modal } from "@/app/components/Modal";
@@ -17,6 +17,7 @@ import { useValidateGame } from "../../lib/game.hooks.lib";
 export function JoinGame(props: { onClickJoin(): void }) {
   const { onClickJoin } = props;
   const params = useSearchParams();
+  const router = useRouter();
   const { player, updatePlayerName } = usePlayer();
   const gameId = params?.get("id");
 
@@ -25,6 +26,10 @@ export function JoinGame(props: { onClickJoin(): void }) {
   function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     updatePlayerName(value);
+  }
+
+  function redirectToGame() {
+    router.push(urls.pages.games.sumAddict.gameUrl);
   }
 
   return (
@@ -61,7 +66,10 @@ export function JoinGame(props: { onClickJoin(): void }) {
         </section>
       ) : (
         // If not valid show modal
-        <Modal.ModalDialog open={!isValidGame}>
+        <Modal.ModalDialog
+          open={!isValidGame && !validationInProgress}
+          onClose={() => redirectToGame()}
+        >
           <Modal.ModalBody>
             <div className="min-w-full">
               <Modal.ModalTitle>This is not a valid game</Modal.ModalTitle>
@@ -69,17 +77,18 @@ export function JoinGame(props: { onClickJoin(): void }) {
                 <Card className="">
                   <Image
                     className="mx-auto"
-                    src={"/media/not-found.png"}
+                    src={"/media/not-found.svg"}
                     width={300}
                     height={300}
                     alt="Game not found"
                     priority={false}
                   ></Image>
                 </Card>
-                <Button className="flex mt-small mx-auto">
-                  <Href href={`${urls.pages.games.sumAddict.gameUrl}`}>
-                    close
-                  </Href>
+                <Button
+                  className="flex mt-small mx-auto"
+                  onClick={redirectToGame}
+                >
+                  Close
                 </Button>
               </Modal.ModalContent>
             </div>
