@@ -1,5 +1,6 @@
 import { urls } from "@/app/lib/constants.lib";
 import { apiRequest } from "@/app/lib/utils.lib";
+import { GameStep } from "./game.types.lib";
 
 export async function joinGame(params: {
   playerId: string;
@@ -31,10 +32,11 @@ To validate a game
 */
 export async function validateGame(params: {
   gameId: string;
+  step: GameStep;
 }): Promise<boolean> {
-  const { gameId } = params;
+  const { gameId, step } = params;
   const response = await apiRequest({
-    url: `${urls.api.getGame}/${gameId}`,
+    url: `${urls.api.getGame}/${gameId}/${step}`,
     method: "get",
   });
 

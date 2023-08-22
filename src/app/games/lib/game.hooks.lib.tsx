@@ -1,7 +1,12 @@
 "use client";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AudioTracksKey, QuestionType, SoundType } from "./game.types.lib";
+import {
+  AudioTracksKey,
+  GameStep,
+  QuestionType,
+  SoundType,
+} from "./game.types.lib";
 import { gameConstants } from "./game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { validateGame } from "./game.methods.lib";
@@ -75,7 +80,10 @@ export function useMultiplayer(params: {
     return id;
   }, [id]);
   const { score, callBack } = params;
-  const { isValidGame, validationInProgress } = useValidateGame(gameId || "");
+  const { isValidGame, validationInProgress } = useValidateGame(
+    gameId || "",
+    gameConstants.multiPlayer.step.Started
+  );
   const isMultiPlayer = useMemo(() => {
     return !!gameId;
   }, [gameId]);
@@ -347,20 +355,20 @@ export function useCountDownTimer(params: {
   };
 }
 
-export function useValidateGame(gameId: string) {
+export function useValidateGame(gameId: string, step: GameStep) {
   const [validationInProgress, setLoading] = useState(true);
   const [isValidGame, setIsValidGame] = useState(false);
 
   useEffect(() => {
     async function callValidateGame() {
       if (gameId) {
-        const isValid = await validateGame({ gameId });
+        const isValid = await validateGame({ gameId, step });
         setIsValidGame(isValid);
         setLoading(false);
       }
     }
     callValidateGame();
-  }, [gameId]);
+  }, [gameId, step]);
 
   return { isValidGame, validationInProgress };
 }

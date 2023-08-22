@@ -13,6 +13,7 @@ import { Href } from "@/app/components/Href";
 import Image from "next/image";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import { useValidateGame } from "../../lib/game.hooks.lib";
+import { gameConstants } from "../../lib/game.constants.lib";
 
 export function JoinGame(props: { onClickJoin(): void }) {
   const { onClickJoin } = props;
@@ -21,7 +22,10 @@ export function JoinGame(props: { onClickJoin(): void }) {
   const { player, updatePlayerName } = usePlayer();
   const gameId = params?.get("id");
 
-  const { isValidGame, validationInProgress } = useValidateGame(gameId || "");
+  const { isValidGame, validationInProgress } = useValidateGame(
+    gameId || "",
+    gameConstants.multiPlayer.step.Waitingplayers
+  );
 
   function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;

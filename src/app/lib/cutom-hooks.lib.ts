@@ -4,7 +4,6 @@ import {
   useCallback,
   useEffect,
   useMemo,
-  useRef,
   useState,
 } from "react";
 import { io } from "socket.io-client";
@@ -14,9 +13,11 @@ const RootUrl = AppConfig().apiUrl;
 import { throttle } from "lodash";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
+import { apiRequest } from "./utils.lib";
 const localStorageConstant = {
   playerName: "playerName",
   playerId: "playerId",
+  user: "boloons-user",
 };
 
 function getUserDevice() {
@@ -49,119 +50,93 @@ export function useIsMobile() {
   return isMobile;
 }
 
+function getThrottleVersion<PlayerType>(
+  fun: (data: PlayerType) => Promise<void>
+) {
+  return throttle(fun, 3000, { trailing: true });
+}
+
+interface PlayerType {
+  id: string;
+  name: string;
+}
 export function usePlayer() {
-  const [player, setPlayer] = useState<{ id: string; name: string }>(() => {
-    try {
-      const playerName = localStorage.getItem(localStorageConstant.playerName);
-      const playerId = localStorage.getItem(localStorageConstant.playerId);
-      return {
-        id: playerId || "",
-        name: playerName || "",
-      };
-    } catch (error) {
-      return {
-        id: "",
-        name: "",
-      };
-    }
-  });
-  const randomNameGenerated = "4h32jkh32j4h32j4h32j4h32kj4";
-  const { socket } = useWebSocket();
+  const [player, setPlayer] = useState<PlayerType>({ id: "", name: "" });
 
-  const playerEndPoint = `${urls.api.player}`;
+  const storeData = useCallback(function storeData(data: PlayerType) {
+    setPlayer(data);
+    localStorage.setItem(localStorageConstant.user, JSON.stringify(data));
+  }, []);
 
-  const { loading, response, invoke } = useHttp<
-    {
-      success: boolean;
-      data: {
-        id: string;
-        name: string;
-      };
-    },
-    {}
-  >({
-    url: playerEndPoint,
-    onInit: false,
-  });
-
-  const updatePlayerApi = useHttp({
-    url: playerEndPoint,
-    method: "patch",
-    onInit: false,
-  });
-
-  const updatePlayerNameOnApiThrottle = throttle(updatePlayerNameOnApi, 3000, {
-    trailing: true,
-  });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sdf = useCallback(updatePlayerNameOnApiThrottle, []);
-
-  const updatePlayerName = useCallback(
-    function updatePlayerName(name: string) {
-      setPlayer({
-        ...player,
-        id: player?.id || "",
-        name,
-      });
-      if (player?.id && name) {
-        console.log(`Hello ${player}`);
-        sdf(player.id, name);
-      }
-    },
-    [player, sdf]
-  );
-
-  const setLocal = useCallback(function setLocal(player: {
-    id: string;
-    name: string;
-  }) {
-    const { id = "", name = "" } = player;
-    localStorage.setItem(localStorageConstant.playerId, player?.id || "");
-    localStorage.setItem(localStorageConstant.playerName, player?.name || "");
-  },
-  []);
-
-  function updatePlayerNameOnApi(id: string, name: string) {
-    if (id && name) {
-      updatePlayerApi.invoke({
-        body: { id, name },
-      });
-      setLocal({ id, name });
+  async function throttle(newData: PlayerType) {
+    const response = await apiRequest<PlayerType, PlayerType>({
+      url: urls.api.player,
+      method: "patch",
+      body: newData,
+    });
+    console.log("Request", response);
+    if (response && response.data) {
+      storeData(response.data);
     }
   }
 
-  const removeUnRequiredLocalStorageItem = useCallback(
-    function removeUnRequiredLocalStorageItem() {
-      setTimeout(() => {
-        localStorage.removeItem(randomNameGenerated);
-      }, 30000);
+  const memoisedThrottle = useCallback(throttle, [storeData]);
+  const updatePlayerNameApi = getThrottleVersion<PlayerType>(memoisedThrottle);
+
+  const updatePlayerName = useCallback(
+    (name: string) => {
+      setPlayer((oldPlayer) => {
+        updatePlayerNameApi({ id: oldPlayer.id, name });
+        return {
+          ...oldPlayer,
+          name,
+        };
+      });
     },
-    []
+    [updatePlayerNameApi]
   );
 
-  /**
-   * Check if data exist in local storage
-   */
-  useEffect(() => {
-    const inProgress = localStorage.getItem(randomNameGenerated);
-    if ((!player?.name || !player?.id) && !inProgress) {
-      invoke({});
-      localStorage.setItem(randomNameGenerated, "true");
-    }
-    removeUnRequiredLocalStorageItem();
-  }, [invoke, player?.id, player?.name, removeUnRequiredLocalStorageItem]);
-
-  // Track if the respose is loaded
-  useEffect(() => {
-    if (!loading && response?.success) {
-      setPlayer({
-        id: response.data?.id || "",
-        name: response.data?.name || "",
+  const setPlayerData = useCallback(
+    async function setPlayerData() {
+      const response = await apiRequest<undefined, PlayerType>({
+        method: "get",
+        url: urls.api.player,
       });
-      setLocal(response.data);
-      socket.emit("login", { id: response.data?.id || "" });
+      if (response && response.data) {
+        storeData(response.data);
+      }
+    },
+    [storeData]
+  );
+
+  useEffect(() => {
+    function avoidCalls() {
+      const randomNameGenerated = "4h32jkh32j4h32j4h32j4h32kj4";
+      const inProgress = localStorage.getItem(randomNameGenerated);
+      if (!inProgress) {
+        setPlayerData();
+        localStorage.setItem(randomNameGenerated, randomNameGenerated);
+        setTimeout(() => localStorage.removeItem(randomNameGenerated), 3000);
+      }
     }
-  }, [loading, response, setLocal, socket]);
+
+    async function checkLocalData() {
+      try {
+        const localData = localStorage.getItem(localStorageConstant.user);
+        if (localData) {
+          const data: PlayerType = JSON.parse(localData);
+          setPlayer(data);
+        } else {
+          // Data not found or not valid
+          avoidCalls();
+        }
+      } catch (error) {
+        // Data not found or not valid
+        avoidCalls();
+      }
+    }
+    checkLocalData();
+  }, [setPlayerData]);
 
   return { player, updatePlayerName };
 }

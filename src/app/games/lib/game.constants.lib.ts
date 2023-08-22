@@ -14,5 +14,10 @@ export const gameConstants = {
       playerJoinedMsg: "playerJoinedMsg",
       gameScoredMsg: "gameScoredMsg",
     },
+    step: {
+      Waitingplayers: "Waitingplayers",
+      Started: "Started",
+      Stopped: "Stopped",
+    },
   },
-};
+} as const;
