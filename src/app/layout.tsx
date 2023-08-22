@@ -2,6 +2,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
+import { AppConfig } from "../../config";
+import { emptyFunction } from "./lib/server.lib";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +26,7 @@ export default function RootLayout({
             media="(min-width: 768px)"
           />
           <Image
-            className="object-cover z-0 object-center md:object-bottom mx-auto"
+            className="object-cover z-0 object-center md:object-bottom mx-auto opacity-80"
             alt="Background image"
             src={"/media/background-image.svg"}
             fill={true}
@@ -38,3 +40,14 @@ export default function RootLayout({
     </html>
   );
 }
+
+/**
+ * Disable console.logs in production
+ */
+function disableConsoleLogs() {
+  if (AppConfig().env === "production") {
+    console.log === emptyFunction;
+  }
+}
+
+disableConsoleLogs();

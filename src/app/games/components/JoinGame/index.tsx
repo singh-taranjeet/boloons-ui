@@ -1,6 +1,6 @@
 "use client";
 import { usePlayer } from "@/app/lib/cutom-hooks.lib";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
 import { TextInput } from "../../../components/TextInput";
@@ -12,33 +12,15 @@ import { Modal } from "@/app/components/Modal";
 import { Href } from "@/app/components/Href";
 import Image from "next/image";
 import { PulseLoading } from "@/app/components/PulseLoading";
-import { RootResponseType } from "@/app/lib/types.lib";
-import { apiRequest } from "@/app/lib/utils.lib";
+import { useValidateGame } from "../../lib/game.hooks.lib";
 
 export function JoinGame(props: { onClickJoin(): void }) {
   const { onClickJoin } = props;
   const params = useSearchParams();
   const { player, updatePlayerName } = usePlayer();
   const gameId = params?.get("id");
-  const [loading, setLoading] = useState(true);
-  const [isValidGame, setIsValidGame] = useState(false);
 
-  useEffect(() => {
-    async function validateGame() {
-      const response = await apiRequest({
-        url: `${urls.api.getGame}/${gameId}`,
-        method: "get",
-      });
-
-      if (response?.success) {
-        setIsValidGame(true);
-      }
-      setLoading(false);
-    }
-    validateGame();
-  }, [gameId]);
-
-  const isValidGameId = isValidGame && !loading;
+  const { isValidGame, validationInProgress } = useValidateGame(gameId || "");
 
   function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
@@ -47,8 +29,8 @@ export function JoinGame(props: { onClickJoin(): void }) {
 
   return (
     <>
-      {loading ? <PulseLoading></PulseLoading> : null}
-      {isValidGameId ? (
+      {validationInProgress ? <PulseLoading></PulseLoading> : null}
+      {isValidGame ? (
         <section className={`${flexCenter} text-primary`}>
           <Sentence>You have been invited to join game</Sentence>
 
@@ -79,7 +61,7 @@ export function JoinGame(props: { onClickJoin(): void }) {
         </section>
       ) : (
         // If not valid show modal
-        <Modal.ModalDialog open={!isValidGameId && !loading}>
+        <Modal.ModalDialog open={!isValidGame}>
           <Modal.ModalBody>
             <div className="min-w-full">
               <Modal.ModalTitle>This is not a valid game</Modal.ModalTitle>
@@ -87,7 +69,7 @@ export function JoinGame(props: { onClickJoin(): void }) {
                 <Card className="">
                   <Image
                     className="mx-auto"
-                    src={"/media/not-found.svg"}
+                    src={"/media/not-found.png"}
                     width={300}
                     height={300}
                     alt="Game not found"

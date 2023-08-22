@@ -1,11 +1,12 @@
 "use client";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
-import { useSearchParams } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AudioTracksKey, QuestionType, SoundType } from "./game.types.lib";
 import { gameConstants } from "./game.constants.lib";
-import { DebugLog } from "@/app/lib/utils.lib";
 import { urls } from "@/app/lib/constants.lib";
+import { validateGame } from "./game.methods.lib";
+import { useSearchParams } from "next/navigation";
+import { emptyFunction } from "@/app/lib/server.lib";
 
 let AudioTracks: SoundType | undefined;
 
@@ -26,7 +27,7 @@ function getAudio() {
     };
     return audio;
   } catch (error) {
-    DebugLog("Client Audio");
+    console.log("Client Audio");
     return undefined;
   }
 }
@@ -64,37 +65,49 @@ function useSound() {
   return { stopAllAudio, manageAudio };
 }
 
-export function useMultiplayer(score: number, callBack: (data: any) => void) {
-  const params = useSearchParams();
-  const gameId = params?.get("gameId");
-  const isMultiPlayer = !!gameId;
+export function useMultiplayer(params: {
+  score: number;
+  callBack: (data: any) => void;
+}) {
+  const searchParams = useSearchParams();
+  const id = searchParams?.get("gameId");
+  const gameId = useMemo(() => {
+    return id;
+  }, [id]);
+  const { score, callBack } = params;
+  const { isValidGame, validationInProgress } = useValidateGame(gameId || "");
+  const isMultiPlayer = useMemo(() => {
+    return !!gameId;
+  }, [gameId]);
   const { player } = usePlayer();
   const { socket } = useWebSocket();
 
   // MultiPlayer: Emit Event on score update
   useEffect(() => {
-    if (gameId && isMultiPlayer) {
+    if (gameId) {
       socket.emit(gameConstants.multiPlayer.events.gameScored, {
         gameId,
         playerId: player?.id,
         score,
       });
     }
-  }, [gameId, player?.id, score, socket, isMultiPlayer]);
+  }, [gameId, player?.id, score, socket]);
 
   // Multiplayer: Listen to events on game session
   useEffect(() => {
-    if (isMultiPlayer) {
+    if (gameId && isValidGame) {
       socket.on(`${gameId}`, callBack);
     }
     return () => {
       socket.off(`${gameId}`, callBack);
     };
-  }, [gameId, socket, isMultiPlayer, callBack]);
+  }, [gameId, socket, callBack, isValidGame]);
 
   return {
     isMultiPlayer,
     playerId: player?.id,
+    isValidGame,
+    validationInProgress,
   };
 }
 
@@ -298,18 +311,56 @@ export function useSwipe() {
  * @returns startingTimer: number
  * @requires isModalOpen : boolean If the modal is open
  */
-export function useStartGame() {
-  const [isModalOpen, setIsModalOpen] = useState(true);
-  const { timer, startTimer } = useTimer(3, () => {
+export function useCountDownTimer(params: {
+  startOnLoad?: true;
+  callBack?: () => void;
+  time?: number;
+}) {
+  const { startOnLoad = false, callBack = emptyFunction, time = 3 } = params;
+  const memoTime = useRef(time);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const memoCallBack = useCallback(() => {
     setIsModalOpen(false);
-  });
+    callBack();
+  }, [callBack]);
+  const { timer, startTimer } = useTimer(memoTime.current, memoCallBack);
+
+  const startCountDownTimer = useCallback(
+    function startCountDownTimer() {
+      setIsModalOpen(true);
+      startTimer();
+    },
+    [startTimer]
+  );
 
   useEffect(() => {
-    startTimer();
-  }, [startTimer]);
+    if (startOnLoad) {
+      setIsModalOpen(true);
+      startCountDownTimer();
+    }
+  }, [startOnLoad, startCountDownTimer]);
 
   return {
-    startingTimer: timer,
-    isModalOpen,
+    countDownTimer: timer,
+    isCountDownModalOpen: isModalOpen,
+    startCountDownTimer,
   };
+}
+
+export function useValidateGame(gameId: string) {
+  const [validationInProgress, setLoading] = useState(true);
+  const [isValidGame, setIsValidGame] = useState(false);
+
+  useEffect(() => {
+    async function callValidateGame() {
+      if (gameId) {
+        const isValid = await validateGame({ gameId });
+        setIsValidGame(isValid);
+        setLoading(false);
+      }
+    }
+    callValidateGame();
+  }, [gameId]);
+
+  return { isValidGame, validationInProgress };
 }

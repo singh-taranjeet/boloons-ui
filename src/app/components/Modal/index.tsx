@@ -80,7 +80,7 @@ function ModalDialog(props: {
         open ? "flex" : "hidden"
       } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-900/50`}
     >
-      {children}
+      {open ? children : null}
     </div>
   );
 }

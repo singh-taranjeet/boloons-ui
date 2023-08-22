@@ -10,7 +10,7 @@ import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
-import { DebugLog, apiRequest } from "@/app/lib/utils.lib";
+import { apiRequest } from "@/app/lib/utils.lib";
 import { AppConfig } from "../../../../../../config";
 import axios from "axios";
 import { joinGame } from "@/app/games/lib/game.methods.lib";
@@ -74,7 +74,7 @@ export function GameType() {
     setIsCreateGameModalOpen(isCreateMode);
   }, [isCreateMode]);
 
-  DebugLog(`isJoinGameModalOpen ${isJoinGameModalOpen}`);
+  console.log(`isJoinGameModalOpen ${isJoinGameModalOpen}`);
 
   return (
     <>

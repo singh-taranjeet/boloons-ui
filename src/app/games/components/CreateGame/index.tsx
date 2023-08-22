@@ -12,7 +12,7 @@ import { useRouter } from "next/navigation";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { TextInput } from "@/app/components/TextInput";
-import { DebugLog, apiRequest } from "@/app/lib/utils.lib";
+import { apiRequest } from "@/app/lib/utils.lib";
 import axios from "axios";
 import { AppConfig } from "../../../../../config";
 import { joinGame } from "../../lib/game.methods.lib";
@@ -65,7 +65,7 @@ export function CreateGame() {
       gameId,
     });
 
-    DebugLog("starting game");
+    console.log("starting game");
     router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
   }
 

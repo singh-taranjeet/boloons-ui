@@ -25,3 +25,21 @@ export async function joinGame(params: {
   });
   return response.success;
 }
+
+/*
+To validate a game
+*/
+export async function validateGame(params: {
+  gameId: string;
+}): Promise<boolean> {
+  const { gameId } = params;
+  const response = await apiRequest({
+    url: `${urls.api.getGame}/${gameId}`,
+    method: "get",
+  });
+
+  if (response?.success) {
+    return true;
+  }
+  return false;
+}

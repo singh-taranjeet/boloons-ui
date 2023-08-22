@@ -6,11 +6,10 @@ import { Game } from "../components/Game";
 import {
   useGame,
   useMultiplayer,
-  useStartGame,
-  useTimer,
+  useCountDownTimer,
 } from "../../lib/game.hooks.lib";
 import { QuestionType } from "../../lib/game.types.lib";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { Card } from "../../../components/Card";
 import { Sentence } from "../../../components/Sentence";
@@ -18,8 +17,13 @@ import { Href } from "../../../components/Href";
 import { ScoreCard } from "../../components/ScoreCard";
 import { flexCenter } from "@/app/lib/style.lib";
 import { urls } from "@/app/lib/constants.lib";
+import { PulseLoading } from "@/app/components/PulseLoading";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { Button } from "@/app/components/Button";
 
 const GAME_TIMEOUT = 30; // 30 Seconds
+const CountDownTime = 3;
 
 export default function Page() {
   const {
@@ -33,14 +37,23 @@ export default function Page() {
     scoreModalOpen,
     gameInProgress,
   } = useGame(GAME_TIMEOUT, createQuestions, isCorrectAttempt);
+  const router = useRouter();
 
-  const { startingTimer, isModalOpen } = useStartGame();
+  const memoStartGame = useCallback(() => startGame(), [startGame]);
+
+  const { countDownTimer, isCountDownModalOpen, startCountDownTimer } =
+    useCountDownTimer({
+      time: CountDownTime,
+      callBack: memoStartGame,
+    });
 
   const [opponent, setOpponent] = useState({ score: 0, name: "" });
 
-  const initGame = useTimer(3, startGame);
-
-  const { isMultiPlayer, playerId } = useMultiplayer(score, onScore);
+  const { isMultiPlayer, playerId, isValidGame, validationInProgress } =
+    useMultiplayer({
+      score,
+      callBack: onScore,
+    });
 
   function onScore(res: any) {
     const os = res?.players?.find(
@@ -56,9 +69,31 @@ export default function Page() {
     return sum === correctAnswer;
   }
 
+  const [validationModalOpen, setValidationModalOpen] = useState(isMultiPlayer);
+
+  function onValidationModalClose() {
+    router.push(urls.pages.games.sumAddict.gameUrl);
+  }
+
+  /**
+   * Check validation for multiplayer game
+   */
+
   useEffect(() => {
-    initGame.startTimer();
-  }, [initGame]);
+    if (!isMultiPlayer) {
+      console.log("is mut", isMultiPlayer);
+      startCountDownTimer();
+    }
+  }, [isMultiPlayer, startCountDownTimer]);
+
+  useEffect(() => {
+    if (isMultiPlayer && isValidGame) {
+      setValidationModalOpen(false);
+      startCountDownTimer();
+    }
+  }, [isMultiPlayer, isValidGame, startCountDownTimer]);
+
+  console.log("isCountDownModalOpen", isCountDownModalOpen);
 
   return (
     <>
@@ -87,17 +122,54 @@ export default function Page() {
         />
       </div>
 
-      <Modal.ModalDialog open={isModalOpen}>
+      {/* Validation Modal Open */}
+      <Modal.ModalDialog
+        open={validationModalOpen}
+        onClose={onValidationModalClose}
+      >
+        <Modal.ModalBody>
+          <div className="min-w-full">
+            <Modal.ModalTitle>
+              {validationInProgress
+                ? "Checking game"
+                : isValidGame
+                ? "Ready to start"
+                : "Game is not valid"}
+            </Modal.ModalTitle>
+          </div>
+          <Modal.ModalContent>
+            <Card>
+              {validationInProgress ? (
+                <PulseLoading />
+              ) : (
+                <div className="mx-auto flex flex-col justify-center gap-normal">
+                  <Image
+                    className="mx-auto"
+                    src={`${urls.media}not-found.png`}
+                    width={300}
+                    height={300}
+                    alt="Not found"
+                  />
+                  <Button onClick={onValidationModalClose}>Close</Button>
+                </div>
+              )}
+            </Card>
+          </Modal.ModalContent>
+        </Modal.ModalBody>
+      </Modal.ModalDialog>
+
+      <Modal.ModalDialog open={isCountDownModalOpen}>
         <Modal.ModalBody>
           <div className="min-w-full">
             <Modal.ModalTitle>Starting game</Modal.ModalTitle>
           </div>
           <Modal.ModalContent>
             <Card>
+              {isCountDownModalOpen}
               <Sentence className="text-center">
-                {startingTimer === 0
+                {countDownTimer === 0
                   ? "Starting now"
-                  : `Starting game in ${startingTimer}`}
+                  : `Starting game in ${countDownTimer}`}
               </Sentence>
             </Card>
           </Modal.ModalContent>

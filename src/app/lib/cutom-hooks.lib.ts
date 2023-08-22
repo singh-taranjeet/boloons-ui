@@ -14,7 +14,6 @@ const RootUrl = AppConfig().apiUrl;
 import { throttle } from "lodash";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
-import { DebugLog } from "@/app/lib/utils.lib";
 const localStorageConstant = {
   playerName: "playerName",
   playerId: "playerId",
@@ -105,7 +104,7 @@ export function usePlayer() {
         name,
       });
       if (player?.id && name) {
-        DebugLog(`Hello ${player}`);
+        console.log(`Hello ${player}`);
         sdf(player.id, name);
       }
     },
@@ -175,19 +174,19 @@ export function useWebSocket() {
   //const [connected, setConnected] = useState(false);
 
   function onConnect() {
-    DebugLog("connected");
+    console.log("connected");
     //setConnected(true);
   }
 
   function onDisconnect() {
     //setConnected(false);
-    DebugLog("Disconnected");
+    console.log("Disconnected");
   }
 
   useEffect(() => {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    DebugLog("socket hook init");
+    console.log("socket hook init");
 
     return () => {
       socket.off("connect", onConnect);
@@ -216,7 +215,7 @@ export function useOutsideClick(
   useEffect(() => {
     const handleClickOutside = (evt: any) => {
       if (ref.current && !ref.current.contains(evt.target)) {
-        DebugLog("clicked outside");
+        console.log("clicked outside");
         callback();
       }
     };
@@ -244,12 +243,12 @@ export function useHttp<ResponseType, Body>(params: {
         const res = await axios[method](`${RootUrl}${newUrl}`, body || {});
         setResponse(res.data);
         if (AppConfig().env === "development") {
-          DebugLog(`Response of ${newUrl} ${res.data}`);
+          console.log(`Response of ${newUrl} ${res.data}`);
         }
         setLoading(false);
       } catch (error: any) {
         if (AppConfig().env === "development") {
-          DebugLog(`Error in ${newUrl} ${error.message}`);
+          console.log(`Error in ${newUrl} ${error.message}`);
         }
         setError({
           success: false,

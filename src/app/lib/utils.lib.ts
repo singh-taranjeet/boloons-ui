@@ -54,12 +54,6 @@ export function getClasses(params: {
   return cx;
 }
 
-export function DebugLog(msg: string) {
-  if (AppConfig().env === "development") {
-    console.log(msg);
-  }
-}
-
 export async function apiRequest<BodyType, ResponseType>(params: {
   method: "get" | "post" | "patch" | "delete";
   url: string;

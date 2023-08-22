@@ -11,8 +11,6 @@ const dashedRectangle = (
 <rect x="1" y="1" width="144" height="144" rx="6" fill="white" stroke="${color}" stroke-width="2" stroke-dasharray="5 5"/>
 </svg>`;
 
-// DebugLog('dashed ', `"${dashedRectangle('#1a7ff7')}"`);
-
 export const StyledWrapper = styled.section`
   // width: 100%;
   // @media only screen and (min-width: 601px) {
