@@ -17,7 +17,7 @@ function Entity(props: {
   const { url, alt, title, value } = props;
   return (
     <div className="flex flex-col justify-between flex-1 md:min-w-full">
-      <div className="flex justify-between border-2 rounded-full border-primary p-small md:gap-small bg-white">
+      <div className="flex justify-between border-2 rounded-full border-primary p-2 md:gap-small bg-white">
         <Image
           src={`${urls.media}icons/${url}`}
           width={50}
@@ -57,7 +57,7 @@ export function SinglePlayerScore(props: InfoType) {
 
         {/* Timer */}
         <Entity
-          url="timer-icon.gif"
+          url="timer-icon.svg"
           title="Time"
           value={timer}
           alt="Timer icon"

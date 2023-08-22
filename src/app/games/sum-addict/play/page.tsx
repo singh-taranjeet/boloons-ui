@@ -22,7 +22,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/Button";
 
-const GAME_TIMEOUT = 30000; // 30 Seconds
+const GAME_TIMEOUT = 30; // 30 Seconds
 const CountDownTime = 3;
 
 export default function Page() {

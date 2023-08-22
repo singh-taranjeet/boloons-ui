@@ -14,6 +14,7 @@ import { throttle } from "lodash";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
 import { apiRequest } from "./utils.lib";
+import { PlayerType } from "./types.lib";
 const localStorageConstant = {
   playerName: "playerName",
   playerId: "playerId",
@@ -56,12 +57,47 @@ function getThrottleVersion<PlayerType>(
   return throttle(fun, 3000, { trailing: true });
 }
 
-interface PlayerType {
-  id: string;
-  name: string;
-}
+// TODO
+let playerData: PlayerType = { id: "", name: "" };
+// Set player data
+(() => {
+  function checkLocalData() {
+    try {
+      const localData = localStorage.getItem(localStorageConstant.user);
+      if (localData) {
+        const data: PlayerType = JSON.parse(localData);
+        playerData = data;
+      } else {
+        // Data not found or not valid
+        console.log("Else");
+        setPlayerData();
+      }
+    } catch (error) {
+      // Data not found or not valid
+      console.log("Cache");
+      setPlayerData();
+    }
+  }
+  checkLocalData();
+
+  function storeData(data: PlayerType) {
+    playerData = data;
+    localStorage.setItem(localStorageConstant.user, JSON.stringify(data));
+  }
+
+  async function setPlayerData() {
+    const response = await apiRequest<undefined, PlayerType>({
+      method: "get",
+      url: urls.api.player,
+    });
+    if (response && response.data) {
+      storeData(response.data);
+    }
+  }
+})();
+
 export function usePlayer() {
-  const [player, setPlayer] = useState<PlayerType>({ id: "", name: "" });
+  const [player, setPlayer] = useState<PlayerType>(playerData);
 
   const storeData = useCallback(function storeData(data: PlayerType) {
     setPlayer(data);
@@ -74,7 +110,7 @@ export function usePlayer() {
       method: "patch",
       body: newData,
     });
-    console.log("Request", response);
+
     if (response && response.data) {
       storeData(response.data);
     }
@@ -110,13 +146,13 @@ export function usePlayer() {
   );
 
   useEffect(() => {
-    function avoidCalls() {
+    async function avoidCalls() {
       const randomNameGenerated = "4h32jkh32j4h32j4h32j4h32kj4";
       const inProgress = localStorage.getItem(randomNameGenerated);
       if (!inProgress) {
-        setPlayerData();
         localStorage.setItem(randomNameGenerated, randomNameGenerated);
         setTimeout(() => localStorage.removeItem(randomNameGenerated), 3000);
+        await setPlayerData();
       }
     }
 
@@ -128,15 +164,19 @@ export function usePlayer() {
           setPlayer(data);
         } else {
           // Data not found or not valid
+          console.log("Else");
           avoidCalls();
         }
       } catch (error) {
         // Data not found or not valid
+        console.log("Cache");
         avoidCalls();
       }
     }
     checkLocalData();
   }, [setPlayerData]);
+
+  console.log("PLayer in hook", player);
 
   return { player, updatePlayerName };
 }
@@ -201,50 +241,50 @@ export function useOutsideClick(
   });
 }
 
-export function useHttp<ResponseType, Body>(params: {
-  url: string;
-  method?: "post" | "get" | "patch" | "delete";
-  onInit?: boolean;
-}) {
-  const { url, method = "get", onInit = true } = params;
-  const [loading, setLoading] = useState(!!onInit);
-  const [error, setError] = useState<any>();
-  const [response, setResponse] = useState<ResponseType | undefined>();
+// export function useHttp<ResponseType, Body>(params: {
+//   url: string;
+//   method?: "post" | "get" | "patch" | "delete";
+//   onInit?: boolean;
+// }) {
+//   const { url, method = "get", onInit = true } = params;
+//   const [loading, setLoading] = useState(!!onInit);
+//   const [error, setError] = useState<any>();
+//   const [response, setResponse] = useState<ResponseType | undefined>();
 
-  const invoke = useCallback(
-    async function invoke(params: { body?: Body; newUrl?: string }) {
-      const { body, newUrl = url } = params;
-      try {
-        const res = await axios[method](`${RootUrl}${newUrl}`, body || {});
-        setResponse(res.data);
-        if (AppConfig().env === "development") {
-          console.log(`Response of ${newUrl} ${res.data}`);
-        }
-        setLoading(false);
-      } catch (error: any) {
-        if (AppConfig().env === "development") {
-          console.log(`Error in ${newUrl} ${error.message}`);
-        }
-        setError({
-          success: false,
-          ...(error?.response?.data || "Failed"),
-        });
-        setLoading(false);
-      }
-    },
-    [method, url]
-  );
+//   const invoke = useCallback(
+//     async function invoke(params: { body?: Body; newUrl?: string }) {
+//       const { body, newUrl = url } = params;
+//       try {
+//         const res = await axios[method](`${RootUrl}${newUrl}`, body || {});
+//         setResponse(res.data);
+//         if (AppConfig().env === "development") {
+//           console.log(`Response of ${newUrl} ${res.data}`);
+//         }
+//         setLoading(false);
+//       } catch (error: any) {
+//         if (AppConfig().env === "development") {
+//           console.log(`Error in ${newUrl} ${error.message}`);
+//         }
+//         setError({
+//           success: false,
+//           ...(error?.response?.data || "Failed"),
+//         });
+//         setLoading(false);
+//       }
+//     },
+//     [method, url]
+//   );
 
-  useEffect(() => {
-    if (onInit) {
-      invoke({});
-    }
-  }, [invoke, method, onInit, url]);
+//   useEffect(() => {
+//     if (onInit) {
+//       invoke({});
+//     }
+//   }, [invoke, method, onInit, url]);
 
-  return {
-    loading,
-    error,
-    response,
-    invoke,
-  };
-}
+//   return {
+//     loading,
+//     error,
+//     response,
+//     invoke,
+//   };
+// }

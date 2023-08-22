@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="relative z-1">
-      <Card className={`m-normal`}>
+    <main className="relative z-1 max-w-5xl mx-auto">
+      <Card className={`m-normal w-fit mx-auto`}>
         <h1 title="Boloons" className="text-primary text-center text-large">
           Boloons
         </h1>

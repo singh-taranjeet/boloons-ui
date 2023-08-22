@@ -32,3 +32,8 @@ export interface RootResponseType<Type> {
   success: boolean;
   data: Type;
 }
+
+export interface PlayerType {
+  id: string;
+  name: string;
+}

@@ -10,9 +10,6 @@ import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
 import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
-import { apiRequest } from "@/app/lib/utils.lib";
-import { AppConfig } from "../../../../../../config";
-import axios from "axios";
 import { joinGame } from "@/app/games/lib/game.methods.lib";
 
 export function GameType() {
@@ -28,9 +25,13 @@ export function GameType() {
   const [joined, setJoined] = useState(false);
   const router = useRouter();
 
+  console.log("Player in join", player);
+
   async function onClickJoin() {
     setJoined(true);
     setIsJoinGameModalOpen(false);
+
+    console.log("Player", player, gameId);
 
     if (player.id && player.name && gameId) {
       const response = await joinGame({

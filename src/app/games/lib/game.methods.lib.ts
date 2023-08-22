@@ -24,6 +24,7 @@ export async function joinGame(params: {
       name,
     },
   });
+  console.log("Join response", response);
   return response.success;
 }
 
