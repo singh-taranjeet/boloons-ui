@@ -1,6 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { Card } from "../../../components/Card";
 import { Sentence } from "@/app/components/Sentence";
 import Icon from "../../../components/Icon";
@@ -11,9 +11,10 @@ import { useRouter } from "next/navigation";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { TextInput } from "@/app/components/TextInput";
-import { apiRequest } from "@/app/lib/utils.lib";
+import { apiRequest } from "@/app/lib/server.lib";
 import { joinGame } from "../../lib/game.methods.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 
 export function CreateGame() {
   const [gameId, setGameId] = useState("");

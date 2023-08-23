@@ -8,7 +8,8 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/app/components/Button";
 import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
 import { joinGame } from "@/app/games/lib/game.methods.lib";
 
@@ -25,13 +26,13 @@ export function GameType() {
   const [joined, setJoined] = useState(false);
   const router = useRouter();
 
-  console.log("Player in join", player);
+  // console.log("Player in join", player);
 
   async function onClickJoin() {
     setJoined(true);
     setIsJoinGameModalOpen(false);
 
-    console.log("Player", player, gameId);
+    // console.log("Player", player, gameId);
 
     if (player.id && player.name && gameId) {
       const response = await joinGame({
@@ -40,7 +41,7 @@ export function GameType() {
         name: player.name,
       });
 
-      console.log("Resonse", response);
+      // console.log("Resonse", response);
     }
   }
 
@@ -75,7 +76,7 @@ export function GameType() {
     setIsCreateGameModalOpen(isCreateMode);
   }, [isCreateMode]);
 
-  console.log(`isJoinGameModalOpen ${isJoinGameModalOpen}`);
+  // console.log(`isJoinGameModalOpen ${isJoinGameModalOpen}`);
 
   return (
     <>

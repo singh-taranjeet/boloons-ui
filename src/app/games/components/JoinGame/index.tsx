@@ -1,5 +1,5 @@
 "use client";
-import { usePlayer } from "@/app/lib/cutom-hooks.lib";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 import { ChangeEvent } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";

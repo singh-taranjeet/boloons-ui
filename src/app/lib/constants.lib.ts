@@ -25,3 +25,7 @@ export const AppConstants = {
     title: `Online Brain games on Boloons - Lets play`,
   },
 } as const;
+
+export const CookieConstants = {
+  player: "player",
+};

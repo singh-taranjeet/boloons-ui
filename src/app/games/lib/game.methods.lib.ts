@@ -1,5 +1,5 @@
 import { urls } from "@/app/lib/constants.lib";
-import { apiRequest } from "@/app/lib/utils.lib";
+import { apiRequest } from "@/app/lib/server.lib";
 import { GameStep } from "./game.types.lib";
 
 export async function joinGame(params: {
@@ -24,7 +24,7 @@ export async function joinGame(params: {
       name,
     },
   });
-  console.log("Join response", response);
+  // console.log("Join response", response);
   return response.success;
 }
 

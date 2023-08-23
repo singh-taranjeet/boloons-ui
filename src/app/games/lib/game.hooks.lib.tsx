@@ -1,6 +1,7 @@
 "use client";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 import {
   AudioTracksKey,
   GameStep,

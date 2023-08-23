@@ -1,5 +1,3 @@
-import axios from "axios";
-import { AppConfig } from "../../../config";
 import { StyleConstants } from "./style.lib";
 
 export function getClasses(params: {
@@ -54,22 +52,23 @@ export function getClasses(params: {
   return cx;
 }
 
-export async function apiRequest<BodyType, ResponseType>(params: {
-  method: "get" | "post" | "patch" | "delete";
-  url: string;
-  body?: BodyType;
-}): Promise<{ success: boolean; message?: string; data?: ResponseType }> {
-  const { method, url, body } = params;
-  try {
-    const response = await axios[method](
-      `${AppConfig().apiUrl}/${url}`,
-      body || {}
-    );
-    return response.data;
-  } catch (error) {
-    return {
-      success: false,
-      message: "Something went wrong",
-    };
-  }
+export function debounce<Param, Return>(
+  callBack: (param: Param) => Promise<Return>
+) {
+  let inProgress = false;
+  let data: Param;
+  return async (param: Param) => {
+    if (!inProgress) {
+      inProgress = true;
+      data = param;
+      // console.log("data", data);
+      setTimeout(() => {
+        inProgress = false;
+        callBack(data);
+      }, 3000);
+    } else {
+      data = param;
+    }
+    // console.log("Param", param);
+  };
 }

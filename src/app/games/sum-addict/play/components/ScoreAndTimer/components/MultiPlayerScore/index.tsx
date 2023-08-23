@@ -1,7 +1,7 @@
 import { Card } from "@/app/components/Card";
 import { Sentence } from "@/app/components/Sentence";
 import { urls } from "@/app/lib/constants.lib";
-import { usePlayer } from "@/app/lib/cutom-hooks.lib";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 import { flexCenter } from "@/app/lib/style.lib";
 import Image from "next/image";
 

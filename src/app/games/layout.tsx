@@ -1,4 +1,4 @@
-export default function Layout(props: { children: React.ReactNode }) {
+export default async function Layout(props: { children: React.ReactNode }) {
   return (
     <main className="relative z-1 max-w-5xl mx-auto">
       <section
