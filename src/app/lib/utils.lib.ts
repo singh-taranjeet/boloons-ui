@@ -61,7 +61,6 @@ export function debounce<Param, Return>(
     if (!inProgress) {
       inProgress = true;
       data = param;
-      // console.log("data", data);
       setTimeout(() => {
         inProgress = false;
         callBack(data);
@@ -69,6 +68,5 @@ export function debounce<Param, Return>(
     } else {
       data = param;
     }
-    // console.log("Param", param);
   };
 }

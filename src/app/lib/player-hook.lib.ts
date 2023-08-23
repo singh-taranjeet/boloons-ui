@@ -62,7 +62,7 @@ const savePlayerNameApi = debounce<
       ...data.player,
       name: response?.data?.name,
     });
-    //console.log("Updated Player everywhere");
+
     localStorage.setItem(
       localStorageConstant.user,
       JSON.stringify(response.data)
