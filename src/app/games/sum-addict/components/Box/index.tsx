@@ -11,7 +11,7 @@ export function Box(props: {
   return (
     <div
       onClick={onAttempt}
-      className={`rounded ${bg} h-full border-2 border-primary p-small md:p-nogrmal`}
+      className={`rounded ${bg} h-full border-2 border-primary px-normal py-small`}
     >
       {children}
     </div>

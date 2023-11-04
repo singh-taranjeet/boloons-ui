@@ -4,15 +4,20 @@ export const gameConstants = {
   },
   multiPlayer: {
     events: {
-      createSesion: "createSession",
+      createSession: "createSession",
       playerJoined: "playerJoined",
       gameStarted: "gameStarted",
       gameScored: "gameScored",
     },
     eventMessageType: {
-      gameStartedMsg: "GameStartedMsg",
-      playerJoinedMsg: "PlayerjoinedMsg",
-      GameScoredMsg: "GameScoredMsg",
+      gameStartedMsg: "gameStartedMsg",
+      playerJoinedMsg: "playerJoinedMsg",
+      gameScoredMsg: "gameScoredMsg",
+    },
+    step: {
+      Waitingplayers: "Waitingplayers",
+      Started: "Started",
+      Stopped: "Stopped",
     },
   },
-};
+} as const;

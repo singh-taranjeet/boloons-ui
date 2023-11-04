@@ -13,8 +13,9 @@ export const urls = {
     },
   },
   api: {
-    getGame: "/game",
-    player: "/player",
+    getGame: "game",
+    player: "player",
+    joinGame: "player/join-game",
   },
 } as const;
 
@@ -24,3 +25,7 @@ export const AppConstants = {
     title: `Online Brain games on Boloons - Lets play`,
   },
 } as const;
+
+export const CookieConstants = {
+  player: "player",
+};

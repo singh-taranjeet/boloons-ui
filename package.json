@@ -8,7 +8,11 @@
     "start": "next start",
     "lint": "next lint",
     "analyze": "set ANALYZE=true&&npm run build",
-    "cypress:open": "cypress open"
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:report": "playwright show-report",
+    "e2e:codegen": "playwright codegen http://localhost:3000",
+    "e2e:debug": "playwright test --debug"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -16,6 +20,7 @@
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
     "@fortawesome/free-solid-svg-icons": "^6.4.2",
     "@fortawesome/react-fontawesome": "^0.2.0",
+    "@tanstack/react-query": "^5.4.3",
     "@types/node": "20.4.6",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
@@ -23,9 +28,9 @@
     "eslint": "8.46.0",
     "eslint-config-next": "13.4.12",
     "lodash": "^4.17.21",
-    "next": "13.4.12",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "next": "^14.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "sharp": "^0.32.5",
     "socket.io-client": "^4.7.2",
     "styled-components": "^6.0.7",
@@ -33,16 +38,20 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^13.4.13",
+    "@playwright/test": "^1.39.0",
     "@types/lodash": "^4.14.196",
     "autoprefixer": "^10.4.14",
     "bufferutil": "^4.0.7",
     "cross-env": "^7.0.3",
-    "cypress": "^12.17.4",
     "postcss": "^8.4.27",
     "sonarqube-scanner": "^3.0.1",
     "supports-color": "^8.1.1",
     "tailwindcss": "^3.3.3",
     "utf-8-validate": "^5.0.10",
     "webpack-node-externals": "^3.0.0"
+  },
+  "engines": {
+    "npm": ">=9.0.0",
+    "node": ">=18.0.0"
   }
 }

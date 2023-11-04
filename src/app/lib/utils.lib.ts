@@ -1,4 +1,3 @@
-import { AppConfig } from "../../../config";
 import { StyleConstants } from "./style.lib";
 
 export function getClasses(params: {
@@ -53,8 +52,21 @@ export function getClasses(params: {
   return cx;
 }
 
-export function DebugLog(msg: string) {
-  if (AppConfig().env === "development") {
-    console.log(msg);
-  }
+export function debounce<Param, Return>(
+  callBack: (param: Param) => Promise<Return>
+) {
+  let inProgress = false;
+  let data: Param;
+  return async (param: Param) => {
+    if (!inProgress) {
+      inProgress = true;
+      data = param;
+      setTimeout(() => {
+        inProgress = false;
+        callBack(data);
+      }, 3000);
+    } else {
+      data = param;
+    }
+  };
 }

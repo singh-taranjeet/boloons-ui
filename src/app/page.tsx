@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="relative z-1">
-      <Card className={`m-normal`}>
+    <main className="relative z-1 max-w-5xl mx-auto">
+      <Card className={`m-normal w-fit mx-auto`}>
         <h1 title="Boloons" className="text-primary text-center text-large">
           Boloons
         </h1>
@@ -31,7 +31,7 @@ export default function Page() {
         <section className="relative h-[15rem] w-[15rem] m-normal md:mx-normal md:w-1/2">
           <Image
             fill={true}
-            className=" object-contain"
+            className=" object-contain mx-auto"
             src={"/media/space-craft.svg"}
             alt="space-craft image"
           />
@@ -51,6 +51,7 @@ export default function Page() {
       <section className="mx-normal mt-normal md:w-fit md:mx-auto border-2 rounded border-primary">
         <Link
           href={urls.pages.games.sumAddict.gameUrl}
+          aria-label="Play sum addiction"
           title="Play sum addiction"
         >
           <Card>

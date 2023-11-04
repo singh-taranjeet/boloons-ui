@@ -2,6 +2,9 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
+import { AppConfig } from "../../config";
+import { emptyFunction } from "./lib/server.lib";
+import ReactQueryProvider from "./provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,16 +21,34 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen relative mx-auto`}>
-        <Image
-          className="opacity-[0.6] object-cover z-0 object-center md:object-top mx-auto"
-          alt="Background image"
-          src={"/media/background-image.svg"}
-          fill={true}
-          placeholder="blur"
-          blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkqF9fDwADZAGv8BnBkgAAAABJRU5ErkJggg=="
-        />
-        {children}
+        <picture>
+          <source
+            srcSet="/media/desktop-background-image.svg"
+            media="(min-width: 768px)"
+          />
+          <Image
+            className="object-cover z-0 object-center md:object-bottom mx-auto opacity-80"
+            alt="Background image"
+            src={"/media/background-image.svg"}
+            fill={true}
+            placeholder="blur"
+            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkqF9fDwADZAGv8BnBkgAAAABJRU5ErkJggg=="
+          />
+        </picture>
+
+        <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
   );
 }
+
+/**
+ * Disable console.logs in production
+ */
+function disableConsoleLogs() {
+  if (AppConfig().env === "production") {
+    console.log === emptyFunction;
+  }
+}
+
+disableConsoleLogs();

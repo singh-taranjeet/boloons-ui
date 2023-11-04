@@ -6,8 +6,9 @@ export function Number(props: {
   fontSize?: FontSizeType;
   color?: "black" | "blue";
   label?: "question" | "option";
+  className?: string;
 }) {
-  const { number, fontSize = "text-large", color = "black", label } = props;
+  const { number, className = "", color = "black", label } = props;
 
   const fontColor = color === "black" ? "text-black" : `text-primary`;
 
@@ -15,8 +16,7 @@ export function Number(props: {
     <div className="flex flex-col justify-center cursor-pointer h-full">
       <Sentence
         aria-label={`${label || ""}`}
-        fontSize={`${fontSize}`}
-        className={`select-none text-center ${fontColor}`}
+        className={`select-none text-center ${fontColor} ${className}`}
       >
         {number}
       </Sentence>

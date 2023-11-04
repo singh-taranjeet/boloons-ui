@@ -27,7 +27,13 @@ export interface RootElementType {
   borderRadius?: BorderRadius;
 }
 
+// TODO Delete TODO DELTE
 export interface RootResponseType<Type> {
   success: boolean;
   data: Type;
+}
+
+export interface PlayerType {
+  id: string;
+  name: string;
 }

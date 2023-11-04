@@ -107,7 +107,7 @@ function ValuesProvider(props: {
       // start timer
       const timerId = setInterval(() => {
         setValues((oldValues) => {
-          // DebugLog('Old values', oldValues);
+          // console.log('Old values', oldValues);
           return {
             ...oldValues,
             game: {
@@ -124,7 +124,7 @@ function ValuesProvider(props: {
     [values]
   );
 
-  // DebugLog("Values", values, firstQuestion);
+  // console.log("Values", values, firstQuestion);
 
   const stopGame = useCallback(
     function stopGame() {

@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useEffect, useState } from "react";
-import { getRandomInt } from "@/app/lib/server.lib";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { Card } from "../../../components/Card";
 import { Sentence } from "@/app/components/Sentence";
 import Icon from "../../../components/Icon";
@@ -12,7 +11,10 @@ import { useRouter } from "next/navigation";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { TextInput } from "@/app/components/TextInput";
-import { DebugLog } from "@/app/lib/utils.lib";
+import { apiRequest } from "@/app/lib/server.lib";
+import { joinGame } from "../../lib/game.methods.lib";
+import { PulseLoading } from "@/app/components/PulseLoading";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 
 export function CreateGame() {
   const [gameId, setGameId] = useState("");
@@ -20,16 +22,17 @@ export function CreateGame() {
   const [joinUrl, setJoinUrl] = useState("");
   const [urlCopied, setUrlCopied] = useState(false);
   const { player, updatePlayerName } = usePlayer();
+  const [creatingGame, setCreatingGame] = useState(true);
   const { socket } = useWebSocket();
   const router = useRouter();
 
   // Event on player Join
   const onPlayerJoin = useCallback(function onPlayerJoin(res: any) {
-    DebugLog(`player joined ${res}`);
     if (
-      res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg
+      res.type === gameConstants.multiPlayer.eventMessageType.playerJoinedMsg &&
+      res?.payload?.length
     ) {
-      setPlayers(res.players);
+      setPlayers(res.payload);
     }
   }, []);
 
@@ -44,33 +47,25 @@ export function CreateGame() {
     };
   }, [gameId, onPlayerJoin, socket]);
 
-  const createGameSession = useCallback(
-    function createGameSession() {
-      const id = `${getRandomInt()}`;
-      setJoinUrl(
-        `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${id}`
-      );
-      setGameId(id);
-      const session = {
-        gameId: id,
-        playerId: player?.id,
-        name: player?.name,
-      };
-      socket.emit(gameConstants.multiPlayer.events.createSesion, session);
-    },
-    [player?.id, player?.name, socket]
-  );
+  // Create join url when game id is avalable
+  useEffect(() => {
+    setJoinUrl(
+      `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${gameId}`
+    );
+  }, [gameId]);
 
-  function startGame() {
+  async function startGame() {
+    await joinGame({
+      playerId: player.id,
+      gameId,
+      name: player.name,
+    });
+
     socket.emit(gameConstants.multiPlayer.events.gameStarted, {
       gameId,
     });
-    socket.emit(gameConstants.multiPlayer.events.playerJoined, {
-      gameId,
-      name: player?.name,
-      playerId: player?.id,
-    });
-    // DebugLog("starting game");
+
+    console.log("starting game");
     router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
   }
 
@@ -83,14 +78,34 @@ export function CreateGame() {
 
   // on load create a game session
   useEffect(() => {
-    createGameSession();
-  }, [createGameSession]);
-
-  //DebugLog("Join url", joinUrl);
+    async function fetchGameId() {
+      const response = await apiRequest<
+        { type: string; family: string },
+        string
+      >({
+        url: `${urls.api.getGame}`,
+        body: {
+          type: "MultiPlayer",
+          family: "SumAddict",
+        },
+        method: "post",
+      });
+      if (response.success && response.data) {
+        setGameId(response.data);
+      }
+      setCreatingGame(false);
+    }
+    fetchGameId();
+  }, []);
 
   return (
     <>
       <section className={`${flexCenter}`}>
+        {creatingGame ? (
+          <>
+            <PulseLoading /> <PulseLoading />
+          </>
+        ) : null}
         {/* Share the game session url */}
         {gameId ? (
           <section className={`${flexCenter} mt-small md:mt-0`}>

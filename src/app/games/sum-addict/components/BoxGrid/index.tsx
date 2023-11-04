@@ -16,6 +16,7 @@ interface BoxGridType {
 export function BoxGrid(props: BoxGridType) {
   const { options, onAttempt, attempts = [], learningMode = false } = props;
   const isMobile = useIsMobile();
+
   return (
     <section
       className={`grid gap-normal justify-center bg-blue-50 w-fit p-normal rounded mx-auto grid-cols-3`}
@@ -28,7 +29,7 @@ export function BoxGrid(props: BoxGridType) {
           >
             <Number
               label="option"
-              fontSize={isMobile ? "text-very-large" : "text-extra-very-large"}
+              className={`text-very-large md:text-extra-very-large`}
               number={option}
               color="blue"
             />

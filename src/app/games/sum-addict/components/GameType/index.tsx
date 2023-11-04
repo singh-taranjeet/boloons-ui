@@ -2,15 +2,16 @@
 import { Sentence } from "@/app/components/Sentence";
 import { Href } from "@/app/components/Href";
 import { CreateGame } from "../../../components/CreateGame";
-import Modal from "@/app/components/Modal";
+import { Modal } from "@/app/components/Modal";
 import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/app/components/Button";
 import { JoinGame } from "../../../components/JoinGame";
 import { urls } from "@/app/lib/constants.lib";
-import { usePlayer, useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { useWebSocket } from "@/app/lib/cutom-hooks.lib";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
-import { DebugLog } from "@/app/lib/utils.lib";
+import { joinGame } from "@/app/games/lib/game.methods.lib";
 
 export function GameType() {
   const pathName = usePathname();
@@ -25,14 +26,23 @@ export function GameType() {
   const [joined, setJoined] = useState(false);
   const router = useRouter();
 
-  function onClickJoin() {
+  // console.log("Player in join", player);
+
+  async function onClickJoin() {
     setJoined(true);
     setIsJoinGameModalOpen(false);
-    socket.emit(gameConstants.multiPlayer.events.playerJoined, {
-      gameId,
-      name: player?.name,
-      playerId: player?.id,
-    });
+
+    // console.log("Player", player, gameId);
+
+    if (player.id && player.name && gameId) {
+      const response = await joinGame({
+        playerId: player.id,
+        gameId,
+        name: player.name,
+      });
+
+      // console.log("Resonse", response);
+    }
   }
 
   const onGameStart = useCallback(
@@ -66,7 +76,7 @@ export function GameType() {
     setIsCreateGameModalOpen(isCreateMode);
   }, [isCreateMode]);
 
-  DebugLog(`isJoinGameModalOpen ${isJoinGameModalOpen}`);
+  // console.log(`isJoinGameModalOpen ${isJoinGameModalOpen}`);
 
   return (
     <>
@@ -105,24 +115,37 @@ export function GameType() {
 
       {/* Create Game Modal */}
       {isCreateGameModalOpen ? (
-        <Modal
-          title="Play with friends"
+        <Modal.ModalDialog
           open={isCreateGameModalOpen}
           onClose={() => setIsCreateGameModalOpen(false)}
         >
-          <CreateGame />
-        </Modal>
+          <Modal.ModalBody>
+            <Modal.ModalTitle>Play with friends</Modal.ModalTitle>
+            <Modal.ModalCloseIcon
+              onClose={() => setIsCreateGameModalOpen(false)}
+            />
+            <Modal.ModalContent>
+              <CreateGame />
+            </Modal.ModalContent>
+          </Modal.ModalBody>
+        </Modal.ModalDialog>
       ) : null}
 
       {/* Join Game Modal */}
       {isJoinGameModalOpen ? (
-        <Modal
-          title="Join?"
+        <Modal.ModalDialog
           open={isJoinGameModalOpen}
           onClose={() => setIsJoinGameModalOpen(false)}
         >
-          <JoinGame onClickJoin={onClickJoin} />
-        </Modal>
+          <Modal.ModalBody>
+            <div className="min-w-full">
+              <Modal.ModalTitle>Join?</Modal.ModalTitle>
+            </div>
+            <Modal.ModalContent>
+              <JoinGame onClickJoin={onClickJoin} />
+            </Modal.ModalContent>
+          </Modal.ModalBody>
+        </Modal.ModalDialog>
       ) : null}
     </>
   );

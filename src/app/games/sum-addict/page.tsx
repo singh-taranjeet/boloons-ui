@@ -8,10 +8,8 @@ import { Card } from "@/app/components/Card";
 import Link from "next/link";
 import { urls } from "@/app/lib/constants.lib";
 
-function HowToPlayDescription(props: { className?: string }) {
-  {
-    /* Bottom Heading */
-  }
+function HowToPlayDescription(props: Readonly<{ className?: string }>) {
+  /* Bottom Heading */
   return (
     <>
       <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>

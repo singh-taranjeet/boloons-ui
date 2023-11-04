@@ -1,6 +1,5 @@
 import { Sentence } from "@/app/components/Sentence";
 import Image from "next/image";
-import { flexCenter } from "@/app/lib/style.lib";
 import { SinglePlayerScore } from "./components/SinglePlayerScore";
 import { MultiplayerScore } from "./components/MultiPlayerScore";
 interface InfoType {

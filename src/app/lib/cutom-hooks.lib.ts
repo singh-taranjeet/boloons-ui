@@ -1,23 +1,8 @@
 "use client";
-import {
-  MutableRefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { MutableRefObject, useEffect, useMemo, useState } from "react";
 import { io } from "socket.io-client";
-import axios from "axios";
-import { urls } from "@/app/lib/constants.lib";
-const RootUrl = AppConfig().apiUrl;
-import { throttle } from "lodash";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
-import { DebugLog } from "@/app/lib/utils.lib";
-const localStorageConstant = {
-  playerName: "playerName",
-  playerId: "playerId",
-};
 
 function getUserDevice() {
   try {
@@ -49,117 +34,6 @@ export function useIsMobile() {
   return isMobile;
 }
 
-export function usePlayer() {
-  const [player, setPlayer] = useState<{ id: string; name: string } | null>({
-    id: "",
-    name: "",
-  });
-  const randomNameGenerated = "4h32jkh32j4h32j4h32j4h32kj4";
-
-  const playerEndPoint = `${urls.api.player}`;
-
-  const { loading, response, invoke } = useHttp<
-    {
-      success: boolean;
-      data: {
-        id: string;
-        name: string;
-      };
-    },
-    {}
-  >({
-    url: playerEndPoint,
-    onInit: false,
-  });
-
-  const updatePlayerApi = useHttp({
-    url: playerEndPoint,
-    method: "patch",
-    onInit: false,
-  });
-
-  const updatePlayerNameOnApiThrottle = throttle(updatePlayerNameOnApi, 3000, {
-    trailing: true,
-  });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const sdf = useCallback(updatePlayerNameOnApiThrottle, []);
-
-  const updatePlayerName = useCallback(
-    function updatePlayerName(name: string) {
-      setPlayer({
-        ...player,
-        id: player?.id || "",
-        name,
-      });
-      if (player?.id && name) {
-        DebugLog(`Hello ${player}`);
-        sdf(player.id, name);
-      }
-    },
-    [player, sdf]
-  );
-
-  const setLocal = useCallback(function setLocal(player: {
-    id: string;
-    name: string;
-  }) {
-    const { id = "", name = "" } = player;
-    localStorage.setItem(localStorageConstant.playerId, player?.id || "");
-    localStorage.setItem(localStorageConstant.playerName, player?.name || "");
-  },
-  []);
-
-  function updatePlayerNameOnApi(id: string, name: string) {
-    if (id && name) {
-      updatePlayerApi.invoke({
-        body: { id, name },
-      });
-      setLocal({ id, name });
-    }
-  }
-
-  const removeUnRequiredLocalStorageItem = useCallback(
-    function removeUnRequiredLocalStorageItem() {
-      setTimeout(() => {
-        localStorage.removeItem(randomNameGenerated);
-      }, 30000);
-    },
-    []
-  );
-
-  /**
-   * Check if data exist in local storage
-   */
-  useEffect(() => {
-    const playerName = localStorage.getItem(localStorageConstant.playerName);
-    const playerId = localStorage.getItem(localStorageConstant.playerId);
-    const inProgress = localStorage.getItem(randomNameGenerated);
-    if ((!playerName || !playerId) && !inProgress) {
-      invoke({});
-      localStorage.setItem(randomNameGenerated, "true");
-    } else {
-      setPlayer({
-        id: playerId || "",
-        name: playerName || "",
-      });
-    }
-    removeUnRequiredLocalStorageItem();
-  }, [invoke, removeUnRequiredLocalStorageItem]);
-
-  // Track if the respose is loaded
-  useEffect(() => {
-    if (!loading && response?.success) {
-      setPlayer({
-        id: response.data?.id || "",
-        name: response.data?.name || "",
-      });
-      setLocal(response.data);
-    }
-  }, [loading, response, setLocal]);
-
-  return { player, updatePlayerName };
-}
-
 const URL = AppConfig().apiUrl;
 
 const socket = io(URL);
@@ -168,18 +42,19 @@ export function useWebSocket() {
   const [connected, setConnected] = useState(false);
 
   function onConnect() {
-    DebugLog("connected");
+    console.log("connected");
     setConnected(true);
   }
 
   function onDisconnect() {
     setConnected(false);
+    console.log("Disconnected");
   }
 
   useEffect(() => {
     socket.on("connect", onConnect);
     socket.on("disconnect", onDisconnect);
-    DebugLog("socket hook init");
+    console.log("socket hook init");
 
     return () => {
       socket.off("connect", onConnect);
@@ -187,10 +62,14 @@ export function useWebSocket() {
     };
   }, []);
 
-  return {
-    connected,
-    socket,
-  };
+  const data = useMemo(() => {
+    return {
+      socket,
+      connected,
+    };
+  }, [connected]);
+
+  return data;
 }
 
 /**
@@ -205,7 +84,7 @@ export function useOutsideClick(
   useEffect(() => {
     const handleClickOutside = (evt: any) => {
       if (ref.current && !ref.current.contains(evt.target)) {
-        DebugLog("clicked outside");
+        console.log("clicked outside");
         callback();
       }
     };
@@ -214,52 +93,4 @@ export function useOutsideClick(
       document.removeEventListener("click", handleClickOutside);
     };
   });
-}
-
-export function useHttp<ResponseType, Body>(params: {
-  url: string;
-  method?: "post" | "get" | "patch" | "delete";
-  onInit?: boolean;
-}) {
-  const { url, method = "get", onInit = true } = params;
-  const [loading, setLoading] = useState(!!onInit);
-  const [error, setError] = useState<any>();
-  const [response, setResponse] = useState<ResponseType | undefined>();
-
-  const invoke = useCallback(
-    async function invoke(params: { body?: Body; newUrl?: string }) {
-      const { body, newUrl = url } = params;
-      try {
-        const res = await axios[method](`${RootUrl}${newUrl}`, body || {});
-        setResponse(res.data);
-        if (AppConfig().env === "development") {
-          DebugLog(`Response of ${newUrl} ${res.data}`);
-        }
-        setLoading(false);
-      } catch (error: any) {
-        if (AppConfig().env === "development") {
-          DebugLog(`Error in ${newUrl} ${error.message}`);
-        }
-        setError({
-          success: false,
-          ...(error?.response?.data || "Failed"),
-        });
-        setLoading(false);
-      }
-    },
-    [method, url]
-  );
-
-  useEffect(() => {
-    if (onInit) {
-      invoke({});
-    }
-  }, [invoke, method, onInit, url]);
-
-  return {
-    loading,
-    error,
-    response,
-    invoke,
-  };
 }

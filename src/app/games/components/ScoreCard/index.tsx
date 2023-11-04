@@ -1,7 +1,6 @@
-import { useState } from "react";
 import { flexCenter } from "@/app/lib/style.lib";
 import Image from "next/image";
-import { usePlayer } from "@/app/lib/cutom-hooks.lib";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 import { Sentence } from "@/app/components/Sentence";
 import { urls } from "@/app/lib/constants.lib";
 
