@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { urls } from "./constants.lib";
 import { apiRequest } from "./server.lib";
 import { PlayerType } from "./types.lib";
@@ -72,6 +72,7 @@ const savePlayerNameApi = debounce<
 
 export function usePlayer() {
   const [player, setPlayer] = useState<PlayerType>(playerData);
+  const timerId = useRef<NodeJS.Timeout | null>(null);
 
   const savePlayerNameApiUseCallBack = useCallback(savePlayerNameApi, []);
 
@@ -87,6 +88,26 @@ export function usePlayer() {
     },
     [savePlayerNameApiUseCallBack]
   );
+
+  // set timer if playerData is empty
+  useEffect(() => {
+    function clearTimer() {
+      timerId.current && clearInterval(timerId.current);
+    }
+    if (!playerData.id) {
+      timerId.current = setInterval(() => {
+        if (playerData.id) {
+          setPlayer(playerData);
+          clearTimer();
+        }
+      }, 1000);
+    } else {
+      if (!player.id && playerData.id) {
+        setPlayer(playerData);
+      }
+    }
+    return () => clearTimer();
+  }, [player.id]);
 
   return { player, updatePlayerName };
 }
