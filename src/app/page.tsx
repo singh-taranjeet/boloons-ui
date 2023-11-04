@@ -19,6 +19,43 @@ export const metadata: Metadata = {
   authors: { name: "Taranjeet Singh" },
 };
 
+function GameLink(
+  props: Readonly<{
+    title: string;
+    description: string;
+    icon: string;
+    url: string;
+  }>
+) {
+  const { title, description, icon, url } = props;
+  return (
+    <Link
+      href={url}
+      aria-label={`Play ${title}`}
+      title={`Play ${title}`}
+      className="border-2 rounded border-primary"
+    >
+      <Card>
+        <div className="flex justify-between">
+          <Image
+            width={50}
+            height={50}
+            src={"/media/sum-addiction-logo.png"}
+            alt={`${title} logo`}
+          />
+
+          <Sentence className={`${flexCenter} text-large font-medium`}>
+            Play {title}
+          </Sentence>
+        </div>
+        <Sentence className={`${flexCenter} text-small mt-small text-right`}>
+          {description}
+        </Sentence>
+      </Card>
+    </Link>
+  );
+}
+
 export default function Page() {
   return (
     <main className="relative z-1 max-w-5xl mx-auto">
@@ -48,33 +85,20 @@ export default function Page() {
         </Card>
       </section>
 
-      <section className="mx-normal mt-normal md:w-fit md:mx-auto border-2 rounded border-primary">
-        <Link
-          href={urls.pages.games.sumAddict.gameUrl}
-          aria-label="Play sum addiction"
-          title="Play sum addiction"
-        >
-          <Card>
-            <div className="flex justify-between">
-              <Image
-                width={50}
-                height={50}
-                src={"/media/sum-addiction-logo.png"}
-                alt="sum addiction logo"
-              />
+      <section className="mx-normal mt-normal md:w-fit md:mx-auto flex flex-col gap-normal">
+        <GameLink
+          description="Select upto 3 number which sum up equal to the indicated number"
+          icon="/media/sum-addiction-logo.png"
+          title={"Sum Addiction"}
+          url={urls.pages.games.sumAddict.gameUrl}
+        />
 
-              <Sentence
-                className={`${flexCenter} text-large font-medium`}
-                // color="text-black"
-              >
-                Play Sum addiction
-              </Sentence>
-            </div>
-            <Sentence className={`${flexCenter} text-small mt-small`}>
-              Select upto 3 number which sum up equal to the indicated number
-            </Sentence>
-          </Card>
-        </Link>
+        <GameLink
+          description="Select Correct operation to complete the equation"
+          icon="/media/sum-addiction-logo.png"
+          title={"Sharp"}
+          url={urls.pages.games.sharp.gameUrl}
+        />
       </section>
     </main>
   );

@@ -10,6 +10,12 @@ export const urls = {
         createUrl: "/games/sum-addict/create",
         playUrl: "/games/sum-addict/play",
       },
+      sharp: {
+        gameUrl: "/games/sharp",
+        joinUrl: "/games/sharp/join",
+        createUrl: "/games/sharp/create",
+        playUrl: "/games/sharp/play",
+      },
     },
   },
   api: {
