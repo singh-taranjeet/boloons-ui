@@ -64,7 +64,13 @@ test.describe("Home URL", () => {
     for (const answer of answers) {
       await page.getByText(`${answer}`, { exact: true }).click();
     }
-    const score = await page.getByLabel("Score").innerText();
+    //const score = await page.getByLabel("Score").innerText();
+    let score = await page
+      .locator("div")
+      .filter({ hasText: /^0$/ })
+      .nth(1)
+      .innerText();
+    console.log("Score = ", score);
     expect(score).toBe("5");
     // const score = page.getByAltText("Score icon").innerText();
     //console.log("Score = ", score);
