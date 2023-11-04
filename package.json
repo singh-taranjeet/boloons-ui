@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "set ANALYZE=true&&npm run build"
+    "analyze": "set ANALYZE=true&&npm run build",
+    "e2e": "playwright test",
+    "e2e:ui": "playwright test --ui",
+    "e2e:report": "playwright show-report",
+    "e2e:codegen": "playwright codegen http://localhost:3000"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -33,6 +37,7 @@
   },
   "devDependencies": {
     "@next/bundle-analyzer": "^13.4.13",
+    "@playwright/test": "^1.39.0",
     "@types/lodash": "^4.14.196",
     "autoprefixer": "^10.4.14",
     "bufferutil": "^4.0.7",

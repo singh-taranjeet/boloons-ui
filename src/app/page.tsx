@@ -51,6 +51,7 @@ export default function Page() {
       <section className="mx-normal mt-normal md:w-fit md:mx-auto border-2 rounded border-primary">
         <Link
           href={urls.pages.games.sumAddict.gameUrl}
+          aria-label="Play sum addiction"
           title="Play sum addiction"
         >
           <Card>
