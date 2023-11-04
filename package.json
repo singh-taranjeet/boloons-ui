@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "analyze": "set ANALYZE=true&&npm run build",
-    "cypress:open": "cypress open"
+    "analyze": "set ANALYZE=true&&npm run build"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
@@ -38,7 +37,6 @@
     "autoprefixer": "^10.4.14",
     "bufferutil": "^4.0.7",
     "cross-env": "^7.0.3",
-    "cypress": "^12.17.4",
     "postcss": "^8.4.27",
     "sonarqube-scanner": "^3.0.1",
     "supports-color": "^8.1.1",
