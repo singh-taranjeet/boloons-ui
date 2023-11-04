@@ -28,27 +28,46 @@ test.describe("Home URL", () => {
   test("verify solo page", async ({ page }) => {
     await page.getByLabel("Play sum addiction").click();
     await page.getByRole("link", { name: "Solo" }).click();
+    await expect(page).toHaveURL(/games\/sum-addict\/play/);
+    await page.waitForTimeout(3500);
     //Verify that desired text is visible
     //await expect(page.getByText("Starting game")).toBeVisible();
     const question = await page.getByLabel("question").innerText();
+    // question = 8
     console.log("Question = ", question);
     // Create random set of answers
     let answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
+    // answers = [1, 2, 3];
     let ansSum = answers.reduce((item, currentSum) => item + currentSum, 0);
+    // ansSum = 6;
     //check if answers have unique values
-    const uniqueAnswers = new Set(answers);
+    let uniqueAnswers = new Set(answers);
 
     while (
       ansSum !== Number(question) &&
-      uniqueAnswers.size === answers.length
+      uniqueAnswers.size === answers.length - 1
     ) {
       answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
       ansSum = answers.reduce((item, currentSum) => item + currentSum, 0);
+      uniqueAnswers = new Set(answers);
     }
 
-    console.log("Random set of answers", answers);
+    console.log(
+      "Random set of answers",
+      uniqueAnswers,
+      answers,
+      uniqueAnswers.size,
+      answers.length
+    );
 
     // Loop the ansers array and click on that button
+    for (const answer of answers) {
+      await page.getByText(`${answer}`, { exact: true }).click();
+    }
+    const score = await page.getByLabel("Score").innerText();
+    expect(score).toBe("5");
+    // const score = page.getByAltText("Score icon").innerText();
+    //console.log("Score = ", score);
 
     // check the score is incremented by 5
   });
