@@ -26,21 +26,21 @@ function Entity(props: {
         />
         <div className="relative text-center flex flex-col justify-center md:w-14">
           <Sentence
+            aria-label={`${title.toLowerCase() || ""}`}
             fontSize="text-large"
             className="absolute right-0"
-            aria-label={title}
           >
             {value}
           </Sentence>
         </div>
       </div>
-      <Sentence
+      {/* <Sentence
+        aria-label={`${title.toLowerCase() || ""}`}
         fontSize="text-large"
         className="text-center mt-small bg-white p-rectangle-small rounded-full hidden"
-        aria-label={title}
       >
         {value}
-      </Sentence>
+      </Sentence> */}
     </div>
   );
 }
