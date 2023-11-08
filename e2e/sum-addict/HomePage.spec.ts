@@ -13,6 +13,8 @@ test.describe("Home URL", () => {
   });
 
   test("verify back button", async ({ page }) => {
+    await expect(page.getByLabel("Play sum addiction")).toBeVisible();
+    await page.getByLabel("Play sum addiction").click();
     await expect(page.getByRole("link", { name: "Back" })).toBeVisible();
     await page.getByRole("link", { name: "Back" }).click();
     //verify that current Url is previous URL

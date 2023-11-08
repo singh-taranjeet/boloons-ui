@@ -14,6 +14,9 @@ async function getScore(page: Page) {
   const score = await page.getByLabel("score").innerText();
   return Number(score);
 }
+async function clickAnswer(page: Page, answer: number) {
+  await page.locator(`[aria-label="option"] >> text="${answer}"`).click();
+}
 
 async function clikSoloButton(page: Page) {
   await page.getByRole("link", { name: "Solo" }).click();
@@ -47,20 +50,22 @@ test.describe("Home URL", () => {
     // Create random set of answers
     let answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
     let ansSum = answers.reduce((item, currentSum) => item + currentSum, 0);
-    while (ansSum !== (await getQuestion(page))) {
+    let question = await getQuestion(page);
+    while (ansSum !== question) {
       answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
       ansSum = answers.reduce((item, currentSum) => item + currentSum, 0);
     }
 
     // Loop the ansers array and click on that button
     for (const answer of answers) {
-      await page.locator(`[aria-label="option"] >> text="${answer}"`).click();
+      await clickAnswer(page, answer);
     }
     // check the score is incremented by 5
-    expect(await getScore(page)).toBe(5);
+    let score = await getScore(page);
+    expect(score).toBe(5);
 
     //check value of question
-    const question = await getQuestion(page);
+    question = await getQuestion(page);
     if (Number(question) >= 9) {
       let randomNumber = getRandomInt(9);
       while (randomNumber !== Number(question)) {
@@ -69,8 +74,8 @@ test.describe("Home URL", () => {
       await page
         .locator(`[aria-label="option"] >> text="${randomNumber}"`)
         .click();
-
-      expect(await getScore(page)).toBe(10);
+      score = await getScore(page);
+      expect(score).toBe(10);
     } else if (Number(question) > 9 && Number(question) <= 18) {
       let randomNumbers = [getRandomInt(9), getRandomInt(9)];
       let sum = getRandomInt(9) + getRandomInt(9);
@@ -83,8 +88,8 @@ test.describe("Home URL", () => {
           .locator(`[aria-label="option"] >> text="${randomNumber}"`)
           .click();
       }
-
-      expect(await getScore(page)).toBe(15);
+      score = await getScore(page);
+      expect(score).toBe(15);
     }
   });
 
