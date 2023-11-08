@@ -15,16 +15,21 @@ async function getScore(page: Page) {
   return Number(score);
 }
 
+async function clikSoloButton(page: Page) {
+  await page.getByRole("link", { name: "Solo" }).click();
+}
+
 test.describe("Home URL", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("http://localhost:3000/");
+    await page.getByLabel("Play sum addiction").click();
   });
 
   test("verify solo page", async ({ page }) => {
     await page.getByLabel("Play sum addiction").click();
 
     // Click on the solo play button
-    await page.getByRole("link", { name: "Solo" }).click();
+    await clikSoloButton(page);
 
     // Wait for game count down timer
     await page.waitForTimeout(4500);
@@ -81,5 +86,13 @@ test.describe("Home URL", () => {
 
       expect(await getScore(page)).toBe(15);
     }
+  });
+
+  test("time should be of 30 seconds", async ({ page }) => {
+    await clikSoloButton(page);
+    await page.getByLabel("time").innerText();
+    await page.waitForTimeout(30000);
+
+    await expect(page.getByRole("link", { name: "Play again" })).toBeVisible();
   });
 });
