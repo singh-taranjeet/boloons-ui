@@ -90,6 +90,7 @@ export function CreateGame() {
         },
         method: "post",
       });
+      console.log("response", response);
       if (response.success && response.data) {
         setGameId(response.data);
       }
@@ -103,7 +104,7 @@ export function CreateGame() {
       <section className={`${flexCenter}`}>
         {creatingGame ? (
           <>
-            <PulseLoading /> <PulseLoading />
+            <PulseLoading />
           </>
         ) : null}
         {/* Share the game session url */}
@@ -111,6 +112,7 @@ export function CreateGame() {
           <section className={`${flexCenter} mt-small md:mt-0`}>
             <Sentence>Your gamer name</Sentence>
             <TextInput
+              aria-label="player name"
               className="mt-small md-mt-normal"
               placeholder="Enter your gamer name"
               value={player?.name}

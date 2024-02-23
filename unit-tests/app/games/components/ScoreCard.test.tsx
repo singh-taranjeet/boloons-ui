@@ -17,10 +17,10 @@ describe("Multiplayer Score Card Component", () => {
     expect(screen.getByText(/9/i));
 
     // check if opponent avatar is displayed
-    expect(screen.getByRole("img", { name: /example avatar/i }));
+    expect(screen.getByRole("img", { name: /example/i }));
 
     // check if user avatar is displayed
-    expect(screen.getByRole("img", { name: /test-name avatar/i }));
+    expect(screen.getByRole("img", { name: /test-name/i }));
 
     expect(screen.getByText("example"));
   });

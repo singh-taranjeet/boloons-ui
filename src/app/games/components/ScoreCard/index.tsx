@@ -31,7 +31,7 @@ function UserScore(props: {
           src={src}
           width={50}
           height={50}
-          alt={`${playerName} avatar`}
+          alt={`${playerName}`}
           className="rounded-full"
         />
         <div aria-label="score" className={`${flexCenter}`}>
