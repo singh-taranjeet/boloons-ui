@@ -33,7 +33,7 @@ export default function Page() {
             fill={true}
             className=" object-contain mx-auto"
             src={"/media/space-craft.svg"}
-            alt="space-craft image"
+            alt="space-craft"
           />
         </section>
         <Card
@@ -51,7 +51,6 @@ export default function Page() {
       <section className="mx-normal mt-normal md:w-fit md:mx-auto border-2 rounded border-primary">
         <Link
           href={urls.pages.games.sumAddict.gameUrl}
-          aria-label="Play sum addiction"
           title="Play sum addiction"
         >
           <Card>

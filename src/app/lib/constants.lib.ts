@@ -29,3 +29,10 @@ export const AppConstants = {
 export const CookieConstants = {
   player: "player",
 };
+
+export const TestConstants = {
+  player: {
+    id: "test-id",
+    name: "test-name",
+  },
+} as const;

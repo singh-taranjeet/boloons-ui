@@ -119,7 +119,7 @@ export function CreateGame() {
             <Sentence className="mt-normal">
               Share this url with your frieds to join
             </Sentence>
-            <div
+            <button
               className={`mt-small md-mt-normal gap-normal flex justify-between cursor-pointer bg-white p-rectangle-small rounded border-primary border-2`}
               onClick={onClickUrlCopy}
             >
@@ -130,7 +130,7 @@ export function CreateGame() {
               </Sentence>
 
               <Icon icon={faClone} />
-            </div>
+            </button>
           </section>
         ) : null}
       </section>

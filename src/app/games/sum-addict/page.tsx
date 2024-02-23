@@ -25,11 +25,12 @@ function HowToPlayDescription(props: Readonly<{ className?: string }>) {
   );
 }
 
+// To render the sum addict game and its components
 export default function Page() {
   return (
     <>
       <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2">
-        {/* Heading */}
+        {/* Game Heading */}
         <Link href={urls.pages.games.sumAddict.gameUrl}>
           <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit">
             <h1
@@ -49,21 +50,20 @@ export default function Page() {
         {/* Game section */}
         <Game
           currentQuestion={0}
-          numbers={[initialQuestion()].map((item) => item.correctAnswer)}
+          numbers={[initialQuestion].map((item) => item.correctAnswer)}
           learningMode={true}
-          attempts={initialQuestion().answers}
-          options={initialQuestion().options}
+          attempts={initialQuestion.answers}
+          options={initialQuestion.options}
         />
+        {/* Mobile Heading */}
         <HowToPlayDescription className="md:hidden mx-normal mb-normal" />
       </section>
     </>
   );
 }
 
-function initialQuestion(): QuestionType {
-  return {
-    options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
-    answers: [4, 9, 2],
-    correctAnswer: 15,
-  };
-}
+const initialQuestion: QuestionType = {
+  options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
+  answers: [4, 9, 2],
+  correctAnswer: 15,
+};

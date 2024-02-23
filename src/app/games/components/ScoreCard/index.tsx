@@ -31,10 +31,10 @@ function UserScore(props: {
           src={src}
           width={50}
           height={50}
-          alt={playerName}
+          alt={`${playerName} avatar`}
           className="rounded-full"
         />
-        <div className={`${flexCenter}`}>
+        <div aria-label="score" className={`${flexCenter}`}>
           <Sentence className="text-center">Score</Sentence>
           <Sentence className="text-center">{score}</Sentence>
         </div>
@@ -51,10 +51,19 @@ function UserScore(props: {
   );
 }
 
+/**
+ * ScoreCard component
+ * @param {number} score - player score
+ * @param {object} opponent - opponent score and name
+ * @param {boolean} isMultiPlayer - is multiplayer game
+ * @returns {JSX.Element} - ScoreCard component
+ */
 export function ScoreCard(props: ScoreCardType) {
   const { score, opponent, isMultiPlayer = false } = props;
 
   const { player } = usePlayer();
+
+  console.log("Score Card player", player.name);
 
   return (
     <div
