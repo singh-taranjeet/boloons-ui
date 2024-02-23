@@ -40,13 +40,13 @@ let playerData: PlayerType = { id: "", name: "" };
       url: urls.api.player,
     });
     if (response?.data) {
-      if (AppConfig().env === "test") {
-        storeData(TestConstants.player);
-      }
       storeData(response.data);
     }
   }
 
+  if (AppConfig().env === "test") {
+    playerData = TestConstants.player;
+  }
   setTimeout(checkLocalData);
 })();
 

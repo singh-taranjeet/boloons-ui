@@ -1,5 +1,6 @@
 import { ScoreCard } from "@/app/games/components/ScoreCard";
 import { render, screen } from "@testing-library/react";
+// import roleLog from testing library
 
 import { test, expect, describe } from "vitest";
 
@@ -19,7 +20,7 @@ describe("Multiplayer Score Card Component", () => {
     expect(screen.getByRole("img", { name: /example avatar/i }));
 
     // check if user avatar is displayed
-    expect(screen.getByRole("img", { name: / avatar/i }));
+    expect(screen.getByRole("img", { name: /test-name avatar/i }));
 
     expect(screen.getByText("example"));
   });
