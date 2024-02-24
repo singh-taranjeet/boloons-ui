@@ -28,8 +28,7 @@ export const AppConstants = {
   pages: {
     home: {
       title: "Boloons",
-      description: `Boloons keeps you entertained with its unbeatable selection of free
-      online games. Play today and enjoy some quality time with your
+      description: `Boloons trains your brain while keeping you entertained. Play today and enjoy some quality time with your
       friends!`,
     },
     games: {

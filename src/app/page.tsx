@@ -2,9 +2,8 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { Card } from "./components/Card";
 import { Sentence } from "./components/Sentence";
-import { flexCenter } from "./lib/style.lib";
-import Link from "next/link";
 import { AppConstants, urls } from "./lib/constants.lib";
+import { GameCard } from "./components/GameCard";
 
 export const metadata: Metadata = {
   title: AppConstants.metaData.title,
@@ -22,30 +21,38 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="relative z-1 max-w-5xl mx-auto">
-      <Card variant="bg-white" className={`m-normal w-fit mx-auto`}>
-        <div className="flex gap-normal">
-          <Image
-            width={100}
-            height={100}
-            src={"/media/boloons-logo.png"}
-            alt="boloons"
-          />
-          <h1
-            title="Boloons"
-            className={`text-center text-large text-primary ${flexCenter}`}
-          >
-            Boloons
-          </h1>
-        </div>
-      </Card>
+      <section
+        className={`m-normal w-fit mx-auto flex justify-center flex-col md:flex-row`}
+      >
+        <Image
+          width={400}
+          height={180}
+          src={"/media/boloons-hero.svg"}
+          alt="boloons"
+        />
+        <h1 title="Boloons" className={`hidden`}>
+          Boloons
+        </h1>
+
+        <Image
+          width={420}
+          height={54}
+          src={"/media/boloons-hero-text.svg"}
+          alt="train your brain"
+        />
+      </section>
       <section className="mx-normal flex flex-col gap-small md:flex-row md:mx-auto">
-        <section className="relative h-[15rem] w-[15rem] m-normal md:mx-normal md:w-1/2 self-center">
-          <Image
-            fill={true}
-            className="object-contain mx-auto sm:w-1/2"
-            src={"/media/space-craft.svg"}
-            alt="space-craft"
-          />
+        <section className="relative m-normal md:mx-normal md:w-1/2 self-center">
+          <picture>
+            <source srcSet="/media/spacecraft.svg" media="(min-width: 768px)" />
+            <Image
+              width={200}
+              height={200}
+              className="object-contain mx-auto w-28"
+              src={"/media/spacecraft-mobile.png"}
+              alt="space-craft"
+            />
+          </picture>
         </section>
         <Card
           className="md:w-1/2 my-auto md:mx-normal"
@@ -56,28 +63,12 @@ export default function Page() {
       </section>
 
       <section className="mx-normal mt-normal md:w-fit md:mx-auto">
-        <Link
+        <GameCard
           href={urls.pages.games.sumAddict.gameUrl}
-          title="Play sum addiction"
-        >
-          <Card>
-            <div className="flex justify-between">
-              <Image
-                width={50}
-                height={50}
-                src={"/media/sum-addiction-logo.png"}
-                alt="sum addiction logo"
-              />
-
-              <Sentence className={`${flexCenter} text-large font-medium`}>
-                Play {AppConstants.pages.sumAddict.title}
-              </Sentence>
-            </div>
-            <Sentence className={`${flexCenter} text-small mt-small`}>
-              {AppConstants.pages.sumAddict.description}
-            </Sentence>
-          </Card>
-        </Link>
+          imageSrc="/media/sum-addiction-logo.png"
+          title={AppConstants.pages.sumAddict.title}
+          description={AppConstants.pages.sumAddict.description}
+        />
       </section>
     </main>
   );

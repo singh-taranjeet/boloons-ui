@@ -7,7 +7,6 @@ import { gameConstants } from "../lib/game.constants.lib";
 import { Card } from "@/app/components/Card";
 import Link from "next/link";
 import { AppConstants, urls } from "@/app/lib/constants.lib";
-import App from "next/app";
 
 function HowToPlayDescription(props: Readonly<{ className?: string }>) {
   /* Bottom Heading */

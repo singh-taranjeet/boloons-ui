@@ -9,13 +9,12 @@ import {
   useCountDownTimer,
 } from "../../lib/game.hooks.lib";
 import { QuestionType } from "../../lib/game.types.lib";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { Card } from "../../../components/Card";
 import { Sentence } from "../../../components/Sentence";
 import { Href } from "../../../components/Href";
 import { ScoreCard } from "../../components/ScoreCard";
-import { flexCenter } from "@/app/lib/style.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import Image from "next/image";
