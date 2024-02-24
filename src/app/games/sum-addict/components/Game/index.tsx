@@ -12,7 +12,7 @@ interface GameType {
   numbers: number[];
 }
 
-export function Game(props: GameType) {
+export function Game(props: Readonly<GameType>) {
   const {
     currentQuestion,
     learningMode = false,

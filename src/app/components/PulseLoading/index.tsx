@@ -1,6 +1,11 @@
 export function PulseLoading() {
   return (
-    <section className="flex-center">
+    <section
+      className="flex-center"
+      role="alert"
+      aria-label="loading"
+      aria-busy={true}
+    >
       <div className="p-4 max-w-sm w-full mx-auto">
         <div className="animate-pulse flex space-x-4">
           <div className="rounded-full bg-slate-200 h-10 w-10"></div>

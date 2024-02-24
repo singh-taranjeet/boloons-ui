@@ -9,18 +9,19 @@ import {
   useCountDownTimer,
 } from "../../lib/game.hooks.lib";
 import { QuestionType } from "../../lib/game.types.lib";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal } from "../../../components/Modal";
 import { Card } from "../../../components/Card";
 import { Sentence } from "../../../components/Sentence";
 import { Href } from "../../../components/Href";
 import { ScoreCard } from "../../components/ScoreCard";
-import { flexCenter } from "@/app/lib/style.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Button } from "@/app/components/Button";
+import Icon from "@/app/components/Icon";
+import { faArrowLeft, faRefresh } from "@fortawesome/free-solid-svg-icons";
 
 const GAME_TIMEOUT = 30; // 30 Seconds
 const CountDownTime = 3;
@@ -183,9 +184,26 @@ export default function Page() {
                 score={score}
                 opponent={opponent}
               />
-              <div className={`${flexCenter} mt-small`}>
+              <div className={`flex justify-center gap-normal mt-small`}>
                 <Href href={urls.pages.games.sumAddict.gameUrl}>
-                  Play again
+                  <div className="flex">
+                    Play again{" "}
+                    <Icon
+                      icon={faRefresh}
+                      color="text-white"
+                      className="pl-small self-center"
+                    />
+                  </div>
+                </Href>
+                <Href
+                  bgColor="bg-white"
+                  color="text-primary"
+                  href={urls.pages.games.url}
+                >
+                  <div className="flex">
+                    <Icon icon={faArrowLeft} className="pr-small self-center" />
+                    Go back
+                  </div>
                 </Href>
               </div>
             </>

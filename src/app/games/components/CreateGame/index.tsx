@@ -90,6 +90,7 @@ export function CreateGame() {
         },
         method: "post",
       });
+      console.log("response", response);
       if (response.success && response.data) {
         setGameId(response.data);
       }
@@ -103,7 +104,7 @@ export function CreateGame() {
       <section className={`${flexCenter}`}>
         {creatingGame ? (
           <>
-            <PulseLoading /> <PulseLoading />
+            <PulseLoading />
           </>
         ) : null}
         {/* Share the game session url */}
@@ -111,6 +112,7 @@ export function CreateGame() {
           <section className={`${flexCenter} mt-small md:mt-0`}>
             <Sentence>Your gamer name</Sentence>
             <TextInput
+              aria-label="player name"
               className="mt-small md-mt-normal"
               placeholder="Enter your gamer name"
               value={player?.name}
@@ -119,7 +121,7 @@ export function CreateGame() {
             <Sentence className="mt-normal">
               Share this url with your frieds to join
             </Sentence>
-            <div
+            <button
               className={`mt-small md-mt-normal gap-normal flex justify-between cursor-pointer bg-white p-rectangle-small rounded border-primary border-2`}
               onClick={onClickUrlCopy}
             >
@@ -130,7 +132,7 @@ export function CreateGame() {
               </Sentence>
 
               <Icon icon={faClone} />
-            </div>
+            </button>
           </section>
         ) : null}
       </section>

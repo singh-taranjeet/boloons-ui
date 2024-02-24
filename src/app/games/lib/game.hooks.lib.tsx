@@ -82,7 +82,7 @@ export function useMultiplayer(params: {
   }, [id]);
   const { score, callBack } = params;
   const { isValidGame, validationInProgress } = useValidateGame(
-    gameId || "",
+    gameId ?? "",
     gameConstants.multiPlayer.step.Started
   );
   const isMultiPlayer = useMemo(() => {
@@ -308,7 +308,6 @@ export function useSwipe() {
     if (!touchStart || !touchEnd) return;
     const distance = touchStart - touchEnd;
     const isLeftSwipe = distance > minSwipeDistance;
-    // const isRightSwipe = distance < -minSwipeDistance;
     setSwipeDirection(isLeftSwipe ? "left" : "right");
   };
 
@@ -326,7 +325,6 @@ export function useCountDownTimer(params: {
   time?: number;
 }) {
   const { startOnLoad = false, callBack = emptyFunction, time = 3 } = params;
-  // const memoTime = useRef(time);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const memoCallBack = useCallback(() => {
     setIsModalOpen(false);
@@ -357,7 +355,7 @@ export function useCountDownTimer(params: {
 }
 
 export function useValidateGame(gameId: string, step: GameStep) {
-  const [validationInProgress, setLoading] = useState(true);
+  const [validationInProgress, setValidationInProgress] = useState(true);
   const [isValidGame, setIsValidGame] = useState(false);
 
   useEffect(() => {
@@ -365,7 +363,7 @@ export function useValidateGame(gameId: string, step: GameStep) {
       if (gameId) {
         const isValid = await validateGame({ gameId, step });
         setIsValidGame(isValid);
-        setLoading(false);
+        setValidationInProgress(false);
       }
     }
     callValidateGame();

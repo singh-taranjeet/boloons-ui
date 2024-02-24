@@ -1,8 +1,9 @@
 import { useState, useCallback, useEffect, useRef } from "react";
-import { urls } from "./constants.lib";
+import { TestConstants, urls } from "./constants.lib";
 import { apiRequest } from "./server.lib";
 import { PlayerType } from "./types.lib";
 import { debounce } from "./utils.lib";
+import { AppConfig } from "../../../config";
 
 const localStorageConstant = {
   playerName: "playerName",
@@ -21,15 +22,12 @@ let playerData: PlayerType = { id: "", name: "" };
         playerData = data;
       } else {
         // Data not found or not valid
-        console.log("Player Data not found");
         setPlayerData();
       }
     } catch (error) {
       // Data not found or not valid
-      console.log("Local storage not found on server");
     }
   }
-  checkLocalData();
 
   function storeData(data: PlayerType) {
     playerData = data;
@@ -45,6 +43,11 @@ let playerData: PlayerType = { id: "", name: "" };
       storeData(response.data);
     }
   }
+
+  if (AppConfig().env === "test") {
+    playerData = TestConstants.player;
+  }
+  setTimeout(checkLocalData);
 })();
 
 const savePlayerNameApi = debounce<

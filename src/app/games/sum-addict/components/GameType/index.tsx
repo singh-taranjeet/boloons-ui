@@ -89,16 +89,15 @@ export function GameType() {
           </Sentence>
         ) : (
           <>
-            <Sentence
-              fontSize="text-medium"
-              className={`text-primary mb-small text-center`}
-            >
+            <Sentence fontSize="text-medium" className={`mb-small text-center`}>
               How you want to play?
             </Sentence>
             <div className="flex justify-between gap-small mt-small md:mt-normal">
               <Href
                 className="flex-1 w-1/2"
                 href={`${urls.pages.games.sumAddict.playUrl}`}
+                bgColor="bg-white"
+                color="text-primary"
               >
                 Solo
               </Href>

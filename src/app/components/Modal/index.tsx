@@ -40,7 +40,7 @@ function ModalCloseIcon(props: { onClose: () => void }) {
   return (
     <Icon
       icon={faXmark}
-      className="absolute top-0 right-0 cursor-pointer"
+      className="absolute top-2 right-2 cursor-pointer"
       onClick={closeModal(onClose)}
     />
   );
@@ -78,7 +78,7 @@ function ModalDialog(props: {
       onClick={closeModal(onClose)}
       className={`${
         open ? "flex" : "hidden"
-      } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-900/50`}
+      } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-900/50 shadow`}
     >
       {open ? children : null}
     </div>

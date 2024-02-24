@@ -6,7 +6,7 @@ import { StyleConstants } from "@/app/lib/style.lib";
 import { gameConstants } from "../lib/game.constants.lib";
 import { Card } from "@/app/components/Card";
 import Link from "next/link";
-import { urls } from "@/app/lib/constants.lib";
+import { AppConstants, urls } from "@/app/lib/constants.lib";
 
 function HowToPlayDescription(props: Readonly<{ className?: string }>) {
   /* Bottom Heading */
@@ -14,7 +14,7 @@ function HowToPlayDescription(props: Readonly<{ className?: string }>) {
     <>
       <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>
         <Sentence className={`text-center`} fontSize="text-medium">
-          Select upto 3 number which sum up equal to the indicated number
+          {AppConstants.pages.sumAddict.description}
         </Sentence>
       </Card>
       {/* How do you want to play */}
@@ -25,11 +25,12 @@ function HowToPlayDescription(props: Readonly<{ className?: string }>) {
   );
 }
 
+// To render the sum addict game and its components
 export default function Page() {
   return (
     <>
       <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2">
-        {/* Heading */}
+        {/* Game Heading */}
         <Link href={urls.pages.games.sumAddict.gameUrl}>
           <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit">
             <h1
@@ -49,21 +50,20 @@ export default function Page() {
         {/* Game section */}
         <Game
           currentQuestion={0}
-          numbers={[initialQuestion()].map((item) => item.correctAnswer)}
+          numbers={[initialQuestion].map((item) => item.correctAnswer)}
           learningMode={true}
-          attempts={initialQuestion().answers}
-          options={initialQuestion().options}
+          attempts={initialQuestion.answers}
+          options={initialQuestion.options}
         />
+        {/* Mobile Heading */}
         <HowToPlayDescription className="md:hidden mx-normal mb-normal" />
       </section>
     </>
   );
 }
 
-function initialQuestion(): QuestionType {
-  return {
-    options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
-    answers: [4, 9, 2],
-    correctAnswer: 15,
-  };
-}
+const initialQuestion: QuestionType = {
+  options: [4, 3, 6, 8, 9, 2, 1, 7, 5],
+  answers: [4, 9, 2],
+  correctAnswer: 15,
+};

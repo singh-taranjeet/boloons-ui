@@ -2,8 +2,6 @@
 import { Box } from "../Box";
 import Image from "next/image";
 import { Number } from "../Number";
-// import { StyledBoxGrid } from "./styles";
-import { useIsMobile } from "@/app/lib/cutom-hooks.lib";
 import { urls } from "@/app/lib/constants.lib";
 
 interface BoxGridType {
@@ -13,9 +11,8 @@ interface BoxGridType {
   learningMode: boolean;
 }
 
-export function BoxGrid(props: BoxGridType) {
+export function BoxGrid(props: Readonly<BoxGridType>) {
   const { options, onAttempt, attempts = [], learningMode = false } = props;
-  const isMobile = useIsMobile();
 
   return (
     <section
