@@ -20,6 +20,7 @@ const Padding = {
   "p-large": "p-large", // :> 40px
   "p-rectangle-normal": "p-rectangle-normal",
   "p-rectangle-small": "p-rectangle-small md:p-rectangle-normal",
+  "p-0": "p-0",
 } as const;
 
 const Margin = {

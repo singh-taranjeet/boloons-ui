@@ -13,7 +13,7 @@ export default function Icon(props: IconType) {
     <FontAwesomeIcon
       size="lg"
       {...props}
-      className={`p-small ${
+      className={`${
         props.color ? props.color : StyleConstants.Color["text-primary"]
       } active:bg-secondary ${
         StyleConstants.BorderRadius["rounded-full"]

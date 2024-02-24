@@ -6,7 +6,8 @@ import { StyleConstants } from "@/app/lib/style.lib";
 import { gameConstants } from "../lib/game.constants.lib";
 import { Card } from "@/app/components/Card";
 import Link from "next/link";
-import { urls } from "@/app/lib/constants.lib";
+import { AppConstants, urls } from "@/app/lib/constants.lib";
+import App from "next/app";
 
 function HowToPlayDescription(props: Readonly<{ className?: string }>) {
   /* Bottom Heading */
@@ -14,7 +15,7 @@ function HowToPlayDescription(props: Readonly<{ className?: string }>) {
     <>
       <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>
         <Sentence className={`text-center`} fontSize="text-medium">
-          Select upto 3 number which sum up equal to the indicated number
+          {AppConstants.pages.sumAddict.description}
         </Sentence>
       </Card>
       {/* How do you want to play */}

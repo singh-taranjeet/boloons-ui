@@ -10,6 +10,7 @@ export const urls = {
         createUrl: "/games/sum-addict/create",
         playUrl: "/games/sum-addict/play",
       },
+      url: "/games",
     },
   },
   api: {
@@ -25,13 +26,20 @@ export const AppConstants = {
     title: `Online Brain games on Boloons - Lets play`,
   },
   pages: {
+    home: {
+      title: "Boloons",
+      description: `Boloons keeps you entertained with its unbeatable selection of free
+      online games. Play today and enjoy some quality time with your
+      friends!`,
+    },
     games: {
       title: "Games",
       description: "Play games to sharpen your brain",
     },
     sumAddict: {
       title: "Sum Addict",
-      description: "Sum addict is a game to sharpen your brain",
+      description:
+        "Select upto 3 number which sum up equal to the indicated number",
     },
   },
 } as const;

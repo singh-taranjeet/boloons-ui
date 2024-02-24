@@ -23,9 +23,20 @@ export default function Page() {
   return (
     <main className="relative z-1 max-w-5xl mx-auto">
       <Card variant="bg-white" className={`m-normal w-fit mx-auto`}>
-        <h1 title="Boloons" className="text-primary text-center text-large">
-          Boloons
-        </h1>
+        <div className="flex gap-normal">
+          <Image
+            width={100}
+            height={100}
+            src={"/media/boloons-logo.png"}
+            alt="boloons"
+          />
+          <h1
+            title="Boloons"
+            className={`text-center text-large text-primary ${flexCenter}`}
+          >
+            Boloons
+          </h1>
+        </div>
       </Card>
       <section className="mx-normal flex flex-col gap-small md:flex-row md:mx-auto">
         <section className="relative h-[15rem] w-[15rem] m-normal md:mx-normal md:w-1/2 self-center">
@@ -40,15 +51,11 @@ export default function Page() {
           className="md:w-1/2 my-auto md:mx-normal"
           aria-label="About boloons"
         >
-          <Sentence>
-            Boloons keeps you entertained with its unbeatable selection of free
-            online games. Play today and enjoy some quality time with your
-            friends!
-          </Sentence>
+          <Sentence>{AppConstants.pages.home.description}</Sentence>
         </Card>
       </section>
 
-      <section className="mx-normal mt-normal md:w-fit md:mx-auto border-2 rounded border-primary">
+      <section className="mx-normal mt-normal md:w-fit md:mx-auto">
         <Link
           href={urls.pages.games.sumAddict.gameUrl}
           title="Play sum addiction"
@@ -62,15 +69,12 @@ export default function Page() {
                 alt="sum addiction logo"
               />
 
-              <Sentence
-                className={`${flexCenter} text-large font-medium`}
-                // color="text-black"
-              >
-                Play Sum addiction
+              <Sentence className={`${flexCenter} text-large font-medium`}>
+                Play {AppConstants.pages.sumAddict.title}
               </Sentence>
             </div>
             <Sentence className={`${flexCenter} text-small mt-small`}>
-              Select upto 3 number which sum up equal to the indicated number
+              {AppConstants.pages.sumAddict.description}
             </Sentence>
           </Card>
         </Link>

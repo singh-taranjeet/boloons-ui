@@ -38,9 +38,11 @@ export function Href(props: LinkType) {
   return (
     <>
       <Link
-        {...props}
+        href={props.href}
         className={`w-fit self-center rounded text-center ${cx} ${className}`}
-      />
+      >
+        {props.children}
+      </Link>
     </>
   );
 }
