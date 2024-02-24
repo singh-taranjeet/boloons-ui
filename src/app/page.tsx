@@ -22,16 +22,16 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main className="relative z-1 max-w-5xl mx-auto">
-      <Card className={`m-normal w-fit mx-auto`}>
+      <Card variant="bg-white" className={`m-normal w-fit mx-auto`}>
         <h1 title="Boloons" className="text-primary text-center text-large">
           Boloons
         </h1>
       </Card>
       <section className="mx-normal flex flex-col gap-small md:flex-row md:mx-auto">
-        <section className="relative h-[15rem] w-[15rem] m-normal md:mx-normal md:w-1/2">
+        <section className="relative h-[15rem] w-[15rem] m-normal md:mx-normal md:w-1/2 self-center">
           <Image
             fill={true}
-            className=" object-contain mx-auto"
+            className="object-contain mx-auto sm:w-1/2"
             src={"/media/space-craft.svg"}
             alt="space-craft"
           />

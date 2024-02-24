@@ -38,6 +38,7 @@ const Border = {
 const Radius = {
   rounded: "rounded",
   "rounded-full": "rounded-full",
+  "rounded-none": "rounded-none",
 } as const;
 
 const Color = {

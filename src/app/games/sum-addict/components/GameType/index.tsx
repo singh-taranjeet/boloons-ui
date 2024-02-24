@@ -99,6 +99,8 @@ export function GameType() {
               <Href
                 className="flex-1 w-1/2"
                 href={`${urls.pages.games.sumAddict.playUrl}`}
+                bgColor="bg-white"
+                color="text-primary"
               >
                 Solo
               </Href>

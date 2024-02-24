@@ -24,6 +24,16 @@ export const AppConstants = {
     description: `On Boloons you can play free online games to sharpen your brain. Boloons has the best online game selection and offers the most fun experience to play alone or with friends. We support mobile and desktop games.`,
     title: `Online Brain games on Boloons - Lets play`,
   },
+  pages: {
+    games: {
+      title: "Games",
+      description: "Play games to sharpen your brain",
+    },
+    sumAddict: {
+      title: "Sum Addict",
+      description: "Sum addict is a game to sharpen your brain",
+    },
+  },
 } as const;
 
 export const CookieConstants = {

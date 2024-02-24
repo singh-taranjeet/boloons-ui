@@ -5,6 +5,7 @@ import Image from "next/image";
 import { AppConfig } from "../../config";
 import { emptyFunction } from "./lib/server.lib";
 import ReactQueryProvider from "./provider";
+import { AppBar } from "./components/AppBar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,6 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} min-h-screen relative mx-auto`}>
+        <AppBar />
         <picture>
           <source
             srcSet="/media/desktop-background-image.svg"
