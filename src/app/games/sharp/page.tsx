@@ -1,3 +1,14 @@
+import { AppConstants } from "@/app/lib/constants.lib";
+import { GamePage } from "../components/GamePage";
+
+// To render the sum addict game and its components
 export default function Page() {
-  return "sharp";
+  return (
+    <GamePage
+      description={AppConstants.pages.sharp.description}
+      title={AppConstants.pages.sharp.title}
+    >
+      dsf
+    </GamePage>
+  );
 }

@@ -21,10 +21,10 @@ export default function Page() {
         />
 
         <GameCard
-          href={urls.pages.games.sumAddict.gameUrl}
+          href={urls.pages.games.sharp.gameUrl}
           imageSrc="/media/sum-addiction-logo.png"
-          title={AppConstants.pages.sumAddict.title}
-          description={AppConstants.pages.sumAddict.description}
+          title={AppConstants.pages.sharp.title}
+          description={AppConstants.pages.sharp.description}
         />
       </div>
     </section>

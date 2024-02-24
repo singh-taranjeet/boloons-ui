@@ -10,6 +10,12 @@ export const urls = {
         createUrl: "/games/sum-addict/create",
         playUrl: "/games/sum-addict/play",
       },
+      sharp: {
+        gameUrl: "/games/sharp",
+        joinUrl: "/games/sharp/join",
+        createUrl: "/games/sharp/create",
+        playUrl: "/games/sharp/play",
+      },
       url: "/games",
     },
   },
@@ -37,6 +43,11 @@ export const AppConstants = {
     },
     sumAddict: {
       title: "Sum Addict",
+      description:
+        "Select upto 3 number which sum up equal to the indicated number",
+    },
+    sharp: {
+      title: "Sharp",
       description:
         "Select upto 3 number which sum up equal to the indicated number",
     },
