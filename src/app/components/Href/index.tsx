@@ -8,38 +8,23 @@ interface StyledLinkType extends TLink {
   href: string;
   className?: string;
   children: React.ReactNode;
+  active?: boolean;
 }
 
 type LinkType = StyledLinkType & RootElementType;
 
 export function Href(props: LinkType) {
-  const { className = "" } = props;
+  const { className = "", active = false } = props;
 
-  const {
-    fontSize = StyleConstants.FontSize["text-medium"],
-    padding = StyleConstants.Padding["p-rectangle-normal"],
-    border = StyleConstants.Border["border-2"],
-    color = StyleConstants.Color["text-white"],
-    bgColor = StyleConstants.BgColor["bg-primary"],
-    borderColor = StyleConstants.BorderColor["border-primary"],
-    borderRadius = StyleConstants.BorderRadius["rounded-full"],
-  } = props;
-
-  const cx = getClasses({
-    fontSize,
-    padding,
-    border,
-    color,
-    bgColor,
-    borderColor,
-    borderRadius,
-  });
+  const activeClass = active
+    ? "bg-primary text-white"
+    : "bg-opacity-60 bg-pink-700 text-primary";
 
   return (
     <>
       <Link
         href={props.href}
-        className={`w-fit self-center rounded text-center ${cx} ${className}`}
+        className={`w-fit self-center rounded text-center ${className} ${activeClass} p-rectangle-normal rounded-full`}
       >
         {props.children}
       </Link>

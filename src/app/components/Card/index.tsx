@@ -15,6 +15,8 @@ export function Card(props: CardType) {
       : variant === "light"
       ? "bg-white"
       : variant;
-  const cx = `p-small md:p-normal ${color} rounded ${props.className}`;
-  return <div {...props} className={`${cx} shadow`}></div>;
+  const cx = `p-small md:p-normal rounded ${props.className}`;
+  return (
+    <div {...props} className={`${cx} shadow bg-opacity-40 bg-pink-700`}></div>
+  );
 }

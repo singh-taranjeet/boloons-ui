@@ -2,6 +2,7 @@ import Image from "next/image";
 import type { Metadata } from "next";
 import { AppConstants, urls } from "./lib/constants.lib";
 import Link from "next/link";
+import { Heading } from "./components/Heading";
 
 export const metadata: Metadata = {
   title: AppConstants.metaData.title,
@@ -21,12 +22,11 @@ export default function Page() {
     <>
       <main className="relative z-1 max-w-5xl mx-auto h-full">
         <section className="flex justify-center flex-col h-full uppercase">
-          <h1 className="font-extrabold text-5xl md:text-9xl text-center text-white animate-bounce">
-            {AppConstants.pages.home.title}
-          </h1>
-          <h2 className="text-xl md:text-3xl text-white bg-primary p-small w-fit mx-auto -rotate-2 animate-pulse">
-            {AppConstants.pages.home["punch-line"]}
-          </h2>
+          <Heading
+            title={AppConstants.pages.home.title}
+            description={AppConstants.pages.home["punch-line"]}
+          />
+
           <Image
             width={250}
             height={250}
