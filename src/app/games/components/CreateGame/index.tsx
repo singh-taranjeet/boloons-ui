@@ -16,7 +16,8 @@ import { joinGame } from "../../lib/game.methods.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import { usePlayer } from "@/app/lib/player-hook.lib";
 
-export function CreateGame() {
+export function CreateGame(props: { gameUrl: string }) {
+  const { gameUrl } = props;
   const [gameId, setGameId] = useState("");
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
@@ -49,10 +50,8 @@ export function CreateGame() {
 
   // Create join url when game id is avalable
   useEffect(() => {
-    setJoinUrl(
-      `${window.location.origin}${urls.pages.games.sumAddict.joinUrl}?id=${gameId}`
-    );
-  }, [gameId]);
+    setJoinUrl(`${window.location.origin}${gameUrl}?id=${gameId}`);
+  }, [gameId, gameUrl]);
 
   async function startGame() {
     await joinGame({

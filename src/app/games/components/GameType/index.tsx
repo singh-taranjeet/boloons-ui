@@ -14,10 +14,11 @@ import { gameConstants } from "@/app/games/lib/game.constants.lib";
 import { joinGame } from "@/app/games/lib/game.methods.lib";
 
 interface GameTypeProps {
-  gameUrl: string;
+  gameSoloUrl: string;
+  gameMultiplayerUrl: string;
 }
 export function GameType(props: GameTypeProps) {
-  const { gameUrl } = props;
+  const { gameMultiplayerUrl, gameSoloUrl } = props;
 
   const pathName = usePathname();
 
@@ -92,7 +93,7 @@ export function GameType(props: GameTypeProps) {
             <div className="flex justify-between gap-small mt-small md:mt-normal">
               <Href
                 className="flex-1 w-1/2"
-                href={gameUrl}
+                href={gameSoloUrl}
                 bgColor="bg-white"
                 color="text-primary"
               >
@@ -121,7 +122,7 @@ export function GameType(props: GameTypeProps) {
               onClose={() => setIsCreateGameModalOpen(false)}
             />
             <Modal.ModalContent>
-              <CreateGame />
+              <CreateGame gameUrl={gameMultiplayerUrl} />
             </Modal.ModalContent>
           </Modal.ModalBody>
         </Modal.ModalDialog>

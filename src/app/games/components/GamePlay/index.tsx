@@ -71,14 +71,6 @@ export function GamePlay(props: GamePlayProps) {
     setOpponent({ score: os.score, name: os.name || "" });
   }
 
-  // Custome function
-  // function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
-  //   const sum = userAttempts.reduce((item, sum) => {
-  //     return item + sum;
-  //   }, 0);
-  //   return sum === correctAnswer;
-  // }
-
   const [validationModalOpen, setValidationModalOpen] = useState(isMultiPlayer);
 
   function onValidationModalClose() {
@@ -97,8 +89,6 @@ export function GamePlay(props: GamePlayProps) {
       startCountDownTimer();
     }
   }, [isMultiPlayer, isValidGame, startCountDownTimer]);
-
-  // console.log("isCountDownModalOpen", isCountDownModalOpen);
 
   return (
     <>

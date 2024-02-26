@@ -4,11 +4,11 @@ import { QuestionType } from "../lib/game.types.lib";
 import { AppConstants, urls } from "@/app/lib/constants.lib";
 import { GamePage } from "../components/GamePage";
 
-// To render the sum addict game and its components
 export default function Page() {
   return (
     <GamePage
-      gameUrl={urls.pages.games.sumAddict.playUrl}
+      gameSoloUrl={urls.pages.games.sumAddict.playUrl}
+      gameMultiplayerUrl={urls.pages.games.sumAddict.joinUrl}
       description={AppConstants.pages.sumAddict.description}
       title={AppConstants.pages.sumAddict.title}
       imgSrc={"/media/sum-addiction-logo.png"}

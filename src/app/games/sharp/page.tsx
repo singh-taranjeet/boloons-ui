@@ -6,7 +6,8 @@ import { GamePage } from "../components/GamePage";
 export default function Page() {
   return (
     <GamePage
-      gameUrl={urls.pages.games.sharp.playUrl}
+      gameSoloUrl={urls.pages.games.sharp.playUrl}
+      gameMultiplayerUrl={urls.pages.games.sharp.joinUrl}
       description={AppConstants.pages.sharp.description}
       title={AppConstants.pages.sharp.title}
       imgSrc={"/media/sharp-logo.png"}

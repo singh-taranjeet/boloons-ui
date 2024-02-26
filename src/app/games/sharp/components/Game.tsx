@@ -11,7 +11,7 @@ function QuestionWindow(props: QuestionProps) {
   const { question } = props;
   return (
     <div
-      className="relative bg-red bg-opacity-60 w-fit"
+      className="relative bg-neon-blue bg-opacity-10 w-fit rounded-lg"
       role="button"
       tabIndex={0}
     >
@@ -28,7 +28,7 @@ function QuestionWindow(props: QuestionProps) {
 
 function QuestionWindowText(props: { children: React.ReactNode }) {
   return (
-    <p className="absolute top-1/2 left-1/2 text-5xl transform-translate-center text-primary">
+    <p className="absolute top-1/2 left-1/2 text-xl sm:text-5xl transform-translate-center text-neon-green">
       {props.children}
     </p>
   );
@@ -78,7 +78,7 @@ function Thumb(props: {
   const { onAttempt, imgSrc, alt } = props;
   return (
     <button onClick={() => onAttempt(0)} className="animate-shake">
-      <Image src={imgSrc} width={200} height={200} alt={alt} />
+      <Image src={imgSrc} width={250} height={250} alt={alt} />
     </button>
   );
 }
