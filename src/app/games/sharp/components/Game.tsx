@@ -1,5 +1,4 @@
 "use client";
-import { getRandomInt } from "@/app/lib/server.lib";
 import { GameProps } from "../../lib/game.types.lib";
 import Image from "next/image";
 
@@ -106,7 +105,11 @@ export const Game = (props: GameProps) => {
         </QuestionWindow>
 
         <QuestionWindow question={options[3]}>
-          <QuestionWindowText>{options[3]}</QuestionWindowText>
+          <QuestionWindowText>
+            {`${options[3]}`.length > 3
+              ? Number(options[3]).toFixed(1)
+              : options[3]}
+          </QuestionWindowText>
         </QuestionWindow>
       </div>
 

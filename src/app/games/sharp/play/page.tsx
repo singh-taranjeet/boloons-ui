@@ -66,7 +66,7 @@ function generateQuestion(): QuestionType {
 
   const wrongAnswer = (() => {
     const quest: number[] = [];
-    const random = getRandomInt(5);
+    const random = getRandomInt(3);
     function setRandom() {
       switch (random) {
         case 1: {
@@ -74,19 +74,8 @@ function generateQuestion(): QuestionType {
           break;
         }
         case 2: {
-          if (operation > random) {
-            quest.push(operation + 1);
-          } else {
-            quest.push(operation - 1);
-          }
-          break;
-        }
-        case 3: {
           quest.push(option2 + 1);
           break;
-        }
-        case 4: {
-          quest.push(Number(answer.toFixed(2)));
         }
       }
     }
