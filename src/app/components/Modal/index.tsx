@@ -4,6 +4,7 @@ import { Sentence } from "../Sentence";
 import { emptyFunction } from "@/app/lib/server.lib";
 import Image from "next/image";
 import { urls } from "@/app/lib/constants.lib";
+import { pinkish } from "@/app/lib/style.lib";
 
 function ModalStars() {
   return (
@@ -23,7 +24,9 @@ function ModalTitle(props: { children: React.ReactNode }) {
   const { children } = props;
   return (
     <div className="flex-center w-full absolute" style={{ top: "-1.5rem" }}>
-      <div className="p-rectangle-normal w-fit mx-auto rounded-full bg-white border-4 border-primary px-normal">
+      <div
+        className={`p-rectangle-normal w-fit mx-auto rounded-full border-4 border-primary px-normal ${pinkish}`}
+      >
         <Sentence className="text-center">{children}</Sentence>
       </div>
     </div>
@@ -54,7 +57,7 @@ function ModalBody(props: { children: React.ReactNode }) {
   return (
     <div
       onClick={stopPropogation}
-      className="modal-content m-auto bg-white rounded-3xl border-8 border-primary w-4/5 md:w-1/2 xl:w-1/4 relative max-w-3xl"
+      className={`modal-content m-auto ${pinkish} rounded-3xl border-8 border-primary w-4/5 md:w-1/2 lg:w-2/4 xl:w-1/4 relative max-w-3xl`}
     >
       {props.children}
     </div>

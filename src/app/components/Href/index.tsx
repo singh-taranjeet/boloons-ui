@@ -1,6 +1,4 @@
-import { StyleConstants } from "@/app/lib/style.lib";
 import { RootElementType } from "@/app/lib/types.lib";
-import { getClasses } from "@/app/lib/utils.lib";
 import Link, { LinkProps } from "next/link";
 
 type TLink = LinkProps;

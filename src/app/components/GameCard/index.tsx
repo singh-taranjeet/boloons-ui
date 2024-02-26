@@ -24,9 +24,11 @@ export const GameCard = (props: GameCardProps) => {
             className="animate-bounce"
           />
 
-          <Sentence className={`${flexCenter} text-3xl font-medium`}>
+          <Sentence className={`${flexCenter} font-medium`}>
             <span className="flex gap-normal">
-              Play {title}{" "}
+              <span className={`${flexCenter} text-2xl font-bold`}>
+                Play {title}{" "}
+              </span>
               <Image
                 alt={``}
                 width={50}

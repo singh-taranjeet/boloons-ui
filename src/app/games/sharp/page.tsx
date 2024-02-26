@@ -7,6 +7,7 @@ export default function Page() {
     <GamePage
       description={AppConstants.pages.sharp.description}
       title={AppConstants.pages.sharp.title}
+      imgSrc={"/media/sharp-logo.png"}
     >
       dsf
     </GamePage>

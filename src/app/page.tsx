@@ -32,14 +32,14 @@ export default function Page() {
             height={250}
             role="button"
             tabIndex={0}
-            className="object-contain mx-auto mt-small animate-shake md:w-[350px] md:h-[350px]"
+            className="object-contain mx-auto mt-small animate-bounce md:w-[350px] md:h-[350px]"
             src={"/media/brain.svg"}
             alt=""
           />
           {/* <p className="hidden">{AppConstants.pages.home.description}</p> */}
           <Link
             aria-label={AppConstants.pages.home.start}
-            className="fixed bottom-0 right-0 animate-bounce w-fit"
+            className="fixed bottom-0 right-0 animate-shake w-fit"
             href={urls.pages.games.url}
           >
             <Image

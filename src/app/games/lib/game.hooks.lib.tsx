@@ -168,8 +168,11 @@ export function useTimer(time: number, callBack: () => void) {
  */
 export function useGame(
   gameTimeOut: number,
-  createQuestions: () => QuestionType[],
-  isCorrectAttempt: (userAttempts: number[], correctAnswer: number) => boolean
+  createQuestions: () => Promise<QuestionType[]>,
+  isCorrectAttempt: (
+    userAttempts: number[],
+    correctAnswer: number
+  ) => Promise<boolean>
 ) {
   const { manageAudio, stopAllAudio } = useSound();
   const [data, setData] = useState<QuestionType[]>([]);
@@ -182,8 +185,10 @@ export function useGame(
   const correctAnswer = data?.[currentQuestion]?.correctAnswer;
 
   const setQuestions = useCallback(
-    function setQuestions() {
-      setData(createQuestions());
+    async function setQuestions() {
+      Promise.all(await createQuestions()).then((values) => {
+        setData(values);
+      });
     },
     [createQuestions]
   );
@@ -255,8 +260,9 @@ export function useGame(
 
   // on attemp change the question and update score
   useEffect(() => {
-    if (attempts.length) {
-      const isCorrect = isCorrectAttempt(attempts, correctAnswer);
+    async function onAttempt() {
+      console.log("isc", isCorrectAttempt);
+      const isCorrect = await isCorrectAttempt(attempts, correctAnswer);
 
       if (isCorrect) {
         setScore(score + 5);
@@ -264,6 +270,9 @@ export function useGame(
       } else if (attempts.length === 3) {
         nextQuestion();
       }
+    }
+    if (attempts.length) {
+      onAttempt();
     }
   }, [attempts, score, correctAnswer, nextQuestion, isCorrectAttempt]);
 

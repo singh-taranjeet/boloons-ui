@@ -36,7 +36,7 @@ const NavItem = (props: NavItemProps) => {
 export const AppBar = () => {
   return (
     <nav className="bg-primary bg-opacity-10 z-10 w-full fixed top-0">
-      <ul className="flex gap-normal justify-center md:justify-start p-normal flex-row">
+      <ul className="flex gap-normal justify-start p-normal flex-row">
         <NavItem
           theme="dark"
           href={"/"}

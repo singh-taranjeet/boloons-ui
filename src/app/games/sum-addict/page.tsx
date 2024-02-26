@@ -9,6 +9,7 @@ export default function Page() {
     <GamePage
       description={AppConstants.pages.sumAddict.description}
       title={AppConstants.pages.sumAddict.title}
+      imgSrc={"/media/sum-addiction-logo.png"}
     >
       {/* Game section */}
       <Game

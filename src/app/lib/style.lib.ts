@@ -1,4 +1,5 @@
 export const flexCenter = "flex flex-col justify-center";
+export const pinkish = "bg-pink-700";
 export const breakPoints = {
   sm: 640,
   md: 768,

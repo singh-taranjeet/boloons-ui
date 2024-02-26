@@ -3,7 +3,7 @@ import { Sentence } from "../../../components/Sentence";
 import { StyleConstants } from "@/app/lib/style.lib";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { Card } from "@/app/components/Card";
-import Link from "next/link";
+import Image from "next/image";
 import { AppConstants, urls } from "@/app/lib/constants.lib";
 
 function HowToPlayDescription(
@@ -30,14 +30,23 @@ interface GamePageProps {
   children: React.ReactNode;
   title: string;
   description: string;
+  imgSrc: string;
 }
+// Introduce the game to the user
 export function GamePage(props: Readonly<GamePageProps>) {
-  const { title, description } = props;
+  const { title, description, imgSrc } = props;
   return (
     <>
-      <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2">
+      <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2 md:pb-0 mb-large">
         {/* Game Heading */}
-        <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit">
+        <Card className="m-normal mb-0 md:mb-normal hidden md:flex md:w-fit md:mx-auto md:h-fit gap-normal">
+          <Image
+            src={imgSrc}
+            alt={title}
+            width={50}
+            height={50}
+            className="animate-bounce"
+          />
           <h1
             className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
           >
