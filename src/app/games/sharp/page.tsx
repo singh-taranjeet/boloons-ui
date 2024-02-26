@@ -1,3 +1,4 @@
+"use client";
 import { AppConstants, urls } from "@/app/lib/constants.lib";
 import { GamePage } from "../components/GamePage";
 

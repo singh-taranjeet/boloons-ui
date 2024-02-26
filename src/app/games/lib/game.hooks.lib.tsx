@@ -168,11 +168,11 @@ export function useTimer(time: number, callBack: () => void) {
  */
 export function useGame(
   gameTimeOut: number,
-  createQuestions: () => Promise<QuestionType[]>,
+  createQuestions: () => QuestionType[],
   isCorrectAttempt: (
     userAttempts: number[],
     correctAnswer: number
-  ) => Promise<boolean | undefined>
+  ) => boolean | undefined
 ) {
   const { manageAudio, stopAllAudio } = useSound();
   const [data, setData] = useState<QuestionType[]>([]);

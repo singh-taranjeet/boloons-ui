@@ -1,3 +1,4 @@
+"use client";
 import { getRandomInt } from "@/app/lib/server.lib";
 import { Game } from "../components/Game";
 import { QuestionType } from "../../lib/game.types.lib";
@@ -5,8 +6,7 @@ import { urls } from "@/app/lib/constants.lib";
 import { GamePlay } from "../../components/GamePlay";
 import { drop } from "lodash";
 
-async function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
-  "use server";
+function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
   const attempt = userAttempts[0] === correctAnswer;
   if (attempt) {
     return true;
@@ -26,24 +26,13 @@ export default function Page() {
 }
 
 // create question
-async function createQuestions(): Promise<QuestionType[]> {
-  "use server";
-  const res = await Promise.all(
-    Array.from(Array(15).keys()).map(async () => {
-      return await generateQuestion();
-    })
-  );
-
-  console.log("res", res);
-
-  return new Promise((resolve) => {
-    resolve(res);
+function createQuestions(): QuestionType[] {
+  return Array.from(Array(15).keys()).map(() => {
+    return generateQuestion();
   });
 }
 // 1 + 2 = 3 -> Is is right or wrong
-async function generateQuestion(): Promise<QuestionType> {
-  "use server";
-
+function generateQuestion(): QuestionType {
   // + 1
   // - 2
   // * 3

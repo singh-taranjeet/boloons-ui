@@ -26,11 +26,11 @@ const CountDownTime = 3;
 
 interface GamePlayProps {
   Game(props: GameProps): React.ReactNode;
-  createQuestions(): Promise<QuestionType[]>;
+  createQuestions(): QuestionType[];
   isCorrectAttempt(
     userAttempts: number[],
     correctAnswer: number
-  ): Promise<boolean | undefined>;
+  ): boolean | undefined;
   gameUrl: string;
 }
 export function GamePlay(props: GamePlayProps) {
