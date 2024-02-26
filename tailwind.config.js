@@ -22,6 +22,7 @@ module.exports = {
         "dark-blue": "#7e22ce",
         "neon-blue": "#00FFFF",
         "neon-green": "#7CFC00",
+        "neon-yellow": "#F4FF33",
       },
       padding: {
         "rectangle-small": "0.5rem 1rem",

@@ -1,8 +1,10 @@
 "use client";
 import { AppConstants, urls } from "@/app/lib/constants.lib";
 import { GamePage } from "../components/GamePage";
+import { Game } from "./components/Game";
+import { QuestionType } from "../lib/game.types.lib";
 
-// To render the sum addict game and its components
+// To render the sharp game and its components
 export default function Page() {
   return (
     <GamePage
@@ -12,7 +14,20 @@ export default function Page() {
       title={AppConstants.pages.sharp.title}
       imgSrc={"/media/sharp-logo.png"}
     >
-      dsf
+      {/* Game section */}
+      <Game
+        currentQuestion={0}
+        numbers={[initialQuestion].map((item) => item.correctAnswer)}
+        learningMode={true}
+        attempts={initialQuestion.answers}
+        options={initialQuestion.options}
+      />
     </GamePage>
   );
 }
+
+const initialQuestion: QuestionType = {
+  options: [4, 1, 6, 10],
+  answers: [1, 0],
+  correctAnswer: 1,
+};

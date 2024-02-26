@@ -11,7 +11,7 @@ function QuestionWindow(props: QuestionProps) {
   const { question } = props;
   return (
     <div
-      className="relative bg-neon-blue bg-opacity-10 w-fit rounded-lg"
+      className="relative border-neon-blue border bg-neon-blue bg-opacity-40 w-fit rounded-lg shadow-inner shadow-neon-blue"
       role="button"
       tabIndex={0}
     >
@@ -84,17 +84,10 @@ function Thumb(props: {
 }
 
 export const Game = (props: GameProps) => {
-  const {
-    currentQuestion,
-    learningMode,
-    attempts = [],
-    onAttempt = () => {},
-    options = [],
-    numbers = [],
-  } = props;
-  console.log("props", props);
+  const { learningMode, onAttempt = () => {}, options = [] } = props;
+
   return (
-    <section>
+    <section className={learningMode ? "pointer-events-none" : ""}>
       <div className="flex justify-between gap-normal">
         <QuestionWindow question={options[0]}>
           <QuestionWindowText>{options[0]}</QuestionWindowText>
