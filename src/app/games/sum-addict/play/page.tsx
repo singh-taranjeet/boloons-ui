@@ -26,10 +26,15 @@ export default function Page() {
 
 async function createQuestions(): Promise<QuestionType[]> {
   "use server";
-  const res = Array.from(Array(15).keys()).map(async () => {
-    return await generateQuestion();
+  const res = await Promise.all(
+    Array.from(Array(15).keys()).map(async () => {
+      return await generateQuestion();
+    })
+  );
+
+  return new Promise((resolve, reject) => {
+    resolve(res);
   });
-  return res;
 }
 
 async function generateQuestion(): Promise<QuestionType> {
