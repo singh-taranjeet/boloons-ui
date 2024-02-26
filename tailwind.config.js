@@ -20,6 +20,8 @@ module.exports = {
         secondary: "#bfdbfe", // blue-200
         light: "#eff6ff", // blue-100
         "dark-blue": "#7e22ce",
+        "neon-blue": "#00FFFF",
+        "neon-green": "#7CFC00",
       },
       padding: {
         "rectangle-small": "0.5rem 1rem",

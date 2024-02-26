@@ -47,3 +47,7 @@ html {
     transform: translate3d(4px, 0, 0);
   }
 }
+
+.transform-translate-center {
+  transform: translate(-50%, -50%);
+}

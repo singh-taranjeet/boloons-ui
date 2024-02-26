@@ -172,7 +172,7 @@ export function useGame(
   isCorrectAttempt: (
     userAttempts: number[],
     correctAnswer: number
-  ) => Promise<boolean>
+  ) => Promise<boolean | undefined>
 ) {
   const { manageAudio, stopAllAudio } = useSound();
   const [data, setData] = useState<QuestionType[]>([]);
@@ -261,13 +261,15 @@ export function useGame(
   // on attemp change the question and update score
   useEffect(() => {
     async function onAttempt() {
-      console.log("isc", isCorrectAttempt);
       const isCorrect = await isCorrectAttempt(attempts, correctAnswer);
-
-      if (isCorrect) {
-        setScore(score + 5);
+      console.log("isCorrect", isCorrect);
+      // undefined means all attemps are exhausted which to next question
+      // true means attempt is correct
+      // false means need more attempts
+      if (isCorrect === undefined) {
         nextQuestion();
-      } else if (attempts.length === 3) {
+      } else if (isCorrect) {
+        setScore(score + 5);
         nextQuestion();
       }
     }

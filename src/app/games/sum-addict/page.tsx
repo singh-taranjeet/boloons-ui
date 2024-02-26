@@ -1,12 +1,14 @@
+"use client";
 import { Game } from "./components/Game";
 import { QuestionType } from "../lib/game.types.lib";
-import { AppConstants } from "@/app/lib/constants.lib";
+import { AppConstants, urls } from "@/app/lib/constants.lib";
 import { GamePage } from "../components/GamePage";
 
 // To render the sum addict game and its components
 export default function Page() {
   return (
     <GamePage
+      gameUrl={urls.pages.games.sumAddict.playUrl}
       description={AppConstants.pages.sumAddict.description}
       title={AppConstants.pages.sumAddict.title}
       imgSrc={"/media/sum-addiction-logo.png"}

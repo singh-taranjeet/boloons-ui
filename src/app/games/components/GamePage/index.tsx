@@ -7,19 +7,23 @@ import Image from "next/image";
 import { AppConstants, urls } from "@/app/lib/constants.lib";
 
 function HowToPlayDescription(
-  props: Readonly<{ className?: string; description: string }>
+  props: Readonly<{ className?: string; description: string; gameUrl: string }>
 ) {
   /* Bottom Heading */
   return (
     <>
       <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>
-        <Sentence className={`text-center`} fontSize="text-medium">
+        <Sentence
+          color="text-neon-green"
+          className={`text-center`}
+          fontSize="text-medium"
+        >
           {props.description}
         </Sentence>
       </Card>
       {/* How do you want to play */}
       <Card className={`${props.className} mt-small md:mt-normal mx-normal`}>
-        <GameType />
+        <GameType gameUrl={props.gameUrl} />
       </Card>
     </>
   );
@@ -31,6 +35,7 @@ interface GamePageProps {
   title: string;
   description: string;
   imgSrc: string;
+  gameUrl: string;
 }
 // Introduce the game to the user
 export function GamePage(props: Readonly<GamePageProps>) {
@@ -48,7 +53,7 @@ export function GamePage(props: Readonly<GamePageProps>) {
             className="animate-bounce"
           />
           <h1
-            className={`${StyleConstants.FontSize["text-large"]} text-center text-primary`}
+            className={`${StyleConstants.FontSize["text-large"]} text-center text-neon-blue`}
           >
             {title}
           </h1>
@@ -56,7 +61,10 @@ export function GamePage(props: Readonly<GamePageProps>) {
 
         {/* Desktop Heading */}
         <section className="flex-col justify-center m-small md:m-normal hidden md:flex md:mt-0">
-          <HowToPlayDescription description={description} />
+          <HowToPlayDescription
+            gameUrl={props.gameUrl}
+            description={description}
+          />
         </section>
       </section>
       <section className="flex flex-col md:self-center md:mx-normaol gap-normal md:gap-0 md:w-1/2">
@@ -64,6 +72,7 @@ export function GamePage(props: Readonly<GamePageProps>) {
         {props.children}
         {/* Mobile Heading */}
         <HowToPlayDescription
+          gameUrl={props.gameUrl}
           description={description}
           className="md:hidden mx-normal mb-normal"
         />

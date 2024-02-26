@@ -9,9 +9,10 @@ interface GameCardProps {
   imageSrc: string;
   title: string;
   description: string;
+  color: string;
 }
 export const GameCard = (props: GameCardProps) => {
-  const { href, imageSrc, title, description } = props;
+  const { href, imageSrc, title, description, color } = props;
   return (
     <Link href={href} aria-label={`Play ${title}`}>
       <Card>
@@ -26,7 +27,7 @@ export const GameCard = (props: GameCardProps) => {
 
           <Sentence className={`${flexCenter} font-medium`}>
             <span className="flex gap-normal">
-              <span className={`${flexCenter} text-2xl font-bold`}>
+              <span className={`${flexCenter} text-2xl font-bold ${color}`}>
                 Play {title}{" "}
               </span>
               <Image

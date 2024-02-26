@@ -30,7 +30,7 @@ interface GamePlayProps {
   isCorrectAttempt(
     userAttempts: number[],
     correctAnswer: number
-  ): Promise<boolean>;
+  ): Promise<boolean | undefined>;
   gameUrl: string;
 }
 export function GamePlay(props: GamePlayProps) {

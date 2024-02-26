@@ -10,7 +10,14 @@ async function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
   const sum = userAttempts.reduce((item, sum) => {
     return item + sum;
   }, 0);
-  return sum === correctAnswer;
+  console.log("user", userAttempts, correctAnswer);
+  const attempt = sum === correctAnswer;
+  if (attempt) {
+    return true;
+  } else if (userAttempts.length === 3) {
+    return undefined;
+  }
+  return false;
 }
 
 export default function Page() {
@@ -32,7 +39,7 @@ async function createQuestions(): Promise<QuestionType[]> {
     })
   );
 
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     resolve(res);
   });
 }

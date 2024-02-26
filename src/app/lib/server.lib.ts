@@ -2,7 +2,12 @@ import axios from "axios";
 import { AppConfig } from "../../../config";
 
 export function getRandomInt(max: number = 100000000): number {
-  return Math.floor(Math.random() * max);
+  const int = Math.floor(Math.random() * max);
+  if (int === 0) {
+    return getRandomInt(max);
+  }
+
+  return int;
 }
 
 export function emptyFunction(): void {

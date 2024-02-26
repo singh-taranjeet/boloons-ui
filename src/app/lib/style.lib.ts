@@ -53,6 +53,8 @@ const Color = {
   "text-white": "text-white",
   "text-black": "text-black",
   "text-dark-blue": "text-dark-blue",
+  "text-neon-blue": "text-neon-blue",
+  "text-neon-green": "text-neon-green",
 };
 
 const BorderColor = {

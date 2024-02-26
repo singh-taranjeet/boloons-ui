@@ -13,7 +13,12 @@ import { usePlayer } from "@/app/lib/player-hook.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
 import { joinGame } from "@/app/games/lib/game.methods.lib";
 
-export function GameType() {
+interface GameTypeProps {
+  gameUrl: string;
+}
+export function GameType(props: GameTypeProps) {
+  const { gameUrl } = props;
+
   const pathName = usePathname();
 
   const isCreateMode = urls.pages.games.sumAddict.createUrl === pathName;
@@ -87,7 +92,7 @@ export function GameType() {
             <div className="flex justify-between gap-small mt-small md:mt-normal">
               <Href
                 className="flex-1 w-1/2"
-                href={`${urls.pages.games.sumAddict.playUrl}`}
+                href={gameUrl}
                 bgColor="bg-white"
                 color="text-primary"
               >

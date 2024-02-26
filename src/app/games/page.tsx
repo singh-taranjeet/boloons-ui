@@ -17,6 +17,7 @@ export default function Page() {
           imageSrc="/media/sum-addiction-logo.png"
           title={AppConstants.pages.sumAddict.title}
           description={AppConstants.pages.sumAddict.description}
+          color="text-neon-blue"
         />
 
         <GameCard
@@ -24,6 +25,7 @@ export default function Page() {
           imageSrc="/media/sharp-logo.png"
           title={AppConstants.pages.sharp.title}
           description={AppConstants.pages.sharp.description}
+          color="text-neon-green"
         />
       </div>
     </section>
