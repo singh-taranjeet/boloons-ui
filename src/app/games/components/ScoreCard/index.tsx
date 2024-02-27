@@ -67,7 +67,7 @@ export function ScoreCard(props: ScoreCardType) {
 
   const { player } = usePlayer();
 
-  console.log("Score Card player", player.name);
+  // console.log("Score Card player", player.name);
 
   return (
     <div

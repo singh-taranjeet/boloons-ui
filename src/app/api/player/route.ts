@@ -25,7 +25,7 @@ export async function GET() {
   if (player?.value) {
     try {
       const parsedData = JSON.parse(player?.value);
-      console.log("Parsed", parsedData);
+      // console.log("Parsed", parsedData);
       return NextResponse.json(parsedData);
     } catch (error) {
       console.log("Cookie is malformed");

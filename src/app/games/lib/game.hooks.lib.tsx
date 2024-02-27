@@ -33,7 +33,7 @@ function getAudio() {
     };
     return audio;
   } catch (error) {
-    console.log("Client Audio");
+    // console.log("Client Audio");
     return undefined;
   }
 }
@@ -262,7 +262,7 @@ export function useGame(
   useEffect(() => {
     async function onAttempt() {
       const isCorrect = await isCorrectAttempt(attempts, correctAnswer);
-      console.log("isCorrect", isCorrect);
+      // console.log("isCorrect", isCorrect);
       // undefined means all attemps are exhausted which to next question
       // true means attempt is correct
       // false means need more attempts

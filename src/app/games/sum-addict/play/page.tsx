@@ -10,7 +10,7 @@ function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
   const sum = userAttempts.reduce((item, sum) => {
     return item + sum;
   }, 0);
-  console.log("user", userAttempts, correctAnswer);
+  // console.log("user", userAttempts, correctAnswer);
   const attempt = sum === correctAnswer;
   if (attempt) {
     return true;

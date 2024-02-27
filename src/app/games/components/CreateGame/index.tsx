@@ -93,14 +93,14 @@ export function CreateGame(props: {
         },
         method: "post",
       });
-      console.log("response", response);
+      // console.log("response", response);
       if (response.success && response.data) {
         setGameId(response.data);
       }
       setCreatingGame(false);
     }
     fetchGameId();
-  }, []);
+  }, [gameType]);
 
   return (
     <>
