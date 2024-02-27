@@ -1,8 +1,6 @@
-import Link from "next/link";
 import { Href } from "../Href";
 import Image from "next/image";
 import { flexCenter } from "@/app/lib/style.lib";
-import { title } from "process";
 
 interface NavItemProps {
   href: string;
@@ -37,8 +35,8 @@ const NavItem = (props: NavItemProps) => {
 
 export const AppBar = () => {
   return (
-    <nav className="bg-primary bg-opacity-10 relative z-10 w-full">
-      <ul className="flex gap-normal justify-center md:justify-start p-normal flex-row">
+    <nav className="bg-primary bg-opacity-10 z-10 w-full fixed top-0">
+      <ul className="flex gap-normal justify-start p-normal flex-row">
         <NavItem
           theme="dark"
           href={"/"}

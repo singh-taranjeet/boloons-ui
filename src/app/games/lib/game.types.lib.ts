@@ -18,3 +18,12 @@ const AudioTracksName = {
 export type AudioTracksKey = keyof typeof AudioTracksName;
 
 export type GameStep = keyof typeof gameConstants.multiPlayer.step;
+
+export interface GameProps {
+  currentQuestion: number;
+  learningMode?: boolean;
+  attempts: number[];
+  onAttempt?(number: number): void;
+  options: number[];
+  numbers: number[];
+}

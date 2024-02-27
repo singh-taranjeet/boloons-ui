@@ -7,15 +7,14 @@ import { TextInput } from "../../../components/TextInput";
 import { Sentence } from "../../../components/Sentence";
 import { useRouter, useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
-import { urls } from "@/app/lib/constants.lib";
 import { Modal } from "@/app/components/Modal";
 import Image from "next/image";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import { useValidateGame } from "../../lib/game.hooks.lib";
 import { gameConstants } from "../../lib/game.constants.lib";
 
-export function JoinGame(props: { onClickJoin(): void }) {
-  const { onClickJoin } = props;
+export function JoinGame(props: { onClickJoin(): void; gameUrl: string }) {
+  const { onClickJoin, gameUrl } = props;
   const params = useSearchParams();
   const router = useRouter();
   const { player, updatePlayerName } = usePlayer();
@@ -32,7 +31,7 @@ export function JoinGame(props: { onClickJoin(): void }) {
   }
 
   function redirectToGame() {
-    router.push(urls.pages.games.sumAddict.gameUrl);
+    router.push(gameUrl);
   }
 
   return (

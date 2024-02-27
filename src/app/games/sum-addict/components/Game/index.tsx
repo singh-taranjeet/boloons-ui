@@ -2,17 +2,9 @@
 import { emptyFunction } from "@/app/lib/server.lib";
 import { BoxGrid } from "../BoxGrid";
 import { NumberGrid } from "../NumberGrid";
+import { GameProps } from "@/app/games/lib/game.types.lib";
 
-interface GameType {
-  currentQuestion: number;
-  learningMode?: boolean;
-  attempts: number[];
-  onAttempt?(number: number): void;
-  options: number[];
-  numbers: number[];
-}
-
-export function Game(props: Readonly<GameType>) {
+export function Game(props: Readonly<GameProps>) {
   const {
     currentQuestion,
     learningMode = false,
@@ -23,7 +15,7 @@ export function Game(props: Readonly<GameType>) {
   } = props;
 
   return (
-    <section className="mt-small md:mt-normal">
+    <section className="mt-small md:mt-normal flex flex-col justify-center">
       {/* Questions */}
       <NumberGrid currentQuestion={currentQuestion} numbers={numbers} />
       {/* Answers */}

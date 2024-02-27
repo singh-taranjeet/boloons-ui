@@ -4,24 +4,20 @@ import { io } from "socket.io-client";
 import { AppConfig } from "../../../config";
 import { breakPoints } from "./style.lib";
 
-function getUserDevice() {
+function getDeviceScreen() {
   try {
-    return window.innerWidth < breakPoints.sm;
+    return window.innerWidth;
   } catch (error) {
-    return true;
+    return 0;
   }
 }
 
-export function useIsMobile() {
-  const [isMobile, setIsMobile] = useState(getUserDevice);
+export function useScreenSize() {
+  const [innerWidth, setInnerWidth] = useState(getDeviceScreen);
 
   useEffect(() => {
     function onResize() {
-      if (window.innerWidth < breakPoints.sm) {
-        setIsMobile(true);
-      } else {
-        setIsMobile(false);
-      }
+      setInnerWidth(getDeviceScreen());
     }
     onResize();
     window.addEventListener("resize", onResize);
@@ -31,7 +27,7 @@ export function useIsMobile() {
     };
   }, []);
 
-  return isMobile;
+  return innerWidth;
 }
 
 const URL = AppConfig().apiUrl;

@@ -4,9 +4,9 @@ export const handlers = [
   http.get(
     "http://localhost:4000/player",
     async ({ request, params, cookies }) => {
-      console.log("mocking respnse for /player");
+      // console.log("mocking respnse for /player");
       await delay(2000);
-      console.log("mocking respnse for /player", request, params, cookies);
+      // console.log("mocking respnse for /player", request, params, cookies);
       return HttpResponse.json({
         success: true,
         data: {
@@ -18,7 +18,7 @@ export const handlers = [
   ),
 
   http.post("http://localhost:4000/game", async () => {
-    console.log("mocking respnse for /game");
+    // console.log("mocking respnse for /game");
 
     delay(5000);
 

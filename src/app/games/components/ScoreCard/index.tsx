@@ -32,18 +32,22 @@ function UserScore(props: {
           width={50}
           height={50}
           alt={`${playerName}`}
-          className="rounded-full"
+          className="rounded-full h-[50px]"
         />
-        <div aria-label="score" className={`${flexCenter}`}>
-          <Sentence className="text-center">Score</Sentence>
-          <Sentence className="text-center">{score}</Sentence>
+        <div aria-label="score" className={`${flexCenter} gap-normal`}>
+          <Image
+            src={"/media/icons/star-icon.png"}
+            width={50}
+            height={50}
+            alt="score"
+            className="rounded-full"
+          />
+          <Sentence className="text-center mt-large">{score}</Sentence>
         </div>
       </div>
       <Sentence
         fontSize="text-small"
-        className={`${
-          opponent ? "text-right" : "text-left"
-        } max-w-fit mt-small`}
+        className={`${opponent ? "text-right" : "text-left"} max-w-fit`}
       >
         {playerName.trim().substring(0, 10)}
       </Sentence>
@@ -63,11 +67,11 @@ export function ScoreCard(props: ScoreCardType) {
 
   const { player } = usePlayer();
 
-  console.log("Score Card player", player.name);
+  // console.log("Score Card player", player.name);
 
   return (
     <div
-      className={`flex bg-light rounded ${
+      className={`flex rounded ${
         isMultiPlayer ? "justify-between" : "justify-center"
       }`}
     >

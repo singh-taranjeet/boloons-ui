@@ -18,6 +18,14 @@ const nextConfig = {
         source: "/games/sum-addict/create",
         destination: "/games/sum-addict",
       },
+      {
+        source: "/games/sharp/join",
+        destination: "/games/sharp",
+      },
+      {
+        source: "/games/sharp/create",
+        destination: "/games/sharp",
+      },
     ];
   },
   // webpack: (config, { isServer }) => {

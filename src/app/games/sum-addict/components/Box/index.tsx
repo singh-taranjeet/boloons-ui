@@ -8,7 +8,7 @@ export function Box(
 ) {
   const { children, onAttempt, selected } = props;
 
-  const bg = selected ? "bg-secondary" : "bg-white";
+  const bg = selected ? "bg-opacity-95 bg-pink-700" : "bg-transparent";
 
   return (
     <button

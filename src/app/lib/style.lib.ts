@@ -1,4 +1,5 @@
 export const flexCenter = "flex flex-col justify-center";
+export const pinkish = "bg-pink-700";
 export const breakPoints = {
   sm: 640,
   md: 768,
@@ -52,6 +53,8 @@ const Color = {
   "text-white": "text-white",
   "text-black": "text-black",
   "text-dark-blue": "text-dark-blue",
+  "text-neon-blue": "text-neon-blue",
+  "text-neon-green": "text-neon-green",
 };
 
 const BorderColor = {

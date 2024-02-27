@@ -9,20 +9,38 @@ interface GameCardProps {
   imageSrc: string;
   title: string;
   description: string;
+  color: string;
 }
 export const GameCard = (props: GameCardProps) => {
-  const { href, imageSrc, title, description } = props;
+  const { href, imageSrc, title, description, color } = props;
   return (
-    <Link href={href} title={`Play ${title}`}>
+    <Link href={href} aria-label={`Play ${title}`}>
       <Card>
         <div className="flex justify-between">
-          <Image width={50} height={50} src={imageSrc} alt={title} />
+          <Image
+            width={50}
+            height={50}
+            src={imageSrc}
+            alt={title}
+            className="animate-bounce"
+          />
 
-          <Sentence className={`${flexCenter} text-large font-medium`}>
-            Play {title}
+          <Sentence className={`${flexCenter} font-medium`}>
+            <span className="flex gap-normal">
+              <span className={`${flexCenter} text-2xl font-bold ${color}`}>
+                Play {title}{" "}
+              </span>
+              <Image
+                alt={``}
+                width={50}
+                height={50}
+                className="animate-shake"
+                src={"/media/games-logo-small.png"}
+              />
+            </span>
           </Sentence>
         </div>
-        <Sentence className={`${flexCenter} text-small mt-small`}>
+        <Sentence className={`${flexCenter} text-small mt-small text-white`}>
           {description}
         </Sentence>
       </Card>

@@ -33,7 +33,7 @@ function getAudio() {
     };
     return audio;
   } catch (error) {
-    console.log("Client Audio");
+    // console.log("Client Audio");
     return undefined;
   }
 }
@@ -169,7 +169,10 @@ export function useTimer(time: number, callBack: () => void) {
 export function useGame(
   gameTimeOut: number,
   createQuestions: () => QuestionType[],
-  isCorrectAttempt: (userAttempts: number[], correctAnswer: number) => boolean
+  isCorrectAttempt: (
+    userAttempts: number[],
+    correctAnswer: number
+  ) => boolean | undefined
 ) {
   const { manageAudio, stopAllAudio } = useSound();
   const [data, setData] = useState<QuestionType[]>([]);
@@ -182,8 +185,10 @@ export function useGame(
   const correctAnswer = data?.[currentQuestion]?.correctAnswer;
 
   const setQuestions = useCallback(
-    function setQuestions() {
-      setData(createQuestions());
+    async function setQuestions() {
+      Promise.all(await createQuestions()).then((values) => {
+        setData(values);
+      });
     },
     [createQuestions]
   );
@@ -255,15 +260,21 @@ export function useGame(
 
   // on attemp change the question and update score
   useEffect(() => {
-    if (attempts.length) {
-      const isCorrect = isCorrectAttempt(attempts, correctAnswer);
-
-      if (isCorrect) {
+    async function onAttempt() {
+      const isCorrect = await isCorrectAttempt(attempts, correctAnswer);
+      // console.log("isCorrect", isCorrect);
+      // undefined means all attemps are exhausted which to next question
+      // true means attempt is correct
+      // false means need more attempts
+      if (isCorrect === undefined) {
+        nextQuestion();
+      } else if (isCorrect) {
         setScore(score + 5);
         nextQuestion();
-      } else if (attempts.length === 3) {
-        nextQuestion();
       }
+    }
+    if (attempts.length) {
+      onAttempt();
     }
   }, [attempts, score, correctAnswer, nextQuestion, isCorrectAttempt]);
 

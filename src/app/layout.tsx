@@ -1,11 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Image from "next/image";
 import { AppConfig } from "../../config";
 import { emptyFunction } from "./lib/server.lib";
 import ReactQueryProvider from "./provider";
 import { AppBar } from "./components/AppBar";
+import { BackgroundVideo } from "./components/BackgroundVideo";
+import { AppConstants } from "./lib/constants.lib";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -21,23 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} min-h-screen relative mx-auto`}>
+      <body className={`${inter.className} relative mx-auto h-screen`}>
         <AppBar />
-        <picture>
-          <source
-            srcSet="/media/desktop-background-image.svg"
-            media="(min-width: 768px)"
-          />
-          <Image
-            className="object-cover z-0 object-center md:object-bottom mx-auto opacity-80"
-            alt="Background image"
-            src={"/media/background-image.svg"}
-            fill={true}
-            placeholder="blur"
-            blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkqF9fDwADZAGv8BnBkgAAAABJRU5ErkJggg=="
-          />
-        </picture>
-
+        <BackgroundVideo src={AppConstants.pages.home.background} />
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

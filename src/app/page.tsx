@@ -1,9 +1,8 @@
 import Image from "next/image";
 import type { Metadata } from "next";
-import { Card } from "./components/Card";
-import { Sentence } from "./components/Sentence";
 import { AppConstants, urls } from "./lib/constants.lib";
-import { GameCard } from "./components/GameCard";
+import Link from "next/link";
+import { Heading } from "./components/Heading";
 
 export const metadata: Metadata = {
   title: AppConstants.metaData.title,
@@ -20,56 +19,41 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="relative z-1 max-w-5xl mx-auto">
-      <section
-        className={`m-normal w-fit mx-auto flex justify-center flex-col md:flex-row`}
-      >
-        <Image
-          width={400}
-          height={180}
-          src={"/media/boloons-hero.svg"}
-          alt="boloons"
-        />
-        <h1 title="Boloons" className={`hidden`}>
-          Boloons
-        </h1>
+    <>
+      <main className="relative z-1 max-w-5xl mx-auto h-full">
+        <section className="flex justify-center flex-col h-full uppercase">
+          <Heading
+            title={AppConstants.pages.home.title}
+            description={AppConstants.pages.home["punch-line"]}
+          />
 
-        <Image
-          width={420}
-          height={54}
-          src={"/media/boloons-hero-text.svg"}
-          alt="train your brain"
-        />
-      </section>
-      <section className="mx-normal flex flex-col gap-small md:flex-row md:mx-auto">
-        <section className="relative m-normal md:mx-normal md:w-1/2 self-center">
-          <picture>
-            <source srcSet="/media/spacecraft.svg" media="(min-width: 768px)" />
+          <Image
+            width={250}
+            height={250}
+            role="button"
+            tabIndex={0}
+            className="object-contain mx-auto mt-small animate-bounce md:w-[350px] md:h-[350px]"
+            src={"/media/brain.svg"}
+            alt=""
+          />
+          {/* <p className="hidden">{AppConstants.pages.home.description}</p> */}
+          <Link
+            aria-label={AppConstants.pages.home.start}
+            className="fixed bottom-0 right-0 animate-shake w-fit"
+            href={urls.pages.games.url}
+          >
             <Image
-              width={200}
+              width={400}
               height={200}
-              className="object-contain mx-auto w-28"
-              src={"/media/spacecraft-mobile.png"}
-              alt="space-craft"
+              role="button"
+              tabIndex={0}
+              className="object-contain mx-auto"
+              src={"/media/get-started.svg"}
+              alt=""
             />
-          </picture>
+          </Link>
         </section>
-        <Card
-          className="md:w-1/2 my-auto md:mx-normal"
-          aria-label="About boloons"
-        >
-          <Sentence>{AppConstants.pages.home.description}</Sentence>
-        </Card>
-      </section>
-
-      <section className="mx-normal mt-normal md:w-fit md:mx-auto">
-        <GameCard
-          href={urls.pages.games.sumAddict.gameUrl}
-          imageSrc="/media/sum-addiction-logo.png"
-          title={AppConstants.pages.sumAddict.title}
-          description={AppConstants.pages.sumAddict.description}
-        />
-      </section>
-    </main>
+      </main>
+    </>
   );
 }
