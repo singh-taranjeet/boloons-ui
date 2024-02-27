@@ -14,16 +14,18 @@ import { gameConstants } from "@/app/games/lib/game.constants.lib";
 import { joinGame } from "@/app/games/lib/game.methods.lib";
 
 interface GameTypeProps {
-  gameSoloUrl: string;
-  gameMultiplayerUrl: string;
+  gamePlayUrl: string;
+  gameJoinUrl: string;
+  gameCreateurl: string;
+  gameType: keyof typeof gameConstants.games;
 }
 export function GameType(props: GameTypeProps) {
-  const { gameMultiplayerUrl, gameSoloUrl } = props;
+  const { gameJoinUrl, gamePlayUrl, gameType, gameCreateurl } = props;
 
   const pathName = usePathname();
 
-  const isCreateMode = urls.pages.games.sumAddict.createUrl === pathName;
-  const isJoinMode = urls.pages.games.sumAddict.joinUrl === pathName;
+  const isCreateMode = gameCreateurl === pathName;
+  const isJoinMode = gameJoinUrl === pathName;
 
   const params = useSearchParams();
   const { socket } = useWebSocket();
@@ -50,10 +52,10 @@ export function GameType(props: GameTypeProps) {
       if (
         res.type === gameConstants.multiPlayer.eventMessageType.gameStartedMsg
       ) {
-        router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
+        router.push(`${gamePlayUrl}?gameId=${gameId}`);
       }
     },
-    [gameId, router]
+    [gameId, router, gamePlayUrl]
   );
 
   useEffect(() => {
@@ -93,7 +95,7 @@ export function GameType(props: GameTypeProps) {
             <div className="flex justify-between gap-small mt-small md:mt-normal">
               <Href
                 className="flex-1 w-1/2"
-                href={gameSoloUrl}
+                href={gamePlayUrl}
                 bgColor="bg-white"
                 color="text-primary"
               >
@@ -122,7 +124,11 @@ export function GameType(props: GameTypeProps) {
               onClose={() => setIsCreateGameModalOpen(false)}
             />
             <Modal.ModalContent>
-              <CreateGame gameUrl={gameMultiplayerUrl} />
+              <CreateGame
+                gameType={gameType}
+                gamePlayUrl={gamePlayUrl}
+                gameJoinUrl={gameJoinUrl}
+              />
             </Modal.ModalContent>
           </Modal.ModalBody>
         </Modal.ModalDialog>
@@ -139,7 +145,7 @@ export function GameType(props: GameTypeProps) {
               <Modal.ModalTitle>Join?</Modal.ModalTitle>
             </div>
             <Modal.ModalContent>
-              <JoinGame onClickJoin={onClickJoin} />
+              <JoinGame gameUrl={gamePlayUrl} onClickJoin={onClickJoin} />
             </Modal.ModalContent>
           </Modal.ModalBody>
         </Modal.ModalDialog>

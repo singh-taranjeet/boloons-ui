@@ -16,8 +16,12 @@ import { joinGame } from "../../lib/game.methods.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import { usePlayer } from "@/app/lib/player-hook.lib";
 
-export function CreateGame(props: { gameUrl: string }) {
-  const { gameUrl } = props;
+export function CreateGame(props: {
+  gameJoinUrl: string;
+  gamePlayUrl: string;
+  gameType: keyof typeof gameConstants.games;
+}) {
+  const { gameJoinUrl, gamePlayUrl, gameType } = props;
   const [gameId, setGameId] = useState("");
   const [players, setPlayers] = useState<{ id: string; name: string }[]>([]);
   const [joinUrl, setJoinUrl] = useState("");
@@ -50,8 +54,8 @@ export function CreateGame(props: { gameUrl: string }) {
 
   // Create join url when game id is avalable
   useEffect(() => {
-    setJoinUrl(`${window.location.origin}${gameUrl}?id=${gameId}`);
-  }, [gameId, gameUrl]);
+    setJoinUrl(`${window.location.origin}${gameJoinUrl}?id=${gameId}`);
+  }, [gameId, gameJoinUrl]);
 
   async function startGame() {
     await joinGame({
@@ -65,7 +69,7 @@ export function CreateGame(props: { gameUrl: string }) {
     });
 
     console.log("starting game");
-    router.push(`${urls.pages.games.sumAddict.playUrl}?gameId=${gameId}`);
+    router.push(`${gamePlayUrl}?gameId=${gameId}`);
   }
 
   function onClickUrlCopy() {
@@ -85,7 +89,7 @@ export function CreateGame(props: { gameUrl: string }) {
         url: `${urls.api.getGame}`,
         body: {
           type: "MultiPlayer",
-          family: "SumAddict",
+          family: gameType.split(" ").join(""),
         },
         method: "post",
       });

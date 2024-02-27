@@ -1,6 +1,7 @@
 export const gameConstants = {
   games: {
-    sumAddict: "Sum Addict",
+    SumAddict: "SumAddict",
+    Sharp: "Sharp",
   },
   multiPlayer: {
     events: {

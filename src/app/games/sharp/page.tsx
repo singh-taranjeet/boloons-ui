@@ -3,13 +3,16 @@ import { AppConstants, urls } from "@/app/lib/constants.lib";
 import { GamePage } from "../components/GamePage";
 import { Game } from "./components/Game";
 import { QuestionType } from "../lib/game.types.lib";
+import { gameConstants } from "../lib/game.constants.lib";
 
 // To render the sharp game and its components
 export default function Page() {
   return (
     <GamePage
-      gameSoloUrl={urls.pages.games.sharp.playUrl}
-      gameMultiplayerUrl={urls.pages.games.sharp.joinUrl}
+      gameType={gameConstants.games.Sharp}
+      gamePlayUrl={urls.pages.games.sharp.playUrl}
+      gameJoinUrl={urls.pages.games.sharp.joinUrl}
+      gameCreateUrl={urls.pages.games.sharp.createUrl}
       description={AppConstants.pages.sharp.description}
       title={AppConstants.pages.sharp.title}
       imgSrc={"/media/sharp-logo.png"}

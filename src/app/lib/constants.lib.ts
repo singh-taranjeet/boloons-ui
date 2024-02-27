@@ -71,3 +71,8 @@ export const TestConstants = {
     name: "test-name",
   },
 } as const;
+
+export const GameConstants = {
+  SumAddict: "SumAddict",
+  Sharp: "Sharp",
+} as const;

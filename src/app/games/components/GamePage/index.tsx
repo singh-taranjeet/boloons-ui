@@ -3,17 +3,20 @@ import { Sentence } from "../../../components/Sentence";
 import { StyleConstants } from "@/app/lib/style.lib";
 import { Card } from "@/app/components/Card";
 import Image from "next/image";
+import { gameConstants } from "../../lib/game.constants.lib";
 
 function HowToPlayDescription(
   props: Readonly<{
     className?: string;
     description: string;
-    gameSoloUrl: string;
-    gameMultiplayerUrl: string;
+    gamePlayUrl: string;
+    gameJoinUrl: string;
+    gameCreateUrl: string;
+    gameType: keyof typeof gameConstants.games;
   }>
 ) {
   /* Bottom Heading */
-  const { gameMultiplayerUrl, gameSoloUrl } = props;
+  const { gameJoinUrl, gamePlayUrl, gameType, gameCreateUrl } = props;
   return (
     <>
       <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>
@@ -28,8 +31,10 @@ function HowToPlayDescription(
       {/* How do you want to play */}
       <Card className={`${props.className} mt-small md:mt-normal mx-normal`}>
         <GameType
-          gameMultiplayerUrl={gameMultiplayerUrl}
-          gameSoloUrl={gameSoloUrl}
+          gameType={gameType}
+          gamePlayUrl={gamePlayUrl}
+          gameJoinUrl={gameJoinUrl}
+          gameCreateurl={gameCreateUrl}
         />
       </Card>
     </>
@@ -42,12 +47,22 @@ interface GamePageProps {
   title: string;
   description: string;
   imgSrc: string;
-  gameSoloUrl: string;
-  gameMultiplayerUrl: string;
+  gamePlayUrl: string;
+  gameJoinUrl: string;
+  gameCreateUrl: string;
+  gameType: keyof typeof gameConstants.games;
 }
 // Introduce the game to the user
 export function GamePage(props: Readonly<GamePageProps>) {
-  const { title, description, imgSrc, gameMultiplayerUrl, gameSoloUrl } = props;
+  const {
+    title,
+    description,
+    imgSrc,
+    gameJoinUrl,
+    gamePlayUrl,
+    gameType,
+    gameCreateUrl,
+  } = props;
   return (
     <>
       <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2 md:pb-0 mb-large">
@@ -70,9 +85,11 @@ export function GamePage(props: Readonly<GamePageProps>) {
         {/* Desktop Heading */}
         <section className="flex-col justify-center m-small md:m-normal hidden md:flex md:mt-0">
           <HowToPlayDescription
-            gameMultiplayerUrl={gameMultiplayerUrl}
-            gameSoloUrl={gameSoloUrl}
+            gamePlayUrl={gamePlayUrl}
+            gameJoinUrl={gameJoinUrl}
             description={description}
+            gameType={gameType}
+            gameCreateUrl={gameCreateUrl}
           />
         </section>
       </section>
@@ -81,8 +98,10 @@ export function GamePage(props: Readonly<GamePageProps>) {
         {props.children}
         {/* Mobile Heading */}
         <HowToPlayDescription
-          gameMultiplayerUrl={gameMultiplayerUrl}
-          gameSoloUrl={gameSoloUrl}
+          gameType={gameType}
+          gameCreateUrl={gameCreateUrl}
+          gamePlayUrl={gamePlayUrl}
+          gameJoinUrl={gameJoinUrl}
           description={description}
           className="md:hidden mx-normal mb-normal"
         />
