@@ -1,21 +1,7 @@
 import Image from "next/image";
-import type { Metadata } from "next";
 import { AppConstants, urls } from "./lib/constants.lib";
 import Link from "next/link";
 import { Heading } from "./components/Heading";
-
-export const metadata: Metadata = {
-  title: AppConstants.metaData.title,
-  description: AppConstants.metaData.description,
-  applicationName: "Boloons",
-  openGraph: {
-    type: "website",
-    title: AppConstants.metaData.title,
-    description: AppConstants.metaData.description,
-    images: "",
-  },
-  authors: { name: "Taranjeet Singh" },
-};
 
 export default function Page() {
   return (
