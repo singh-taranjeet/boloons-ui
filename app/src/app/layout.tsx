@@ -21,8 +21,6 @@ export const metadata: Metadata = {
   generator: "Next.js",
   manifest: "/manifest.json",
   keywords: ["multiplayer", "mind games"],
-  themeColor: [{ color: "#FCCE02" }],
-  // themeColor: [{ media: "(prefers-color-scheme: dark)", color: "#FCCE02" }],
   openGraph: {
     type: "website",
     title: AppConstants.metaData.title,
