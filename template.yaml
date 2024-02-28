@@ -23,6 +23,6 @@ Resources:
       DockerContext: ./app
       Dockerfile: Dockerfile
 Outputs:
-  CmsUIUrl:
+  BoloonsUIUrl:
     Description: "API Gateway endpoint URL for servering the boloons app"
     Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/"
