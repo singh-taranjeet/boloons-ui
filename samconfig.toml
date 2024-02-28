@@ -3,8 +3,8 @@ version = 0.1
 stack_name = "sam-app"
 resolve_s3 = true
 s3_prefix = "sam-app"
-region = "us-east-1"
+region = "ap-southeast-2"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
-image_repositories = ["BOLOONSUIFunction=305511985066.dkr.ecr.us-east-1.amazonaws.com/samapp7427b055/boloonsuifunction68fb2086repo"]
+image_repositories = ["BOLOONSUIFunction=305511985066.dkr.ecr.ap-southeast-2.amazonaws.com/samapp7427b055/boloonsuifunction68fb2086repo"]
