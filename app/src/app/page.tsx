@@ -19,7 +19,6 @@ export default function Page() {
             className="object-contain mx-auto mt-small animate-bounce md:w-[350px] md:h-[350px]"
             src={`${urls.media}brain.webp`}
             alt="brain"
-            loading="lazy"
           />
           {/* <p className="hidden">{AppConstants.pages.home.description}</p> */}
           <Link
@@ -35,7 +34,6 @@ export default function Page() {
               className="object-contain mx-auto"
               src={`${urls.media}get-started.svg`}
               alt=""
-              loading="lazy"
             />
           </Link>
         </section>

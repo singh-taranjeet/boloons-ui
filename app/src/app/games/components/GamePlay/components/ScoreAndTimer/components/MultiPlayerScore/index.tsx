@@ -74,7 +74,6 @@ export function MultiplayerScore(props: {
           style={{ objectFit: "contain" }}
           className="w-full h-full right-0 top-0 left-0 bottom-0 bg-transparent animate-shake"
           alt={`time ${timer}`}
-          loading="lazy"
         />
         <Sentence
           fontSize="text-medium"
