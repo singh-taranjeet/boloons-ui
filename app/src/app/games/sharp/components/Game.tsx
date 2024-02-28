@@ -12,7 +12,7 @@ function QuestionWindow(props: QuestionProps) {
   const { question } = props;
   return (
     <div
-      className="relative border-neon-blue border bg-neon-blue bg-opacity-40 w-fit rounded-lg shadow-inner shadow-neon-blue"
+      className="relative bg-neon-blue bg-opacity-10 w-fit rounded-lg"
       role="button"
       tabIndex={0}
     >

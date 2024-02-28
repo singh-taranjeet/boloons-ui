@@ -8,7 +8,7 @@ Globals:
     Timeout: 10
 
 Resources:
-  CMSUIFunction:
+  BOLOONSUIFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: app/

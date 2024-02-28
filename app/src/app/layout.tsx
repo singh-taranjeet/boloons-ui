@@ -1,11 +1,11 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Inter } from "next/font/google";
 import { AppConfig } from "../../config";
 import { emptyFunction } from "./lib/server.lib";
 import ReactQueryProvider from "./provider";
 import { AppBar } from "./components/AppBar";
-import { BackgroundVideo } from "./components/BackgroundVideo";
 import { AppConstants } from "./lib/constants.lib";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +24,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.className} relative mx-auto h-screen`}>
         <AppBar />
-        <BackgroundVideo src={AppConstants.pages.home.background} />
+        <Image
+          src={AppConstants.pages.home.background}
+          layout="fill"
+          alt=""
+          objectFit="cover"
+          objectPosition="center"
+        />
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>

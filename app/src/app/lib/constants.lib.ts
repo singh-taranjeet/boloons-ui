@@ -39,10 +39,7 @@ export const AppConstants = {
       friends!`,
       "punch-line": "Train your brain",
       start: "Get started",
-      background: {
-        video: "/media/video/boloons-background.mp4",
-        poster: "/media/baloons-background-poster.webp",
-      },
+      background: "/media/boloons-background.avif",
     },
     games: {
       title: "Games",

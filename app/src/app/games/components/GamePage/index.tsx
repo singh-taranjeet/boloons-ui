@@ -76,7 +76,7 @@ export function GamePage(props: Readonly<GamePageProps>) {
             className="animate-bounce"
           />
           <h1
-            className={`${StyleConstants.FontSize["text-large"]} text-center text-neon-blue`}
+            className={`text-5xl text-center text-neon-blue font-bold capitalize`}
           >
             {title}
           </h1>

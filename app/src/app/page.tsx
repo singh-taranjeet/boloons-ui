@@ -30,10 +30,9 @@ export default function Page() {
           <Image
             width={250}
             height={250}
-            role="presentation"
             className="object-contain mx-auto mt-small animate-bounce md:w-[350px] md:h-[350px]"
             src={`${urls.media}brain.webp`}
-            alt=""
+            alt="brain"
             loading="lazy"
           />
           {/* <p className="hidden">{AppConstants.pages.home.description}</p> */}

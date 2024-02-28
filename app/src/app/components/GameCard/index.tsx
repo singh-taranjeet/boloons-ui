@@ -36,7 +36,7 @@ export const GameCard = (props: GameCardProps) => {
                 width={50}
                 height={50}
                 className="animate-shake"
-                src={`${urls.media}games-logo-small.png`}
+                src={`${urls.media}blue-controller.webp`}
               />
             </span>
           </Sentence>

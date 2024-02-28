@@ -17,7 +17,7 @@ export default function Page() {
           imageSrc={`${urls.media}sum-addiction-logo.png`}
           title={AppConstants.pages.sumAddict.title}
           description={AppConstants.pages.sumAddict.description}
-          color="text-neon-blue"
+          color="text-neon-yellow"
         />
 
         <GameCard
