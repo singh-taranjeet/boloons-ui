@@ -13,15 +13,20 @@ export default function Page() {
             description={AppConstants.pages.home["punch-line"]}
           />
 
-          <Image
-            width={250}
-            height={250}
-            className="object-contain mx-auto mt-small animate-bounce md:w-[350px] md:h-[350px]"
-            src={`${urls.media}brain.webp`}
-            alt="brain"
-          />
-          {/* <p className="hidden">{AppConstants.pages.home.description}</p> */}
           <Link
+            aria-label={AppConstants.pages.home.start}
+            href={urls.pages.games.url}
+          >
+            <Image
+              width={250}
+              height={250}
+              className="object-contain mx-auto mt-small animate-bounce md:w-[350px] md:h-[350px]"
+              src={`${urls.media}brain.webp`}
+              alt="brain"
+            />
+          </Link>
+          {/* <p className="hidden">{AppConstants.pages.home.description}</p> */}
+          {/* <Link
             aria-label={AppConstants.pages.home.start}
             className="fixed bottom-0 right-0 animate-shake w-fit"
             href={urls.pages.games.url}
@@ -35,7 +40,7 @@ export default function Page() {
               src={`${urls.media}get-started.svg`}
               alt=""
             />
-          </Link>
+          </Link> */}
         </section>
       </main>
     </>

@@ -92,7 +92,7 @@ export function GamePlay(props: GamePlayProps) {
 
   return (
     <>
-      {/* Score and Timer */}
+      {/* Score and Timer component */}
       <section
         className={`md:flex md:flex-col md:gap-normal md:justify-center ${
           gameInProgress ? "" : "hidden"
