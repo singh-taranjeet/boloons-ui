@@ -9,12 +9,14 @@ export function AppConfig(): AppConfig {
     process.env.NODE_ENV === "test"
   ) {
     return {
-      apiUrl: "http://localhost:4000",
+      apiUrl:
+        "http://boloons-api-alb-v4-1564227820.ap-southeast-2.elb.amazonaws.com",
       env: process.env.NODE_ENV,
     };
   } else {
     return {
-      apiUrl: "http://boloons-api-alb-369223181.us-east-1.elb.amazonaws.com",
+      apiUrl:
+        "http://boloons-api-alb-v4-1564227820.ap-southeast-2.elb.amazonaws.com",
       env: "production",
     };
   }
