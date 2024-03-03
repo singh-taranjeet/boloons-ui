@@ -40,4 +40,5 @@ const withPWA = require("next-pwa")({
 });
 
 // module.exports = withBundleAnalyzer(nextConfig);
-module.exports = withPWA(nextConfig);
+// module.exports = withPWA(nextConfig);
+module.exports = nextConfig;
