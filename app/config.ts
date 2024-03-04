@@ -14,8 +14,7 @@ export function AppConfig(): AppConfig {
     };
   } else {
     return {
-      apiUrl:
-        "http://Boloon-Boloo-mzIx8a0EVG3I-1506863070.ap-southeast-2.elb.amazonaws.com",
+      apiUrl: "https://api.boloons.com/",
       env: "production",
     };
   }
