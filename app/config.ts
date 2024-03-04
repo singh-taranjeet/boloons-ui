@@ -14,7 +14,7 @@ export function AppConfig(): AppConfig {
     };
   } else {
     return {
-      apiUrl: "https://server.boloons.com/",
+      apiUrl: "https://server.boloons.com",
       env: "production",
     };
   }
