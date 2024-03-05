@@ -7,6 +7,7 @@ import { emptyFunction } from "./lib/server.lib";
 import ReactQueryProvider from "./provider";
 import { AppBar } from "./components/AppBar";
 import { AppConstants } from "./lib/constants.lib";
+import GoogleAnalytics from "./GoogleAnalytics";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -39,6 +40,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} relative mx-auto h-screen`}>
+        <GoogleAnalytics ga_id={"G-7B9M6V3SGD"} />
         <AppBar />
         <Image
           src={AppConstants.pages.home.background}
