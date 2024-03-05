@@ -16,6 +16,8 @@ import { joinGame } from "../../lib/game.methods.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
 import { usePlayer } from "@/app/lib/player-hook.lib";
 import { FingerPointer } from "@/app/components/FingerPointer";
+import Image from "next/image";
+import Link from "next/link";
 
 export function CreateGame(props: {
   gameJoinUrl: string;
@@ -138,6 +140,22 @@ export function CreateGame(props: {
 
               <Icon icon={faClone} />
             </button>
+            <Link
+              className="p-rectangle-normal mx-auto text-primary text-medium"
+              target="_blank"
+              href={`https://api.whatsapp.com/send/?text=${joinUrl}`}
+            >
+              <span className={`flex`}>
+                Share on whatsapp
+                <Image
+                  width={20}
+                  height={20}
+                  className="ml-small"
+                  alt="share game url"
+                  src={"/media/icons/share-icon.webp"}
+                />
+              </span>
+            </Link>
           </section>
         ) : null}
       </section>

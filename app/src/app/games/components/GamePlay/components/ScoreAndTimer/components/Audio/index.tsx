@@ -13,16 +13,16 @@ export function Audio(props: MainAudioType) {
       <Image
         className={mainAudioAllowed ? "" : "hidden"}
         src={"/media/Audio.webp"}
-        width={100}
-        height={100}
+        width={80}
+        height={80}
         onClick={onClick}
         alt="Audio is on"
       />
       <Image
         className={mainAudioAllowed ? "hidden" : ""}
         src={"/media/Mute.webp"}
-        width={100}
-        height={100}
+        width={80}
+        height={80}
         onClick={onClick}
         alt="Audio is mute"
       />
