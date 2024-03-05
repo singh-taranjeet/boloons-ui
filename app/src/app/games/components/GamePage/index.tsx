@@ -1,6 +1,6 @@
 import { GameType } from "../GameType";
 import { Sentence } from "../../../components/Sentence";
-import { StyleConstants } from "@/app/lib/style.lib";
+import { ImageContainer } from "../../../components/ImageContainer";
 import { Card } from "@/app/components/Card";
 import Image from "next/image";
 import { gameConstants } from "../../lib/game.constants.lib";
@@ -19,17 +19,19 @@ function HowToPlayDescription(
   const { gameJoinUrl, gamePlayUrl, gameType, gameCreateUrl } = props;
   return (
     <>
-      <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>
+      <Card
+        className={`mt-small sm:mt-normal md:mt-0 md:mx-normal ${props.className}`}
+      >
         <Sentence
           color="text-neon-green"
           className={`text-center`}
-          fontSize="text-medium"
+          fontSize="text-small"
         >
           {props.description}
         </Sentence>
       </Card>
       {/* How do you want to play */}
-      <Card className={`${props.className} mt-small md:mt-normal mx-normal`}>
+      <Card className={`${props.className} mt-small sm:mt-normal mx-normal`}>
         <GameType
           gameType={gameType}
           gamePlayUrl={gamePlayUrl}
@@ -65,16 +67,18 @@ export function GamePage(props: Readonly<GamePageProps>) {
   } = props;
   return (
     <>
-      <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2 md:pb-0 mb-large">
+      <section className="md:flex md:flex-col md:self-center md:mx-normal md:w-1/2 md:pb-0 pb-large">
         {/* Game Heading */}
-        <Card className="m-normal mb-0 md:mb-normal hidden md:flex md:w-fit md:mx-auto md:h-fit gap-normal">
-          <Image
-            src={imgSrc}
-            alt={title}
-            width={50}
-            height={50}
-            className="animate-bounce"
-          />
+        <Card className="m-normal mb-0 md:mb-normal hidden md:flex md:w-fit md:mx-auto md:h-fit sm:gap-normal">
+          <ImageContainer>
+            <Image
+              src={imgSrc}
+              alt={title}
+              width={50}
+              height={50}
+              className="animate-bounce"
+            />
+          </ImageContainer>
           <h1
             className={`text-5xl text-center text-neon-blue font-bold capitalize`}
           >
@@ -93,7 +97,7 @@ export function GamePage(props: Readonly<GamePageProps>) {
           />
         </section>
       </section>
-      <section className="flex flex-col md:self-center md:mx-normaol gap-normal md:gap-0 md:w-1/2">
+      <section className="flex flex-col md:self-center md:mx-normaol gap-normal md:gap-0 md:w-1/2 pointer-events-none">
         {/* Game section */}
         {props.children}
         {/* Mobile Heading */}

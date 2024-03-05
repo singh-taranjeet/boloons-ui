@@ -13,7 +13,7 @@ export function Box(
   return (
     <button
       onClick={onAttempt}
-      className={`rounded ${bg} h-full border-2 border-primary px-normal py-small`}
+      className={`rounded ${bg} h-full border-2 border-primary px-normal py-small w-full`}
       type="button"
     >
       {children}

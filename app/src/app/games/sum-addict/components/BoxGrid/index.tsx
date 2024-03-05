@@ -17,7 +17,7 @@ export function BoxGrid(props: Readonly<BoxGridType>) {
 
   return (
     <section
-      className={`grid gap-normal justify-center bg-opacity-60 bg-pink-700 w-fit p-normal rounded mx-auto grid-cols-3`}
+      className={`grid gap-small md:gap-normal justify-center bg-opacity-60 bg-pink-700 w-fit p-small md:p-normal rounded mx-auto grid-cols-3`}
     >
       {options?.map((option) => (
         <div key={option} className="relative">

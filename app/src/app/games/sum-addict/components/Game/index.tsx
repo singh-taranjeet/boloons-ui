@@ -15,11 +15,11 @@ export function Game(props: Readonly<GameProps>) {
   } = props;
 
   return (
-    <section className="mt-small md:mt-normal flex flex-col justify-center">
+    <section className="mt-large flex flex-col justify-center">
       {/* Questions */}
       <NumberGrid currentQuestion={currentQuestion} numbers={numbers} />
       {/* Answers */}
-      <section className={`mt-normal`}>
+      <section className={`mt-small sm:mt-normal`}>
         <BoxGrid
           learningMode={learningMode}
           attempts={attempts}

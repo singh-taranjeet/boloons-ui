@@ -43,11 +43,11 @@ export default function RootLayout({
       >
         <AppBar />
         <Image
+          fill={true}
+          role="presentation"
+          className="object-fill bg-cover bg-center"
           src={AppConstants.pages.home.background}
-          layout="fill"
           alt=""
-          objectFit="cover"
-          objectPosition="center"
         />
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>

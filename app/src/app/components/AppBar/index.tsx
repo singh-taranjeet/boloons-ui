@@ -14,6 +14,7 @@ const NavItem = (props: NavItemProps) => {
   return (
     <li className={`${flexCenter}`}>
       <Href
+        prefetch={true}
         href={href}
         color={theme === "light" ? "text-primary" : "text-white"}
         bgColor={theme === "light" ? "bg-white" : "bg-primary"}

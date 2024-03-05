@@ -14,7 +14,7 @@ export default function Page() {
       gameCreateUrl={urls.pages.games.sumAddict.createUrl}
       description={AppConstants.pages.sumAddict.description}
       title={AppConstants.pages.sumAddict.title}
-      imgSrc={`${urls.media}sum-addiction-logo.png`}
+      imgSrc={`${urls.media}sum-addiction-logo.webp`}
     >
       {/* Game section */}
       <Game

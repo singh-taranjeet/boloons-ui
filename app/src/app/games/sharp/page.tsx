@@ -15,7 +15,7 @@ export default function Page() {
       gameCreateUrl={urls.pages.games.sharp.createUrl}
       description={AppConstants.pages.sharp.description}
       title={AppConstants.pages.sharp.title}
-      imgSrc={`${urls.media}sharp-logo.png`}
+      imgSrc={`${urls.media}sharp-logo.webp`}
     >
       {/* Game section */}
       <Game
