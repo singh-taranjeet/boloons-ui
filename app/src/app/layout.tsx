@@ -39,7 +39,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} relative mx-auto h-screen`}>
+      <body
+        className={`${inter.className} fixed mx-auto h-screen overflow-hidden w-screen`}
+      >
         <GoogleAnalytics ga_id={"G-7B9M6V3SGD"} />
         <AppBar />
         <Image

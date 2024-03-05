@@ -13,6 +13,7 @@ import { urls } from "@/app/lib/constants.lib";
 import { validateGame } from "./game.methods.lib";
 import { useSearchParams } from "next/navigation";
 import { emptyFunction } from "@/app/lib/server.lib";
+import { s } from "vitest/dist/reporters-MmQN-57K";
 
 let AudioTracks: SoundType | undefined;
 
@@ -39,6 +40,7 @@ function getAudio() {
 }
 
 function useSound() {
+  const mainAudioAllowed = useRef(false);
   const inTrack = useRef<AudioTracksKey | undefined>();
   const sound = useRef<SoundType>();
 
@@ -50,6 +52,18 @@ function useSound() {
     }
   }, []);
 
+  const manageMainAudio = useCallback(
+    function manageMainAudio(action: boolean) {
+      mainAudioAllowed.current = action;
+      if (!action && inTrack.current && sound?.current?.[inTrack.current]) {
+        sound?.current?.[inTrack.current].pause();
+      } else if (inTrack.current && sound?.current?.[inTrack.current]) {
+        sound?.current?.[inTrack.current].play();
+      }
+    },
+    [mainAudioAllowed, sound, inTrack]
+  );
+
   const manageAudio = useCallback(
     function manageAudio(
       name: "gameBackgroundMusic" | "renderScoreBackgroundMusic",
@@ -57,9 +71,11 @@ function useSound() {
     ) {
       stopAllAudio();
       inTrack.current = name;
-      sound?.current?.[name][action]();
+      if (mainAudioAllowed.current) {
+        sound?.current?.[name][action]();
+      }
     },
-    [stopAllAudio]
+    [stopAllAudio, mainAudioAllowed, sound]
   );
 
   useEffect(() => {
@@ -68,7 +84,14 @@ function useSound() {
     }
     sound.current = AudioTracks;
   }, []);
-  return { stopAllAudio, manageAudio };
+  return {
+    stopAllAudio,
+    manageAudio,
+    mainAudio: {
+      manageMainAudio,
+      mainAudioAllowed: mainAudioAllowed.current,
+    },
+  };
 }
 
 export function useMultiplayer(params: {
@@ -174,7 +197,7 @@ export function useGame(
     correctAnswer: number
   ) => boolean | undefined
 ) {
-  const { manageAudio, stopAllAudio } = useSound();
+  const { manageAudio, stopAllAudio, mainAudio } = useSound();
   const [data, setData] = useState<QuestionType[]>([]);
   const [score, setScore] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState<number>(0);
@@ -295,6 +318,7 @@ export function useGame(
     startGame,
     onAttempt,
     scoreModalOpen,
+    mainAudio,
   };
 }
 
