@@ -32,7 +32,7 @@ export const GameCard = (props: GameCardProps) => {
           <span className={`${flexCenter} font-medium`}>
             <span className="flex gap-normal">
               <span className={`${flexCenter} text-2xl font-bold ${color}`}>
-                Play {title}{" "}
+                {title}{" "}
               </span>
               <ImageContainer>
                 <Image
