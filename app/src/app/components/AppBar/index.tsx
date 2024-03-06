@@ -3,7 +3,7 @@ import { Href } from "../Href";
 import Image from "next/image";
 import { flexCenter } from "@/app/lib/style.lib";
 import { urls } from "@/app/lib/constants.lib";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ImageContainer } from "../ImageContainer";
 
 interface NavItemProps {
@@ -38,9 +38,14 @@ const NavItem = (props: NavItemProps) => {
   );
 };
 
-const Nav = (props: { children: React.ReactNode }) => {
+const Nav = (props: { children: React.ReactNode; visible: boolean }) => {
+  const { children, visible } = props;
   return (
-    <nav className={`bg-primary bg-opacity-10 z-10 w-full fixed top-0`}>
+    <nav
+      className={`bg-primary bg-opacity-10 z-10 w-full fixed top-0 ${
+        visible ? "" : "hidden"
+      } sm:block`}
+    >
       <ul className="flex gap-normal justify-start p-normal flex-row">
         {props.children}
       </ul>
@@ -63,33 +68,24 @@ const NavGroup = (props: { onClick(open: boolean): void }) => {
         image={`${urls.media}games-logo-small.webp`}
         title={"Games"}
       ></NavItem>
-      <li className={`my-auto cursor-pointer sm:hidden`}>
-        <ImageContainer>
-          <Image
-            onClick={() => {
-              props.onClick(false);
-            }}
-            src={"/media/icons/close-icon.webp"}
-            width={50}
-            height={50}
-            alt="close"
-          />
-        </ImageContainer>
-      </li>
     </>
   );
 };
 export const AppBar = () => {
   const [open, setOpen] = useState(true);
 
+  useEffect(() => {
+    if (open) {
+      setTimeout(() => setOpen(false), 5000);
+    }
+  }, [open]);
+
   return (
     <>
-      {open ? (
-        <Nav>
-          <NavGroup onClick={setOpen} />
-        </Nav>
-      ) : null}
-      <nav className={`${!open ? "" : "hidden"} z-10 fixed p-normal`}>
+      <Nav visible={open}>
+        <NavGroup onClick={setOpen} />
+      </Nav>
+      <nav className={`${!open ? "" : "hidden"} z-10 fixed p-normal sm:hidden`}>
         <ul>
           <li
             className={`${flexCenter} cursor-pointer`}
