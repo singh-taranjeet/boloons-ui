@@ -3,8 +3,8 @@ version = 0.1
 stack_name = "BoloonsUiCloudStack"
 resolve_s3 = true
 s3_prefix = "BoloonsUiCloudStack"
-region = "ap-southeast-2"
+region = "us-east-1"
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
 disable_rollback = true
-image_repositories = ["BoloonsUiCloudStackFunction=533267098557.dkr.ecr.ap-southeast-2.amazonaws.com/boloonsuicloudstackffb794c4/boloonsuicloudstackfunction3c9c89bfrepo"]
+image_repositories = ["BoloonsUiCloudStackFunction=533267098557.dkr.ecr.us-east-1.amazonaws.com/boloonsuicloudstackffb794c4/boloonsuicloudstackfunction3c9c89bfrepo"]
