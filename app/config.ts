@@ -9,7 +9,7 @@ export function AppConfig(): AppConfig {
     process.env.NODE_ENV === "test"
   ) {
     return {
-      apiUrl: "http://localhost:4000",
+      apiUrl: "https://api.boloons.com",
       env: process.env.NODE_ENV,
     };
   } else {
