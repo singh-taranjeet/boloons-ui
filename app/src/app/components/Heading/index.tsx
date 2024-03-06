@@ -9,7 +9,7 @@ export function Heading(props: HeadingProps) {
       <h1 className="font-extrabold text-5xl md:text-9xl text-center text-white">
         {title}
       </h1>
-      <h2 className="text-xl font-bold md:text-3xl text-white bg-primary p-small w-fit mx-auto -rotate-2 animate-pulse">
+      <h2 className="mt-large text-xl font-bold md:text-3xl text-white bg-primary p-small w-fit mx-auto -rotate-2 animate-pulse">
         {description}
       </h2>
     </>

@@ -46,6 +46,7 @@ export function GamePlay(props: GamePlayProps) {
     onAttempt,
     scoreModalOpen,
     gameInProgress,
+    mainAudio,
   } = useGame(GAME_TIMEOUT, createQuestions, isCorrectAttempt);
 
   const router = useRouter();
@@ -92,7 +93,7 @@ export function GamePlay(props: GamePlayProps) {
 
   return (
     <>
-      {/* Score and Timer */}
+      {/* Score and Timer component */}
       <section
         className={`md:flex md:flex-col md:gap-normal md:justify-center ${
           gameInProgress ? "" : "hidden"
@@ -102,6 +103,7 @@ export function GamePlay(props: GamePlayProps) {
           isMultiPlayer={isMultiPlayer}
           score={score}
           timer={timer}
+          mainAudio={mainAudio}
           opponent={opponent}
         />
       </section>
@@ -222,22 +224,3 @@ export function GamePlay(props: GamePlayProps) {
     </>
   );
 }
-
-// function generateQuestion(): QuestionType {
-//   const options = drop(Array.from(Array(10).keys()), 1);
-//   const answers = [getRandomInt(9), getRandomInt(9), getRandomInt(9)];
-
-//   const sum = answers.reduce((item, currentSum) => item + currentSum, 0);
-
-//   return {
-//     options: shuffle(options),
-//     answers,
-//     correctAnswer: sum,
-//   };
-// }
-
-// function createQuestions(): QuestionType[] {
-//   return Array.from(Array(15).keys()).map(() => {
-//     return generateQuestion();
-//   });
-// }

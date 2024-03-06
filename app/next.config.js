@@ -9,6 +9,9 @@ const nextConfig = {
   compiler: {
     removeConsole: process.env.NODE_ENV !== "development", // Remove console.log in production
   },
+  images: {
+    unoptimized: true,
+  },
   async rewrites() {
     return [
       {
@@ -41,3 +44,4 @@ const withPWA = require("next-pwa")({
 
 // module.exports = withBundleAnalyzer(nextConfig);
 module.exports = withPWA(nextConfig);
+// module.exports = nextConfig;

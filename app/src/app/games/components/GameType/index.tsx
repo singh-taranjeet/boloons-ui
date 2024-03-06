@@ -81,7 +81,7 @@ export function GameType(props: GameTypeProps) {
   return (
     <>
       <div
-        className={`flex-center gap-normal md:row md:justify-between w-full mx-auto`}
+        className={`flex-center gap-small sm:gap-normal md:row md:justify-between w-full mx-auto`}
       >
         {joined ? (
           <Sentence className="text-center">

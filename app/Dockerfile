@@ -1,6 +1,7 @@
 FROM public.ecr.aws/docker/library/node:20.9.0-slim AS builder
 WORKDIR /app
 COPY . .
+ENV NEXT_SHARP_PATH=/tmp/node_modules/sharp
 RUN npm ci && npm run build
 
 FROM public.ecr.aws/docker/library/node:20.9.0-slim AS runner

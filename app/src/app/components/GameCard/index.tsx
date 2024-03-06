@@ -4,6 +4,7 @@ import { Card } from "../Card";
 import { flexCenter } from "@/app/lib/style.lib";
 import { Sentence } from "../Sentence";
 import { urls } from "@/app/lib/constants.lib";
+import { ImageContainer } from "../ImageContainer";
 
 interface GameCardProps {
   href: string;
@@ -18,28 +19,32 @@ export const GameCard = (props: GameCardProps) => {
     <Link href={href} aria-label={`Play ${title}`}>
       <Card>
         <div className="flex justify-between">
-          <Image
-            width={50}
-            height={50}
-            src={imageSrc}
-            alt={title}
-            className="animate-bounce"
-          />
+          <ImageContainer>
+            <Image
+              width={50}
+              height={50}
+              src={imageSrc}
+              alt={title}
+              className="animate-bounce"
+            />
+          </ImageContainer>
 
-          <Sentence className={`${flexCenter} font-medium`}>
+          <span className={`${flexCenter} font-medium`}>
             <span className="flex gap-normal">
               <span className={`${flexCenter} text-2xl font-bold ${color}`}>
                 Play {title}{" "}
               </span>
-              <Image
-                alt={``}
-                width={50}
-                height={50}
-                className="animate-shake"
-                src={`${urls.media}blue-controller.webp`}
-              />
+              <ImageContainer>
+                <Image
+                  alt={`game-controller`}
+                  width={50}
+                  height={50}
+                  className="animate-shake"
+                  src={`${urls.media}blue-controller.webp`}
+                />
+              </ImageContainer>
             </span>
-          </Sentence>
+          </span>
         </div>
         <Sentence className={`${flexCenter} text-small mt-small text-white`}>
           {description}

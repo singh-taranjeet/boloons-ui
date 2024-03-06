@@ -1,9 +1,12 @@
 import { GameType } from "../GameType";
 import { Sentence } from "../../../components/Sentence";
-import { StyleConstants } from "@/app/lib/style.lib";
+import { ImageContainer } from "../../../components/ImageContainer";
 import { Card } from "@/app/components/Card";
 import Image from "next/image";
 import { gameConstants } from "../../lib/game.constants.lib";
+import { useScreenSize } from "@/app/lib/cutom-hooks.lib";
+import { breakPoints } from "@/app/lib/style.lib";
+import { p } from "msw/lib/core/GraphQLHandler-jOzqbxSK";
 
 function HowToPlayDescription(
   props: Readonly<{
@@ -17,19 +20,28 @@ function HowToPlayDescription(
 ) {
   /* Bottom Heading */
   const { gameJoinUrl, gamePlayUrl, gameType, gameCreateUrl } = props;
+  const screenSize = useScreenSize();
   return (
     <>
-      <Card className={`mt-normal md:mt-0 md:mx-normal ${props.className}`}>
-        <Sentence
-          color="text-neon-green"
-          className={`text-center`}
-          fontSize="text-medium"
+      {screenSize > breakPoints.sm ? (
+        <Card
+          className={`mt-small sm:mt-normal md:mt-0 md:mx-normal ${props.className}`}
         >
+          <Sentence
+            color="text-neon-green"
+            className={`text-center sm:text-left`}
+            fontSize="text-medium"
+          >
+            {props.description}
+          </Sentence>
+        </Card>
+      ) : (
+        <p className="text-primary px-normal text-center">
           {props.description}
-        </Sentence>
-      </Card>
+        </p>
+      )}
       {/* How do you want to play */}
-      <Card className={`${props.className} mt-small md:mt-normal mx-normal`}>
+      <Card className={`${props.className} sm:mt-normal mx-normal`}>
         <GameType
           gameType={gameType}
           gamePlayUrl={gamePlayUrl}
@@ -65,25 +77,27 @@ export function GamePage(props: Readonly<GamePageProps>) {
   } = props;
   return (
     <>
-      <section className="md:flex md:flex-col md:self-center md:mx-normaol md:w-1/2 md:pb-0 mb-large">
+      <section className="md:flex md:flex-col md:self-center md:mx-small lg:mx-normal md:flex-1 md:pb-0 pb-large">
         {/* Game Heading */}
-        <Card className="m-normal mb-0 md:mb-normal hidden md:flex md:w-fit md:mx-auto md:h-fit gap-normal">
-          <Image
-            src={imgSrc}
-            alt={title}
-            width={50}
-            height={50}
-            className="animate-bounce"
-          />
+        <Card className="m-normal mb-0 md:mb-normal hidden md:flex md:w-fit md:mx-auto md:h-fit sm:gap-normal">
+          <ImageContainer>
+            <Image
+              src={imgSrc}
+              alt={title}
+              width={50}
+              height={50}
+              className="animate-bounce"
+            />
+          </ImageContainer>
           <h1
-            className={`text-5xl text-center text-neon-blue font-bold capitalize`}
+            className={`text-3xl lg:text-5xl  text-center text-neon-blue font-bold capitalize`}
           >
             {title}
           </h1>
         </Card>
 
         {/* Desktop Heading */}
-        <section className="flex-col justify-center m-small md:m-normal hidden md:flex md:mt-0">
+        <section className="flex-col justify-center m-small md:mx-small lg:m-normal hidden md:flex md:mt-0">
           <HowToPlayDescription
             gamePlayUrl={gamePlayUrl}
             gameJoinUrl={gameJoinUrl}
@@ -93,7 +107,7 @@ export function GamePage(props: Readonly<GamePageProps>) {
           />
         </section>
       </section>
-      <section className="flex flex-col md:self-center md:mx-normaol gap-normal md:gap-0 md:w-1/2">
+      <section className="flex flex-col md:self-center md:mx-small gap-normal md:gap-0 md:flex-1">
         {/* Game section */}
         {props.children}
         {/* Mobile Heading */}

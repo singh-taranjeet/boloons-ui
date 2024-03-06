@@ -8,7 +8,7 @@ Globals:
     Timeout: 10
 
 Resources:
-  BOLOONSUIFunction:
+  BoloonsUiCloudStackFunction:
     Type: AWS::Serverless::Function
     Properties:
       CodeUri: app/
@@ -23,6 +23,6 @@ Resources:
       DockerContext: ./app
       Dockerfile: Dockerfile
 Outputs:
-  BoloonsUIUrl:
+  BoloonsUiCloudStackUrl:
     Description: "API Gateway endpoint URL for servering the boloons app"
     Value: !Sub "https://${ServerlessHttpApi}.execute-api.${AWS::Region}.${AWS::URLSuffix}/"

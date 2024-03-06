@@ -27,3 +27,8 @@ export interface GameProps {
   options: number[];
   numbers: number[];
 }
+
+export interface MainAudioType {
+  manageMainAudio: (action: boolean) => void;
+  mainAudioAllowed: boolean;
+}

@@ -13,27 +13,18 @@ export default function Page() {
             description={AppConstants.pages.home["punch-line"]}
           />
 
-          <Image
-            width={250}
-            height={250}
-            className="object-contain mx-auto mt-small animate-bounce md:w-[350px] md:h-[350px]"
-            src={`${urls.media}brain.webp`}
-            alt="brain"
-          />
-          {/* <p className="hidden">{AppConstants.pages.home.description}</p> */}
           <Link
+            className="mt-large"
+            prefetch={true}
             aria-label={AppConstants.pages.home.start}
-            className="fixed bottom-0 right-0 animate-shake w-fit"
             href={urls.pages.games.url}
           >
             <Image
-              width={351}
-              height={155}
-              role="presentation"
-              tabIndex={0}
-              className="object-contain mx-auto"
-              src={`${urls.media}get-started.svg`}
-              alt=""
+              width={250}
+              height={228.75}
+              className="mx-auto animate-bounce object-contain"
+              src={`${urls.media}brain.webp`}
+              alt="brain"
             />
           </Link>
         </section>

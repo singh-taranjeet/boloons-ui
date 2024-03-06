@@ -38,20 +38,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <meta
-          http-equiv="Content-Security-Policy"
-          content="upgrade-insecure-requests"
-        />
-      </head>
-      <body className={`${inter.className} relative mx-auto h-screen`}>
+      <body
+        className={`${inter.className} fixed mx-auto h-screen overflow-hidden w-screen`}
+      >
         <AppBar />
         <Image
+          fill={true}
+          role="presentation"
+          className="object-fill bg-cover bg-center"
           src={AppConstants.pages.home.background}
-          layout="fill"
           alt=""
-          objectFit="cover"
-          objectPosition="center"
         />
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>

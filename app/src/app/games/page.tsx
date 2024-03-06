@@ -14,7 +14,7 @@ export default function Page() {
       <div className="flex flex-wrap gap-normal justify-center mt-large">
         <GameCard
           href={urls.pages.games.sumAddict.gameUrl}
-          imageSrc={`${urls.media}sum-addiction-logo.png`}
+          imageSrc={`${urls.media}sum-addiction-logo.webp`}
           title={AppConstants.pages.sumAddict.title}
           description={AppConstants.pages.sumAddict.description}
           color="text-neon-yellow"
@@ -22,7 +22,7 @@ export default function Page() {
 
         <GameCard
           href={urls.pages.games.sharp.gameUrl}
-          imageSrc={`${urls.media}sharp-logo.png`}
+          imageSrc={`${urls.media}sharp-logo.webp`}
           title={AppConstants.pages.sharp.title}
           description={AppConstants.pages.sharp.description}
           color="text-neon-green"
