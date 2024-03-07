@@ -5,10 +5,12 @@ import { QuestionType } from "../../lib/game.types.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { GamePlay } from "../../components/GamePlay";
 import { drop } from "lodash";
+import confetti from "canvas-confetti";
 
 function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
   const attempt = userAttempts[0] === correctAnswer;
   if (attempt) {
+    confetti();
     return true;
   }
   return undefined;

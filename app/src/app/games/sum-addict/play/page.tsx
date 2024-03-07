@@ -5,6 +5,7 @@ import { Game } from "../components/Game";
 import { QuestionType } from "../../lib/game.types.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { GamePlay } from "../../components/GamePlay";
+import confetti from "canvas-confetti";
 
 function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
   const sum = userAttempts.reduce((item, sum) => {
@@ -13,6 +14,7 @@ function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
   // console.log("user", userAttempts, correctAnswer);
   const attempt = sum === correctAnswer;
   if (attempt) {
+    confetti();
     return true;
   } else if (userAttempts.length === 3) {
     return undefined;
