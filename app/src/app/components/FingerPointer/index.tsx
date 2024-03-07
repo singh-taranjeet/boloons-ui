@@ -6,7 +6,7 @@ export function FingerPointer(props: { className: string }) {
   return (
     <Image
       className={`absolute z-10 animate-bounce ${className}`}
-      src={`${urls.media}finger-pointer.svg`}
+      src={`${urls.media}finger-pointer.webp`}
       width={50}
       height={50}
       alt="select"

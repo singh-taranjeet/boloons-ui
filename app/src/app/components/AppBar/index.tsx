@@ -28,6 +28,7 @@ const NavItem = (props: NavItemProps) => {
             src={image}
             alt="boloons"
             width={30}
+            priority={true}
             height={30}
             className="mr-small"
           />
@@ -44,16 +45,16 @@ const Nav = (props: { children: React.ReactNode; visible: boolean }) => {
     <nav
       className={`bg-primary bg-opacity-10 z-10 w-full fixed top-0 ${
         visible ? "" : "hidden"
-      } sm:block`}
+      } md:block`}
     >
       <ul className="flex gap-normal justify-start p-normal flex-row">
-        {props.children}
+        {children}
       </ul>
     </nav>
   );
 };
 
-const NavGroup = (props: { onClick(open: boolean): void }) => {
+const NavGroup = () => {
   return (
     <>
       <NavItem
@@ -83,9 +84,9 @@ export const AppBar = () => {
   return (
     <>
       <Nav visible={open}>
-        <NavGroup onClick={setOpen} />
+        <NavGroup />
       </Nav>
-      <nav className={`${!open ? "" : "hidden"} z-10 fixed p-normal sm:hidden`}>
+      <nav className={`${!open ? "" : "hidden"} z-10 fixed p-normal md:hidden`}>
         <ul>
           <li
             aria-label="Menu"
@@ -96,6 +97,7 @@ export const AppBar = () => {
           >
             <ImageContainer>
               <Image
+                priority={true}
                 className="cursor-pointer"
                 src={"/media/icons/ham-icon.webp"}
                 width={50}

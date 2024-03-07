@@ -17,7 +17,7 @@ function QuestionWindow(props: QuestionProps) {
       tabIndex={0}
     >
       <Image
-        src={`${urls.media}sharp-question-background.svg`}
+        src={`${urls.media}sharp-question-background.webp`}
         width={100}
         height={100}
         alt={`${question}`}
@@ -40,23 +40,23 @@ function QuestionWindowOperation(props: { question: React.ReactNode }) {
   let src = `${urls.media}operations/`;
   switch (question) {
     case 1: {
-      src += "shap-plus.svg";
+      src += "shap-plus.webp";
       break;
     }
     case 2: {
-      src += "shap-minus.svg";
+      src += "shap-minus.webp";
       break;
     }
     case 3: {
-      src += "shap-mul.svg";
+      src += "shap-mul.webp";
       break;
     }
     case 4: {
-      src += "shap-div.svg";
+      src += "shap-div.webp";
       break;
     }
     case 5: {
-      src += "shap-equal.svg";
+      src += "shap-equal.webp";
       break;
     }
   }
@@ -76,11 +76,14 @@ function Thumb(props: {
   imgSrc: string;
   alt: string;
   children?: React.ReactNode;
+  blurImage: string;
 }) {
-  const { onAttempt, imgSrc, alt, children } = props;
+  const { onAttempt, imgSrc, alt, children, blurImage } = props;
   return (
     <button onClick={() => onAttempt(0)} className="animate-shake">
       <Image
+        placeholder="blur"
+        blurDataURL={`${urls.media}${blurImage}`}
         src={`${urls.media}${imgSrc}`}
         width={250}
         height={250}
@@ -124,6 +127,7 @@ export const Game = (props: GameProps) => {
 
       <div className="flex gap-normal justify-center mt-normal">
         <Thumb
+          blurImage="sharp-up-blur.webp"
           alt={"correct answer"}
           imgSrc="sharp-up.svg"
           onAttempt={() => onAttempt(1)}
@@ -136,6 +140,7 @@ export const Game = (props: GameProps) => {
         <Thumb
           alt={"wrong answer"}
           imgSrc="sharp-down.svg"
+          blurImage="sharp-down-blur.webp"
           onAttempt={() => onAttempt(0)}
         />
       </div>

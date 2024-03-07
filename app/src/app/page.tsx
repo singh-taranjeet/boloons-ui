@@ -3,7 +3,6 @@ import { AppConstants, urls } from "./lib/constants.lib";
 import Link from "next/link";
 import { Heading } from "./components/Heading";
 import { ImageContainer } from "./components/ImageContainer";
-import { flexCenter } from "./lib/style.lib";
 
 export default function Page() {
   return (
