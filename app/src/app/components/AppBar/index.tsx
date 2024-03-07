@@ -72,7 +72,7 @@ const NavGroup = (props: { onClick(open: boolean): void }) => {
   );
 };
 export const AppBar = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (open) {
@@ -88,6 +88,7 @@ export const AppBar = () => {
       <nav className={`${!open ? "" : "hidden"} z-10 fixed p-normal sm:hidden`}>
         <ul>
           <li
+            aria-label="Menu"
             className={`${flexCenter} cursor-pointer`}
             onClick={() => {
               setOpen(true);

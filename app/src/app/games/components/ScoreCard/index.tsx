@@ -3,6 +3,7 @@ import Image from "next/image";
 import { usePlayer } from "@/app/lib/player-hook.lib";
 import { Sentence } from "@/app/components/Sentence";
 import { urls } from "@/app/lib/constants.lib";
+import { ImageContainer } from "@/app/components/ImageContainer";
 
 interface ScoreCardType {
   score: number;
@@ -21,7 +22,7 @@ function UserScore(props: {
 }) {
   const { score, src, opponent = false, playerName } = props;
   return (
-    <div className={`${flexCenter} basis-1/2 py-normal px-small`}>
+    <div className={`${flexCenter} basis-1/2 py-small px-small`}>
       <div
         className={`flex justify-between gap-small md:gap-normal ${
           opponent ? "flex-row-reverse" : ""
@@ -31,13 +32,15 @@ function UserScore(props: {
           aria-label={playerName}
           className={`flex flex-col justify-between gap-normal`}
         >
-          <Image
-            src={src}
-            width={50}
-            height={50}
-            alt={`${playerName}`}
-            className="rounded-full h-[50px] self-center"
-          />
+          <ImageContainer>
+            <Image
+              src={src}
+              width={50}
+              height={50}
+              alt={`${playerName}`}
+              className="rounded-full h-[50px] self-center"
+            />
+          </ImageContainer>
           <Sentence
             fontSize="text-small"
             className={`${
@@ -49,13 +52,15 @@ function UserScore(props: {
         </div>
 
         <div aria-label="score" className={`${flexCenter} gap-normal`}>
-          <Image
-            src={`${urls.media}icons/star-icon.png`}
-            width={50}
-            height={50}
-            alt="score"
-            className="rounded-full"
-          />
+          <ImageContainer>
+            <Image
+              src={`${urls.media}icons/star-icon.webp`}
+              width={50}
+              height={50}
+              alt="score"
+              className="rounded-full"
+            />
+          </ImageContainer>
           <Sentence className="text-center mt-large text-xl font-bold">
             {score}
           </Sentence>

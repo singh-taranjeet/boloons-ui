@@ -15,7 +15,7 @@ export function Game(props: Readonly<GameProps>) {
   } = props;
 
   return (
-    <section className="mt-large flex flex-col justify-center">
+    <section className="sm:mt-large flex flex-col justify-center">
       {/* Questions */}
       <NumberGrid currentQuestion={currentQuestion} numbers={numbers} />
       {/* Answers */}

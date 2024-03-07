@@ -77,9 +77,9 @@ export function GamePage(props: Readonly<GamePageProps>) {
   } = props;
   return (
     <>
-      <section className="md:flex md:flex-col md:self-center md:mx-small lg:mx-normal md:flex-1 md:pb-0 pb-large">
+      <section className="hidden md:flex md:flex-col md:self-center md:mx-small lg:mx-normal md:flex-1 md:pb-0 pb-large">
         {/* Game Heading */}
-        <Card className="m-normal mb-0 md:mb-normal hidden md:flex md:w-fit md:mx-auto md:h-fit sm:gap-normal">
+        <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit sm:gap-normal">
           <ImageContainer>
             <Image
               src={imgSrc}
