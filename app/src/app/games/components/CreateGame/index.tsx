@@ -143,6 +143,7 @@ export function CreateGame(props: {
             <Link
               className="p-rectangle-normal mx-auto text-primary text-medium"
               target="_blank"
+              onClick={onClickUrlCopy}
               href={`https://api.whatsapp.com/send/?text=${joinUrl}`}
             >
               <span className={`flex`}>
