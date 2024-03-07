@@ -110,7 +110,7 @@ export function GamePlay(props: GamePlayProps) {
 
       {/* Game section */}
       <div
-        className={`mt-normal p-normal ${flexCenter} ${
+        className={`sm:mt-normal pt-0 p-normal ${flexCenter} ${
           gameInProgress ? "" : "hidden"
         }`}
       >

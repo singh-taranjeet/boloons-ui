@@ -22,7 +22,7 @@ export function Href(props: LinkType) {
     <>
       <Link
         href={props.href}
-        className={`w-fit self-center rounded text-center ${className} ${activeClass} p-rectangle-normal rounded-full`}
+        className={`w-fit self-center rounded text-center ${className} ${activeClass} p-rectangle-small sm:p-rectangle-normal rounded-full`}
       >
         {props.children}
       </Link>

@@ -77,7 +77,7 @@ export function MultiplayerScore(props: {
 
         <div className={`flex flex-col justify-center basis-1/3 px-small w-12`}>
           <Image
-            src={`${urls.media}icons/timer-icon.svg`}
+            src={`${urls.media}icons/timer-icon.webp`}
             height={70}
             width={70}
             style={{ objectFit: "contain" }}

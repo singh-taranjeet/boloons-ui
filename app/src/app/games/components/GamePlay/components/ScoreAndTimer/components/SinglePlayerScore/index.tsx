@@ -54,7 +54,7 @@ export function SinglePlayerScore(props: InfoType) {
         <div className={`flex justify-between gap-normal md:flex-col`}>
           {/* Score */}
           <Entity
-            url="star-icon.png"
+            url="star-icon.webp"
             title="Score"
             value={score}
             alt="Score icon"
@@ -62,7 +62,7 @@ export function SinglePlayerScore(props: InfoType) {
 
           {/* Timer */}
           <Entity
-            url="timer-icon.svg"
+            url="timer-icon.webp"
             title="Time"
             value={timer}
             alt="Timer icon"

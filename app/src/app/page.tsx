@@ -2,6 +2,7 @@ import Image from "next/image";
 import { AppConstants, urls } from "./lib/constants.lib";
 import Link from "next/link";
 import { Heading } from "./components/Heading";
+import { ImageContainer } from "./components/ImageContainer";
 
 export default function Page() {
   return (
@@ -14,7 +15,7 @@ export default function Page() {
           />
 
           <Link
-            className="mt-large"
+            className="mt-large flex-col"
             prefetch={true}
             aria-label={AppConstants.pages.home.start}
             href={urls.pages.games.url}
@@ -26,6 +27,17 @@ export default function Page() {
               src={`${urls.media}brain.webp`}
               alt="brain"
             />
+            <div className={"flex justify-center"}>
+              <ImageContainer>
+                <Image
+                  width={300}
+                  height={43}
+                  className="mx-auto animate-bounce object-contain"
+                  src={`${urls.media}get-started.webp`}
+                  alt="brain"
+                />
+              </ImageContainer>
+            </div>
           </Link>
         </section>
       </main>
