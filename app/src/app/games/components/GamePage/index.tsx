@@ -23,23 +23,20 @@ function HowToPlayDescription(
   const screenSize = useScreenSize();
   return (
     <>
-      {screenSize > breakPoints.sm ? (
-        <Card
-          className={`mt-small sm:mt-normal md:mt-0 md:mx-normal ${props.className}`}
+      <Card
+        className={`mt-small sm:mt-normal md:mt-0 md:mx-normal hidden sm:block ${props.className}`}
+      >
+        <Sentence
+          color="text-neon-green"
+          className={`text-center sm:text-left`}
+          fontSize="text-medium"
         >
-          <Sentence
-            color="text-neon-green"
-            className={`text-center sm:text-left`}
-            fontSize="text-medium"
-          >
-            {props.description}
-          </Sentence>
-        </Card>
-      ) : (
-        <p className="text-primary px-normal text-center">
           {props.description}
-        </p>
-      )}
+        </Sentence>
+      </Card>
+      <p className="text-primary px-normal text-center sm:hidden">
+        {props.description}
+      </p>
       {/* How do you want to play */}
       <Card className={`${props.className} sm:mt-normal mx-normal`}>
         <GameType

@@ -3,6 +3,7 @@ import { GameProps } from "../../lib/game.types.lib";
 import Image from "next/image";
 import { FingerPointer } from "@/app/components/FingerPointer";
 import { urls } from "@/app/lib/constants.lib";
+import "./game.css";
 
 interface QuestionProps {
   question: number | string;
@@ -37,37 +38,39 @@ function QuestionWindowText(props: { children: React.ReactNode }) {
 
 function QuestionWindowOperation(props: { question: React.ReactNode }) {
   const { question } = props;
-  let src = `${urls.media}operations/`;
+  let unicode = ``;
   switch (question) {
     case 1: {
-      src += "shap-plus.webp";
+      unicode = "\u002B";
       break;
     }
     case 2: {
-      src += "shap-minus.webp";
+      unicode = "\u002D";
       break;
     }
     case 3: {
-      src += "shap-mul.webp";
+      unicode = "\u002B";
       break;
     }
     case 4: {
-      src += "shap-div.webp";
+      unicode = "\u00F7";
       break;
     }
     case 5: {
-      src += "shap-equal.webp";
+      unicode += "\u003D";
       break;
     }
   }
   return (
-    <Image
-      src={src}
-      width={50}
-      height={50}
-      alt={""}
-      className="absolute top-1/2 left-1/2 transform-translate-center"
-    />
+    <div className={`absolute top-1/2 left-1/2 transform-translate-center`}>
+      <div
+        className={`text-primary text-very-large ${
+          question === 3 ? "rotate-45" : ""
+        }`}
+      >
+        {unicode}
+      </div>
+    </div>
   );
 }
 
