@@ -61,32 +61,24 @@ function generateQuestion(): QuestionType {
 
   const isTrue = getRandomInt(3) === 1;
 
-  if (!isTrue) {
-  }
-
   const wrongAnswer = (() => {
-    const quest: number[] = [];
+    let first = option1;
+    let second = option2;
     const random = getRandomInt(3);
     function setRandom() {
       switch (random) {
         case 1: {
-          quest.push(option1 + 1);
+          first = option1 + 1;
           break;
         }
         case 2: {
-          quest.push(option2 + 1);
+          second = option2 + 1;
           break;
         }
       }
     }
-    drop(Array.from(Array(5).keys()), 1).forEach((item) => {
-      if (item === random) {
-        setRandom();
-      } else {
-        quest.push(item);
-      }
-    });
-    return quest;
+    setRandom();
+    return [first, operation, second, answer];
   })();
 
   return {
