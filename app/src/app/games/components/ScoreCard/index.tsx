@@ -4,6 +4,7 @@ import { usePlayer } from "@/app/lib/player-hook.lib";
 import { Sentence } from "@/app/components/Sentence";
 import { urls } from "@/app/lib/constants.lib";
 import { ImageContainer } from "@/app/components/ImageContainer";
+import { Confetti } from "./components/Confetti";
 
 interface ScoreCardType {
   score: number;
@@ -82,14 +83,17 @@ export function ScoreCard(props: ScoreCardType) {
 
   const { player } = usePlayer();
 
-  // console.log("Score Card player", player.name);
-
   return (
     <div
       className={`flex rounded ${
         isMultiPlayer ? "justify-between" : "justify-center"
       }`}
     >
+      <Confetti
+        isMultiPlayer={isMultiPlayer}
+        userScore={score}
+        opponentScore={opponent.score}
+      />
       <UserScore
         score={score}
         playerName={player?.name || ""}
