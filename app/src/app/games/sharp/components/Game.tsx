@@ -129,7 +129,7 @@ export const Game = (props: GameProps) => {
         <Thumb
           blurImage="sharp-up-blur.webp"
           alt={"correct answer"}
-          imgSrc="sharp-up.svg"
+          imgSrc="sharp-up.webp"
           onAttempt={() => onAttempt(1)}
         >
           {learningMode ? (
@@ -139,7 +139,7 @@ export const Game = (props: GameProps) => {
 
         <Thumb
           alt={"wrong answer"}
-          imgSrc="sharp-down.svg"
+          imgSrc="sharp-down.webp"
           blurImage="sharp-down-blur.webp"
           onAttempt={() => onAttempt(0)}
         />
