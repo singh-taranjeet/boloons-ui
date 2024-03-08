@@ -1,6 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
 
-// before each go to "https://www.boloons.com/games/sum-addict"
 test.beforeEach(async ({ page }) => {
   await page.goto("https://www.boloons.com/games/sum-addict");
 });
