@@ -52,8 +52,7 @@ export const AppConstants = {
     },
     sharp: {
       title: "Sharp",
-      description:
-        "Select upto 3 number which sum up equal to the indicated number",
+      description: "Select if the equation is correct or incorrect",
     },
   },
 } as const;

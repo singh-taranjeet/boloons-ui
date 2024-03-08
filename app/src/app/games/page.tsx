@@ -11,7 +11,7 @@ export default function Page() {
         description={AppConstants.pages.games.description}
       />
 
-      <div className="flex flex-wrap gap-normal justify-center mt-large">
+      <div className="flex flex-col gap-normal justify-center mt-large">
         <GameCard
           href={urls.pages.games.sumAddict.gameUrl}
           imageSrc={`${urls.media}sum-addiction-logo.webp`}
