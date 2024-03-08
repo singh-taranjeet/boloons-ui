@@ -2,7 +2,6 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { TestConstants, urls } from "./constants.lib";
 import { apiRequest } from "./server.lib";
 import { PlayerType } from "./types.lib";
-import { debounce } from "./utils.lib";
 import { AppConfig } from "../../../config";
 
 const localStorageConstant = {
@@ -50,10 +49,10 @@ let playerData: PlayerType = { id: "", name: "" };
   setTimeout(checkLocalData);
 })();
 
-const savePlayerNameApi = debounce<
-  { player: PlayerType; update: (d: PlayerType) => void },
-  undefined
->(async (data: { player: PlayerType; update: (d: PlayerType) => void }) => {
+const savePlayerNameApi = async (data: {
+  player: PlayerType;
+  update: (d: PlayerType) => void;
+}) => {
   const response = await apiRequest<PlayerType, PlayerType>({
     url: urls.api.player,
     method: "patch",
@@ -66,12 +65,17 @@ const savePlayerNameApi = debounce<
       name: response?.data?.name,
     });
 
+    playerData = {
+      ...data.player,
+      name: response?.data?.name,
+    };
+
     localStorage.setItem(
       localStorageConstant.user,
       JSON.stringify(response.data)
     );
   }
-});
+};
 
 export function usePlayer() {
   const [player, setPlayer] = useState<PlayerType>(playerData);
@@ -82,7 +86,10 @@ export function usePlayer() {
   const updatePlayerName = useCallback(
     (name: string) => {
       setPlayer((oldPlayer) => {
-        savePlayerNameApiUseCallBack({ player: oldPlayer, update: setPlayer });
+        savePlayerNameApiUseCallBack({
+          player: { ...oldPlayer, name },
+          update: setPlayer,
+        });
         return {
           ...oldPlayer,
           name,

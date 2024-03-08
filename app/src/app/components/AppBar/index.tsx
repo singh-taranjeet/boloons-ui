@@ -30,7 +30,7 @@ const NavItem = (props: NavItemProps) => {
             width={30}
             priority={true}
             height={30}
-            className="mr-small"
+            className="mr-small hidden sm:block"
           />
           {title}
         </span>
@@ -68,6 +68,11 @@ const NavGroup = () => {
         href={"/games"}
         image={`${urls.media}games-logo-small.webp`}
         title={"Games"}
+      ></NavItem>
+      <NavItem
+        href={"/settings"}
+        image={`${urls.media}settings-icon.webp`}
+        title={"Settings"}
       ></NavItem>
     </>
   );
