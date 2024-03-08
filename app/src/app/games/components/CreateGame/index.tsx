@@ -10,7 +10,6 @@ import { Button } from "../../../components/Button";
 import { useRouter } from "next/navigation";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
-import { TextInput } from "@/app/components/TextInput";
 import { apiRequest } from "@/app/lib/server.lib";
 import { joinGame } from "../../lib/game.methods.lib";
 import { PulseLoading } from "@/app/components/PulseLoading";
@@ -116,14 +115,11 @@ export function CreateGame(props: {
         {/* Share the game session url */}
         {gameId ? (
           <section className={`${flexCenter} mt-small md:mt-0`}>
-            <Sentence>Your gamer name</Sentence>
-            <TextInput
-              aria-label="player name"
-              className="mt-small md-mt-normal"
-              placeholder="Enter your gamer name"
-              value={player?.name}
-              onChange={(e) => updatePlayerName(e.target.value)}
-            />
+            <Sentence>Your gamer name: {player.name}</Sentence>
+            <p className="text-primary text-xs">
+              You can change gammer name from settings
+            </p>
+
             <Sentence className="mt-normal">
               Share this url with your frieds to join
             </Sentence>

@@ -1,9 +1,6 @@
 "use client";
-import { usePlayer } from "@/app/lib/player-hook.lib";
-import { ChangeEvent } from "react";
 import { Button } from "../../../components/Button";
 import { Card } from "../../../components/Card";
-import { TextInput } from "../../../components/TextInput";
 import { Sentence } from "../../../components/Sentence";
 import { useRouter, useSearchParams } from "next/navigation";
 import { flexCenter } from "@/app/lib/style.lib";
@@ -13,23 +10,22 @@ import { PulseLoading } from "@/app/components/PulseLoading";
 import { useValidateGame } from "../../lib/game.hooks.lib";
 import { gameConstants } from "../../lib/game.constants.lib";
 import { urls } from "@/app/lib/constants.lib";
+import { Player } from "@/app/components/Player";
+import Link from "next/link";
+import { usePlayer } from "@/app/lib/player-hook.lib";
 
 export function JoinGame(props: { onClickJoin(): void; gameUrl: string }) {
   const { onClickJoin, gameUrl } = props;
   const params = useSearchParams();
   const router = useRouter();
-  const { player, updatePlayerName } = usePlayer();
   const gameId = params?.get("id");
+
+  const { player } = usePlayer();
 
   const { isValidGame, validationInProgress } = useValidateGame(
     gameId || "",
     gameConstants.multiPlayer.step.Waitingplayers
   );
-
-  function onChangePlayerName(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    updatePlayerName(value);
-  }
 
   function redirectToGame() {
     router.push(gameUrl);
@@ -44,16 +40,12 @@ export function JoinGame(props: { onClickJoin(): void; gameUrl: string }) {
 
           <section className="pt-small md:pt-normal">
             <div className={`${flexCenter}`}>
-              <label htmlFor="player-name">Use gammer name</label>
-              <TextInput
-                id="player-name"
-                type="text"
-                name="Player name"
-                placeholder="Enter your name"
-                className={`w-full mt-small`}
-                value={player?.name}
-                onChange={onChangePlayerName}
-              />
+              <label htmlFor="player-name">
+                Your gammer name: {player.name}
+              </label>
+              <p className="text-primary text-xs">
+                You can change gammer name from settings
+              </p>
             </div>
             <div className="mx-auto mb-0 mt-small md:mt-normal px-normal">
               <Button
