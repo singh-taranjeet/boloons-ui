@@ -8,7 +8,7 @@ export default function Page() {
         <h1 className="text-primary text-xl">Settings</h1>
       </Card>
 
-      <Card>
+      <Card className="mt-normal">
         <h2 className="text-primary text-lg">Name</h2>
         <Player />
       </Card>
