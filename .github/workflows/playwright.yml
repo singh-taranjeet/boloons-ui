@@ -14,4 +14,14 @@ jobs:
         with:
           node-version: 18
       - name: Install dependencies
-        run: cd app && npx playwright install && npm run e2e
+        run: cd app && npm install
+      - name: Install Playwright Browsers
+        run: npx playwright install --with-deps
+      - name: Run Playwright tests
+        run: npx playwright test
+      - uses: actions/upload-artifact@v3
+        if: always()
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 30
