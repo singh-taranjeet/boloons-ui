@@ -1,20 +1,9 @@
-import { StyleConstants } from "@/app/lib/style.lib";
-
 interface CardType
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
-  > {
-  variant?: "dark" | "light" | keyof typeof StyleConstants.BgColor;
-}
-export function Card(props: CardType) {
-  const { variant = "light" } = props;
-  const color =
-    variant === "dark"
-      ? "bg-light"
-      : variant === "light"
-      ? "bg-white"
-      : variant;
+  > {}
+export function Card(props: Readonly<CardType>) {
   const cx = `p-small sm:p-normal rounded ${props.className}`;
   return (
     <div {...props} className={`${cx} shadow bg-opacity-40 bg-pink-700`}></div>

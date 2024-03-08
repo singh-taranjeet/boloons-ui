@@ -7,7 +7,6 @@ import { useCallback, useEffect, useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/app/components/Button";
 import { JoinGame } from "../../components/JoinGame";
-import { urls } from "@/app/lib/constants.lib";
 import { useWebSocket } from "@/app/lib/cutom-hooks.lib";
 import { usePlayer } from "@/app/lib/player-hook.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
