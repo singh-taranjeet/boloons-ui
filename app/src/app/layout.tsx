@@ -2,11 +2,11 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import Image from "next/image";
 import { Inter } from "next/font/google";
-import { AppConfig } from "../../config";
-import { emptyFunction } from "./lib/server.lib";
 import ReactQueryProvider from "./provider";
 import { AppBar } from "./components/AppBar";
 import { AppConstants } from "./lib/constants.lib";
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -44,7 +44,6 @@ export default function RootLayout({
         <AppBar />
         <Image
           fill={true}
-          role="presentation"
           className="object-fill bg-cover bg-center"
           src={AppConstants.pages.home.background}
           alt=""
@@ -54,14 +53,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-/**
- * Disable console.logs in production
- */
-function disableConsoleLogs() {
-  if (AppConfig().env === "production") {
-    console.log === emptyFunction;
-  }
-}
-
-disableConsoleLogs();
