@@ -4,9 +4,6 @@ export const ImageContainer = (props: {
   children: React.ReactNode;
   className?: string;
 }) => {
-  return (
-    <div className={`${flexCenter} w-fit ${props.className}`}>
-      {props.children}
-    </div>
-  );
+  const { children, className = "" } = props;
+  return <div className={`${flexCenter} w-fit ${className}`}>{children}</div>;
 };

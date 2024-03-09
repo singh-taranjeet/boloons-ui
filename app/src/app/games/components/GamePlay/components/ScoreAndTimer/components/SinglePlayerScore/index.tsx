@@ -20,7 +20,7 @@ function Entity(props: {
   return (
     <div className="flex flex-col justify-between flex-1 md:min-w-full">
       <div
-        className={`flex justify-between border-2 rounded-full border-primary p-2 md:gap-small ${pinkish} bg-opacity-60`}
+        className={`flex justify-between border-2 rounded-full border-primary p-2 xs:p-small md:gap-small ${pinkish} bg-opacity-60`}
       >
         <Image
           src={`${urls.media}icons/${url}`}
@@ -46,7 +46,7 @@ export function SinglePlayerScore(props: InfoType) {
   const { score, timer, mainAudio } = props;
 
   return (
-    <section className="flex flex-col gap-normal">
+    <section className="flex flex-col gap-normal max-w-md mx-auto">
       <div className="w-full flex flex-row justify-center">
         <Audio {...mainAudio} />
       </div>

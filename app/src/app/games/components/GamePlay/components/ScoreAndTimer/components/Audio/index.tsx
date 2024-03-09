@@ -1,12 +1,12 @@
 import { ImageContainer } from "@/app/components/ImageContainer";
 import { MainAudioType } from "@/app/games/lib/game.types.lib";
-import Image from "next/image";
 
 const MusicOn = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
       version="1.0"
+      className="w-20 h-20"
       viewBox="0 0 60.75 70.5"
     >
       <defs>
@@ -53,7 +53,7 @@ const MusicOff = () => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      //xmlns:xlink="http://www.w3.org/1999/xlink"
+      className="w-20 h-20"
       version="1.0"
       viewBox="0 0 60.75 70.5"
     >
@@ -110,9 +110,10 @@ const MusicOff = () => {
   );
 };
 
-const Container = (props: { children: React.ReactNode }) => {
+const Container = (props: { children: React.ReactNode; classname: string }) => {
+  const { classname = "" } = props;
   return (
-    <ImageContainer className=" w-20 h-20">{props.children}</ImageContainer>
+    <ImageContainer className={classname}>{props.children}</ImageContainer>
   );
 };
 
@@ -128,15 +129,12 @@ export function Audio(props: Readonly<MainAudioType>) {
       aria-label={mainAudioAllowed ? "Music on" : "Music off"}
       onClick={onClick}
     >
-      {mainAudioAllowed ? (
-        <Container>
-          <MusicOn />
-        </Container>
-      ) : (
-        <Container>
-          <MusicOff />
-        </Container>
-      )}
+      <Container classname={mainAudioAllowed ? "" : "hidden"}>
+        <MusicOn />
+      </Container>
+      <Container classname={mainAudioAllowed ? "hidden" : ""}>
+        <MusicOff />
+      </Container>
     </button>
   );
 }
