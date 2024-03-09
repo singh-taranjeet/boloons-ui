@@ -4,7 +4,6 @@ import { Game } from "../components/Game";
 import { QuestionType } from "../../lib/game.types.lib";
 import { urls } from "@/app/lib/constants.lib";
 import { GamePlay } from "../../components/GamePlay";
-import { drop } from "lodash";
 import confetti from "canvas-confetti";
 
 function isCorrectAttempt(userAttempts: number[], correctAnswer: number) {
