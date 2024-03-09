@@ -21,7 +21,7 @@ import Icon from "@/app/components/Icon";
 import { faArrowLeft, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { flexCenter } from "@/app/lib/style.lib";
 
-const GAME_TIMEOUT = 3000; // 30 Seconds
+const GAME_TIMEOUT = 30; // 30 Seconds
 const CountDownTime = 3;
 
 interface GamePlayProps {
