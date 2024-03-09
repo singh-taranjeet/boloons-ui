@@ -20,7 +20,7 @@ function ModalStars() {
   );
 }
 
-function ModalTitle(props: { children: React.ReactNode }) {
+function ModalTitle(props: Readonly<{ children: React.ReactNode }>) {
   const { children } = props;
   return (
     <div className="flex-center w-full absolute" style={{ top: "-1.5rem" }}>
@@ -37,7 +37,7 @@ function closeModal(onClose: () => void) {
   return () => onClose();
 }
 
-function ModalCloseIcon(props: { onClose: () => void }) {
+function ModalCloseIcon(props: Readonly<{ onClose: () => void }>) {
   const { onClose } = props;
 
   return (
@@ -49,7 +49,7 @@ function ModalCloseIcon(props: { onClose: () => void }) {
   );
 }
 
-function ModalBody(props: { children: React.ReactNode }) {
+function ModalBody(props: Readonly<{ children: React.ReactNode }>) {
   function stopPropogation(e: any) {
     e.stopPropagation();
   }
@@ -64,16 +64,18 @@ function ModalBody(props: { children: React.ReactNode }) {
   );
 }
 
-function ModalContent(props: { children: React.ReactNode }) {
+function ModalContent(props: Readonly<{ children: React.ReactNode }>) {
   const { children } = props;
   return <div className="p-small md:p-normal mt-6">{children}</div>;
 }
 
-function ModalDialog(props: {
-  children: React.ReactNode;
-  open: boolean;
-  onClose?: () => void;
-}) {
+function ModalDialog(
+  props: Readonly<{
+    children: React.ReactNode;
+    open: boolean;
+    onClose?: () => void;
+  }>
+) {
   const { children, onClose = emptyFunction, open } = props;
 
   return (
@@ -81,7 +83,7 @@ function ModalDialog(props: {
       onClick={closeModal(onClose)}
       className={`${
         open ? "flex" : "hidden"
-      } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-900/50 shadow`}
+      } fixed z-50 left-0 top-0 w-full h-full overflow-auto bg-slate-900/90 shadow`}
     >
       {open ? children : null}
     </div>

@@ -9,7 +9,7 @@ interface SentenceType
   fontSize?: FontSizeType;
   color?: ColorType;
 }
-export function Sentence(props: SentenceType) {
+export function Sentence(props: Readonly<SentenceType>) {
   const {
     fontSize = "text-medium",
     color = "text-primary",

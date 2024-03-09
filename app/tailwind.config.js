@@ -42,6 +42,9 @@ module.exports = {
           "justify-content": "center",
         },
       },
+      screens: {
+        xs: "420px",
+      },
     },
   },
   plugins: [],

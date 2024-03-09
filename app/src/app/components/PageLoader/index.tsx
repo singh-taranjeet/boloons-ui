@@ -27,7 +27,7 @@ const Pulse = () => {
 
 export const PageLoader = () => {
   return (
-    <section className="relative mt-48 w-full mx-normal flex flex-col">
+    <section className="relative mt-32 w-full mx-normal flex flex-col">
       <Pulse></Pulse>
       <Pulse></Pulse>
       <Pulse></Pulse>

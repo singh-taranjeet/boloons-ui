@@ -33,7 +33,7 @@ interface GamePlayProps {
   ): boolean | undefined;
   gameUrl: string;
 }
-export function GamePlay(props: GamePlayProps) {
+export function GamePlay(props: Readonly<GamePlayProps>) {
   const { createQuestions, gameUrl, isCorrectAttempt, Game } = props;
 
   const {
@@ -166,15 +166,22 @@ export function GamePlay(props: GamePlayProps) {
             <Modal.ModalTitle>Starting game</Modal.ModalTitle>
           </div>
           <Modal.ModalContent>
-            {isCountDownModalOpen}
-            <Sentence
-              fontSize="text-large"
-              className="text-center animate-pulse"
-            >
-              {countDownTimer === 0
-                ? "Starting now"
-                : `Starting game in ${countDownTimer}`}
-            </Sentence>
+            <section className={flexCenter}>
+              <Sentence
+                fontSize="text-large"
+                className="text-center animate-pulse"
+              >
+                {countDownTimer === 0
+                  ? "Starting now"
+                  : `Starting game in ${countDownTimer}`}
+              </Sentence>
+              <Href
+                className=" border-primary mt-normal border-full border-2"
+                href={urls.pages.games.url}
+              >
+                Cancel
+              </Href>
+            </section>
           </Modal.ModalContent>
         </Modal.ModalBody>
       </Modal.ModalDialog>
