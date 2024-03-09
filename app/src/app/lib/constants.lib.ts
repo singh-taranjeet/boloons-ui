@@ -18,6 +18,9 @@ export const urls = {
       },
       url: "/games",
     },
+    settings: {
+      url: "/settings",
+    },
   },
   api: {
     getGame: "game",

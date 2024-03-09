@@ -15,7 +15,7 @@ export function Href(props: LinkType) {
   const { className = "", active = false } = props;
 
   const activeClass = active
-    ? "bg-primary text-white"
+    ? "bg-primary text-white font-bold"
     : "bg-opacity-60 bg-pink-700 text-primary";
 
   return (

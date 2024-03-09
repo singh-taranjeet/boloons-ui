@@ -21,7 +21,7 @@ import Icon from "@/app/components/Icon";
 import { faArrowLeft, faRefresh } from "@fortawesome/free-solid-svg-icons";
 import { flexCenter } from "@/app/lib/style.lib";
 
-const GAME_TIMEOUT = 30; // 30 Seconds
+const GAME_TIMEOUT = 3000; // 30 Seconds
 const CountDownTime = 3;
 
 interface GamePlayProps {
@@ -121,7 +121,7 @@ export function GamePlay(props: Readonly<GamePlayProps>) {
           onAttempt={onAttempt}
           options={data[currentQuestion]?.options}
         />
-        <div className={`${flexCenter} mt-normal`}>
+        <div className={`${flexCenter} mt-normal hidden md:flex`}>
           <Href
             active={true}
             className="z-12 p-rectangle-normal routed-full font-extrabold"
