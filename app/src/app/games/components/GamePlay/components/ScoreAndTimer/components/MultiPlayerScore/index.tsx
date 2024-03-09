@@ -7,6 +7,9 @@ import Image from "next/image";
 import { Audio } from "../Audio";
 import { MainAudioType } from "@/app/games/lib/game.types.lib";
 import { ImageContainer } from "@/app/components/ImageContainer";
+import { Href } from "@/app/components/Href";
+import { useRouter } from "next/navigation";
+import { Button } from "@/app/components/Button";
 
 function UserScore(
   props: Readonly<{
@@ -65,6 +68,7 @@ export function MultiplayerScore(
   }>
 ) {
   const { player } = usePlayer();
+  const router = useRouter();
   const {
     score,
     opponent = { score: 0, name: "" },
@@ -75,8 +79,14 @@ export function MultiplayerScore(
 
   return (
     <section className="flex flex-col gap-normal mb-normal md:mb-0 ml-normal">
-      <div className="w-full flex flex-row justify-center">
+      <div className="w-full flex flex-row justify-center gap-normal">
         <Audio {...mainAudio} />
+        <Button
+          className={`z-12 p-rectangle-normal routed-full font-extrabold md:hidden h-fit ${flexCenter} my-auto`}
+          onClick={() => router.back()}
+        >
+          Exit
+        </Button>
       </div>
       <Card className="flex flex-row justify-between p-normal gap-normal ">
         <UserScore
