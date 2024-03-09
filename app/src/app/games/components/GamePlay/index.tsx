@@ -121,6 +121,15 @@ export function GamePlay(props: Readonly<GamePlayProps>) {
           onAttempt={onAttempt}
           options={data[currentQuestion]?.options}
         />
+        <div className={`${flexCenter} mt-normal`}>
+          <Href
+            active={true}
+            className="z-12 p-rectangle-normal routed-full font-extrabold"
+            href={gameUrl}
+          >
+            Exit
+          </Href>
+        </div>
       </div>
 
       {/* Validation Modal Open */}
@@ -177,7 +186,7 @@ export function GamePlay(props: Readonly<GamePlayProps>) {
               </Sentence>
               <Href
                 className=" border-primary mt-normal border-full border-2"
-                href={urls.pages.games.url}
+                href={gameUrl}
               >
                 Cancel
               </Href>
