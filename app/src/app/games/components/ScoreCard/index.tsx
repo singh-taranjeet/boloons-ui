@@ -5,6 +5,7 @@ import { Sentence } from "@/app/components/Sentence";
 import { urls } from "@/app/lib/constants.lib";
 import { ImageContainer } from "@/app/components/ImageContainer";
 import { Confetti } from "./components/Confetti";
+import { DollarIcon } from "@/app/components/DollarIcon";
 
 interface ScoreCardType {
   score: number;
@@ -23,7 +24,7 @@ function UserScore(props: {
 }) {
   const { score, src, opponent = false, playerName } = props;
   return (
-    <div className={`${flexCenter} basis-1/2 py-small px-small`}>
+    <div className={`${flexCenter} basis-1/2 py-small px-small my-small`}>
       <div
         className={`flex justify-between gap-small md:gap-normal ${
           opponent ? "flex-row-reverse" : ""
@@ -31,39 +32,32 @@ function UserScore(props: {
       >
         <div
           aria-label={playerName}
-          className={`flex flex-col justify-between gap-normal`}
+          className={`flex flex-col justify-between gap-normal mx-auto`}
         >
-          <ImageContainer>
-            <Image
-              src={src}
-              width={50}
-              height={50}
-              alt={`${playerName}`}
-              className="rounded-full h-[50px] self-center"
-            />
-          </ImageContainer>
+          <div className="flex gap-small justify-between">
+            <ImageContainer>
+              <Image
+                src={src}
+                width={50}
+                height={50}
+                alt={`${playerName}`}
+                className="rounded-full h-[50px] self-center"
+              />
+            </ImageContainer>
+            <ImageContainer className="hidden sm:block">
+              <DollarIcon className="w-[50px] h-[50px]" />
+            </ImageContainer>
+            <span className="bg-primary text-white p-rectangle-small w-fit rounded-full flex flex-col justify-center">
+              {score}
+            </span>
+          </div>
           <Sentence
             fontSize="text-small"
             className={`${
               opponent ? "text-right" : "text-left"
-            } max-w-fit text-xl font-bold`}
+            } max-w-fit text-xl font-bold bg-primary text-white p-rectangle-small rounded-full whitespace-nowrap`}
           >
             {playerName.trim().substring(0, 10)}
-          </Sentence>
-        </div>
-
-        <div aria-label="score" className={`${flexCenter} gap-normal`}>
-          <ImageContainer>
-            <Image
-              src={`${urls.media}icons/star-icon.webp`}
-              width={50}
-              height={50}
-              alt="score"
-              className="rounded-full"
-            />
-          </ImageContainer>
-          <Sentence className="text-center mt-large text-xl font-bold">
-            {score}
           </Sentence>
         </div>
       </div>
@@ -85,7 +79,7 @@ export function ScoreCard(props: ScoreCardType) {
 
   return (
     <div
-      className={`flex rounded ${
+      className={`flex rounded flex-col sm:flex-row ${
         isMultiPlayer ? "justify-between" : "justify-center"
       }`}
     >
