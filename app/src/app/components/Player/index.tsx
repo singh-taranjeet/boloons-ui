@@ -26,7 +26,7 @@ export const Player = () => {
   return (
     <TextInput
       aria-label="Player name"
-      className="mt-small md-mt-normal"
+      className="mt-small md-mt-normal w-full"
       placeholder="Enter your name"
       value={name}
       onKeyDown={onKeyDown}
