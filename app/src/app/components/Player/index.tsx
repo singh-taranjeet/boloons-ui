@@ -3,7 +3,25 @@ import { TextInput } from "@/app/components/TextInput";
 import { usePlayer } from "@/app/lib/player-hook.lib";
 import { useState } from "react";
 
-export const Player = () => {
+const SaveButton = () => {
+  const { loading } = usePlayer();
+
+  return (
+    <button
+      className={`bg-primary text-white w-20 py-2 rounded-full mt-small ${
+        loading ? "animate-spin" : ""
+      }`}
+      type="submit"
+    >
+      {loading ? "->" : "Save"}
+    </button>
+  );
+};
+
+interface PlayerProps {
+  saveButton?: boolean;
+}
+export const Player = (props: PlayerProps) => {
   const { player, updatePlayerName } = usePlayer();
 
   const [name, setName] = useState(player?.name);
@@ -24,14 +42,17 @@ export const Player = () => {
     }
   }
   return (
-    <TextInput
-      aria-label="Player name"
-      className="mt-small md-mt-normal w-full"
-      placeholder="Enter your name"
-      value={name}
-      onKeyDown={onKeyDown}
-      onChange={(e) => setName(e.target.value)}
-      onBlur={onBlur}
-    />
+    <div className="flex gap-normal">
+      <TextInput
+        aria-label="Player name"
+        className="mt-small md-mt-normal w-full"
+        placeholder="Enter your name"
+        value={name}
+        onKeyDown={onKeyDown}
+        onChange={(e) => setName(e.target.value)}
+        onBlur={onBlur}
+      />
+      {props.saveButton ? <SaveButton /> : null}
+    </div>
   );
 };

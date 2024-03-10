@@ -3,6 +3,7 @@ import { TestConstants, urls } from "./constants.lib";
 import { apiRequest } from "./server.lib";
 import { PlayerType } from "./types.lib";
 import { AppConfig } from "../../../config";
+import { useMutation } from "@tanstack/react-query";
 
 const localStorageConstant = {
   playerName: "playerName",
@@ -81,22 +82,15 @@ export function usePlayer() {
   const [player, setPlayer] = useState<PlayerType>(playerData);
   const timerId = useRef<NodeJS.Timeout | null>(null);
 
-  const savePlayerNameApiUseCallBack = useCallback(savePlayerNameApi, []);
+  const mutation = useMutation({
+    mutationFn: savePlayerNameApi,
+  });
 
   const updatePlayerName = useCallback(
     (name: string) => {
-      setPlayer((oldPlayer) => {
-        savePlayerNameApiUseCallBack({
-          player: { ...oldPlayer, name },
-          update: setPlayer,
-        });
-        return {
-          ...oldPlayer,
-          name,
-        };
-      });
+      mutation.mutate({ player: { ...player, name }, update: setPlayer });
     },
-    [savePlayerNameApiUseCallBack]
+    [mutation, player]
   );
 
   // set timer if playerData is empty
@@ -119,5 +113,5 @@ export function usePlayer() {
     return () => clearTimer();
   }, [player.id]);
 
-  return { player, updatePlayerName };
+  return { player, updatePlayerName, loading: mutation.isPending };
 }
