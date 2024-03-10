@@ -5,8 +5,6 @@ import { Inter } from "next/font/google";
 import ReactQueryProvider from "./provider";
 import { AppBar } from "./components/AppBar";
 import { AppConstants } from "./lib/constants.lib";
-import { Suspense } from "react";
-import Loading from "./loading";
 
 const inter = Inter({ subsets: ["latin"] });
 
