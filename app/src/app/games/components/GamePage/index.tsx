@@ -78,13 +78,7 @@ export function GamePage(props: Readonly<GamePageProps>) {
         {/* Game Heading */}
         <Card className="m-normal mb-0 md:mb-normal md:w-fit md:mx-auto md:h-fit sm:gap-normal flex">
           <ImageContainer>
-            <Image
-              src={imgSrc}
-              alt={title}
-              width={50}
-              height={50}
-              className="animate-bounce"
-            />
+            <Image src={imgSrc} alt={title} width={50} height={50} />
           </ImageContainer>
           <h1
             className={`text-3xl lg:text-5xl  text-center text-neon-blue font-bold capitalize`}

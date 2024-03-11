@@ -20,13 +20,7 @@ export const GameCard = (props: GameCardProps) => {
       <Card>
         <div className="flex justify-between">
           <ImageContainer>
-            <Image
-              width={50}
-              height={50}
-              src={imageSrc}
-              alt={title}
-              className="animate-bounce"
-            />
+            <Image width={50} height={50} src={imageSrc} alt={title} />
           </ImageContainer>
 
           <span className={`${flexCenter} font-medium`}>
@@ -39,7 +33,6 @@ export const GameCard = (props: GameCardProps) => {
                   alt={`game-controller`}
                   width={50}
                   height={50}
-                  className="animate-shake"
                   src={`${urls.media}blue-controller.webp`}
                 />
               </ImageContainer>
