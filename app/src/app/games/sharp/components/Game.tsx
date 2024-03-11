@@ -83,7 +83,7 @@ function Thumb(props: {
 }) {
   const { onAttempt, imgSrc, alt, children, blurImage } = props;
   return (
-    <button onClick={() => onAttempt(0)}>
+    <button onClick={() => onAttempt(0)} className="relative">
       <Image
         placeholder="blur"
         blurDataURL={`${urls.media}${blurImage}`}

@@ -8,7 +8,7 @@ const SaveButton = () => {
 
   return (
     <button
-      className={`bg-primary text-white w-20 py-2 rounded-full mt-small ${
+      className={`bg-primary text-white w-20 h-fit self-end mb-2 rounded-full p-rectangle-normal ${
         loading ? "animate-spin" : ""
       }`}
       type="submit"
@@ -43,15 +43,19 @@ export const Player = (props: PlayerProps) => {
   }
   return (
     <div className="flex gap-normal">
-      <TextInput
-        aria-label="Player name"
-        className="mt-small md-mt-normal w-full"
-        placeholder="Enter your name"
-        value={name}
-        onKeyDown={onKeyDown}
-        onChange={(e) => setName(e.target.value)}
-        onBlur={onBlur}
-      />
+      <label className="text-primary text-lg">
+        Name
+        <TextInput
+          aria-label="Player name"
+          className="mt-small md-mt-normal w-full"
+          placeholder="Enter your name"
+          value={name}
+          autoComplete="name"
+          onKeyDown={onKeyDown}
+          onChange={(e) => setName(e.target.value)}
+          onBlur={onBlur}
+        />
+      </label>
       {props.saveButton ? <SaveButton /> : null}
     </div>
   );
