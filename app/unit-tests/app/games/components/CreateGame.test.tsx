@@ -7,6 +7,7 @@ import { test, expect, vi } from "vitest";
 import { CreateGame } from "@/app/games/components/CreateGame";
 import { urls } from "@/app/lib/constants.lib";
 import { gameConstants } from "@/app/games/lib/game.constants.lib";
+import { RootTesting } from "../../../Root";
 
 test("CreateGame Component", async () => {
   vi.mock("next/navigation", () => ({
@@ -18,11 +19,13 @@ test("CreateGame Component", async () => {
   }));
 
   render(
-    <CreateGame
-      gameType={gameConstants.games.SumAddict}
-      gamePlayUrl={urls.pages.games.sumAddict.playUrl}
-      gameJoinUrl={urls.pages.games.sumAddict.joinUrl}
-    />
+    <RootTesting>
+      <CreateGame
+        gameType={gameConstants.games.SumAddict}
+        gamePlayUrl={urls.pages.games.sumAddict.playUrl}
+        gameJoinUrl={urls.pages.games.sumAddict.joinUrl}
+      />
+    </RootTesting>
   );
 
   const loader = screen.getByRole("alert", { name: "loading" });
