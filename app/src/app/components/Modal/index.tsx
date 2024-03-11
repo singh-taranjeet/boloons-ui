@@ -57,7 +57,7 @@ function ModalBody(props: Readonly<{ children: React.ReactNode }>) {
   return (
     <div
       onClick={stopPropogation}
-      className={`modal-content m-auto ${pinkish} rounded-3xl border-8 border-primary w-4/5 sm:w-2/3 md:w-3/5 lg:w-2/5 xl:w-1/3 relative max-w-3xl`}
+      className={`modal-content m-auto ${pinkish} rounded-3xl border-8 border-primary w-fit relative min-w-[300px] md:min-w-[400px] max-w-3xl`}
     >
       {props.children}
     </div>

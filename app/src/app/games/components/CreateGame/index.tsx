@@ -17,6 +17,7 @@ import { usePlayer } from "@/app/lib/player-hook.lib";
 import { FingerPointer } from "@/app/components/FingerPointer";
 import Image from "next/image";
 import Link from "next/link";
+import { useMutation } from "@tanstack/react-query";
 
 export function CreateGame(props: {
   gameJoinUrl: string;
@@ -59,6 +60,9 @@ export function CreateGame(props: {
     setJoinUrl(`${window.location.origin}${gameJoinUrl}?id=${gameId}`);
   }, [gameId, gameJoinUrl]);
 
+  const startGameMutation = useMutation({
+    mutationFn: startGame,
+  });
   async function startGame() {
     await joinGame({
       playerId: player.id,
@@ -183,8 +187,11 @@ export function CreateGame(props: {
               {/* Start game */}
               {players.length ? (
                 <Card className={`${flexCenter} p-0`}>
-                  <Button className="w-fit self-center" onClick={startGame}>
-                    Start
+                  <Button
+                    className="w-fit self-center"
+                    onClick={() => startGameMutation.mutate()}
+                  >
+                    {startGameMutation.isPending ? "Starting..." : "Start Game"}
                   </Button>
                 </Card>
               ) : null}

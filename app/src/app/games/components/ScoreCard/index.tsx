@@ -41,7 +41,7 @@ function UserScore(props: {
                 width={50}
                 height={50}
                 alt={`${playerName}`}
-                className="rounded-full h-[50px] self-center"
+                className="rounded-full h-[50px] self-center min-w-[50px]"
               />
             </ImageContainer>
             <ImageContainer className="hidden sm:block">

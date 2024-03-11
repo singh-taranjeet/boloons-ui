@@ -9,7 +9,6 @@ export default function Page() {
       </Card>
 
       <Card className="mt-normal">
-        <h2 className="text-primary text-lg">Name</h2>
         <Player saveButton={true} />
       </Card>
     </main>
