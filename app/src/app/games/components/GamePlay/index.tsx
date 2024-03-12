@@ -155,7 +155,7 @@ export function GamePlay(props: Readonly<GamePlayProps>) {
                 <div className="mx-auto flex flex-col justify-center gap-normal">
                   <Image
                     className="mx-auto"
-                    src={`${urls.media}not-found.png`}
+                    src={`${urls.media}not-found.webp`}
                     width={300}
                     height={300}
                     alt="Not found"

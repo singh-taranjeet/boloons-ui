@@ -1,9 +1,33 @@
-"use client";
 import { AppConstants, urls } from "@/app/lib/constants.lib";
 import { Game } from "./components/Game";
 import { QuestionType } from "../lib/game.types.lib";
 import { gameConstants } from "../lib/game.constants.lib";
 import { GamePage } from "../components/GamePage";
+import { Metadata } from "next";
+import { getGameMetaData } from "@/app/lib/server.lib";
+
+type Props = {
+  params: { id: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export async function generateMetadata({
+  searchParams,
+}: Props): Promise<Metadata> {
+  const id = searchParams.id;
+  const gameMetaData = await getGameMetaData({
+    url: `${urls.api.getGame}/${id}`,
+  });
+
+  if (gameMetaData) {
+    return gameMetaData;
+  }
+
+  return {
+    title: AppConstants.pages.sharp.title,
+    description: AppConstants.pages.sharp.description,
+  };
+}
 
 // To render the sharp game and its components
 export default function Page() {

@@ -37,3 +37,28 @@ export async function apiRequest<BodyType, ResponseType>(params: {
     };
   }
 }
+
+export async function getGameMetaData(params: { url: string }) {
+  const { url } = params;
+  const game = await apiRequest<
+    {},
+    {
+      _id: string;
+      step: string;
+      type: string;
+      family: string;
+      createdBy: string;
+      __v: number;
+    }
+  >({
+    url,
+    method: "get",
+  });
+
+  if (game.success && game.data) {
+    return {
+      title: `You have been invited to play ${game.data.family} with ${game.data.createdBy}`,
+      description: `Play ${game.data.family} with ${game.data.createdBy}`,
+    };
+  }
+}

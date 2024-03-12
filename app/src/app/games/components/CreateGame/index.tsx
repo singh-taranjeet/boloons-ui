@@ -89,13 +89,14 @@ export function CreateGame(props: {
   useEffect(() => {
     async function fetchGameId() {
       const response = await apiRequest<
-        { type: string; family: string },
+        { type: string; family: string; createdBy: string },
         string
       >({
         url: `${urls.api.getGame}`,
         body: {
           type: "MultiPlayer",
           family: gameType.split(" ").join(""),
+          createdBy: player.name,
         },
         method: "post",
       });
@@ -106,7 +107,7 @@ export function CreateGame(props: {
       setCreatingGame(false);
     }
     fetchGameId();
-  }, [gameType]);
+  }, [gameType, player.name]);
 
   return (
     <>

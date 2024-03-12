@@ -72,7 +72,7 @@ export function JoinGame(props: { onClickJoin(): void; gameUrl: string }) {
                 <Card className="">
                   <Image
                     className="mx-auto"
-                    src={`${urls.media}not-found.svg`}
+                    src={`${urls.media}not-found.webp`}
                     width={300}
                     height={300}
                     alt="Game not found"
