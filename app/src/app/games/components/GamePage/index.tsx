@@ -1,3 +1,4 @@
+"use client";
 import { GameType } from "../GameType";
 import { Sentence } from "../../../components/Sentence";
 import { ImageContainer } from "../../../components/ImageContainer";

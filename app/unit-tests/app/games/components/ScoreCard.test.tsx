@@ -3,12 +3,17 @@ import { render, screen } from "@testing-library/react";
 // import roleLog from testing library
 
 import { test, expect, describe } from "vitest";
+import { RootTesting } from "../../../Root";
 
 describe("Multiplayer Score Card Component", () => {
   test("ScoreCard", () => {
     const opponent = { score: 9, name: "example" };
 
-    render(<ScoreCard score={6} opponent={opponent} isMultiPlayer={true} />);
+    render(
+      <RootTesting>
+        <ScoreCard score={6} opponent={opponent} isMultiPlayer={true} />
+      </RootTesting>
+    );
 
     // check if user score value is dipalyed
     expect(screen.getByText(/6/i));
