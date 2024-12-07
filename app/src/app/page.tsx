@@ -33,7 +33,7 @@ export default function Page() {
                 height={43}
                 className="mx-auto animate-bounce object-contain"
                 src={`${urls.media}get-started.webp`}
-                alt="get started"
+                alt="get started."
               />
             </ImageContainer>
           </div>
